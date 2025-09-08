@@ -35,10 +35,6 @@ export default function Home() {
 
   const channelsPerPage = 24; // 4 columnas x 6 filas
 
-  useEffect(() => {
-    fetchChannels();
-  }, [currentPage, searchTerm, activeTab, fetchChannels]);
-
   const fetchChannels = useCallback(async () => {
     try {
       setLoading(true);
@@ -145,6 +141,10 @@ export default function Home() {
       setLoading(false);
     }
   }, [currentPage, searchTerm, activeTab]);
+
+  useEffect(() => {
+    fetchChannels();
+  }, [fetchChannels]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

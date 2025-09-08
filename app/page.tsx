@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import Image from 'next/image';
 import ChannelCard from './components/ChannelCard';
 import { sampleChannels } from './data/sampleChannels';
 
@@ -36,9 +37,9 @@ export default function Home() {
 
   useEffect(() => {
     fetchChannels();
-  }, [currentPage, searchTerm, activeTab]);
+  }, [currentPage, searchTerm, activeTab, fetchChannels]);
 
-  const fetchChannels = async () => {
+  const fetchChannels = useCallback(async () => {
     try {
       setLoading(true);
       
@@ -143,7 +144,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, activeTab]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -155,7 +156,7 @@ export default function Home() {
     const maxVisiblePages = 5;
     
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
     
     if (endPage - startPage + 1 < maxVisiblePages) {
       startPage = Math.max(1, endPage - maxVisiblePages + 1);
@@ -232,9 +233,11 @@ export default function Home() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <img 
+              <Image 
                 src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
                 alt="iBlups" 
+                width={120}
+                height={32}
                 className="h-8 w-auto"
               />
             </div>

@@ -24,7 +24,7 @@ interface Channel {
   };
   channels_category?: {
     name: string;
-  };
+  }[];
   viewer_count?: number;
   is_4k?: boolean;
 }
@@ -130,7 +130,9 @@ export default function Home() {
           name: channel.name.toLowerCase(), // Convertir nombres a minúsculas
           cover: channel.stream_id ? `https://thumbnail.iblups.com/thumb/live/${channel.stream_id}.png` : undefined,
           category: {
-            name: channel.channels_category?.name || 'Sin categoría'
+            name: channel.channels_category && channel.channels_category.length > 0 
+              ? channel.channels_category[0].name 
+              : 'Sin categoría'
           }
         }));
         totalCount = count || 0;

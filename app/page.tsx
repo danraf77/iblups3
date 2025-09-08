@@ -21,7 +21,11 @@ interface Channel {
   category?: {
     name: string;
   };
-  channels_category?: any;
+  channels_category?: {
+    name: string;
+  } | {
+    name: string;
+  }[];
   viewer_count?: number;
   is_4k?: boolean;
 }

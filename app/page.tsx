@@ -14,12 +14,14 @@ interface Channel {
   id: string;
   name: string;
   username: string;
+  stream_id?: string;
   is_on_live: boolean;
   icon?: string;
   cover?: string;
   category?: {
     name: string;
   };
+  channels_category?: any;
   viewer_count?: number;
   is_4k?: boolean;
 }
@@ -50,7 +52,7 @@ export default function Home() {
           is_on_live,
           icon,
           cover,
-          category:channels_category(name)
+          channels_category!inner(name)
         `)
         .eq('enabled_search', true);
 
@@ -122,7 +124,12 @@ export default function Home() {
         channelsData = data.map(channel => ({
           ...channel,
           name: channel.name.toLowerCase(), // Convertir nombres a minúsculas
-          cover: channel.stream_id ? `https://thumbnail.iblups.com/thumb/live/${channel.stream_id}.png` : undefined
+          cover: channel.stream_id ? `https://thumbnail.iblups.com/thumb/live/${channel.stream_id}.png` : undefined,
+          category: {
+            name: Array.isArray(channel.channels_category) 
+              ? channel.channels_category[0]?.name || 'Sin categoría'
+              : channel.channels_category?.name || 'Sin categoría'
+          }
         }));
         totalCount = count || 0;
       }

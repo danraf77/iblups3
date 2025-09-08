@@ -18,14 +18,13 @@ interface Channel {
   is_on_live: boolean;
   icon?: string;
   cover?: string;
+  category_id?: number;
   category?: {
     name: string;
   };
   channels_category?: {
     name: string;
-  } | {
-    name: string;
-  }[];
+  };
   viewer_count?: number;
   is_4k?: boolean;
 }
@@ -56,7 +55,8 @@ export default function Home() {
           is_on_live,
           icon,
           cover,
-          channels_category!inner(name)
+          category_id,
+          channels_category!category_id(name)
         `)
         .eq('enabled_search', true);
 
@@ -130,9 +130,7 @@ export default function Home() {
           name: channel.name.toLowerCase(), // Convertir nombres a minúsculas
           cover: channel.stream_id ? `https://thumbnail.iblups.com/thumb/live/${channel.stream_id}.png` : undefined,
           category: {
-            name: Array.isArray(channel.channels_category) 
-              ? channel.channels_category[0]?.name || 'Sin categoría'
-              : channel.channels_category?.name || 'Sin categoría'
+            name: channel.channels_category?.name || 'Sin categoría'
           }
         }));
         totalCount = count || 0;

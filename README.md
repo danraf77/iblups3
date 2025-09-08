@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# iBlups - Plataforma de Streaming
 
-## Getting Started
+Una aplicación de streaming moderna construida con Next.js 15, React 19, TypeScript y Supabase.
 
-First, run the development server:
+## Características
+
+- 🎥 **Grid de Canales**: Visualización en grid 4x6 con paginación
+- 🔴 **Canales en Vivo**: Prioridad para canales en vivo
+- 🔍 **Búsqueda**: Búsqueda en tiempo real de canales
+- 📱 **Responsive**: Diseño adaptativo para todos los dispositivos
+- 🎨 **UI Moderna**: Interfaz oscura con el logo oficial de iBlups
+- ⚡ **Rendimiento**: Optimizado con Next.js 15 y Turbopack
+
+## Tecnologías
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS 4
+- **Base de Datos**: Supabase (PostgreSQL)
+- **Autenticación**: Supabase Auth
+- **Deployment**: Vercel
+
+## Configuración
+
+### 1. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 2. Configurar variables de entorno
+
+El archivo `.env.local` ya está configurado con las variables necesarias:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima
+SUPABASE_SERVICE_ROLE_KEY=tu_clave_de_servicio
+```
+
+### 3. Configurar la base de datos
+
+Asegúrate de que tu base de datos Supabase tenga las siguientes tablas (según el esquema en `sql.txt`):
+
+- `channels_channel` - Canales de streaming
+- `channels_category` - Categorías de canales
+- `channels_country` - Países
+- `channels_cdnserver` - Servidores CDN
+- `users_user` - Usuarios
+- `profile_profile` - Perfiles de usuario
+
+### 4. Ejecutar la aplicación
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estructura del Proyecto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+├── components/
+│   └── ChannelCard.tsx      # Componente de tarjeta de canal
+├── canales/
+│   └── page.tsx            # Página principal de canales
+├── globals.css             # Estilos globales
+├── layout.tsx              # Layout principal
+└── page.tsx                # Página de inicio (redirige a canales)
+```
 
-## Learn More
+## Funcionalidades Implementadas
 
-To learn more about Next.js, take a look at the following resources:
+### Página de Canales (`/canales`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Grid Responsivo**: 4 columnas en desktop, adaptativo en móvil
+- **Paginación**: 24 canales por página (4x6)
+- **Filtros**: Todos, Populares, Recientes
+- **Búsqueda**: Búsqueda en tiempo real por nombre
+- **Vista**: Toggle entre vista de grid y lista
+- **Ordenamiento**: Canales en vivo primero
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Componente ChannelCard
 
-## Deploy on Vercel
+- **Thumbnail**: Imagen del canal o placeholder
+- **Badges**: "VIVO" y "4K" cuando corresponde
+- **Información**: Nombre, categoría, espectadores
+- **Hover Effects**: Transiciones suaves
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Desarrollo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Scripts disponibles
+
+```bash
+npm run dev          # Servidor de desarrollo con Turbopack
+npm run build        # Build de producción
+npm run start        # Servidor de producción
+npm run lint         # Linter ESLint
+```
+
+### Próximas características
+
+- [ ] Reproductor de video integrado
+- [ ] Sistema de favoritos
+- [ ] Chat en vivo
+- [ ] Notificaciones push
+- [ ] Modo offline
+- [ ] Analytics de visualización
+
+## Contribución
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+---
+
+**Desarrollado con ❤️ usando Cursor AI**

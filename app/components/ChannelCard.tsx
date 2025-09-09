@@ -1,7 +1,5 @@
 'use client';
-
 import { useState } from 'react';
-import Image from 'next/image';
 
 interface Channel {
   id: string;
@@ -22,26 +20,51 @@ interface ChannelCardProps {
 }
 
 export default function ChannelCard({ channel }: ChannelCardProps) {
-  const [imageError, setImageError] = useState(false);
   const fallbackImage = "https://iblups.sfo3.cdn.digitaloceanspaces.com/app/brand/iblups_placeholder_player_channel.png";
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleCardClick = () => {
+    // Here you can add navigation to channel details
+    console.log('Navigating to channel:', channel.id);
+    // Example: router.push(`/channel/${channel.id}`);
+  };
+
+  // Generate URL with timestamp to avoid cache
+  const timestamp = new Date().getTime();
+  const imageSrc = channel.cover ? `${channel.cover}?p=${timestamp}` : fallbackImage;
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = event.target as HTMLImageElement;
+    img.src = fallbackImage;
+    setImageLoaded(true);
+  };
 
   return (
-    <div className="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+    <div 
+      className="bg-card rounded-lg overflow-hidden hover-bg-card transition-colors cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Thumbnail Container */}
-      <div className="relative aspect-video">
-        <Image
-          src={imageError || !channel.cover ? fallbackImage : channel.cover}
+      <div className="relative aspect-video bg-black">
+        <img
+          src={imageSrc}
           alt={channel.name}
-          fill
-          className="object-cover"
-          onError={() => setImageError(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
         />
         
         {/* Live Badge */}
         {channel.is_on_live && (
           <div className="absolute top-2 left-2">
-            <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-              VIVO
+            <span className="badge-live text-xs font-bold px-2 py-1 rounded">
+              LIVE
             </span>
           </div>
         )}
@@ -50,12 +73,14 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
       
       {/* Channel Info */}
       <div className="p-4">
-        <h3 className="text-white font-semibold text-sm mb-1 line-clamp-1">
+        <h3 className="text-primary font-semibold text-sm mb-1 line-clamp-1">
           {channel.name}
         </h3>
-        <p className="text-gray-400 text-xs mb-2 line-clamp-2">
-          {channel.category?.name || 'Sin categoría'}
-        </p>
+        {channel.category && (
+          <p className="text-muted text-xs line-clamp-1">
+            {channel.category.name}
+          </p>
+        )}
       </div>
     </div>
   );

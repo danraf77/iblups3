@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "iBlups - Plataforma de Streaming",
-  description: "Plataforma de streaming moderna con canales en vivo, categorías y búsqueda avanzada",
+  title: "iBlups - Streaming Platform",
+  description: "Modern streaming platform with live channels, categories and advanced search",
   icons: {
     icon: "https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_icon2.png",
     shortcut: "https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_icon2.png",
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

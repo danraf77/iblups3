@@ -1,0 +1,87 @@
+/* Paleta de colores centralizada para iBlups */
+:root {
+  /* Colores principales de la paleta */
+  --seasalt: #f8f9fa;
+  --anti-flash-white: #e9ecef;
+  --platinum: #dee2e6;
+  --french-gray: #ced4da;
+  --french-gray-2: #adb5bd;
+  --slate-gray: #6c757d;
+  --outer-space: #495057;
+  --onyx: #343a40;
+  --eerie-black: #212529;
+
+  /* Variables semánticas para la aplicación */
+  --bg-primary: #212529;        /* Fondo principal del web */
+  --bg-secondary: #212529;      /* Barra de menú - uniforme */
+  --bg-tertiary: #212529;       /* Elementos terciarios - uniforme */
+  --bg-card: #25282C;           /* Tarjetas - gris oscuro */
+  --bg-card-hover: #343A40;     /* Hover de tarjetas - ligeramente más claro */
+  --bg-input: #343A40;          /* Inputs - ligeramente más claro para visibilidad */
+  --bg-button: #343A40;         /* Botones - ligeramente más claro para visibilidad */
+  --bg-button-hover: #495057;   /* Hover de botones */
+  --bg-button-active: #495057;  /* Botones activos */
+  
+  --text-primary: #DEE2E6;      /* Color de letras */
+  --text-secondary: var(--anti-flash-white);
+  --text-tertiary: var(--platinum);
+  --text-muted: var(--french-gray);
+  --text-disabled: var(--french-gray-2);
+  
+  --border-primary: var(--slate-gray);
+  --border-secondary: var(--french-gray-2);
+  
+  --accent-primary: var(--slate-gray);
+  --accent-secondary: var(--french-gray-2);
+  
+  /* Badges y elementos especiales */
+  --badge-live: #2C73FF;        /* Fondo del badge LIVE */
+  --badge-text: #F8F9FA;        /* Letras del badge LIVE */
+  
+  /* Focus y estados */
+  --focus-ring: var(--french-gray-2);
+  --focus-ring-offset: var(--outer-space);
+}
+
+/* Clases utilitarias para usar en los componentes */
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.bg-tertiary { background-color: var(--bg-tertiary); }
+.bg-card { background-color: var(--bg-card); }
+.bg-card-hover { background-color: var(--bg-card-hover); }
+.bg-input { background-color: var(--bg-input); }
+.bg-button { background-color: var(--bg-button); }
+.bg-button-hover { background-color: var(--bg-button-hover); }
+.bg-button-active { background-color: var(--bg-button-active); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-muted { color: var(--text-muted); }
+.text-disabled { color: var(--text-disabled); }
+
+.border-primary { border-color: var(--border-primary); }
+.border-secondary { border-color: var(--border-secondary); }
+
+.accent-primary { color: var(--accent-primary); }
+.accent-secondary { color: var(--accent-secondary); }
+
+.badge-live { 
+  background-color: var(--badge-live); 
+  color: var(--badge-text);
+}
+
+.focus-ring:focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Hover states */
+.hover-bg-card:hover { background-color: var(--bg-card-hover); }
+.hover-bg-button:hover { background-color: var(--bg-button-hover); }
+.hover-text-secondary:hover { color: var(--text-secondary); }
+
+/* Transiciones suaves */
+.transition-colors {
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}

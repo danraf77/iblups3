@@ -24,9 +24,8 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleCardClick = () => {
-    // Here you can add navigation to channel details
-    console.log('Navigating to channel:', channel.id);
-    // Example: router.push(`/channel/${channel.id}`);
+    // Abrir canal en nueva pestaña
+    window.open(`/${channel.id}`, '_blank');
   };
 
   // Generate URL with timestamp to avoid cache
@@ -45,7 +44,7 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
 
   return (
     <div 
-      className="bg-card rounded-lg overflow-hidden hover-bg-card transition-colors cursor-pointer"
+      className="bg-card rounded-lg overflow-hidden hover:bg-card-active transition-all duration-200 cursor-pointer hover:shadow-lg hover:scale-105"
       onClick={handleCardClick}
     >
       {/* Thumbnail Container */}
@@ -68,6 +67,15 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
             </span>
           </div>
         )}
+        
+        {/* New Tab Indicator */}
+        <div className="absolute top-2 right-2">
+          <div className="bg-black bg-opacity-60 rounded-full p-1">
+            <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+        </div>
         
       </div>
       

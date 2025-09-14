@@ -62,7 +62,7 @@ export default function PureHlsPlayer({
           let errorMessage = 'Error de reproducción HLS';
           if (data.details === 'manifestLoadError') {
             errorMessage = 'Error al cargar el stream';
-          } else if (data.details === 'networkError') {
+          } else if (data.details === 'fragLoadError' || data.details === 'levelLoadError') {
             errorMessage = 'Error de red al cargar el stream';
           }
           setError(errorMessage);

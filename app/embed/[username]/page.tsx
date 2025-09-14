@@ -27,6 +27,7 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
   let hlsUrl: string;
   let streamId: string;
   let channelName: string;
+  const hlsBaseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
 
   try {
     // Obtener URL HLS encriptada y streamId del servidor
@@ -84,6 +85,12 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
                         </div>
                         <div className="mb-2">
                           <span className="text-gray-300">Stream ID:</span> {streamId}
+                        </div>
+                        <div className="mb-2">
+                          <span className="text-gray-300">HLS Base URL:</span>
+                        </div>
+                        <div className="break-all text-xs text-green-300 bg-gray-800 p-2 rounded mb-2">
+                          {hlsBaseUrl}
                         </div>
                         <div className="mb-2">
                           <span className="text-gray-300">HLS URL:</span>

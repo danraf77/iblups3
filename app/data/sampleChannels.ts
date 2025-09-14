@@ -239,6 +239,16 @@ export const sampleChannels = [
     category: { name: "Infantil" },
     is_4k: false,
     cover: "https://thumbnail.iblups.com/thumb/live/kidsworld.png"
+  },
+  {
+    id: "25",
+    name: "vps2",
+    username: "vps2",
+    stream_id: "vps2",
+    is_on_live: true,
+    category: { name: "Tecnología" },
+    is_4k: false,
+    cover: "https://thumbnail.iblups.com/thumb/live/vps2.png"
   }
 ];
 

@@ -1,11 +1,12 @@
 'use client';
 import { useState } from 'react';
-import { getChannelUrlById } from '../data/channelMapping';
+import { getChannelUrlById, generateChannelUrl } from '../data/channelMapping';
 
 interface Channel {
   id: string;
   name: string;
   username: string;
+  stream_id?: string;
   is_on_live: boolean;
   icon?: string;
   cover?: string;
@@ -25,17 +26,11 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleCardClick = () => {
-    // Obtener el nombre de URL del canal
-    const channelUrl = getChannelUrlById(channel.id);
+    // Generar URL del canal basada en stream_id o name
+    const channelUrl = generateChannelUrl(channel);
     
-    if (channelUrl) {
-      // Abrir canal en nueva pestaña usando el nombre de URL
-      window.open(`/${channelUrl}`, '_blank');
-    } else {
-      // Fallback al ID si no se encuentra mapeo
-      console.warn(`No URL mapping found for channel ID: ${channel.id}`);
-      window.open(`/${channel.id}`, '_blank');
-    }
+    // Abrir canal en nueva pestaña
+    window.open(`/${channelUrl}`, '_blank');
   };
 
   // Generate URL with timestamp to avoid cache

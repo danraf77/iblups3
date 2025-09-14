@@ -17,6 +17,13 @@ export const channelMappings: Record<string, ChannelMapping> = {
     description: 'Canal de Dante - Stream en vivo',
     thumbnail: 'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg'
   },
+  'vps2': {
+    id: 'vps2',
+    name: 'VPS2',
+    hlsUrl: 'https://cdnhd.iblups.com/hls/777b4d4cc0984575a7d14f6ee57dbcaf.m3u8',
+    description: 'Canal VPS2 - Stream en vivo',
+    thumbnail: 'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg'
+  },
   // Agregar más canales aquí según sea necesario
   'canal2': {
     id: 'canal2',
@@ -66,4 +73,26 @@ export const channelIdToUrlMapping: Record<string, string> = {
 
 export function getChannelUrlById(channelId: string): string | null {
   return channelIdToUrlMapping[channelId] || null;
+}
+
+// Función para generar URL de canal basada en username, stream_id o name
+export function generateChannelUrl(channel: { id: string; stream_id?: string; name: string; username?: string }): string {
+  // Prioridad 1: Usar username si está disponible
+  if (channel.username) {
+    return channel.username;
+  }
+  
+  // Prioridad 2: Usar stream_id si está disponible
+  if (channel.stream_id) {
+    return channel.stream_id;
+  }
+  
+  // Prioridad 3: Generar URL basada en el nombre
+  const urlName = channel.name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '') // Remover caracteres especiales
+    .replace(/\s+/g, '') // Remover espacios
+    .substring(0, 20); // Limitar longitud
+  
+  return urlName || channel.id; // Fallback al ID si no se puede generar nombre
 }

@@ -67,17 +67,33 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="embed-mode">
-        <div className="w-full h-screen bg-black">
-          <VideojsHls
-            src={hlsUrl}
-            autoplay={autoplayEnabled}
-            muted={mutedEnabled}
-            controls={controlsEnabled}
-            poster={posterUrl}
-          />
-        </div>
-      </body>
+                  <body className="embed-mode">
+                    <div className="w-full h-screen bg-black relative">
+                      <VideojsHls
+                        src={hlsUrl}
+                        autoplay={autoplayEnabled}
+                        muted={mutedEnabled}
+                        controls={controlsEnabled}
+                        poster={posterUrl}
+                      />
+                      
+                      {/* Información de debug - URL HLS */}
+                      <div className="absolute top-4 left-4 bg-black bg-opacity-75 text-white p-3 rounded-lg text-sm font-mono max-w-md">
+                        <div className="mb-2">
+                          <span className="text-gray-300">Canal:</span> {channelName}
+                        </div>
+                        <div className="mb-2">
+                          <span className="text-gray-300">Stream ID:</span> {streamId}
+                        </div>
+                        <div className="mb-2">
+                          <span className="text-gray-300">HLS URL:</span>
+                        </div>
+                        <div className="break-all text-xs text-blue-300 bg-gray-800 p-2 rounded">
+                          {hlsUrl}
+                        </div>
+                      </div>
+                    </div>
+                  </body>
     </html>
   );
 }

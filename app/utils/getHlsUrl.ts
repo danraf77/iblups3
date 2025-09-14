@@ -1,4 +1,4 @@
-import { generateEncryptedHlsUrl } from './encryption';
+import { encryptStreamId } from './encryption';
 
 /**
  * Obtiene la URL HLS encriptada para un canal específico
@@ -8,8 +8,23 @@ import { generateEncryptedHlsUrl } from './encryption';
  * @returns Promise<string> - URL HLS encriptada
  */
 export async function getHlsUrl(username: string): Promise<string> {
-  // URL HLS de prueba para testing
-  return 'https://live-stream.iblups.com/video/68fe7d84cbd05c3c32e1e31b35931a691d59df16.m3u8';
+  try {
+    // Hacer la llamada a la API existente que ya maneja el cifrado
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/stream/${username}`);
+    
+    if (!response.ok) {
+      throw new Error(`Error fetching stream data: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    // Encriptar el stream_id y generar URL HLS dinámica
+    const encryptedStreamId = encryptStreamId(data.stream_id);
+    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+    return `${baseUrl}/${encryptedStreamId}.m3u8`;
+  } catch (error) {
+    console.error('Error getting HLS URL:', error);
+    throw new Error('Failed to get HLS URL');
+  }
 }
 
 /**
@@ -48,11 +63,13 @@ export async function getHlsUrlServerSide(username: string): Promise<{hlsUrl: st
       streamId = channel.stream_id;
     }
 
-    // URL HLS de prueba para testing
-    const hlsUrl = 'https://live-stream.iblups.com/video/68fe7d84cbd05c3c32e1e31b35931a691d59df16.m3u8';
+    // Encriptar el stream_id y generar URL HLS dinámica
+    const encryptedStreamId = encryptStreamId(streamId);
+    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+    const hlsUrl = `${baseUrl}/${encryptedStreamId}.m3u8`;
     
-    // Devolver URL HLS de prueba
-    return { hlsUrl, streamId };
+    // Devolver URL HLS dinámica con streamId encriptado
+    return { hlsUrl, streamId: encryptedStreamId };
   } catch (error) {
     console.error('Error getting HLS URL server-side:', error);
     throw new Error('Failed to get HLS URL');

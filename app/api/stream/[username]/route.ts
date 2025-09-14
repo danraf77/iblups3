@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { generateEncryptedHlsUrl } from '../../../utils/encryption';
+import { encryptStreamId } from '../../../utils/encryption';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -32,13 +32,15 @@ export async function GET(
       return NextResponse.json({ error: 'Stream ID not found' }, { status: 404 });
     }
 
-    // Generar URL HLS encriptada
-    const hlsUrl = generateEncryptedHlsUrl(channel.stream_id);
+    // Encriptar el stream_id y generar URL HLS dinámica
+    const encryptedStreamId = encryptStreamId(channel.stream_id);
+    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+    const hlsUrl = `${baseUrl}/${encryptedStreamId}.m3u8`;
 
     return NextResponse.json({
       username: channel.username,
       name: channel.name,
-      stream_id: channel.stream_id,
+      stream_id: encryptedStreamId, // Devolver el stream_id encriptado
       hls_url: hlsUrl
     });
 

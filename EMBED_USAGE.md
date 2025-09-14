@@ -60,6 +60,12 @@ http://localhost:3000/embed/dantecanal
 - Botones de acción (Seguir, Compartir)
 - Indicador de estado "En vivo"
 
+### ✅ Navegación desde Página Inicial
+- Click en cualquier canal abre nueva pestaña
+- Redirección automática a /[canal]
+- Indicador visual de nueva pestaña
+- Efectos hover mejorados
+
 ## Estructura de Archivos Creados
 
 ```

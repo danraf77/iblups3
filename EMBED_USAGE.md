@@ -28,8 +28,20 @@ http://localhost:3000/embed/dantecanal
 ```
 
 ## Canales Disponibles
-- `dantecanal` - Canal de Dante
-- `canal2` - Canal 2 (ejemplo)
+
+### Canales Mapeados (desde API):
+- `globalnews` - Global News HD
+- `sportscentral` - Sports Central
+- `techtoday` - Tech Today
+- `musiclive` - Music Live
+- `gamingarena` - Gaming Arena
+- `dantecanal` - Canal de Dante (especial)
+- Y muchos más...
+
+### URLs de Ejemplo:
+- `http://localhost:3000/globalnews`
+- `http://localhost:3000/sportscentral`
+- `http://localhost:3000/dantecanal`
 
 ## Características Implementadas
 
@@ -62,7 +74,8 @@ http://localhost:3000/embed/dantecanal
 
 ### ✅ Navegación desde Página Inicial
 - Click en cualquier canal abre nueva pestaña
-- Redirección automática a /[canal]
+- Redirección automática a /[nombre-canal] (ej: /globalnews, /dantecanal)
+- Mapeo de IDs de API a nombres de URL amigables
 - Indicador visual de nueva pestaña
 - Efectos hover mejorados
 

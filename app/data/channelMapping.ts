@@ -33,3 +33,37 @@ export function getChannelById(channelId: string): ChannelMapping | null {
 export function getAllChannels(): ChannelMapping[] {
   return Object.values(channelMappings);
 }
+
+// Mapeo de IDs de canales de la API a nombres de URL
+export const channelIdToUrlMapping: Record<string, string> = {
+  '1': 'globalnews',
+  '2': 'sportscentral', 
+  '3': 'techtoday',
+  '4': 'musiclive',
+  '5': 'financefocus',
+  '6': 'naturewild',
+  '7': 'citypulse',
+  '8': 'gamingarena',
+  '9': 'cookingmasters',
+  '10': 'artculture',
+  '11': 'travelexplorer',
+  '12': 'comedycentral',
+  '13': 'healthwellness',
+  '14': 'educationhub',
+  '15': 'fashionweek',
+  '16': 'autoracing',
+  '17': 'sciencechannel',
+  '18': 'homegarden',
+  '19': 'musicclassics',
+  '20': 'news247',
+  '21': 'sportshighlights',
+  '22': 'techreviews',
+  '23': 'moviechannel',
+  '24': 'kidsworld',
+  // Canales especiales
+  'dantecanal': 'dantecanal'
+};
+
+export function getChannelUrlById(channelId: string): string | null {
+  return channelIdToUrlMapping[channelId] || null;
+}

@@ -18,7 +18,7 @@ export default function DebugHlsJsPlayer({ hlsUrl, streamId, hlsBaseUrl }: Debug
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [hlsStats, setHlsStats] = useState<any>(null);
+  const [hlsStats, setHlsStats] = useState<Record<string, unknown> | null>(null);
 
   const addDebugLog = (message: string) => {
     const timestamp = new Date().toLocaleTimeString();

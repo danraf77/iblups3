@@ -23,6 +23,7 @@ export default function SimpleVideojsHls({
   className = ''
 }: SimpleVideojsHlsProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
   const [isHovered, setIsHovered] = useState(false);
 

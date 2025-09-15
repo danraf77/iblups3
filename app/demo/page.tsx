@@ -64,7 +64,7 @@ export default function DemoPage() {
             <li>• Observa los logs en tiempo real en el panel de debug</li>
             <li>• Verifica si aparecen errores de red o decodificación</li>
             <li>• Revisa el estado del player (Network State, Ready State)</li>
-            <li>• Usa el botón "Reproducir Manualmente" si el autoplay falla</li>
+            <li>• Usa el botón &quot;Reproducir Manualmente&quot; si el autoplay falla</li>
             <li>• Los logs se muestran en la consola del navegador también</li>
             <li>• Si no hay logs, el video no está cargando</li>
           </ul>

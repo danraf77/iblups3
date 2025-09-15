@@ -70,7 +70,8 @@ export default function VideojsHls({
         console.log('Video load called');
         
         // Configurar controles para que solo aparezcan en hover
-        const controlBar = player.controlBar;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const controlBar = (player as any).controlBar;
         if (controlBar) {
           // Ocultar controles inicialmente
           controlBar.addClass('vjs-control-bar-hidden');

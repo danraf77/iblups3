@@ -74,7 +74,7 @@ export default function ComparePage() {
             <li>• Revisa la velocidad de carga y reproducción</li>
             <li>• Observa los errores que aparecen en los logs</li>
             <li>• El player HLS.js funciona en todos los navegadores</li>
-            <li>• Usa el botón "Reproducir Manualmente" si el autoplay falla</li>
+            <li>• Usa el botón &quot;Reproducir Manualmente&quot; si el autoplay falla</li>
           </ul>
         </div>
 

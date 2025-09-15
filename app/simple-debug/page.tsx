@@ -7,7 +7,9 @@ import 'video.js/dist/video-js.css';
 export default function SimpleDebugPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
-  const hlsUrl = 'https://live-stream.iblups.com/dev/68fe7d84cbd05c3c32e1e31b35931a691d59df16.m3u8';
+  const hlsBaseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+  const streamId = '68fe7d84cbd05c3c32e1e31b35931a691d59df16';
+  const hlsUrl = `${hlsBaseUrl}/${streamId}.m3u8`;
 
   const addDebugInfo = (info: string) => {
     console.log('SIMPLE DEBUG:', info);
@@ -21,6 +23,8 @@ export default function SimpleDebugPage() {
     }
 
     addDebugInfo('✅ Video element found');
+    addDebugInfo(`🌐 HLS Base URL: ${hlsBaseUrl}`);
+    addDebugInfo(`🆔 Stream ID: ${streamId}`);
     addDebugInfo(`📺 Source URL: ${hlsUrl}`);
 
     // Configuración mínima de Video.js
@@ -84,8 +88,21 @@ export default function SimpleDebugPage() {
         <h1 className="text-white text-3xl mb-6">Video.js Player Debug</h1>
         
         <div className="bg-gray-800 p-4 rounded mb-6">
-          <h2 className="text-white text-lg mb-2">HLS URL:</h2>
-          <p className="text-green-400 font-mono text-sm break-all">{hlsUrl}</p>
+          <h2 className="text-white text-lg mb-2">Environment Variables:</h2>
+          <div className="space-y-2">
+            <div>
+              <span className="text-blue-400">NEXT_PUBLIC_HLS_BASE_URL:</span>
+              <p className="text-green-400 font-mono text-sm break-all">{hlsBaseUrl}</p>
+            </div>
+            <div>
+              <span className="text-blue-400">Stream ID:</span>
+              <p className="text-yellow-400 font-mono text-sm">{streamId}</p>
+            </div>
+            <div>
+              <span className="text-blue-400">Final HLS URL:</span>
+              <p className="text-green-400 font-mono text-sm break-all">{hlsUrl}</p>
+            </div>
+          </div>
         </div>
 
         <div className="bg-gray-800 p-4 rounded">

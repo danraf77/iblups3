@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 export default function SimpleDebugPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
-  const hlsBaseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+  const hlsBaseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL;
   const streamId = '68fe7d84cbd05c3c32e1e31b35931a691d59df16';
   const hlsUrl = `${hlsBaseUrl}/${streamId}.m3u8`;
 

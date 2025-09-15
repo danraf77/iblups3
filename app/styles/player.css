@@ -1,15 +1,15 @@
 /* Estilos personalizados para el player de Video.js */
 
-/* Botón de play inicial minimalista */
+/* Botón de play inicial - solo triángulo azul unificado - Cursor */
 .video-js .vjs-big-play-button {
   border: none !important;
-  background: rgba(0, 0, 0, 0.3) !important;
-  border-radius: 50% !important;
-  width: 80px !important;
-  height: 80px !important;
-  line-height: 80px !important;
-  font-size: 2.5em !important;
-  color: white !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  width: 170px !important; /* 212px - 20% = 170px */
+  height: 170px !important; /* 212px - 20% = 170px */
+  line-height: 170px !important;
+  font-size: 5.6em !important; /* 7em - 20% = 5.6em */
+  color: #2c73ff !important;
   text-align: center !important;
   transition: all 0.3s ease !important;
   box-shadow: none !important;
@@ -17,23 +17,30 @@
 }
 
 .video-js .vjs-big-play-button:hover {
-  background: rgba(0, 0, 0, 0.6) !important;
+  background: transparent !important;
   transform: scale(1.1) !important;
+  color: #2c73ff !important; /* Mismo color en hover */
 }
 
 .video-js .vjs-big-play-button:focus {
   outline: none !important;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+  box-shadow: none !important;
 }
 
-/* Ocultar el triángulo de play por defecto y usar un símbolo más minimalista */
+/* Ocultar el triángulo por defecto y usar solo el personalizado - Cursor */
 .video-js .vjs-big-play-button:before {
+  display: none !important;
+}
+
+/* Triángulo de play personalizado unificado - Cursor */
+.video-js .vjs-big-play-button .vjs-icon-placeholder:before {
   content: "▶" !important;
   font-family: Arial, sans-serif !important;
-  font-size: 1.2em !important;
+  font-size: 1em !important;
   line-height: 1 !important;
   position: relative !important;
-  left: 2px !important;
+  left: 4px !important;
+  color: #2c73ff !important;
 }
 
 /* Asegurar que la barra de controles no se corte */
@@ -41,6 +48,104 @@
   height: 50px !important;
   padding: 0 10px !important;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+}
+
+/* Aumentar tamaño de controles usando clases responsivas de Video.js - Cursor */
+.video-js .vjs-layout-tiny {
+  font-size: 15px !important; /* Base 15px */
+}
+
+.video-js .vjs-layout-x-small {
+  font-size: 15px !important; /* Base 15px */
+}
+
+.video-js .vjs-layout-small {
+  font-size: 15px !important; /* Base 15px */
+}
+
+.video-js .vjs-layout-medium {
+  font-size: 15px !important; /* Base 15px */
+}
+
+.video-js .vjs-layout-large {
+  font-size: 15px !important; /* Base 15px */
+}
+
+.video-js .vjs-layout-x-large {
+  font-size: 15px !important; /* Base 15px */
+}
+
+.video-js .vjs-layout-huge {
+  font-size: 15px !important; /* Base 15px */
+}
+
+/* Aplicar font-size directamente a los elementos de Video.js - Cursor */
+.video-js {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-control-bar {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-button {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-play-control {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-volume-panel {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-fullscreen-control {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-time-control {
+  font-size: 15px !important;
+}
+
+.video-js .vjs-live-control {
+  font-size: 15px !important;
+}
+
+/* Aumentar altura del control bar en 40% usando clases responsivas específicas - Cursor */
+.video-js .vjs-layout-tiny .vjs-control-bar {
+  height: 56px !important; /* 40px + 40% = 56px */
+  font-size: 12px !important;
+}
+
+.video-js .vjs-layout-x-small .vjs-control-bar {
+  height: 63px !important; /* 45px + 40% = 63px */
+  font-size: 14px !important;
+}
+
+.video-js .vjs-layout-small .vjs-control-bar {
+  height: 70px !important; /* 50px + 40% = 70px */
+  font-size: 16px !important;
+}
+
+.video-js .vjs-layout-medium .vjs-control-bar {
+  height: 77px !important; /* 55px + 40% = 77px */
+  font-size: 18px !important;
+}
+
+.video-js .vjs-layout-large .vjs-control-bar {
+  height: 84px !important; /* 60px + 40% = 84px */
+  font-size: 20px !important;
+}
+
+.video-js .vjs-layout-x-large .vjs-control-bar {
+  height: 91px !important; /* 65px + 40% = 91px */
+  font-size: 22px !important;
+}
+
+.video-js .vjs-layout-huge .vjs-control-bar {
+  height: 98px !important; /* 70px + 40% = 98px */
+  font-size: 24px !important;
 }
 
 /* Estilos para el contenedor del player */
@@ -56,6 +161,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 15px !important; /* Tamaño de fuente base para el contenedor - Cursor */
 }
 
 /* Asegurar que el video mantenga la proporción 16:9 y ocupe el máximo espacio */

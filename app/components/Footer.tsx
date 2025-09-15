@@ -50,7 +50,7 @@ export default function Footer() {
             {/* Copyright */}
             <div className="footer-copyright">
               <p className="footer-copyright-text">
-                <ClientOnly fallback="© 2024 danraf77 LLC - USA. All rights reserved.">
+                <ClientOnly fallback="© 2025 danraf77 LLC - USA. All rights reserved.">
                   {t('footer.copyright')}
                 </ClientOnly>
               </p>

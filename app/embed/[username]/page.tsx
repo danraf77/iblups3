@@ -1,24 +1,26 @@
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import SimpleVideojsHls from '../../components/SimpleVideojsHls';
 import { getHlsUrlServerSide } from '../../utils/getHlsUrl';
-import '../../styles/hls-debug.css';
 
 interface EmbedPageProps {
-  params: Promise<{
+  params: {
     username: string;
-  }>;
-  searchParams: Promise<{
+  };
+  searchParams: {
     autoplay?: string;
     muted?: string;
     controls?: string;
     poster?: string;
-  }>;
+  };
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
-  const { username } = await params;
-  
+// Generación de metadatos con política de Referer que SÍ envía encabezado
+export async function generateMetadata(
+  { params }: { params: { username: string } }
+): Promise<Metadata> {
+  const { username } = params;
+
   try {
     // Obtener nombre del canal para metadata
     const { createClient } = await import('@supabase/supabase-js');
@@ -37,40 +39,30 @@ export async function generateMetadata({ params }: { params: Promise<{ username:
     return {
       title: `${channelName} - Live Stream`,
       description: `Stream en vivo de ${channelName}`,
-      robots: {
-        index: false,
-        follow: false,
-      },
-      other: {
-        'referrer': 'no-referrer',
-      },
+      robots: { index: false, follow: false },
+      referrer: 'strict-origin-when-cross-origin', // ✅ clave para que Nginx reciba Referer
     };
-  } catch (error) {
+  } catch {
     return {
       title: `${username} - Live Stream`,
       description: `Stream en vivo de ${username}`,
-      robots: {
-        index: false,
-        follow: false,
-      },
-      other: {
-        'referrer': 'no-referrer',
-      },
+      robots: { index: false, follow: false },
+      referrer: 'strict-origin-when-cross-origin', // ✅ también en el fallback
     };
   }
 }
 
 export default async function EmbedPage({ params, searchParams }: EmbedPageProps) {
-  const { username } = await params;
-  const { autoplay, muted, controls, poster } = await searchParams;
+  const { username } = params;
+  const { autoplay, muted, controls, poster } = searchParams ?? {};
 
   // Parsear query parameters con defaults
   const autoplayEnabled = autoplay === 'true';
   const mutedEnabled = muted !== 'false';
   const controlsEnabled = controls !== 'false';
 
-  let hlsUrl: string;
-  let posterUrl: string;
+  let hlsUrl = '';
+  let posterUrl = '';
 
   try {
     // Obtener URL HLS encriptada del servidor
@@ -85,11 +77,15 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
 
   return (
     <>
-      {/* Preload del poster para carga más rápida con optimizaciones */}
-      <link rel="preload" as="image" href={posterUrl} fetchPriority="high" />
-      <link rel="dns-prefetch" href="https://thumbnail.iblups.com" />
-      <link rel="preconnect" href="https://thumbnail.iblups.com" crossOrigin="" />
-      
+      {/* Preload del poster para carga más rápida */}
+      {posterUrl ? (
+        <>
+          <link rel="preload" as="image" href={posterUrl} fetchPriority="high" />
+          <link rel="dns-prefetch" href="https://thumbnail.iblups.com" />
+          <link rel="preconnect" href="https://thumbnail.iblups.com" crossOrigin="" />
+        </>
+      ) : null}
+
       <div className="embed-page w-full h-screen bg-black">
         <SimpleVideojsHls
           src={hlsUrl}

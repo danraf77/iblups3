@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import { getVideoJsConfig } from '../config/videojs.config';
+import '../styles/player.css'; // Usar estilos personalizados del player.css - Cursor
 
 interface SimpleVideojsHlsProps {
   src: string;
@@ -36,9 +36,44 @@ export default function SimpleVideojsHls({
     console.log('✅ Video element found');
     console.log(`📺 Source URL: ${src}`);
     console.log(`🖼️ Poster URL: ${poster || 'No poster provided'}`);
+    console.log(`🔍 URL validation:`, {
+      hasProtocol: src.startsWith('http'),
+      hasM3u8: src.endsWith('.m3u8'),
+      urlLength: src.length
+    });
 
-    // Usar configuración centralizada de Video.js
-    const options = getVideoJsConfig(autoplay, muted, poster);
+    // Usar configuración estándar de Video.js - Cursor
+    const options = {
+      controls: true,
+      autoplay: autoplay ? 'muted' : false,
+      muted: muted, // Usar el valor pasado como prop
+      fluid: true,
+      responsive: true,
+      preload: 'auto',
+      poster: poster,
+      volume: 0.5, // Volumen inicial en 50%
+      // Configuración estándar de controlBar - Video.js manejará los estilos
+      controlBar: {
+        playToggle: true,
+        currentTimeDisplay: true,
+        timeDivider: true,
+        durationDisplay: false,
+        progressControl: false, // Ocultar barra de progreso como en player.css
+        liveDisplay: true,
+        remainingTimeDisplay: false,
+        customControlSpacer: true,
+        fullscreenToggle: true,
+        pictureInPictureToggle: false,
+        playbackRateMenuButton: false
+      },
+      // Configuración para live streaming
+      liveui: true,
+      liveTolerance: 15,
+      liveTracker: {
+        trackingThreshold: 20,
+        liveTolerance: 15
+      }
+    };
     console.log('⚙️ Video.js options configured:', options);
 
     try {
@@ -52,6 +87,12 @@ export default function SimpleVideojsHls({
         
         // Agregar clase personalizada al player
         player.addClass('iblups');
+        
+        // Establecer volumen inicial en 50% solo si está silenciado - Cursor
+        if (player.muted()) {
+          player.volume(0.5);
+          console.log('🔊 Volumen establecido en 50% (inicial)');
+        }
         
         // Configurar controles para que solo aparezcan en hover usando eventos nativos de Video.js
         player.on('useractive', () => {
@@ -68,6 +109,14 @@ export default function SimpleVideojsHls({
         player.on('pause', () => {
           console.log('⏸️ Pause - mostrando controles');
           setIsHovered(true);
+        });
+        
+        // Desmutear cuando el usuario hace play manualmente - Cursor
+        player.on('play', () => {
+          if (player.muted()) {
+            player.muted(false);
+            console.log('🔊 Video desmuteado al hacer play');
+          }
         });
         
         // Configurar fuente
@@ -116,6 +165,7 @@ export default function SimpleVideojsHls({
       {poster && (
         <link rel="preload" as="image" href={poster} />
       )}
+      
       
       <video
         ref={videoRef}

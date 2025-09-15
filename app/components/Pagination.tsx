@@ -1,4 +1,6 @@
 'use client';
+import { useTranslation } from '../hooks/useTranslation';
+import ClientOnly from './ClientOnly';
 
 interface PaginationProps {
   currentPage: number;
@@ -15,11 +17,14 @@ export default function Pagination({
   showInfo = true,
   maxVisiblePages = 5
 }: PaginationProps) {
+  const { t } = useTranslation();
   // Si solo hay una página, mostrar información simple
   if (totalPages <= 1) {
     return showInfo ? (
       <div className="flex items-center space-x-2">
-        <span className="text-sm text-muted">Página 1 de 1</span>
+        <ClientOnly fallback={<span className="text-sm text-muted">Page 1 of 1</span>}>
+          <span className="text-sm text-muted">{t('pagination.pageOf', { current: 1, total: 1 })}</span>
+        </ClientOnly>
       </div>
     ) : null;
   }
@@ -52,7 +57,9 @@ export default function Pagination({
         disabled={currentPage === 1}
         className="px-3 py-2 text-sm font-medium text-secondary bg-button rounded-md hover-bg-button disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        Anterior
+        <ClientOnly fallback="Previous">
+          {t('pagination.previous')}
+        </ClientOnly>
       </button>
 
       {/* Primera página si no está visible */}
@@ -106,13 +113,17 @@ export default function Pagination({
         disabled={currentPage === totalPages}
         className="px-3 py-2 text-sm font-medium text-secondary bg-button rounded-md hover-bg-button disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        Siguiente
+        <ClientOnly fallback="Next">
+          {t('pagination.next')}
+        </ClientOnly>
       </button>
 
       {/* Información de página */}
       {showInfo && (
         <span className="text-sm text-muted ml-4">
-          Página {currentPage} de {totalPages}
+          <ClientOnly fallback={`Page ${currentPage} of ${totalPages}`}>
+            {t('pagination.pageOf', { current: currentPage, total: totalPages })}
+          </ClientOnly>
         </span>
       )}
     </div>

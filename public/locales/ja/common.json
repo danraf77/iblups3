@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "ホーム",
+    "compare": "比較",
+    "demo": "デモ",
+    "debug": "デバッグ",
+    "producerAccess": "プロデューサーアクセス"
+  },
+  "tabs": {
+    "all": "すべて",
+    "popular": "人気",
+    "recent": "最近"
+  },
+  "search": {
+    "placeholder": "チャンネルを検索...",
+    "liveChannels": "ライブチャンネル"
+  },
+  "channels": {
+    "live": "ライブ",
+    "loading": "チャンネルを読み込み中...",
+    "error": "チャンネルの読み込みエラー",
+    "notFound": "チャンネルが見つかりません",
+    "retry": "再試行"
+  },
+  "footer": {
+    "privacyPolicy": "プライバシーポリシー",
+    "termsOfService": "利用規約",
+    "support": "サポート",
+    "copyright": "© 2024 danraf77 LLC - USA. 全著作権所有。",
+    "poweredBy": "提供"
+  },
+  "player": {
+    "loading": "読み込み中...",
+    "error": "動画の読み込みエラー",
+    "play": "再生",
+    "pause": "一時停止",
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "fullscreen": "フルスクリーン",
+    "exitFullscreen": "フルスクリーン終了"
+  },
+  "hero": {
+    "title": "世界を、一つのスクリーンに。",
+    "description": "つながるコンテンツ。世界を知るニュース。心に響く音楽。一つになるスポーツ。毎日に寄り添うエンタメ。",
+    "subtitle": "すべてが、ここでライブに。",
+    "createChannel": "チャンネルを作成"
+  },
+  "pages": {
+    "channel": {
+      "title": "チャンネル",
+      "loading": "チャンネルを読み込み中...",
+      "notFound": "チャンネルが見つかりません",
+      "liveStream": "ライブストリーム"
+    },
+    "embed": {
+      "title": "ライブストリーム",
+      "description": "ライブストリームを視聴"
+    }
+  }
+}

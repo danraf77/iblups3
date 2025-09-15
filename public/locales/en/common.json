@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "Home",
+    "compare": "Compare",
+    "demo": "Demo",
+    "debug": "Debug",
+    "producerAccess": "Producer access"
+  },
+  "tabs": {
+    "all": "All",
+    "popular": "Popular",
+    "recent": "Recent"
+  },
+  "search": {
+    "placeholder": "Search channels...",
+    "liveChannels": "live channels"
+  },
+  "channels": {
+    "live": "LIVE",
+    "loading": "Loading channels...",
+    "error": "Error loading channels",
+    "notFound": "No channels found",
+    "retry": "Retry"
+  },
+  "footer": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "support": "Support",
+    "copyright": "© 2024 danraf77 LLC - USA. All rights reserved.",
+    "poweredBy": "Powered by"
+  },
+  "player": {
+    "loading": "Loading...",
+    "error": "Error loading video",
+    "play": "Play",
+    "pause": "Pause",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen"
+  },
+  "hero": {
+    "title": "The World, One Screen.",
+    "description": "Stories that connect. News as it happens. Music that moves. Sports that unite. Culture that travels with you.",
+    "subtitle": "It all happens here, live.",
+    "createChannel": "Create your channel"
+  },
+  "pages": {
+    "channel": {
+      "title": "Channel",
+      "loading": "Loading channel...",
+      "notFound": "Channel not found",
+      "liveStream": "Live Stream"
+    },
+    "embed": {
+      "title": "Live Stream",
+      "description": "Watch live streaming"
+    }
+  }
+}

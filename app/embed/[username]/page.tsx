@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import VideojsHls from '../../components/VideojsHls';
+import SimpleVideojsHls from '../../components/SimpleVideojsHls';
 import { getHlsUrlServerSide } from '../../utils/getHlsUrl';
+import '../../styles/hls-debug.css';
 
 interface EmbedPageProps {
   params: Promise<{
@@ -64,32 +65,41 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
   const { autoplay, muted, controls, poster } = await searchParams;
 
   // Parsear query parameters con defaults
-  const autoplayEnabled = autoplay !== 'false';
+  const autoplayEnabled = autoplay === 'true';
   const mutedEnabled = muted !== 'false';
   const controlsEnabled = controls !== 'false';
-  const posterUrl = poster || undefined;
 
   let hlsUrl: string;
+  let posterUrl: string;
 
   try {
     // Obtener URL HLS encriptada del servidor
     const streamData = await getHlsUrlServerSide(username);
     hlsUrl = streamData.hlsUrl;
+    // Usar poster del query parameter si se proporciona, sino usar el generado automáticamente
+    posterUrl = poster || streamData.posterUrl;
   } catch (error) {
     console.error('Error fetching channel data:', error);
     notFound();
   }
 
   return (
-    <div className="w-full h-screen bg-black">
-      <VideojsHls
-        src={hlsUrl}
-        autoplay={autoplayEnabled}
-        muted={mutedEnabled}
-        controls={controlsEnabled}
-        poster={posterUrl}
-      />
-    </div>
+    <>
+      {/* Preload del poster para carga más rápida con optimizaciones */}
+      <link rel="preload" as="image" href={posterUrl} fetchPriority="high" />
+      <link rel="dns-prefetch" href="https://thumbnail.iblups.com" />
+      <link rel="preconnect" href="https://thumbnail.iblups.com" crossOrigin="" />
+      
+      <div className="embed-page w-full h-screen bg-black">
+        <SimpleVideojsHls
+          src={hlsUrl}
+          autoplay={autoplayEnabled}
+          muted={mutedEnabled}
+          controls={controlsEnabled}
+          poster={posterUrl}
+        />
+      </div>
+    </>
   );
 }
 

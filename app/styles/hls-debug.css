@@ -1,0 +1,565 @@
+/* HLS Debug Player Styles - Cursor */
+/* Estilos específicos para el player de debug HLS.js */
+
+/* Asegurar que el body y html permitan scroll */
+html, body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* Estilos específicos para la página de canal /username */
+.canal-page {
+  background-color: #0B090A !important;
+  min-height: 100vh !important;
+}
+
+.canal-page .navbar,
+.canal-page .menu-bar,
+.canal-page .header,
+.canal-page nav,
+.canal-page .navigation {
+  background-color: #161A1D !important;
+}
+
+.canal-page .main-content,
+.canal-page .content,
+.canal-page .body-content {
+  background-color: #0B090A !important;
+}
+
+/* Sobrescribir estilos del player.css que impiden el scroll */
+.video-js-container {
+  width: 100% !important; 
+  height: auto !important; 
+  max-width: 800px !important;
+  max-height: 400px !important; 
+  position: relative !important; 
+  margin: 0 auto !important;
+  background: #000 !important; 
+  border-radius: 8px !important; 
+  overflow: hidden !important;
+  display: block !important;
+}
+
+/* Estilos específicos para embed - 100% ancho manteniendo 16:9 */
+.embed-page .video-js-container {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 56.25vw !important; /* 16:9 aspect ratio */
+  max-height: 56.25vw !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  position: relative !important;
+  left: 50% !important;
+  right: 50% !important;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+}
+
+.embed-page .video-js-container::before {
+  content: '' !important;
+  display: block !important;
+  padding-top: 56.25% !important; /* 16:9 aspect ratio */
+  width: 100% !important;
+}
+
+.embed-page .video-js-container .video-js {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.embed-page .video-js-container .video-js video {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.video-js-container::before {
+  content: '';
+  display: block;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  width: 100%;
+}
+
+.video-js-container .video-js {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.video-js {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.video-js video {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.hls-debug-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.hls-debug-video-container {
+  position: relative;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.hls-debug-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16/9;
+  background: #000;
+  max-height: 400px;
+}
+
+.hls-debug-panel {
+  background: #2d2d2d;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid #404040;
+}
+
+.hls-debug-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hls-debug-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hls-debug-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hls-debug-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hls-debug-btn-clear {
+  background: #dc2626;
+  color: white;
+}
+
+.hls-debug-btn-clear:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.hls-debug-btn-play {
+  background: #2563eb;
+  color: white;
+}
+
+.hls-debug-btn-play:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.hls-debug-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hls-debug-stat {
+  background: #3a3a3a;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid #4ade80;
+}
+
+.hls-debug-stat-label {
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.hls-debug-stat-value {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.hls-debug-logs {
+  background: #000000;
+  border-radius: 6px;
+  padding: 16px;
+  height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #333333;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  position: relative;
+  display: block;
+}
+
+.hls-debug-logs::-webkit-scrollbar {
+  width: 12px;
+}
+
+.hls-debug-logs::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 6px;
+  border: 1px solid #444;
+}
+
+.hls-debug-logs::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 6px;
+  border: 2px solid #2a2a2a;
+}
+
+.hls-debug-logs::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+/* Forzar scrollbar siempre visible */
+.hls-debug-logs {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff00 #2a2a2a;
+}
+
+.hls-debug-log {
+  margin-bottom: 4px;
+  padding: 2px 0;
+  word-wrap: break-word;
+}
+
+.hls-debug-log-info {
+  color: #4ade80;
+}
+
+.hls-debug-log-warning {
+  color: #fbbf24;
+}
+
+.hls-debug-log-error {
+  color: #f87171;
+}
+
+.hls-debug-log-empty {
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hls-debug-container {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .hls-debug-panel {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .hls-debug-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .hls-debug-buttons {
+    justify-content: center;
+  }
+  
+  .hls-debug-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .hls-debug-logs {
+    max-height: 200px;
+    font-size: 10px;
+  }
+}
+
+/* Scroll suave */
+.hls-debug-logs {
+  scroll-behavior: smooth;
+  /* Forzar scroll */
+  overflow-y: scroll !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hls-debug-log {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Estados del player */
+.hls-debug-playing .hls-debug-stat-value {
+  color: #4ade80;
+}
+
+.hls-debug-paused .hls-debug-stat-value {
+  color: #fbbf24;
+}
+
+.hls-debug-error .hls-debug-stat-value {
+  color: #f87171;
+}
+
+/* Mejoras visuales */
+.hls-debug-container {
+  position: relative;
+}
+
+.hls-debug-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4ade80, #2563eb, #fbbf24);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Estilos para el video cuando está cargando */
+.hls-debug-video-container.loading {
+  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+  background-size: 400% 400%;
+  animation: loadingGradient 2s ease infinite;
+}
+
+@keyframes loadingGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Estilos para el video cuando hay error */
+.hls-debug-video-container.error {
+  background: #2d1b1b;
+  border: 2px solid #dc2626;
+}
+
+.hls-debug-video-container.error::after {
+  content: '❌ Error de reproducción';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f87171;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  z-index: 10;
+}
+
+/* Estilos para controles de Video.js que solo aparecen en hover - Cursor */
+/* Control bar oculto cuando usuario está inactivo */
+.embed-page .vjs-user-inactive .vjs-control-bar {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+/* Control bar visible cuando usuario está activo */
+.embed-page .vjs-user-active .vjs-control-bar {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+/* Control bar visible cuando está pausado */
+.embed-page .vjs-paused .vjs-control-bar {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+/* Asegurar que el logo también tenga transición suave */
+.video-js-container .absolute {
+  transition: opacity 0.3s ease !important;
+}
+
+/* Estilos para botones del player aún más pequeños en embed - Cursor */
+.embed-page .vjs-control-bar {
+  height: 40px !important;
+  padding: 0 6px !important;
+}
+
+.embed-page .vjs-button {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 14px !important;
+  line-height: 30px !important;
+}
+
+.embed-page .vjs-play-control {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 14px !important;
+}
+
+.embed-page .vjs-volume-panel {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.embed-page .vjs-volume-button {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 14px !important;
+}
+
+.embed-page .vjs-fullscreen-control {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 14px !important;
+}
+
+.embed-page .vjs-time-control {
+  height: 30px !important;
+  line-height: 30px !important;
+  font-size: 10px !important;
+}
+
+.embed-page .vjs-live-control {
+  height: 30px !important;
+  line-height: 30px !important;
+  font-size: 10px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  padding-bottom: 2px !important;
+  margin-left: 5px !important;
+}
+
+/* Posicionar el texto LIVE al lado del botón de volumen */
+.embed-page .vjs-live-control .vjs-live-display {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  height: 100% !important;
+  line-height: 1 !important;
+  vertical-align: bottom !important;
+  padding-bottom: 2px !important;
+  margin-left: 0 !important;
+}
+
+.embed-page .vjs-remaining-time {
+  height: 30px !important;
+  line-height: 30px !important;
+  font-size: 10px !important;
+}
+
+/* Botón de play solo triángulo azul - Cursor */
+.embed-page .vjs-big-play-button {
+  width: 192px !important;
+  height: 192px !important;
+  font-size: 77px !important;
+  line-height: 192px !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.embed-page .vjs-big-play-button:hover {
+  background-color: transparent !important;
+  transform: scale(1.05) !important;
+  box-shadow: none !important;
+}
+
+.embed-page .vjs-big-play-button:focus {
+  background-color: transparent !important;
+  outline: none !important;
+}
+
+/* Triángulo de play con color personalizado - eliminar triángulo blanco */
+.embed-page .vjs-big-play-button .vjs-icon-placeholder:before {
+  color: #2c73ff !important;
+  font-size: 77px !important;
+  line-height: 192px !important;
+  text-shadow: none !important;
+}
+
+/* Eliminar cualquier triángulo blanco exterior */
+.embed-page .vjs-big-play-button:before {
+  display: none !important;
+}
+
+.embed-page .vjs-big-play-button:after {
+  display: none !important;
+}

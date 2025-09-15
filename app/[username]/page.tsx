@@ -5,6 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useChannelByUsername } from '../hooks/useChannelByUsername';
 import HLSPlayer from '../components/HLSPlayer';
+import Footer from '../components/Footer';
+import '../styles/hls-debug.css';
+import '../styles/footer.css';
 
 interface ChannelPageProps {
   params: Promise<{
@@ -13,31 +16,87 @@ interface ChannelPageProps {
 }
 
 export default function ChannelPage({ params }: ChannelPageProps) {
-  const [username, setUsername] = React.useState<string>('');
-  const [isUsernameReady, setIsUsernameReady] = React.useState(false);
-  
-  React.useEffect(() => {
-    params.then(({ username }) => {
-      setUsername(username);
-      setIsUsernameReady(true);
-    });
-  }, [params]);
-  
-  const { channel, loading, error } = useChannelByUsername(isUsernameReady ? username : '');
+  // Usar React.use() para obtener el username
+  const { username } = React.use(params);
+  const { channel, loading, error } = useChannelByUsername(username);
 
-  // Mostrar 404 si no se encuentra el canal (solo después de que se haya intentado cargar)
-  if (isUsernameReady && !loading && !channel && error === 'Channel not found') {
-    notFound();
+  // Si hay error, mostrar página de error
+  if (error) {
+    return (
+      <div className="page-with-footer bg-primary">
+        {/* Header */}
+        <header className="bg-secondary">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center">
+                <Link href="/">
+                  <Image 
+                    src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
+                    alt="iBlups" 
+                    width={120}
+                    height={32}
+                    className="h-8 w-auto"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1"></div>
+            </div>
+          </div>
+        </header>
+
+        {/* Error Content */}
+        <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+          <div className="text-center">
+            <p className="text-red-500 text-lg mb-4">Error: {error}</p>
+            <Link 
+              href="/"
+              className="bg-button text-primary px-4 py-2 rounded-md hover:bg-button-active transition-colors"
+            >
+              Volver al inicio
+            </Link>
+          </div>
+        </main>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    );
   }
 
-  // Mostrar loading mientras se obtiene el username o se carga el canal
-  if (!isUsernameReady || loading) {
+  // Si está cargando o no hay canal, mostrar estado de carga
+  if (loading || !channel) {
     return (
-      <div className="min-h-screen bg-primary flex items-center justify-center">
-        <div className="text-center">
-          <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-primary">Cargando canal...</p>
-        </div>
+      <div className="page-with-footer bg-primary">
+        {/* Header */}
+        <header className="bg-secondary">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center">
+                <Link href="/">
+                  <Image 
+                    src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
+                    alt="iBlups" 
+                    width={120}
+                    height={32}
+                    className="h-8 w-auto"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1"></div>
+            </div>
+          </div>
+        </header>
+
+        {/* Loading Content */}
+        <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+          <div className="text-center">
+            <div className="loading-spinner mx-auto mb-4"></div>
+            <p className="text-primary">Cargando canal...</p>
+          </div>
+        </main>
+
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }
@@ -45,16 +104,44 @@ export default function ChannelPage({ params }: ChannelPageProps) {
   // Mostrar error
   if (error) {
     return (
-      <div className="min-h-screen bg-primary flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-500 text-lg mb-4">Error: {error}</p>
-          <Link 
-            href="/"
-            className="bg-button text-primary px-4 py-2 rounded-md hover:bg-button-active transition-colors"
-          >
-            Volver al inicio
-          </Link>
+      <div className="page-with-footer bg-primary">
+        {/* Header */}
+        <header className="bg-secondary">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center">
+                <Link href="/">
+                  <Image 
+                    src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
+                    alt="iBlups" 
+                    width={120}
+                    height={32}
+                    className="h-8 w-auto"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1"></div>
+            </div>
+          </div>
+        </header>
+
+        {/* Error Content */}
+        <div className="page-content">
+          <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+            <div className="text-center">
+              <p className="text-red-500 text-lg mb-4">Error: {error}</p>
+              <Link 
+                href="/"
+                className="bg-button text-primary px-4 py-2 rounded-md hover:bg-button-active transition-colors"
+              >
+                Volver al inicio
+              </Link>
+            </div>
+          </main>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }
@@ -62,7 +149,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
   if (!channel) return null;
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="page-with-footer bg-primary">
       {/* Header - Navbar simplificado sin buscador */}
       <header className="bg-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,36 +167,15 @@ export default function ChannelPage({ params }: ChannelPageProps) {
               </Link>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="flex space-x-8">
-              <Link
-                href="/"
-                className="text-sm font-medium pb-4 border-b-2 text-muted border-transparent hover:text-secondary"
-              >
-                All
-              </Link>
-              <Link
-                href="/?tab=popular"
-                className="text-sm font-medium pb-4 border-b-2 text-muted border-transparent hover:text-secondary"
-              >
-                Popular
-              </Link>
-              <Link
-                href="/?tab=recent"
-                className="text-sm font-medium pb-4 border-b-2 text-muted border-transparent hover:text-secondary"
-              >
-                Recent
-              </Link>
-            </div>
-
-            {/* Espacio vacío para mantener el layout */}
-            <div className="w-64"></div>
+            {/* Espacio vacío para mantener el layout centrado */}
+            <div className="flex-1"></div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="page-content">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Nombre del Canal */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-primary">
@@ -129,7 +195,11 @@ export default function ChannelPage({ params }: ChannelPageProps) {
             />
           </div>
         </div>
-      </main>
+        </main>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

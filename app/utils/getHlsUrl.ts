@@ -19,7 +19,7 @@ export async function getHlsUrl(username: string): Promise<string> {
     const data = await response.json();
     // Encriptar el stream_id y generar URL HLS dinámica
     const encryptedStreamId = encryptStreamId(data.stream_id);
-    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/video';
     return `${baseUrl}/${encryptedStreamId}.m3u8`;
   } catch (error) {
     console.error('Error getting HLS URL:', error);
@@ -32,9 +32,9 @@ export async function getHlsUrl(username: string): Promise<string> {
  * Útil para usar en server components o server actions
  * 
  * @param username - Username del canal
- * @returns Promise<{hlsUrl: string, streamId: string}> - URL HLS encriptada y streamId
+ * @returns Promise<{hlsUrl: string, streamId: string, posterUrl: string}> - URL HLS encriptada, streamId y poster
  */
-export async function getHlsUrlServerSide(username: string): Promise<{hlsUrl: string, streamId: string}> {
+export async function getHlsUrlServerSide(username: string): Promise<{hlsUrl: string, streamId: string, posterUrl: string}> {
   const { createClient } = await import('@supabase/supabase-js');
   const { sampleChannels } = await import('../data/sampleChannels');
   
@@ -65,11 +65,18 @@ export async function getHlsUrlServerSide(username: string): Promise<{hlsUrl: st
 
     // Encriptar el stream_id y generar URL HLS dinámica
     const encryptedStreamId = encryptStreamId(streamId);
-    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/dev';
+    const baseUrl = process.env.NEXT_PUBLIC_HLS_BASE_URL || 'https://live-stream.iblups.com/video';
     const hlsUrl = `${baseUrl}/${encryptedStreamId}.m3u8`;
     
-    // Devolver URL HLS dinámica con streamId encriptado
-    return { hlsUrl, streamId: encryptedStreamId };
+    // Generar URL del poster con stream ID original (no encriptado) y parámetro de tiempo para cache corto
+    // Usar timestamp en segundos para cache de 30 segundos máximo para carga más rápida
+    const timestamp = Math.floor(Date.now() / 1000);
+    const cacheSeconds = 30; // Cache por 30 segundos para carga más rápida
+    const cacheParam = Math.floor(timestamp / cacheSeconds);
+    const posterUrl = `https://thumbnail.iblups.com/thumb/live/${streamId}.png?t=${cacheParam}&w=1280&h=720&q=85`;
+    
+    // Devolver URL HLS dinámica con streamId encriptado y poster
+    return { hlsUrl, streamId: encryptedStreamId, posterUrl };
   } catch (error) {
     console.error('Error getting HLS URL server-side:', error);
     throw new Error('Failed to get HLS URL');

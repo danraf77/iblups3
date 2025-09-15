@@ -1,0 +1,76 @@
+/* Home Page Styles - Cursor */
+/* Estilos específicos para la página de inicio */
+
+/* Asegurar que el body y html permitan scroll */
+html, body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* Sobrescribir estilos del player.css que impiden el scroll */
+.video-js-container {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  position: relative !important;
+  margin: 0 !important;
+  background: #000 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+
+.video-js-container::before {
+  content: '';
+  display: block;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  width: 100%;
+}
+
+.video-js-container .video-js {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.video-js {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.video-js video {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* Asegurar que la página de inicio permita scroll */
+.min-h-screen {
+  min-height: 100vh !important;
+  height: auto !important;
+}
+
+/* Asegurar que el contenido principal permita scroll */
+main {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* Asegurar que los contenedores de canales permitan scroll */
+.grid {
+  overflow: visible !important;
+  height: auto !important;
+}

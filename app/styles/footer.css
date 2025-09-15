@@ -1,0 +1,112 @@
+/* Footer Styles - Exclusivo para el footer */
+
+/* Estilos para páginas que usan el footer */
+.page-with-footer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1; /* Ocupa todo el espacio disponible */
+}
+
+.footer-container {
+  margin-top: auto; /* Empuja el footer hacia abajo */
+  flex-shrink: 0; /* Evita que el footer se encoja */
+}
+
+/* Asegurar que el footer llegue hasta el final */
+.footer-wrapper {
+  position: relative;
+  width: 100%;
+  background-color: var(--bg-secondary);
+}
+
+/* Contenido del footer */
+.footer-content {
+  max-width: 80rem; /* 7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* 4 */
+  padding-right: 1rem; /* 4 */
+  padding-top: 3rem; /* 12 */
+  padding-bottom: 3rem; /* 12 */
+}
+
+/* Layout del footer */
+.footer-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; /* 8 */
+}
+
+/* Selector de idiomas */
+.footer-language-selector {
+  display: flex;
+  justify-content: center;
+}
+
+/* Enlaces legales */
+.footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem; /* 8 */
+}
+
+.footer-legal-link {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.footer-legal-link:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+/* Copyright */
+.footer-copyright {
+  text-align: center;
+}
+
+.footer-copyright-text {
+  color: var(--text-muted);
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.footer-powered-by {
+  color: var(--text-muted);
+  font-size: 0.75rem; /* text-xs */
+}
+
+.footer-powered-by-link {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.footer-powered-by-link:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+  .footer-content {
+    padding-left: 1.5rem; /* sm:px-6 */
+    padding-right: 1.5rem; /* sm:px-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-content {
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem; /* lg:px-8 */
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "Início",
+    "compare": "Comparar",
+    "demo": "Demo",
+    "debug": "Depurar",
+    "producerAccess": "Acesso do produtor"
+  },
+  "tabs": {
+    "all": "Todos",
+    "popular": "Popular",
+    "recent": "Recente"
+  },
+  "search": {
+    "placeholder": "Pesquisar canais...",
+    "liveChannels": "canais ao vivo"
+  },
+  "channels": {
+    "live": "AO VIVO",
+    "loading": "Carregando canais...",
+    "error": "Erro ao carregar canais",
+    "notFound": "Nenhum canal encontrado",
+    "retry": "Tentar novamente"
+  },
+  "footer": {
+    "privacyPolicy": "Política de Privacidade",
+    "termsOfService": "Termos de Serviço",
+    "support": "Suporte",
+    "copyright": "© 2024 danraf77 LLC - USA. Todos os direitos reservados.",
+    "poweredBy": "Desenvolvido por"
+  },
+  "player": {
+    "loading": "Carregando...",
+    "error": "Erro ao carregar vídeo",
+    "play": "Reproduzir",
+    "pause": "Pausar",
+    "mute": "Silenciar",
+    "unmute": "Ativar som",
+    "fullscreen": "Tela cheia",
+    "exitFullscreen": "Sair da tela cheia"
+  },
+  "hero": {
+    "title": "O Mundo, uma só Tela.",
+    "description": "Conteúdo que conecta. Notícias que revelam. Música que inspira. Esportes que unem. Cultura que te acompanha.",
+    "subtitle": "Tudo acontece aqui. Ao vivo.",
+    "createChannel": "Crie seu canal"
+  },
+  "pages": {
+    "channel": {
+      "title": "Canal",
+      "loading": "Carregando canal...",
+      "notFound": "Canal não encontrado",
+      "liveStream": "Transmissão ao vivo"
+    },
+    "embed": {
+      "title": "Transmissão ao vivo",
+      "description": "Assistir transmissão ao vivo"
+    }
+  }
+}

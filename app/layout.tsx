@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import "./styles/player.css";
+import I18nProvider from "./components/I18nProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Usar Poppins como fuente principal (TASA Orbiter no está disponible en next/font/google)
+const poppins = Poppins({
+  variable: "--font-tasa-orbiter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -31,9 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppins.variable} antialiased`}
+        style={{ fontFamily: "'TASA Orbiter', var(--font-tasa-orbiter), sans-serif" }}
       >
-        {children}
+        <I18nProvider>
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );

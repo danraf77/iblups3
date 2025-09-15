@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import Hls from 'hls.js';
 import 'video.js/dist/video-js.css';
+import { getVideoJsConfig } from '../config/videojs.config';
 
 interface VideojsHlsProps {
   src: string;
@@ -16,7 +17,7 @@ interface VideojsHlsProps {
 
 export default function VideojsHls({
   src,
-  autoplay = true,
+  autoplay = false,
   muted = true,
   controls = true,
   poster,
@@ -28,97 +29,140 @@ export default function VideojsHls({
   const hlsRef = useRef<Hls | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (!videoRef.current) return;
 
-    // Usar HLS nativo por defecto para mejor compatibilidad
-    const useNativeHLS = true;
+    console.log('Starting Video.js initialization');
+    console.log(`Source URL: ${src}`);
 
-    // Configuración de Video.js
-    const videoJsOptions = {
+    // Configuración mínima de Video.js (igual que en simple-debug)
+    const options = {
       controls: true,
-      autoplay: autoplay ? 'muted' : false,
-      muted,
-      poster,
+      autoplay: false,
+      muted: true,
       fluid: true,
       responsive: true,
-      playsinline: true,
-      preload: 'metadata',
-      // Usar HLS nativo
-      html5: {
-        vhs: {
-          overrideNative: false
-        }
-      },
-      // Configuración de controlBar personalizada
-      controlBar: {
-        playToggle: true,
-        volumePanel: {
-          inline: false
-        },
-        currentTimeDisplay: true,
-        timeDivider: true,
-        durationDisplay: false,
-        progressControl: false, // Desactivar barra de progreso
-        liveDisplay: true,
-        remainingTimeDisplay: true,
-        customControlSpacer: true,
-        fullscreenToggle: true,
-        pictureInPictureToggle: false,
-        playbackRateMenuButton: false
-      },
-      // Configuración del botón de play personalizado
-      bigPlayButton: {
-        inline: false,
-        position: 'center'
-      }
+      preload: 'auto'
     };
 
-    // Inicializar Video.js
-    const player = videojs(videoRef.current, videoJsOptions);
-    playerRef.current = player;
+    console.log('Video.js options configured');
 
-    // Configurar eventos del player
-    player.ready(() => {
-      setIsLoading(false);
-      console.log('Video.js player ready');
-    });
+    try {
+      console.log('Initializing Video.js...');
+      const player = videojs(videoRef.current, options);
+      playerRef.current = player;
+      console.log('Video.js player created');
 
-    player.on('error', (error: Error) => {
-      console.error('Video.js error:', error);
-      setError('Error de reproducción');
-      setIsLoading(false);
-    });
-
-    player.on('loadstart', () => {
-      setIsLoading(true);
-      setError(null);
-    });
-
-    player.on('canplay', () => {
-      setIsLoading(false);
-      // Forzar reproducción cuando el video esté listo
-      if (autoplay && videoRef.current) {
-        videoRef.current.play().catch(console.error);
-      }
-    });
-
-    // Usar HLS nativo (más confiable)
-    videoRef.current!.src = src;
-    console.log('Using native HLS');
-    
-    // Forzar reproducción si autoplay está habilitado
-    if (autoplay) {
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play().catch(console.error);
+      player.ready(() => {
+        console.log('Player ready event fired');
+        setIsLoading(false);
+        
+        // Configurar fuente
+        console.log('Setting video source...');
+        player.src(src);
+        console.log('Video source set');
+        
+        // Forzar carga
+        console.log('Forcing video load...');
+        player.load();
+        console.log('Video load called');
+        
+        // Configurar controles para que solo aparezcan en hover
+        const controlBar = player.controlBar;
+        if (controlBar) {
+          // Ocultar controles inicialmente
+          controlBar.addClass('vjs-control-bar-hidden');
+          
+          // Mostrar controles en hover del player
+          player.on('mouseenter', () => {
+            controlBar.removeClass('vjs-control-bar-hidden');
+            setIsHovered(true);
+          });
+          
+          // Ocultar controles cuando el mouse sale del player
+          player.on('mouseleave', () => {
+            controlBar.addClass('vjs-control-bar-hidden');
+            setIsHovered(false);
+          });
         }
-      }, 100);
+
+        // Configurar eventos del logo
+        const logoContainer = document.getElementById('vjs-logo-container');
+        if (logoContainer) {
+          player.on('useractive', () => {
+            logoContainer.style.opacity = '1';
+          });
+          
+          player.on('userinactive', () => {
+            if (!player.paused()) {
+              logoContainer.style.opacity = '0';
+            }
+          });
+          
+          player.on('pause', () => {
+            logoContainer.style.opacity = '1';
+          });
+          
+          player.on('play', () => {
+            if (player.userActive()) {
+              logoContainer.style.opacity = '1';
+            } else {
+              logoContainer.style.opacity = '0';
+            }
+          });
+        }
+      });
+
+      // Eventos de debug
+      player.on('loadstart', () => {
+        console.log('loadstart event');
+        setIsLoading(true);
+        setError(null);
+      });
+
+      player.on('loadedmetadata', () => {
+        console.log('loadedmetadata event');
+      });
+
+      player.on('loadeddata', () => {
+        console.log('loadeddata event');
+      });
+
+      player.on('canplay', () => {
+        console.log('canplay event');
+        setIsLoading(false);
+      });
+
+      player.on('canplaythrough', () => {
+        console.log('canplaythrough event');
+      });
+
+      player.on('play', () => {
+        console.log('play event');
+      });
+
+      player.on('pause', () => {
+        console.log('pause event');
+      });
+
+      player.on('error', () => {
+        const error = player.error();
+        console.error('Video.js error:', error);
+        setError('Error de reproducción');
+        setIsLoading(false);
+      });
+
+    } catch (error) {
+      console.error('Exception initializing Video.js:', error);
+      setError('Error inicializando Video.js');
+      setIsLoading(false);
     }
 
     // Cleanup
     return () => {
+      console.log('Cleaning up Video.js player');
       if (hlsRef.current) {
         hlsRef.current.destroy();
       }
@@ -135,14 +179,39 @@ export default function VideojsHls({
   }, [src]);
 
   return (
-    <div className={`video-js-container ${className}`}>
+    <div 
+      className={`video-js-container ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <video
         ref={videoRef}
-        className="video-js vjs-default-skin"
+        className="video-js vjs-default-skin vjs-big-play-centered iblups"
         playsInline
-        preload="metadata"
+        controls
+        preload="auto"
+        muted
         data-setup="{}"
       />
+      
+      {/* Logo de iBlups en la parte superior izquierda - solo visible en hover */}
+      <div 
+        id="vjs-logo-container"
+        className="absolute top-4 left-4 z-10 transition-opacity duration-300 opacity-0"
+      >
+        <a 
+          href="https://iblups.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block"
+        >
+          <img 
+            src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg"
+            alt="iBlups"
+            className="h-8 w-auto hover:opacity-100 transition-opacity duration-200"
+          />
+        </a>
+      </div>
       
       {/* Loading spinner personalizado */}
       {isLoading && (

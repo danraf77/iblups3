@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "compare": "Comparer",
+    "demo": "Démo",
+    "debug": "Déboguer",
+    "producerAccess": "Accès producteur"
+  },
+  "tabs": {
+    "all": "Tous",
+    "popular": "Populaire",
+    "recent": "Récent"
+  },
+  "search": {
+    "placeholder": "Rechercher des chaînes...",
+    "liveChannels": "chaînes en direct"
+  },
+  "channels": {
+    "live": "EN DIRECT",
+    "loading": "Chargement des chaînes...",
+    "error": "Erreur lors du chargement des chaînes",
+    "notFound": "Aucune chaîne trouvée",
+    "retry": "Réessayer"
+  },
+  "footer": {
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation",
+    "support": "Support",
+    "copyright": "© 2024 danraf77 LLC - USA. Tous droits réservés.",
+    "poweredBy": "Propulsé par"
+  },
+  "player": {
+    "loading": "Chargement...",
+    "error": "Erreur lors du chargement de la vidéo",
+    "play": "Lire",
+    "pause": "Pause",
+    "mute": "Muet",
+    "unmute": "Activer le son",
+    "fullscreen": "Plein écran",
+    "exitFullscreen": "Quitter le plein écran"
+  },
+  "hero": {
+    "title": "Le Monde, un seul écran.",
+    "description": "Des histoires qui nous relient. L'actualité qui éclaire. La musique qui fait vibrer. Le sport qui rassemble. La culture qui vous accompagne.",
+    "subtitle": "Tout se passe ici, en direct.",
+    "createChannel": "Créez votre chaîne"
+  },
+  "pages": {
+    "channel": {
+      "title": "Chaîne",
+      "loading": "Chargement de la chaîne...",
+      "notFound": "Chaîne non trouvée",
+      "liveStream": "Diffusion en direct"
+    },
+    "embed": {
+      "title": "Diffusion en direct",
+      "description": "Regarder la diffusion en direct"
+    }
+  }
+}

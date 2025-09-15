@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "首页",
+    "compare": "比较",
+    "demo": "演示",
+    "debug": "调试",
+    "producerAccess": "制作人访问"
+  },
+  "tabs": {
+    "all": "全部",
+    "popular": "热门",
+    "recent": "最近"
+  },
+  "search": {
+    "placeholder": "搜索频道...",
+    "liveChannels": "个直播频道"
+  },
+  "channels": {
+    "live": "直播",
+    "loading": "正在加载频道...",
+    "error": "加载频道时出错",
+    "notFound": "未找到频道",
+    "retry": "重试"
+  },
+  "footer": {
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "support": "支持",
+    "copyright": "© 2024 danraf77 LLC - USA. 版权所有。",
+    "poweredBy": "技术支持"
+  },
+  "player": {
+    "loading": "加载中...",
+    "error": "加载视频时出错",
+    "play": "播放",
+    "pause": "暂停",
+    "mute": "静音",
+    "unmute": "取消静音",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏"
+  },
+  "hero": {
+    "title": "世界，尽在一屏。",
+    "description": "内容连接彼此。新闻洞悉万象。音乐启迪心灵。体育凝聚人心。文化陪伴同行。",
+    "subtitle": "一切尽在现场直播。",
+    "createChannel": "创建您的频道"
+  },
+  "pages": {
+    "channel": {
+      "title": "频道",
+      "loading": "正在加载频道...",
+      "notFound": "未找到频道",
+      "liveStream": "直播流"
+    },
+    "embed": {
+      "title": "直播流",
+      "description": "观看直播"
+    }
+  }
+}

@@ -73,29 +73,8 @@ export function useChannels({
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Ref para evitar llamadas duplicadas
-  const abortControllerRef = useRef<AbortController | null>(null);
-  const lastRequestRef = useRef<string>('');
 
   const fetchChannels = useCallback(async () => {
-    // Crear una clave única para esta request
-    const requestKey = `${page}-${limit}-${search}-${tab}`;
-    
-    // Si es la misma request, no hacer nada
-    if (lastRequestRef.current === requestKey) {
-      return;
-    }
-    
-    // Cancelar request anterior si existe
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    
-    // Crear nuevo AbortController
-    abortControllerRef.current = new AbortController();
-    lastRequestRef.current = requestKey;
-
     try {
       setLoading(true);
       setError(null);
@@ -108,7 +87,6 @@ export function useChannels({
       });
 
       const response = await fetch(`/api/channels/paginated?${params}`, {
-        signal: abortControllerRef.current.signal,
         cache: 'no-store',
         headers: {
           'Content-Type': 'application/json',
@@ -128,31 +106,20 @@ export function useChannels({
       setTotalPages(data.pagination.totalPages);
 
     } catch (err) {
-      // Only handle errors that are not abort errors
-      if (err instanceof Error && err.name !== 'AbortError') {
-        setError(err.message);
-        console.error('Error fetching channels:', err);
-      }
+      setError(err instanceof Error ? err.message : 'Error desconocido');
+      console.error('Error fetching channels:', err);
     } finally {
       setLoading(false);
     }
   }, [page, limit, search, tab]);
 
   const refetch = useCallback(() => {
-    lastRequestRef.current = ''; // Reset to force new request
     fetchChannels();
   }, [fetchChannels]);
 
   useEffect(() => {
     fetchChannels();
-    
-    // Cleanup on unmount
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-    };
-  }, [fetchChannels]);
+  }, [page, limit, search, tab]);
 
   return {
     channels,

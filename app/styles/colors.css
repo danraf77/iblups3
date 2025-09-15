@@ -12,8 +12,8 @@
   --eerie-black: #212529;
 
   /* Variables semánticas para la aplicación */
-  --bg-primary: #212529;        /* Fondo principal del web */
-  --bg-secondary: #212529;      /* Barra de menú - uniforme */
+  --bg-primary: #0B090A;        /* Fondo principal del web */
+  --bg-secondary: #161A1D;      /* Barra de menú - uniforme */
   --bg-tertiary: #212529;       /* Elementos terciarios - uniforme */
   --bg-card: #25282C;           /* Tarjetas - gris oscuro */
   --bg-card-hover: #343A40;     /* Hover de tarjetas - ligeramente más claro */

@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { getChannelUrlById, generateChannelUrl } from '../data/channelMapping';
+import { useTranslation } from '../hooks/useTranslation';
+import ClientOnly from './ClientOnly';
 
 interface Channel {
   id: string;
@@ -22,6 +24,7 @@ interface ChannelCardProps {
 }
 
 export default function ChannelCard({ channel }: ChannelCardProps) {
+  const { t } = useTranslation();
   const fallbackImage = "https://iblups.sfo3.cdn.digitaloceanspaces.com/app/brand/iblups_placeholder_player_channel.png";
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -67,33 +70,22 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
         {/* Live Badge */}
         {channel.is_on_live && (
           <div className="absolute top-2 left-2">
-            <span className="badge-live text-xs font-bold px-2 py-1 rounded">
-              LIVE
-            </span>
+            <ClientOnly fallback={<span className="badge-live text-xs font-bold px-2 py-1 rounded">LIVE</span>}>
+              <span className="badge-live text-xs font-bold px-2 py-1 rounded">
+                {t('channels.live')}
+              </span>
+            </ClientOnly>
           </div>
         )}
         
-        {/* New Tab Indicator */}
-        <div className="absolute top-2 right-2">
-          <div className="bg-black bg-opacity-60 rounded-full p-1">
-            <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </div>
-        </div>
         
       </div>
       
       {/* Channel Info */}
       <div className="p-4">
-        <h3 className="text-primary font-semibold text-sm mb-1 line-clamp-1">
+        <h3 className="text-primary font-semibold text-sm line-clamp-1">
           {channel.name}
         </h3>
-        {channel.category && (
-          <p className="text-muted text-xs line-clamp-1">
-            {channel.category.name}
-          </p>
-        )}
       </div>
     </div>
   );

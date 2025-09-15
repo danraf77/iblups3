@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "compare": "Vergleichen",
+    "demo": "Demo",
+    "debug": "Debuggen",
+    "producerAccess": "Produzentenzugang"
+  },
+  "tabs": {
+    "all": "Alle",
+    "popular": "Beliebt",
+    "recent": "Kürzlich"
+  },
+  "search": {
+    "placeholder": "Kanäle suchen...",
+    "liveChannels": "Live-Kanäle"
+  },
+  "channels": {
+    "live": "LIVE",
+    "loading": "Kanäle werden geladen...",
+    "error": "Fehler beim Laden der Kanäle",
+    "notFound": "Keine Kanäle gefunden",
+    "retry": "Wiederholen"
+  },
+  "footer": {
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsOfService": "Nutzungsbedingungen",
+    "support": "Support",
+    "copyright": "© 2024 danraf77 LLC - USA. Alle Rechte vorbehalten.",
+    "poweredBy": "Unterstützt von"
+  },
+  "player": {
+    "loading": "Wird geladen...",
+    "error": "Fehler beim Laden des Videos",
+    "play": "Abspielen",
+    "pause": "Pausieren",
+    "mute": "Stumm",
+    "unmute": "Ton einschalten",
+    "fullscreen": "Vollbild",
+    "exitFullscreen": "Vollbild verlassen"
+  },
+  "hero": {
+    "title": "Die Welt, ein Bildschirm.",
+    "description": "Inhalte, die verbinden. Nachrichten, die aufklären. Musik, die inspiriert. Sport, der vereint. Unterhaltung, die Sie begleitet.",
+    "subtitle": "Alles passiert hier. Live.",
+    "createChannel": "Erstellen Sie Ihren Kanal"
+  },
+  "pages": {
+    "channel": {
+      "title": "Kanal",
+      "loading": "Kanal wird geladen...",
+      "notFound": "Kanal nicht gefunden",
+      "liveStream": "Live-Stream"
+    },
+    "embed": {
+      "title": "Live-Stream",
+      "description": "Live-Stream ansehen"
+    }
+  }
+}

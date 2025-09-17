@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ChannelCard from './ChannelCard';
 import Pagination from './Pagination';
 import Footer from './Footer';
+import Navbar from './Navbar';
 import ClientOnly from './ClientOnly';
 import { useChannels } from '../hooks/useChannels';
 import { useTranslation } from '../hooks/useTranslation';
@@ -93,73 +94,12 @@ function ChannelsPageContent() {
 
   return (
     <div className="page-with-footer bg-primary">
-      {/* Header */}
-      <header className="bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Image 
-                src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                alt="iBlups" 
-                width={120}
-                height={32}
-                className="h-8 w-auto"
-              />
-            </div>
-
-
-            {/* Search and View Controls */}
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search channels..."
-                  value={searchTerm}
-                  onChange={(e) => handleSearchChange(e.target.value)}
-                  className="bg-input text-primary placeholder-muted px-4 py-2 pr-10 rounded-md focus:outline-none focus-ring"
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <div className="flex bg-input rounded-md">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-button-active' : ''}`}
-                  >
-                    <svg className="h-4 w-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-button-active' : ''}`}
-                  >
-                    <svg className="h-4 w-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Producer Access Button */}
-              <a
-                href="https://studio.iblups.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-md hover:bg-[#1e5bb8] transition-colors duration-200"
-              >
-                Producer access
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Navbar mejorado y responsive - Cursor */}
+      <Navbar 
+        showSearch={true}
+        onSearchChange={handleSearchChange}
+        searchValue={searchTerm}
+      />
 
                   {/* Hero Section - Mensaje de presentación de la marca */}
                   <div className="w-full text-center py-16" style={{ backgroundColor: '#F5F3F4' }}>
@@ -189,7 +129,7 @@ function ChannelsPageContent() {
                     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
                       <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-bold text-primary">
+                        <h2 className="text-lg sm:text-2xl font-bold text-primary">
                           {totalLiveChannels} live channels
                         </h2>
           {!loading && !error && (
@@ -348,73 +288,12 @@ function ChannelsPageContentTranslated() {
 
   return (
     <div className="page-with-footer bg-primary">
-      {/* Header */}
-      <header className="bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Image 
-                src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                alt="iBlups" 
-                width={120}
-                height={32}
-                className="h-8 w-auto"
-              />
-            </div>
-
-
-            {/* Search and View Controls */}
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder={t('search.placeholder')}
-                  value={searchTerm}
-                  onChange={(e) => handleSearchChange(e.target.value)}
-                  className="bg-input text-primary placeholder-muted px-4 py-2 pr-10 rounded-md focus:outline-none focus-ring"
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <div className="flex bg-input rounded-md">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-button-active' : ''}`}
-                  >
-                    <svg className="h-4 w-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-button-active' : ''}`}
-                  >
-                    <svg className="h-4 w-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Producer Access Button */}
-              <a
-                href="https://studio.iblups.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-md hover:bg-[#1e5bb8] transition-colors duration-200"
-              >
-                {t('navigation.producerAccess')}
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Navbar mejorado y responsive - Cursor */}
+      <Navbar 
+        showSearch={true}
+        onSearchChange={handleSearchChange}
+        searchValue={searchTerm}
+      />
 
       {/* Hero Section - Mensaje de presentación de la marca */}
       <div className="w-full text-center py-16" style={{ backgroundColor: '#F5F3F4' }}>
@@ -447,7 +326,7 @@ function ChannelsPageContentTranslated() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-primary">
+            <h2 className="text-lg sm:text-2xl font-bold text-primary">
               {totalLiveChannels} {t('search.liveChannels')}
             </h2>
           {!loading && !error && (

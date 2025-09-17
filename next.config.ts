@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Configurar allowedDevOrigins para evitar warnings de cross-origin - Cursor
+  experimental: {
+    allowedDevOrigins: ['192.168.1.39:3000', 'localhost:3000'],
+  },
 };
 
 export default nextConfig;

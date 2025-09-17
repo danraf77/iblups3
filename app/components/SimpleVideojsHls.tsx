@@ -52,6 +52,7 @@ export default function SimpleVideojsHls({
       preload: 'auto',
       poster: poster,
       volume: 0.5, // Volumen inicial en 50%
+      playsinline: true, // Reproducción inline en móviles - Cursor
       // Configuración estándar de controlBar - Video.js manejará los estilos
       controlBar: {
         playToggle: true,
@@ -173,6 +174,8 @@ export default function SimpleVideojsHls({
         controls
         preload="auto"
         muted
+        playsInline
+        webkit-playsinline="true"
         style={{ width: '100%', height: '400px' }}
       />
       

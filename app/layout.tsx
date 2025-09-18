@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import "./styles/player.css";
+
 import I18nProvider from "./components/I18nProvider";
 
 // Usar Poppins como fuente principal (TASA Orbiter no está disponible en next/font/google)
@@ -12,7 +12,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "iBlups - Streaming Platform",
+  title: "iblups - Streaming Platform",
   description: "Modern streaming platform with live channels, categories and advanced search",
   icons: {
     icon: "https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_icon2.png",

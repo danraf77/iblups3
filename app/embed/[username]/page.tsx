@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import SimpleVideojsHls from '../../components/SimpleVideojsHls';
+import VideoJS from '../../components/Player';
 import { getHlsUrlServerSide } from '../../utils/getHlsUrl';
 
 interface EmbedPageProps {
@@ -12,6 +12,12 @@ interface EmbedPageProps {
     muted?: string;
     controls?: string;
     poster?: string;
+    volume?: string;
+    fluid?: string;
+    liveui?: string;
+    responsive?: string;
+    preload?: string;
+    playsinline?: string;
   };
 }
 
@@ -54,12 +60,29 @@ export async function generateMetadata(
 
 export default async function EmbedPage({ params, searchParams }: EmbedPageProps) {
   const { username } = params;
-  const { autoplay, muted, controls, poster } = searchParams ?? {};
+  const { 
+    autoplay, 
+    muted, 
+    controls, 
+    poster, 
+    volume, 
+    fluid, 
+    liveui, 
+    responsive, 
+    preload, 
+    playsinline 
+  } = searchParams ?? {};
 
-  // Parsear query parameters con defaults
+  // Parsear query parameters con defaults - Cursor
   const autoplayEnabled = autoplay === 'true';
   const mutedEnabled = muted !== 'false';
   const controlsEnabled = controls !== 'false';
+  const fluidEnabled = fluid !== 'false';
+  const liveuiEnabled = liveui !== 'false';
+  const responsiveEnabled = responsive !== 'false';
+  const playsinlineEnabled = playsinline !== 'false';
+  const volumeValue = volume ? parseFloat(volume) : 0.5;
+  const preloadValue = (preload as 'auto' | 'metadata' | 'none') || 'auto';
 
   let hlsUrl = '';
   let posterUrl = '';
@@ -75,6 +98,22 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
     notFound();
   }
 
+  // Configuración del Player2 - Cursor
+  const playerConfig = {
+    streamUrl: hlsUrl,
+    thumbnailUrl: posterUrl,
+    autoplay: autoplayEnabled,
+    muted: mutedEnabled,
+    controls: controlsEnabled,
+    fluid: fluidEnabled,
+    liveui: liveuiEnabled,
+    responsive: responsiveEnabled,
+    preload: preloadValue,
+    playsinline: playsinlineEnabled,
+    volume: volumeValue,
+    className: 'embed-player'
+  };
+
   return (
     <>
       {/* Preload del poster para carga más rápida */}
@@ -87,20 +126,16 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
       ) : null}
 
       <div className="embed-page w-full h-screen bg-black">
-        <SimpleVideojsHls
-          src={hlsUrl}
-          autoplay={autoplayEnabled}
-          muted={mutedEnabled}
-          controls={controlsEnabled}
-          poster={posterUrl}
-        />
+        <VideoJS {...playerConfig} />
       </div>
     </>
   );
 }
 
-// Comentario: Página de embed creada con Cursor
-// - Soporte completo para query parameters (autoplay, muted, controls, poster)
-// - Integración con VideojsHls component
+// Comentario: Página de embed actualizada con Player2 - Cursor
+// - Soporte completo para query parameters (autoplay, muted, controls, poster, volume, etc.)
+// - Integración con Player2 component (Video.js moderno)
 // - Manejo server-side del cifrado de streamId
 // - Optimizada para uso en iframe
+// - Logo de iBlups con hover automático
+// - Volumen por defecto al 50%

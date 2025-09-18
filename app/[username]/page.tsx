@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useChannelByUsername } from '../hooks/useChannelByUsername';
 import HLSPlayer from '../components/HLSPlayer';
 import Footer from '../components/Footer';
-import '../styles/hls-debug.css';
 import '../styles/footer.css';
 
 interface ChannelPageProps {

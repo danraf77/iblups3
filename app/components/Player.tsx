@@ -21,8 +21,9 @@ type Props = {
   className?: string;
   
   // Opciones avanzadas - Cursor
-  options?: any & {
+  options?: {
     sources?: { src: string; type: string }[];
+    [key: string]: unknown;
   };
   onReady?: (player: any) => void;
 };
@@ -99,7 +100,9 @@ const VideoJS: React.FC<Props> = ({
           player.muted(false); // Desmutear para que el volumen funcione
         }
         
-        onReady && onReady(player);
+        if (onReady) {
+          onReady(player);
+        }
       }));
     } else if (playerRef.current) {
       const player = playerRef.current;

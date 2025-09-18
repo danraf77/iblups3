@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
 import ChannelCard from './components/ChannelCard';
 import Pagination from './components/Pagination';
 import Footer from './components/Footer';
@@ -24,7 +23,6 @@ function HomePageContent() {
   const [currentPage, setCurrentPage] = useState(urlPage);
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [activeTab, setActiveTab] = useState(urlTab);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const channelsPerPage = 16;
 
@@ -32,7 +30,6 @@ function HomePageContent() {
   const {
     channels,
     totalLiveChannels,
-    currentPage: apiCurrentPage,
     totalPages,
     loading,
     error,
@@ -58,7 +55,7 @@ function HomePageContent() {
   }, [urlPage, urlSearch, urlTab, currentPage, searchTerm, activeTab]);
 
   // Function to update the URL
-  const updateURL = (page: number, search: string, tab: string) => {
+  const updateURL = useCallback((page: number, search: string, tab: string) => {
     const params = new URLSearchParams();
     if (page > 1) params.set('page', page.toString());
     if (search) params.set('search', search);
@@ -67,14 +64,14 @@ function HomePageContent() {
     const queryString = params.toString();
     const newURL = queryString ? `/?${queryString}` : '/';
     router.push(newURL, { scroll: false });
-  };
+  }, [router]);
 
   const handlePageChange = useCallback((page: number) => {
     if (page !== currentPage) {
       setCurrentPage(page);
       updateURL(page, searchTerm, activeTab);
     }
-  }, [currentPage, searchTerm, activeTab]);
+  }, [currentPage, searchTerm, activeTab, updateURL]);
 
   const handleSearchChange = useCallback((search: string) => {
     if (search !== searchTerm) {
@@ -82,15 +79,8 @@ function HomePageContent() {
       setCurrentPage(1); // Reset to first page when searching
       updateURL(1, search, activeTab);
     }
-  }, [searchTerm, activeTab]);
+  }, [searchTerm, activeTab, updateURL]);
 
-  const handleTabChange = useCallback((tab: string) => {
-    if (tab !== activeTab) {
-      setActiveTab(tab);
-      setCurrentPage(1); // Reset to first page when changing tab
-      updateURL(1, searchTerm, tab);
-    }
-  }, [activeTab, searchTerm]);
 
   return (
     <div className="page-with-footer bg-primary">
@@ -173,11 +163,7 @@ function HomePageContent() {
           ) : (
             <>
               {/* Channels Grid */}
-              <div className={`grid gap-6 ${
-                viewMode === 'grid' 
-                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-                  : 'grid-cols-1'
-              }`}>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {channels.map((channel) => (
                   <ChannelCard key={channel.id} channel={channel} />
                 ))}
@@ -218,7 +204,6 @@ function HomePageContentTranslated() {
   const [currentPage, setCurrentPage] = useState(urlPage);
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [activeTab, setActiveTab] = useState(urlTab);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const channelsPerPage = 16;
 
@@ -226,7 +211,6 @@ function HomePageContentTranslated() {
   const {
     channels,
     totalLiveChannels,
-    currentPage: apiCurrentPage,
     totalPages,
     loading,
     error,
@@ -252,7 +236,7 @@ function HomePageContentTranslated() {
   }, [urlPage, urlSearch, urlTab, currentPage, searchTerm, activeTab]);
 
   // Function to update the URL
-  const updateURL = (page: number, search: string, tab: string) => {
+  const updateURL = useCallback((page: number, search: string, tab: string) => {
     const params = new URLSearchParams();
     if (page > 1) params.set('page', page.toString());
     if (search) params.set('search', search);
@@ -261,14 +245,14 @@ function HomePageContentTranslated() {
     const queryString = params.toString();
     const newURL = queryString ? `/?${queryString}` : '/';
     router.push(newURL, { scroll: false });
-  };
+  }, [router]);
 
   const handlePageChange = useCallback((page: number) => {
     if (page !== currentPage) {
       setCurrentPage(page);
       updateURL(page, searchTerm, activeTab);
     }
-  }, [currentPage, searchTerm, activeTab]);
+  }, [currentPage, searchTerm, activeTab, updateURL]);
 
   const handleSearchChange = useCallback((search: string) => {
     if (search !== searchTerm) {
@@ -276,15 +260,8 @@ function HomePageContentTranslated() {
       setCurrentPage(1); // Reset to first page when searching
       updateURL(1, search, activeTab);
     }
-  }, [searchTerm, activeTab]);
+  }, [searchTerm, activeTab, updateURL]);
 
-  const handleTabChange = useCallback((tab: string) => {
-    if (tab !== activeTab) {
-      setActiveTab(tab);
-      setCurrentPage(1); // Reset to first page when changing tab
-      updateURL(1, searchTerm, tab);
-    }
-  }, [activeTab, searchTerm]);
 
   return (
     <div className="page-with-footer bg-primary">
@@ -370,11 +347,7 @@ function HomePageContentTranslated() {
           ) : (
             <>
               {/* Channels Grid */}
-              <div className={`grid gap-6 ${
-                viewMode === 'grid' 
-                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-                  : 'grid-cols-1'
-              }`}>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {channels.map((channel) => (
                   <ChannelCard key={channel.id} channel={channel} />
                 ))}

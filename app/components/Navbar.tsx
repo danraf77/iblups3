@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '../hooks/useTranslation';
-import ClientOnly from './ClientOnly';
 
 interface NavbarProps {
   showSearch?: boolean;

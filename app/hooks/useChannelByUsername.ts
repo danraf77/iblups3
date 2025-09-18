@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface Channel {
   id: string;
@@ -28,7 +28,7 @@ export function useChannelByUsername(username: string): UseChannelByUsernameResu
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchChannel = async () => {
+  const fetchChannel = useCallback(async () => {
     if (!username) {
       setLoading(false);
       return;
@@ -59,11 +59,11 @@ export function useChannelByUsername(username: string): UseChannelByUsernameResu
     } finally {
       setLoading(false);
     }
-  };
+  }, [username]);
 
   useEffect(() => {
     fetchChannel();
-  }, [username]);
+  }, [username, fetchChannel]);
 
   const refetch = () => {
     fetchChannel();

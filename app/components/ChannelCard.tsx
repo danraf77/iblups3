@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { getChannelUrlById, generateChannelUrl } from '../data/channelMapping';
+import Image from 'next/image';
+import { generateChannelUrl } from '../data/channelMapping';
 import { useTranslation } from '../hooks/useTranslation';
 import ClientOnly from './ClientOnly';
 
@@ -57,14 +58,16 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
     >
       {/* Thumbnail Container */}
       <div className="relative aspect-video bg-black">
-        <img
+        <Image
           src={imageSrc}
           alt={channel.name}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+          fill
+          className={`object-cover transition-opacity duration-300 ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={handleImageLoad}
           onError={handleImageError}
+          unoptimized
         />
         
         {/* Live Badge */}

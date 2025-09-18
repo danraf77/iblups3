@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface Channel {
   id: string;
@@ -119,7 +119,7 @@ export function useChannels({
 
   useEffect(() => {
     fetchChannels();
-  }, [page, limit, search, tab]);
+  }, [fetchChannels]);
 
   return {
     channels,

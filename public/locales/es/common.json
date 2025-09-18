@@ -4,7 +4,8 @@
     "compare": "Comparar",
     "demo": "Demo",
     "debug": "Depurar",
-    "producerAccess": "Acceso de productor"
+    "producerAccess": "Acceso de productor",
+    "toggleMenu": "Alternar menú móvil"
   },
   "tabs": {
     "all": "Todos",

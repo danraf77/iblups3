@@ -10,6 +10,8 @@ import deCommon from '../public/locales/de/common.json';
 import jaCommon from '../public/locales/ja/common.json';
 import frCommon from '../public/locales/fr/common.json';
 import arCommon from '../public/locales/ar/common.json';
+import itCommon from '../public/locales/it/common.json';
+import koCommon from '../public/locales/ko/common.json';
 
 const resources = {
   en: {
@@ -33,6 +35,12 @@ const resources = {
   ar: {
     common: arCommon,
   },
+  it: {
+    common: itCommon,
+  },
+  ko: {
+    common: koCommon,
+  },
 };
 
 i18n
@@ -54,7 +62,7 @@ i18n
 
     // Configuración para idiomas RTL (árabe)
     lng: 'en',
-    supportedLngs: ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar'],
+    supportedLngs: ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'it', 'ko'],
     
     // Configuración de namespaces
     defaultNS: 'common',

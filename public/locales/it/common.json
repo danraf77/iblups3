@@ -1,0 +1,61 @@
+{
+  "navigation": {
+    "home": "Home",
+    "compare": "Confronta",
+    "demo": "Demo",
+    "debug": "Debug",
+    "producerAccess": "Accesso produttore",
+    "toggleMenu": "Attiva/disattiva menu mobile"
+  },
+  "tabs": {
+    "all": "Tutti",
+    "popular": "Popolari",
+    "recent": "Recenti"
+  },
+  "search": {
+    "placeholder": "Cerca canali...",
+    "liveChannels": "canali live"
+  },
+  "channels": {
+    "live": "LIVE",
+    "loading": "Caricamento canali...",
+    "error": "Errore nel caricamento dei canali",
+    "notFound": "Nessun canale trovato",
+    "retry": "Riprova"
+  },
+  "footer": {
+    "privacyPolicy": "Politica sulla Privacy",
+    "termsOfService": "Termini di Servizio",
+    "support": "Supporto",
+    "copyright": "© 2025 danraf77 LLC - USA. Tutti i diritti riservati.",
+    "poweredBy": "Powered by"
+  },
+  "player": {
+    "loading": "Caricamento...",
+    "error": "Errore nel caricamento del video",
+    "play": "Riproduci",
+    "pause": "Pausa",
+    "mute": "Muto",
+    "unmute": "Attiva audio",
+    "fullscreen": "Schermo intero",
+    "exitFullscreen": "Esci da schermo intero"
+  },
+  "hero": {
+    "title": "Il Mondo, un unico Schermo.",
+    "description": "Storie che uniscono. Notizie che rivelano. Musica che emoziona. Sport che appassiona. Cultura per ogni momento.",
+    "subtitle": "Tutto accade qui. Dal vivo.",
+    "createChannel": "Crea il tuo canale"
+  },
+  "pages": {
+    "channel": {
+      "title": "Canale",
+      "loading": "Caricamento canale...",
+      "notFound": "Canale non trovato",
+      "liveStream": "Streaming Live"
+    },
+    "embed": {
+      "title": "Streaming Live",
+      "description": "Guarda lo streaming live"
+    }
+  }
+}

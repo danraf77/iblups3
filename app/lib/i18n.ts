@@ -11,7 +11,8 @@ const resources = {
         "compare": "Compare",
         "demo": "Demo",
         "debug": "Debug",
-        "producerAccess": "Access your channel"
+        "producerAccess": "Access your channel",
+        "toggleMenu": "Toggle mobile menu"
       },
       "tabs": {
         "all": "All",
@@ -57,7 +58,8 @@ const resources = {
         "compare": "Comparar",
         "demo": "Demo",
         "debug": "Depurar",
-        "producerAccess": "Acceso a tu canal"
+        "producerAccess": "Acceso a tu canal",
+        "toggleMenu": "Alternar menú móvil"
       },
       "tabs": {
         "all": "Todos",
@@ -103,7 +105,8 @@ const resources = {
         "compare": "比较",
         "demo": "演示",
         "debug": "调试",
-        "producerAccess": "访问您的频道"
+        "producerAccess": "访问您的频道",
+        "toggleMenu": "切换移动菜单"
       },
       "tabs": {
         "all": "全部",
@@ -149,7 +152,8 @@ const resources = {
         "compare": "Vergleichen",
         "demo": "Demo",
         "debug": "Debuggen",
-        "producerAccess": "Zugang zu deinem Kanal"
+        "producerAccess": "Zugang zu deinem Kanal",
+        "toggleMenu": "Mobilmenü umschalten"
       },
       "tabs": {
         "all": "Alle",
@@ -195,7 +199,8 @@ const resources = {
         "compare": "比較",
         "demo": "デモ",
         "debug": "デバッグ",
-        "producerAccess": "チャンネルアクセス"
+        "producerAccess": "チャンネルアクセス",
+        "toggleMenu": "モバイルメニューを切り替え"
       },
       "tabs": {
         "all": "すべて",
@@ -241,7 +246,8 @@ const resources = {
         "compare": "Comparer",
         "demo": "Démo",
         "debug": "Déboguer",
-        "producerAccess": "Accès à votre chaîne"
+        "producerAccess": "Accès à votre chaîne",
+        "toggleMenu": "Basculer le menu mobile"
       },
       "tabs": {
         "all": "Tous",
@@ -287,7 +293,8 @@ const resources = {
         "compare": "مقارنة",
         "demo": "عرض توضيحي",
         "debug": "تصحيح",
-        "producerAccess": "الوصول إلى قناتك"
+        "producerAccess": "الوصول إلى قناتك",
+        "toggleMenu": "تبديل القائمة المحمولة"
       },
       "tabs": {
         "all": "الكل",
@@ -333,7 +340,8 @@ const resources = {
         "compare": "Comparar",
         "demo": "Demo",
         "debug": "Depurar",
-        "producerAccess": "Acesso ao seu canal"
+        "producerAccess": "Acesso ao seu canal",
+        "toggleMenu": "Alternar menu móvel"
       },
       "tabs": {
         "all": "Todos",
@@ -369,6 +377,100 @@ const resources = {
         "description": "Conteúdo que conecta. Notícias que revelam. Música que inspira. Esportes que unem. Cultura que te acompanha.",
         "subtitle": "Tudo acontece aqui. Ao vivo.",
         "createChannel": "Crie seu canal"
+      }
+    },
+  },
+  it: {
+    common: {
+      "navigation": {
+        "home": "Home",
+        "compare": "Confronta",
+        "demo": "Demo",
+        "debug": "Debug",
+        "producerAccess": "Accesso produttore",
+        "toggleMenu": "Attiva/disattiva menu mobile"
+      },
+      "tabs": {
+        "all": "Tutti",
+        "popular": "Popolari",
+        "recent": "Recenti"
+      },
+      "search": {
+        "placeholder": "Cerca canali...",
+        "liveChannels": "canali live",
+        "tryDifferent": "Prova termini di ricerca diversi"
+      },
+      "channels": {
+        "live": "LIVE",
+        "loading": "Caricamento canali...",
+        "error": "Errore nel caricamento dei canali",
+        "notFound": "Nessun canale trovato",
+        "retry": "Riprova"
+      },
+      "footer": {
+        "privacyPolicy": "Politica sulla Privacy",
+        "termsOfService": "Termini di Servizio",
+        "support": "Supporto",
+        "copyright": "© 2024 danraf77 LLC - USA. Tutti i diritti riservati.",
+        "poweredBy": "Powered by"
+      },
+      "pagination": {
+        "previous": "Precedente",
+        "next": "Successivo",
+        "pageOf": "Pagina {{current}} di {{total}}"
+      },
+      "hero": {
+        "title": "Il Mondo, un unico Schermo.",
+        "description": "Storie che uniscono. Notizie che rivelano. Musica che emoziona. Sport che appassiona. Cultura per ogni momento.",
+        "subtitle": "Tutto accade qui. Dal vivo.",
+        "createChannel": "Crea il tuo canale"
+      }
+    },
+  },
+  ko: {
+    common: {
+      "navigation": {
+        "home": "홈",
+        "compare": "비교",
+        "demo": "데모",
+        "debug": "디버그",
+        "producerAccess": "제작자 접근",
+        "toggleMenu": "모바일 메뉴 토글"
+      },
+      "tabs": {
+        "all": "전체",
+        "popular": "인기",
+        "recent": "최신"
+      },
+      "search": {
+        "placeholder": "채널 검색...",
+        "liveChannels": "라이브 채널",
+        "tryDifferent": "다른 검색어를 시도해보세요"
+      },
+      "channels": {
+        "live": "라이브",
+        "loading": "채널 로딩 중...",
+        "error": "채널 로딩 오류",
+        "notFound": "채널을 찾을 수 없습니다",
+        "retry": "다시 시도"
+      },
+      "footer": {
+        "privacyPolicy": "개인정보 보호정책",
+        "termsOfService": "서비스 약관",
+        "support": "지원",
+        "copyright": "© 2024 danraf77 LLC - USA. 모든 권리 보유.",
+        "poweredBy": "Powered by"
+      },
+      "pagination": {
+        "previous": "이전",
+        "next": "다음",
+        "pageOf": "{{current}} / {{total}} 페이지"
+      },
+      "hero": {
+        "title": "세상을 하나의 스크린에.",
+        "description": "연결하는 콘텐츠. 세상을 보는 뉴스. 영감을 주는 음악. 우리를 하나로 만드는 스포츠. 일상에 활력을 더하는 엔터테인먼트.",
+        "subtitle": "모든 순간, 바로 여기에서 라이브로.",
+        "createChannel": "채널 만들기"
       }
     },
   },
@@ -419,13 +521,16 @@ i18n
           'ar-AE': 'ar',
           'pt-BR': 'pt',
           'pt-PT': 'pt',
+          'it-IT': 'it',
+          'it-CH': 'it',
+          'ko-KR': 'ko',
         };
         
         // Si el idioma está en el mapa, usarlo; si no, usar solo el código base
         const mappedLang = languageMap[lng] || lng.split('-')[0];
         
         // Verificar si el idioma está soportado, si no, usar inglés
-        const supportedLngs = ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt'];
+        const supportedLngs = ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt', 'it', 'ko'];
         return supportedLngs.includes(mappedLang) ? mappedLang : 'en';
       },
     },
@@ -434,7 +539,7 @@ i18n
       escapeValue: false, // React ya escapa los valores
     },
 
-    supportedLngs: ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt'],
+    supportedLngs: ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt', 'it', 'ko'],
     
     // Configuración de namespaces
     defaultNS: 'common',

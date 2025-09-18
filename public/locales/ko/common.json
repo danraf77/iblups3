@@ -1,0 +1,61 @@
+{
+  "navigation": {
+    "home": "홈",
+    "compare": "비교",
+    "demo": "데모",
+    "debug": "디버그",
+    "producerAccess": "제작자 접근",
+    "toggleMenu": "모바일 메뉴 토글"
+  },
+  "tabs": {
+    "all": "전체",
+    "popular": "인기",
+    "recent": "최신"
+  },
+  "search": {
+    "placeholder": "채널 검색...",
+    "liveChannels": "라이브 채널"
+  },
+  "channels": {
+    "live": "라이브",
+    "loading": "채널 로딩 중...",
+    "error": "채널 로딩 오류",
+    "notFound": "채널을 찾을 수 없습니다",
+    "retry": "다시 시도"
+  },
+  "footer": {
+    "privacyPolicy": "개인정보 보호정책",
+    "termsOfService": "서비스 약관",
+    "support": "지원",
+    "copyright": "© 2025 danraf77 LLC - USA. 모든 권리 보유.",
+    "poweredBy": "Powered by"
+  },
+  "player": {
+    "loading": "로딩 중...",
+    "error": "비디오 로딩 오류",
+    "play": "재생",
+    "pause": "일시정지",
+    "mute": "음소거",
+    "unmute": "음소거 해제",
+    "fullscreen": "전체화면",
+    "exitFullscreen": "전체화면 종료"
+  },
+  "hero": {
+    "title": "세상을 하나의 스크린에.",
+    "description": "연결하는 콘텐츠. 세상을 보는 뉴스. 영감을 주는 음악. 우리를 하나로 만드는 스포츠. 일상에 활력을 더하는 엔터테인먼트.",
+    "subtitle": "모든 순간, 바로 여기에서 라이브로.",
+    "createChannel": "채널 만들기"
+  },
+  "pages": {
+    "channel": {
+      "title": "채널",
+      "loading": "채널 로딩 중...",
+      "notFound": "채널을 찾을 수 없습니다",
+      "liveStream": "라이브 스트림"
+    },
+    "embed": {
+      "title": "라이브 스트림",
+      "description": "라이브 스트리밍 시청"
+    }
+  }
+}

@@ -10,6 +10,8 @@ const languages = [
   { code: 'ja', name: '日本語', flag: '🇯🇵' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'ko', name: '한국어', flag: '🇰🇷' },
 ];
 
 export default function LanguageSelector() {

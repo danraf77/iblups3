@@ -81,7 +81,7 @@ export default function Navbar({
                 </div>
                 <input
                   type="text"
-                  placeholder="Search channels..."
+                  placeholder={t('search.placeholder')}
                   value={searchValue}
                   onChange={(e) => onSearchChange?.(e.target.value)}
                   className="w-64 lg:w-80 bg-input text-primary placeholder-muted pl-10 pr-4 py-2 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
@@ -96,7 +96,7 @@ export default function Navbar({
               rel="noopener noreferrer"
               className="px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-lg hover:bg-[#1e5bb8] transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105"
             >
-              Access your channel
+              {t('navigation.producerAccess')}
             </a>
 
           </div>
@@ -107,7 +107,7 @@ export default function Navbar({
               onClick={toggleMobileMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-muted hover:text-primary hover:bg-button-active focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200"
               aria-expanded={isMobileMenuOpen}
-              aria-label="Toggle mobile menu"
+              aria-label={t('navigation.toggleMenu')}
             >
               <svg className={`h-6 w-6 transition-transform duration-200 ${isMobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMobileMenuOpen ? (
@@ -138,7 +138,7 @@ export default function Navbar({
                   </div>
                   <input
                     type="text"
-                    placeholder="Search channels..."
+                    placeholder={t('search.placeholder')}
                     value={searchValue}
                     onChange={(e) => onSearchChange?.(e.target.value)}
                     className="w-full bg-input text-primary placeholder-muted pl-10 pr-4 py-3 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -159,7 +159,7 @@ export default function Navbar({
                 <svg className="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                Access your channel
+                {t('navigation.producerAccess')}
               </a>
             </div>
           </div>

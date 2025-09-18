@@ -5,6 +5,22 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '../styles/player.css';
 
+// Definir tipos para video.js - Cursor
+type VideoJSPlayer = {
+  autoplay: (value: boolean) => void;
+  muted: (value: boolean) => void;
+  controls: (value: boolean) => void;
+  src: (sources: { src: string; type: string }[]) => void;
+  volume: (value: number) => void;
+  dispose: () => void;
+  isDisposed: () => boolean;
+  el_: Element;
+  on: (event: string, callback: () => void) => void;
+  paused: () => boolean;
+  userActive: () => boolean | undefined;
+  log: (message: string) => void;
+};
+
 type Props = {
   // Opciones del player - Cursor
   streamUrl: string;
@@ -25,7 +41,7 @@ type Props = {
     sources?: { src: string; type: string }[];
     [key: string]: unknown;
   };
-  onReady?: (player: any) => void;
+  onReady?: (player: VideoJSPlayer) => void;
 };
 
 const VideoJS: React.FC<Props> = ({ 
@@ -45,7 +61,7 @@ const VideoJS: React.FC<Props> = ({
   onReady 
 }) => {
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
-  const playerRef = React.useRef<any>(null);
+  const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
   React.useEffect(() => {
     if (!playerRef.current && wrapRef.current) {
@@ -92,7 +108,7 @@ const VideoJS: React.FC<Props> = ({
         videojs.log('player is ready');
         
         // Agregar logo de iBlups - Cursor
-        addLogo(player);
+        addLogo(player as VideoJSPlayer);
         
         // Establecer volumen inicial - Cursor
         player.volume(volume);
@@ -101,7 +117,7 @@ const VideoJS: React.FC<Props> = ({
         }
         
         if (onReady) {
-          onReady(player);
+          onReady(player as VideoJSPlayer);
         }
       }));
     } else if (playerRef.current) {
@@ -124,7 +140,7 @@ const VideoJS: React.FC<Props> = ({
   }, []);
 
   // Función para agregar logo de iBlups - Cursor
-  const addLogo = (player: any) => {
+  const addLogo = (player: VideoJSPlayer) => {
     const logoContainer = document.createElement('div');
     logoContainer.className = 'vjs-logo-container';
     

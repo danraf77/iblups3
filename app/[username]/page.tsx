@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useChannelByUsername } from '../hooks/useChannelByUsername';
-import HLSPlayer from '../components/HLSPlayer';
 import Footer from '../components/Footer';
 import '../styles/footer.css';
 

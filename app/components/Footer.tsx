@@ -37,14 +37,16 @@ export default function Footer() {
                   {t('footer.termsOfService')}
                 </ClientOnly>
               </Link>
-              <Link
-                href="/support"
+              <a
+                href="https://m.me/iblups"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="footer-legal-link"
               >
                 <ClientOnly fallback="Support">
                   {t('footer.support')}
                 </ClientOnly>
-              </Link>
+              </a>
             </div>
 
             {/* Copyright */}

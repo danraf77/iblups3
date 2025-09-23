@@ -8,7 +8,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import AuthModal from '../components/AuthModal';
-import { User } from 'lucide-react';
+import { User as UserIcon } from 'lucide-react';
 import '../styles/footer.css';
 
 interface ChannelPageProps {
@@ -214,7 +214,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
                           className="bg-button text-button p-2 rounded-lg hover:bg-button-active transition-colors"
                           title={t('auth.modal.buttons.dashboard')}
                         >
-                          <User className="w-5 h-5" />
+                          <UserIcon className="w-5 h-5" />
                         </Link>
                       </div>
                     )}

@@ -8,6 +8,13 @@ interface User {
   display_name?: string;
   avatar_url?: string;
   is_verified: boolean;
+  profile?: {
+    first_name?: string;
+    last_name?: string;
+    country?: string;
+    city?: string;
+    date_of_birth?: string;
+  };
 }
 
 export function useAuth() {

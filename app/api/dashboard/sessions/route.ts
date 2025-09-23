@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase } from '../../../lib/supabase';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       };
 
       // Determinar el dispositivo y navegador
-      const getDeviceInfo = (userAgent: string, deviceInfo: any) => {
+      const getDeviceInfo = (userAgent: string, deviceInfo: { platform?: string } | null) => {
         if (deviceInfo?.platform) {
           return deviceInfo.platform;
         }

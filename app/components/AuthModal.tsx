@@ -7,7 +7,7 @@ import { useTranslation as useI18n } from 'react-i18next';
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (user: any) => void;
+  onSuccess: (user: { id: string; email: string; username?: string; display_name?: string }) => void;
 }
 
 export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
@@ -61,8 +61,8 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.sendOtpError'));
       }
-    } catch (err) {
-      console.error('Error sending OTP:', err);
+    } catch {
+      console.error('Error sending OTP');
       setError(t('messages.errors.networkError'));
     } finally {
       setLoading(false);
@@ -95,7 +95,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.invalidOtp'));
       }
-    } catch (err) {
+    } catch {
       setError(t('messages.errors.networkError'));
     } finally {
       setLoading(false);
@@ -130,8 +130,8 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.sendOtpError'));
       }
-    } catch (err) {
-      console.error('Error resending OTP:', err);
+    } catch {
+      console.error('Error resending OTP');
       setError(t('messages.errors.networkError'));
     } finally {
       setLoading(false);

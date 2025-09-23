@@ -1,0 +1,62 @@
+{
+  "navigation": {
+    "home": "होम",
+    "compare": "तुलना",
+    "demo": "डेमो",
+    "debug": "डिबग",
+    "producerAccess": "अपने चैनल तक पहुंचें",
+    "toggleMenu": "मोबाइल मेनू टॉगल करें"
+  },
+  "tabs": {
+    "all": "सभी",
+    "popular": "लोकप्रिय",
+    "recent": "हाल का"
+  },
+  "search": {
+    "placeholder": "चैनल खोजें...",
+    "liveChannels": "लाइव चैनल",
+    "tryDifferent": "अलग खोज शब्द आज़माएं"
+  },
+  "channels": {
+    "live": "लाइव",
+    "loading": "चैनल लोड हो रहे हैं...",
+    "error": "चैनल लोड करने में त्रुटि",
+    "notFound": "कोई चैनल नहीं मिला",
+    "retry": "पुनः प्रयास करें"
+  },
+  "footer": {
+    "privacyPolicy": "गोपनीयता नीति",
+    "termsOfService": "सेवा की शर्तें",
+    "support": "सहायता",
+    "copyright": "© 2025 danraf77 LLC - USA. सभी अधिकार सुरक्षित।",
+    "poweredBy": "Powered by"
+  },
+  "player": {
+    "loading": "लोड हो रहा है...",
+    "error": "वीडियो लोड करने में त्रुटि",
+    "play": "चलाएं",
+    "pause": "रोकें",
+    "mute": "म्यूट",
+    "unmute": "आवाज़ चालू करें",
+    "fullscreen": "पूर्ण स्क्रीन",
+    "exitFullscreen": "पूर्ण स्क्रीन से बाहर निकलें"
+  },
+  "hero": {
+    "title": "दुनिया, एक स्क्रीन पर।",
+    "description": "जोड़े दिलों को, वो कंटेंट। ख़बरें, जो सच दिखाएँ। संगीत, जो जगाए जूनून। खेल, जो सबको एक बनाएँ। हर पल का साथी, हमारा मनोरंजन।",
+    "subtitle": "सब कुछ यहीं, लाइव।",
+    "createChannel": "अपना चैनल बनाएं"
+  },
+  "pages": {
+    "channel": {
+      "title": "चैनल",
+      "loading": "चैनल लोड हो रहा है...",
+      "notFound": "चैनल नहीं मिला",
+      "liveStream": "लाइव स्ट्रीम"
+    },
+    "embed": {
+      "title": "लाइव स्ट्रीम",
+      "description": "लाइव स्ट्रीमिंग देखें"
+    }
+  }
+}

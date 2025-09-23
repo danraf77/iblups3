@@ -1,0 +1,62 @@
+{
+  "navigation": {
+    "home": "Ana Sayfa",
+    "compare": "Karşılaştır",
+    "demo": "Demo",
+    "debug": "Hata Ayıkla",
+    "producerAccess": "Kanalınıza erişin",
+    "toggleMenu": "Mobil menüyü değiştir"
+  },
+  "tabs": {
+    "all": "Tümü",
+    "popular": "Popüler",
+    "recent": "Son"
+  },
+  "search": {
+    "placeholder": "Kanal ara...",
+    "liveChannels": "canlı kanallar",
+    "tryDifferent": "Farklı arama terimleri deneyin"
+  },
+  "channels": {
+    "live": "CANLI",
+    "loading": "Kanallar yükleniyor...",
+    "error": "Kanallar yüklenirken hata",
+    "notFound": "Kanal bulunamadı",
+    "retry": "Tekrar dene"
+  },
+  "footer": {
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsOfService": "Hizmet Şartları",
+    "support": "Destek",
+    "copyright": "© 2025 danraf77 LLC - USA. Tüm hakları saklıdır.",
+    "poweredBy": "Powered by"
+  },
+  "player": {
+    "loading": "Yükleniyor...",
+    "error": "Video yüklenirken hata",
+    "play": "Oynat",
+    "pause": "Duraklat",
+    "mute": "Sessiz",
+    "unmute": "Sesi aç",
+    "fullscreen": "Tam ekran",
+    "exitFullscreen": "Tam ekrandan çık"
+  },
+  "hero": {
+    "title": "Dünya tek ekranda.",
+    "description": "İnsanları buluşturan içerik. Gerçeği gösteren haberler. İlham veren müzik. Bizi birleştiren spor. Her anınıza eşlik eden kültür.",
+    "subtitle": "Her şey burada, canlı yayında.",
+    "createChannel": "Kanalınızı oluşturun"
+  },
+  "pages": {
+    "channel": {
+      "title": "Kanal",
+      "loading": "Kanal yükleniyor...",
+      "notFound": "Kanal bulunamadı",
+      "liveStream": "Canlı Yayın"
+    },
+    "embed": {
+      "title": "Canlı Yayın",
+      "description": "Canlı yayını izleyin"
+    }
+  }
+}

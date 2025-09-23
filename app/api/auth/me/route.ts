@@ -2,6 +2,21 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded } from '../../../lib/supabase';
 
+// Definir el tipo correcto para la sesión
+interface SessionWithUser {
+  user_id: string;
+  expires_at: string;
+  iblups_users_viewers: {
+    id: string;
+    email: string;
+    username?: string;
+    display_name?: string;
+    avatar_url?: string;
+    is_verified: boolean;
+    is_active: boolean;
+  };
+}
+
 export async function GET() {
   try {
     const cookieStore = await cookies();
@@ -30,8 +45,14 @@ export async function GET() {
       return NextResponse.json({ user: null });
     }
 
+    // Usar type assertion con unknown primero
+    const userData = (session as unknown as SessionWithUser).iblups_users_viewers;
+    if (!userData) {
+      return NextResponse.json({ user: null });
+    }
+
     return NextResponse.json({
-      user: sanitizeUser(session.iblups_users_viewers)
+      user: sanitizeUser(userData)
     });
 
   } catch (error) {

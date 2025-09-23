@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '../hooks/useTranslation';
+import { useAuth } from '../hooks/useAuth';
+import { User } from 'lucide-react';
 import ClientOnly from './ClientOnly';
+import AuthModal from './AuthModal';
 
 interface NavbarProps {
   showSearch?: boolean;
@@ -18,8 +21,31 @@ export default function Navbar({
   searchValue = ''
 }: NavbarProps) {
   const { t } = useTranslation();
+  const { isAuthenticated, user, login } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // Función para determinar el nombre a mostrar en el saludo
+  const getUserDisplayName = () => {
+    if (!user) return '';
+    
+    // Prioridad: display_name -> first_name + last_name -> email
+    if (user.display_name) {
+      return user.display_name;
+    }
+    
+    // Si no hay display_name pero hay perfil con nombre y apellido
+    if (user.profile?.first_name && user.profile?.last_name) {
+      return `${user.profile.first_name} ${user.profile.last_name}`;
+    }
+    
+    if (user.profile?.first_name) {
+      return user.profile.first_name;
+    }
+    
+    return user.email;
+  };
 
   // Detectar scroll para cambiar el estilo del navbar - Cursor
   useEffect(() => {
@@ -60,7 +86,7 @@ export default function Navbar({
             <Link href="/" className="flex items-center space-x-2 group">
               <Image 
                 src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                alt="iBlups" 
+                alt="iblups" 
                 width={120}
                 height={32}
                 className="h-6 sm:h-7 lg:h-8 w-auto transition-transform duration-200 group-hover:scale-105"
@@ -71,6 +97,18 @@ export default function Navbar({
 
           {/* Desktop Navigation - Oculto en móviles - Cursor */}
           <div className="hidden md:flex md:items-center md:space-x-6 lg:space-x-8">
+            {/* Producer Access Button - Cursor */}
+            <a
+              href="https://studio.iblups.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 border border-purple-500/20"
+            >
+              <ClientOnly fallback="Access your channel">
+                {t('navigation.producerAccess')}
+              </ClientOnly>
+            </a>
+
             {/* Search Bar - Solo si showSearch es true - Cursor */}
             {showSearch && (
               <div className="relative">
@@ -81,7 +119,7 @@ export default function Navbar({
                 </div>
                 <input
                   type="text"
-                  placeholder="Search channels..."
+                  placeholder={t('search.placeholder') || 'Search channels...'}
                   value={searchValue}
                   onChange={(e) => onSearchChange?.(e.target.value)}
                   className="w-64 lg:w-80 bg-input text-primary placeholder-muted pl-10 pr-4 py-2 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
@@ -89,17 +127,32 @@ export default function Navbar({
               </div>
             )}
 
-            {/* Producer Access Button - Cursor */}
-            <a
-              href="https://studio.iblups.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-lg hover:bg-[#1e5bb8] transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105"
-            >
-              <ClientOnly fallback="Access your channel">
-                {t('navigation.producerAccess')}
-              </ClientOnly>
-            </a>
+                    {/* Viewer Access - Botón de ingreso como viewer o saludo con icono */}
+                    {!isAuthenticated ? (
+                      <button
+                        onClick={() => setShowAuthModal(true)}
+                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow-md"
+                      >
+                        <ClientOnly fallback="Viewer Login">
+                          {t('auth.modal.buttons.viewerLogin') || 'Viewer Login'}
+                        </ClientOnly>
+                      </button>
+                    ) : (
+                      <div className="flex items-center space-x-3">
+                        <span className="text-primary text-sm">
+                          <ClientOnly fallback="Hello">
+                            {t('auth.modal.buttons.hello') || 'Hello'}
+                          </ClientOnly>, {getUserDisplayName()}
+                        </span>
+                        <Link
+                          href="/dashboard"
+                          className="bg-button text-button p-2 rounded-lg hover:bg-button-active transition-colors"
+                          title={t('auth.modal.buttons.dashboard') || 'Dashboard'}
+                        >
+                          <User className="w-5 h-5" />
+                        </Link>
+                      </div>
+                    )}
 
           </div>
 
@@ -129,33 +182,13 @@ export default function Navbar({
             : 'max-h-0 opacity-0 invisible'
         }`}>
           <div className="px-2 pt-2 pb-3 space-y-1 border-t border-border-primary">
-            {/* Mobile Search - Solo si showSearch es true - Cursor */}
-            {showSearch && (
-              <div className="px-3 py-2">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-4 w-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search channels..."
-                    value={searchValue}
-                    onChange={(e) => onSearchChange?.(e.target.value)}
-                    className="w-full bg-input text-primary placeholder-muted pl-10 pr-4 py-3 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  />
-                </div>
-              </div>
-            )}
-
             {/* Mobile Producer Access Button - Cursor */}
             <div className="px-3 py-2">
               <a
                 href="https://studio.iblups.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-[#2c73ff] rounded-lg hover:bg-[#1e5bb8] transition-all duration-200 shadow-sm hover:shadow-md"
+                className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl border border-purple-500/20"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <svg className="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,8 +199,68 @@ export default function Navbar({
                 </ClientOnly>
               </a>
             </div>
+
+            {/* Mobile Search - Solo si showSearch es true - Cursor */}
+            {showSearch && (
+              <div className="px-3 py-2">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-4 w-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                          <input
+                            type="text"
+                            placeholder={t('search.placeholder') || 'Search channels...'}
+                            value={searchValue}
+                            onChange={(e) => onSearchChange?.(e.target.value)}
+                            className="w-full bg-input text-primary placeholder-muted pl-10 pr-4 py-3 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          />
+                </div>
+              </div>
+            )}
+
+                    {/* Mobile Viewer Access - Botón de ingreso como viewer o saludo con icono */}
+                    <div className="px-3 py-2">
+                      {!isAuthenticated ? (
+                        <button
+                          onClick={() => {
+                            setShowAuthModal(true);
+                            setIsMobileMenuOpen(false);
+                          }}
+                          className="w-full px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow-md"
+                        >
+                          <ClientOnly fallback="Viewer Login">
+                            {t('auth.modal.buttons.viewerLogin') || 'Viewer Login'}
+                          </ClientOnly>
+                        </button>
+                      ) : (
+                        <div className="flex items-center justify-between">
+                          <span className="text-primary text-sm">
+                            <ClientOnly fallback="Hello">
+                              {t('auth.modal.buttons.hello') || 'Hello'}
+                            </ClientOnly>, {getUserDisplayName()}
+                          </span>
+                          <Link
+                            href="/dashboard"
+                            className="bg-button text-button p-2 rounded-lg hover:bg-button-active transition-colors"
+                            title={t('auth.modal.buttons.dashboard') || 'Dashboard'}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            <User className="w-5 h-5" />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
           </div>
         </div>
+
+        {/* Auth Modal */}
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={login}
+        />
       </div>
     </header>
   );

@@ -4,7 +4,10 @@
     "compare": "比較",
     "demo": "デモ",
     "debug": "デバッグ",
-    "producerAccess": "プロデューサーアクセス"
+    "producerAccess": "プロデューサーアクセス",
+    "viewerAccess": "視聴者としてログイン",
+    "toggleMenu": "モバイルメニューの切り替え",
+    "back": "戻る"
   },
   "tabs": {
     "all": "すべて",
@@ -20,13 +23,16 @@
     "loading": "チャンネルを読み込み中...",
     "error": "チャンネルの読み込みエラー",
     "notFound": "チャンネルが見つかりません",
-    "retry": "再試行"
+    "retry": "再試行",
+    "follow": "チャンネルをフォロー",
+    "unfollow": "フォローを解除",
+    "following": "フォロー中"
   },
   "footer": {
     "privacyPolicy": "プライバシーポリシー",
     "termsOfService": "利用規約",
     "support": "サポート",
-    "copyright": "© 2025 danraf77 LLC - USA. 全著作権所有。",
+    "copyright": "© 2025 danraf77 LLC - USA. 無断複写・転載を禁じます。",
     "poweredBy": "提供"
   },
   "player": {
@@ -36,13 +42,13 @@
     "pause": "一時停止",
     "mute": "ミュート",
     "unmute": "ミュート解除",
-    "fullscreen": "フルスクリーン",
-    "exitFullscreen": "フルスクリーン終了"
+    "fullscreen": "全画面",
+    "exitFullscreen": "全画面表示を終了"
   },
   "hero": {
-    "title": "世界を、一つのスクリーンに。",
-    "description": "つながるコンテンツ。世界を知るニュース。心に響く音楽。一つになるスポーツ。毎日に寄り添うエンタメ。",
-    "subtitle": "すべてが、ここでライブに。",
+    "title": "世界、一つのスクリーン。",
+    "description": "つながるコンテンツ。知らせるニュース。感動を与える音楽。団結させるスポーツ。寄り添う映画、ポッドキャスト、ラジオ。",
+    "subtitle": "すべてがここで、ライブで起こります。",
     "createChannel": "チャンネルを作成"
   },
   "pages": {
@@ -50,11 +56,170 @@
       "title": "チャンネル",
       "loading": "チャンネルを読み込み中...",
       "notFound": "チャンネルが見つかりません",
-      "liveStream": "ライブストリーム"
+      "liveStream": "ライブ配信"
     },
     "embed": {
-      "title": "ライブストリーム",
-      "description": "ライブストリームを視聴"
+      "title": "ライブ配信",
+      "description": "ライブ配信を見る"
     }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "loading": "ダッシュボードを読み込み中...",
+    "profile": {
+      "title": "マイプロフィール",
+      "edit": "編集",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saving": "保存中...",
+      "fields": {
+        "firstName": "名",
+        "lastName": "姓",
+        "country": "国",
+        "city": "市",
+        "dateOfBirth": "生年月日",
+        "selectCountry": "国を選択"
+      }
+    },
+    "email": {
+      "title": "メールアドレスの変更",
+      "currentEmail": "現在のメールアドレス",
+      "changeEmail": "メールアドレスを変更",
+      "warning": "メールアドレスを変更するには、新しいメールアドレスをOTPコードで確認する必要があります。",
+      "success": "メールアドレスが正常に更新されました"
+    },
+    "channels": {
+      "title": "フォロー中のチャンネル",
+      "loading": "フォロー中のチャンネルを読み込み中...",
+      "empty": {
+        "title": "まだチャンネルをフォローしていません",
+        "description": "チャンネルにアクセスし、「チャンネルをフォロー」をクリックしてここに追加してください",
+        "action": "チャンネルを探す"
+      },
+      "actions": {
+        "viewChannel": "チャンネルを見る",
+        "unfollow": "フォローを解除",
+        "refresh": "チャンネルを再読み込み"
+      },
+      "followedOn": "フォロー開始日"
+    },
+    "sessions": {
+      "title": "マイセッション",
+      "loading": "セッションを読み込み中...",
+      "current": "現在のセッション",
+      "close": "ログアウト",
+      "refresh": "セッションを再読み込み",
+      "device": "デバイス",
+      "browser": "ブラウザ",
+      "country": "国",
+      "lastActivity": "最終アクティビティ",
+      "created": "作成日時"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "iblupsにログイン",
+        "verify": "コードを確認"
+      },
+      "buttons": {
+        "viewerLogin": "視聴者としてログイン",
+        "followChannel": "チャンネルをフォロー",
+        "unfollowChannel": "チャンネルのフォローを解除",
+        "dashboard": "ダッシュボード",
+        "hello": "こんにちは"
+      },
+      "email": {
+        "description": "アクセスコードを受け取るためにメールアドレスを入力してください",
+        "label": "メールアドレス",
+        "placeholder": "your@email.com",
+        "button": "コードを送信",
+        "sending": "送信中..."
+      },
+      "otp": {
+        "description": "に送信された4桁のコードを入力してください",
+        "label": "確認コード",
+        "placeholder": "0000",
+        "button": "コードを確認",
+        "verifying": "確認中...",
+        "resend": "コードを再送信",
+        "resending": "再送信中...",
+        "changeEmail": "メールアドレスを変更"
+      },
+      "errors": {
+        "emailRequired": "メールアドレスは必須です",
+        "invalidEmail": "無効なメールアドレスです",
+        "otpRequired": "コードは必須です",
+        "invalidOtp": "コードが無効か、有効期限が切れています",
+        "networkError": "ネットワークエラー。もう一度お試しください。",
+        "serverError": "内部サーバーエラー"
+      },
+      "success": {
+        "emailSent": "コードが正常に送信されました",
+        "loginSuccess": "ログインに成功しました"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "iblupsへのアクセスコード",
+      "title": "アクセスコード",
+      "greeting": "こんにちは、",
+      "description": "iblupsへのアクセスコードはこちらです：",
+      "expiration": "このコードは10分で有効期限が切れます。このコードをリクエストしていない場合は、このメールを無視してください。",
+      "thanks": "iblupsをご利用いただきありがとうございます！",
+      "footer": "© 2025 iblups. 無断複写・転載を禁じます。"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "ネットワークエラー。もう一度お試しください。",
+      "invalidOtp": "OTPコードが無効か、有効期限が切れています。",
+      "sendOtpError": "OTPコードの送信中にエラーが発生しました。",
+      "followError": "チャンネルのフォロー中にエラーが発生しました。",
+      "unfollowError": "チャンネルのフォロー解除中にエラーが発生しました。",
+      "profileUpdateError": "プロフィールの更新中にエラーが発生しました。",
+      "emailUpdateError": "メールアドレスの更新中にエラーが発生しました。",
+      "sessionError": "セッションエラー。もう一度ログインしてください。",
+      "unauthorized": "認証されていません。ログインしてください。",
+      "serverError": "内部サーバーエラー。"
+    },
+    "success": {
+      "profileUpdated": "プロフィールが正常に更新されました",
+      "emailUpdated": "メールアドレスが正常に更新されました",
+      "channelFollowed": "チャンネルを正常にフォローしました",
+      "channelUnfollowed": "チャンネルのフォローを解除しました",
+      "otpSent": "コードが正常に送信されました",
+      "loginSuccess": "ログインに成功しました"
+    },
+    "info": {
+      "noChannels": "まだチャンネルをフォローしていません",
+      "visitChannels": "チャンネルにアクセスし、「チャンネルをフォロー」をクリックしてここに追加してください",
+      "exploreChannels": "チャンネルを探す",
+      "loading": "読み込み中...",
+      "redirecting": "リダイレクト中...",
+      "sessionExpired": "セッションの有効期限が切れました。もう一度ログインしてください。"
+    }
+  },
+  "pagination": {
+    "previous": "前へ",
+    "next": "次へ",
+    "pageOf": "ページ"
+  },
+  "sessions": {
+    "description": "ここでは、アクティブなセッションと非アクティブなセッションをすべて確認できます。セキュリティを向上させるために、他のデバイスのセッションを閉じることができます。",
+    "inactive": "非アクティブ",
+    "expires": "有効期限",
+    "daysRemaining": "日残り",
+    "title": "マイセッション",
+    "loading": "セッションを読み込み中...",
+    "current": "現在のセッション",
+    "close": "ログアウト",
+    "refresh": "セッションを更新",
+    "device": "デバイス",
+    "browser": "ブラウザ",
+    "country": "国",
+    "lastActivity": "最終活動",
+    "created": "作成日"
   }
 }

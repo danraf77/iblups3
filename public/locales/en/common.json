@@ -5,7 +5,9 @@
     "demo": "Demo",
     "debug": "Debug",
     "producerAccess": "Producer access",
-    "toggleMenu": "Toggle mobile menu"
+    "viewerAccess": "Login as viewer",
+    "toggleMenu": "Toggle mobile menu",
+    "back": "Back"
   },
   "tabs": {
     "all": "All",
@@ -16,12 +18,20 @@
     "placeholder": "Search channels...",
     "liveChannels": "live channels"
   },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page"
+  },
   "channels": {
     "live": "LIVE",
     "loading": "Loading channels...",
     "error": "Error loading channels",
     "notFound": "No channels found",
-    "retry": "Retry"
+    "retry": "Retry",
+    "follow": "Follow channel",
+    "unfollow": "Unfollow",
+    "following": "Following"
   },
   "footer": {
     "privacyPolicy": "Privacy Policy",
@@ -57,5 +67,147 @@
       "title": "Live Stream",
       "description": "Watch live streaming"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading dashboard...",
+    "profile": {
+      "title": "My Profile",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving...",
+      "fields": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "country": "Country",
+        "city": "City",
+        "dateOfBirth": "Date of Birth",
+        "selectCountry": "Select country"
+      }
+    },
+    "email": {
+      "title": "Change Email",
+      "currentEmail": "Current email",
+      "changeEmail": "Change Email",
+      "warning": "To change your email, you'll need to verify the new email with an OTP code.",
+      "success": "Email updated successfully"
+    },
+    "channels": {
+      "title": "Channels I Follow",
+      "loading": "Loading followed channels...",
+      "empty": {
+        "title": "You don't follow any channels yet",
+        "description": "Visit channels and click \"Follow channel\" to add them here",
+        "action": "Explore Channels"
+      },
+      "actions": {
+        "viewChannel": "View Channel",
+        "unfollow": "Unfollow",
+        "refresh": "Refresh channels"
+      },
+      "followedOn": "Followed on"
+    },
+    "sessions": {
+      "title": "My Sessions",
+      "loading": "Loading sessions...",
+      "current": "Current session",
+      "close": "Close session",
+      "refresh": "Refresh sessions",
+      "device": "Device",
+      "browser": "Browser",
+      "country": "Country",
+      "lastActivity": "Last activity",
+      "created": "Created"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Login to iblups",
+        "verify": "Verify code"
+      },
+      "buttons": {
+        "viewerLogin": "Viewer Login",
+        "followChannel": "Follow Channel",
+        "unfollowChannel": "Unfollow",
+        "dashboard": "Dashboard",
+        "hello": "Hello"
+      },
+      "email": {
+        "description": "Enter your email to receive an access code",
+        "label": "Email",
+        "placeholder": "your@email.com",
+        "button": "Send code",
+        "sending": "Sending..."
+      },
+      "otp": {
+        "description": "Enter the 4-digit code sent to",
+        "label": "Verification code",
+        "placeholder": "0000",
+        "button": "Verify code",
+        "verifying": "Verifying...",
+        "resend": "Resend code",
+        "resending": "Resending...",
+        "changeEmail": "Change email"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "Your iblups access code",
+      "title": "Access code",
+      "greeting": "Hello,",
+      "description": "Your access code for iblups is:",
+      "expiration": "This code expires in 10 minutes. If you didn't request this code, you can ignore this email.",
+      "thanks": "Thanks for using iblups!",
+      "footer": "© 2024 iblups. All rights reserved."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Network error. Please try again.",
+      "invalidOtp": "Invalid or expired OTP code.",
+      "sendOtpError": "Error sending OTP code.",
+      "followError": "Error following channel.",
+      "unfollowError": "Error unfollowing channel.",
+      "profileUpdateError": "Error updating profile.",
+      "emailUpdateError": "Error updating email.",
+      "sessionError": "Session error. Please log in again.",
+      "unauthorized": "Unauthorized. Please log in.",
+      "serverError": "Internal server error."
+    },
+    "success": {
+      "profileUpdated": "Profile updated successfully",
+      "emailUpdated": "Email updated successfully",
+      "channelFollowed": "Channel followed successfully",
+      "channelUnfollowed": "Channel unfollowed",
+      "otpSent": "Code sent successfully",
+      "loginSuccess": "Login successful"
+    },
+    "info": {
+      "noChannels": "You don't follow any channels yet",
+      "visitChannels": "Visit channels and click \"Follow Channel\" to add them here",
+      "exploreChannels": "Explore Channels",
+      "loading": "Loading...",
+      "redirecting": "Redirecting...",
+      "sessionExpired": "Your session has expired. Please log in again."
+    }
+  },
+  "sessions": {
+    "description": "Here you can see all your active and inactive sessions. You can close sessions from other devices for greater security.",
+    "inactive": "Inactive",
+    "expires": "Expires",
+    "daysRemaining": "days remaining",
+    "title": "My Sessions",
+    "loading": "Loading sessions...",
+    "current": "Current session",
+    "close": "Log out",
+    "refresh": "Refresh sessions",
+    "device": "Device",
+    "browser": "Browser",
+    "country": "Country",
+    "lastActivity": "Last activity",
+    "created": "Created"
   }
 }

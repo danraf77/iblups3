@@ -1,51 +1,55 @@
 {
   "navigation": {
-    "home": "Ana Sayfa",
+    "home": "Anasayfa",
     "compare": "Karşılaştır",
     "demo": "Demo",
     "debug": "Hata Ayıkla",
-    "producerAccess": "Kanalınıza erişin",
-    "toggleMenu": "Mobil menüyü değiştir"
+    "producerAccess": "Yapımcı Erişimi",
+    "viewerAccess": "İzleyici Olarak Giriş",
+    "toggleMenu": "Mobil Menüyü Aç/Kapat",
+    "back": "Geri"
   },
   "tabs": {
     "all": "Tümü",
     "popular": "Popüler",
-    "recent": "Son"
+    "recent": "Son Eklenenler"
   },
   "search": {
     "placeholder": "Kanal ara...",
-    "liveChannels": "canlı kanallar",
-    "tryDifferent": "Farklı arama terimleri deneyin"
+    "liveChannels": "canlı kanallar"
   },
   "channels": {
     "live": "CANLI",
     "loading": "Kanallar yükleniyor...",
-    "error": "Kanallar yüklenirken hata",
+    "error": "Kanallar yüklenirken hata oluştu",
     "notFound": "Kanal bulunamadı",
-    "retry": "Tekrar dene"
+    "retry": "Tekrar Dene",
+    "follow": "Kanalı takip et",
+    "unfollow": "Takibi bırak",
+    "following": "Takip ediliyor"
   },
   "footer": {
     "privacyPolicy": "Gizlilik Politikası",
     "termsOfService": "Hizmet Şartları",
     "support": "Destek",
     "copyright": "© 2025 danraf77 LLC - USA. Tüm hakları saklıdır.",
-    "poweredBy": "Powered by"
+    "poweredBy": "Sağlayan"
   },
   "player": {
     "loading": "Yükleniyor...",
-    "error": "Video yüklenirken hata",
+    "error": "Video yüklenirken hata oluştu",
     "play": "Oynat",
     "pause": "Duraklat",
-    "mute": "Sessiz",
-    "unmute": "Sesi aç",
-    "fullscreen": "Tam ekran",
-    "exitFullscreen": "Tam ekrandan çık"
+    "mute": "Sessize Al",
+    "unmute": "Sesi Aç",
+    "fullscreen": "Tam Ekran",
+    "exitFullscreen": "Tam Ekrandan Çık"
   },
   "hero": {
-    "title": "Dünya tek ekranda.",
-    "description": "İnsanları buluşturan içerik. Gerçeği gösteren haberler. İlham veren müzik. Bizi birleştiren spor. Her anınıza eşlik eden kültür.",
-    "subtitle": "Her şey burada, canlı yayında.",
-    "createChannel": "Kanalınızı oluşturun"
+    "title": "Dünya, Tek Bir Ekran.",
+    "description": "Bağlantı kuran içerikler. Bilgilendiren haberler. İlham veren müzikler. Birleştiren sporlar. Eşlik eden sinema, podcast'ler ve radyolar.",
+    "subtitle": "Her şey burada, canlı yayında olur.",
+    "createChannel": "Kanalını oluştur"
   },
   "pages": {
     "channel": {
@@ -56,7 +60,166 @@
     },
     "embed": {
       "title": "Canlı Yayın",
-      "description": "Canlı yayını izleyin"
+      "description": "Canlı yayını izle"
     }
+  },
+  "dashboard": {
+    "title": "Kontrol Paneli",
+    "loading": "Kontrol paneli yükleniyor...",
+    "profile": {
+      "title": "Profilim",
+      "edit": "Düzenle",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor...",
+      "fields": {
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "country": "Ülke",
+        "city": "Şehir",
+        "dateOfBirth": "Doğum Tarihi",
+        "selectCountry": "Ülke seç"
+      }
+    },
+    "email": {
+      "title": "E-postayı Değiştir",
+      "currentEmail": "Mevcut E-posta",
+      "changeEmail": "E-postayı Değiştir",
+      "warning": "E-postanızı değiştirmek için yeni e-postayı bir OTP kodu ile doğrulamanız gerekecektir.",
+      "success": "E-posta başarıyla güncellendi"
+    },
+    "channels": {
+      "title": "Takip Ettiğin Kanallar",
+      "loading": "Takip edilen kanallar yükleniyor...",
+      "empty": {
+        "title": "Henüz hiçbir kanalı takip etmiyorsun",
+        "description": "Kanalları ziyaret et ve buraya eklemek için \"Kanalı takip et\"e tıkla",
+        "action": "Kanalları Keşfet"
+      },
+      "actions": {
+        "viewChannel": "Kanalı Görüntüle",
+        "unfollow": "Takibi bırak",
+        "refresh": "Kanalları Yenile"
+      },
+      "followedOn": "Takip tarihi"
+    },
+    "sessions": {
+      "title": "Oturumlarım",
+      "loading": "Oturumlar yükleniyor...",
+      "current": "Mevcut oturum",
+      "close": "Oturumu Kapat",
+      "refresh": "Oturumları Yenile",
+      "device": "Cihaz",
+      "browser": "Tarayıcı",
+      "country": "Ülke",
+      "lastActivity": "Son etkinlik",
+      "created": "Oluşturulma"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "iblups'a giriş yap",
+        "verify": "Kodu doğrula"
+      },
+      "buttons": {
+        "viewerLogin": "İzleyici olarak giriş yap",
+        "followChannel": "Kanalı takip et",
+        "unfollowChannel": "Kanalı takibi bırak",
+        "dashboard": "Kontrol Paneli",
+        "hello": "Merhaba"
+      },
+      "email": {
+        "description": "Bir erişim kodu almak için e-postanızı girin",
+        "label": "E-posta",
+        "placeholder": "senin@epostan.com",
+        "button": "Kodu gönder",
+        "sending": "Gönderiliyor..."
+      },
+      "otp": {
+        "description": "adresine gönderilen 4 haneli kodu girin",
+        "label": "Doğrulama kodu",
+        "placeholder": "0000",
+        "button": "Kodu doğrula",
+        "verifying": "Doğrulanıyor...",
+        "resend": "Kodu tekrar gönder",
+        "resending": "Tekrar gönderiliyor...",
+        "changeEmail": "E-postayı değiştir"
+      },
+      "errors": {
+        "emailRequired": "E-posta gereklidir",
+        "invalidEmail": "Geçersiz e-posta",
+        "otpRequired": "Kod gereklidir",
+        "invalidOtp": "Geçersiz veya süresi dolmuş kod",
+        "networkError": "Ağ hatası. Tekrar deneyin.",
+        "serverError": "Dahili sunucu hatası"
+      },
+      "success": {
+        "emailSent": "Kod başarıyla gönderildi",
+        "loginSuccess": "Giriş başarılı"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "iblups erişim kodunuz",
+      "title": "Erişim Kodu",
+      "greeting": "Merhaba,",
+      "description": "iblups için erişim kodunuz:",
+      "expiration": "Bu kod 10 dakika içinde sona erecektir. Bu kodu siz istemediyseniz, bu e-postayı görmezden gelebilirsiniz.",
+      "thanks": "iblups'ı kullandığınız için teşekkürler!",
+      "footer": "© 2025 iblups. Tüm hakları saklıdır."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Ağ hatası. Tekrar deneyin.",
+      "invalidOtp": "Geçersiz veya süresi dolmuş OTP kodu.",
+      "sendOtpError": "OTP kodu gönderilirken hata oluştu.",
+      "followError": "Kanal takip edilirken hata oluştu.",
+      "unfollowError": "Kanal takibi bırakılırken hata oluştu.",
+      "profileUpdateError": "Profil güncellenirken hata oluştu.",
+      "emailUpdateError": "E-posta güncellenirken hata oluştu.",
+      "sessionError": "Oturum hatası. Lütfen tekrar giriş yapın.",
+      "unauthorized": "Yetkisiz. Lütfen giriş yapın.",
+      "serverError": "Dahili sunucu hatası."
+    },
+    "success": {
+      "profileUpdated": "Profil başarıyla güncellendi",
+      "emailUpdated": "E-posta başarıyla güncellendi",
+      "channelFollowed": "Kanal başarıyla takip edildi",
+      "channelUnfollowed": "Kanalı takibi bıraktınız",
+      "otpSent": "Kod başarıyla gönderildi",
+      "loginSuccess": "Giriş başarılı"
+    },
+    "info": {
+      "noChannels": "Henüz hiçbir kanalı takip etmiyorsun",
+      "visitChannels": "Kanalları ziyaret et ve buraya eklemek için \"Kanalı takip et\"e tıkla",
+      "exploreChannels": "Kanalları Keşfet",
+      "loading": "Yükleniyor...",
+      "redirecting": "Yönlendiriliyor...",
+      "sessionExpired": "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın."
+    }
+  },
+  "pagination": {
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "pageOf": "Sayfa"
+  },
+  "sessions": {
+    "description": "Burada tüm aktif ve pasif oturumlarınızı görebilirsiniz. Daha fazla güvenlik için diğer cihazlardaki oturumları kapatabilirsiniz.",
+    "inactive": "Pasif",
+    "expires": "Süresi doluyor",
+    "daysRemaining": "gün kaldı",
+    "title": "Oturumlarım",
+    "loading": "Oturumlar yükleniyor...",
+    "current": "Mevcut oturum",
+    "close": "Çıkış yap",
+    "refresh": "Oturumları yenile",
+    "device": "Cihaz",
+    "browser": "Tarayıcı",
+    "country": "Ülke",
+    "lastActivity": "Son aktivite",
+    "created": "Oluşturuldu"
   }
 }

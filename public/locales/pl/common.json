@@ -4,8 +4,10 @@
     "compare": "Porównaj",
     "demo": "Demo",
     "debug": "Debuguj",
-    "producerAccess": "Dostęp do kanału",
-    "toggleMenu": "Przełącz menu mobilne"
+    "producerAccess": "Dostęp producenta",
+    "viewerAccess": "Dostęp dla widzów",
+    "toggleMenu": "Przełącz menu mobilne",
+    "back": "Wróć"
   },
   "tabs": {
     "all": "Wszystkie",
@@ -14,49 +16,210 @@
   },
   "search": {
     "placeholder": "Szukaj kanałów...",
-    "liveChannels": "kanały na żywo",
-    "tryDifferent": "Spróbuj innych terminów wyszukiwania"
+    "liveChannels": "kanały na żywo"
   },
   "channels": {
     "live": "NA ŻYWO",
     "loading": "Ładowanie kanałów...",
     "error": "Błąd ładowania kanałów",
     "notFound": "Nie znaleziono kanałów",
-    "retry": "Spróbuj ponownie"
+    "retry": "Spróbuj ponownie",
+    "follow": "Obserwuj kanał",
+    "unfollow": "Przestań obserwować",
+    "following": "Obserwujesz"
   },
   "footer": {
     "privacyPolicy": "Polityka prywatności",
-    "termsOfService": "Warunki usługi",
+    "termsOfService": "Warunki korzystania z usługi",
     "support": "Wsparcie",
-    "copyright": "© 2025 danraf77 LLC - USA. Wszystkie prawa zastrzeżone.",
-    "poweredBy": "Powered by"
+    "copyright": "© 2025 danraf77 LLC - USA. Wszelkie prawa zastrzeżone.",
+    "poweredBy": "Oparte na"
   },
   "player": {
     "loading": "Ładowanie...",
     "error": "Błąd ładowania wideo",
-    "play": "Odtwórz",
+    "play": "Odtwarzaj",
     "pause": "Pauza",
     "mute": "Wycisz",
-    "unmute": "Włącz dźwięk",
+    "unmute": "Wyłącz wyciszenie",
     "fullscreen": "Pełny ekran",
-    "exitFullscreen": "Wyjdź z pełnego ekranu"
+    "exitFullscreen": "Opuść pełny ekran"
   },
   "hero": {
-    "title": "Świat na jednym ekranie.",
-    "description": "Treści, które łączą. Wiadomości, które wyjaśniają. Muzyka, która inspiruje. Sport, który jednoczy. Kultura, która towarzyszy.",
-    "subtitle": "Wszystko dzieje się tutaj. Na żywo.",
-    "createChannel": "Utwórz swój kanał"
+    "title": "Świat, jeden ekran.",
+    "description": "Treści, które łączą. Wiadomości, które informują. Muzyka, która inspiruje. Sport, który jednoczy. Kino, podcasty i radio, które towarzyszą.",
+    "subtitle": "Wszystko dzieje się tutaj, na żywo.",
+    "createChannel": "Stwórz swój kanał"
   },
   "pages": {
     "channel": {
       "title": "Kanał",
       "loading": "Ładowanie kanału...",
-      "notFound": "Kanał nie znaleziony",
+      "notFound": "Kanał nie został znaleziony",
       "liveStream": "Transmisja na żywo"
     },
     "embed": {
       "title": "Transmisja na żywo",
       "description": "Oglądaj transmisję na żywo"
     }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "loading": "Ładowanie panelu...",
+    "profile": {
+      "title": "Mój profil",
+      "edit": "Edytuj",
+      "cancel": "Anuluj",
+      "save": "Zapisz",
+      "saving": "Zapisywanie...",
+      "fields": {
+        "firstName": "Imię",
+        "lastName": "Nazwisko",
+        "country": "Kraj",
+        "city": "Miasto",
+        "dateOfBirth": "Data urodzenia",
+        "selectCountry": "Wybierz kraj"
+      }
+    },
+    "email": {
+      "title": "Zmień adres e-mail",
+      "currentEmail": "Aktualny adres e-mail",
+      "changeEmail": "Zmień adres e-mail",
+      "warning": "Aby zmienić adres e-mail, musisz zweryfikować nowy adres e-mail za pomocą kodu OTP.",
+      "success": "Adres e-mail został pomyślnie zaktualizowany"
+    },
+    "channels": {
+      "title": "Obserwowane kanały",
+      "loading": "Ładowanie obserwowanych kanałów...",
+      "empty": {
+        "title": "Nie obserwujesz jeszcze żadnych kanałów",
+        "description": "Odwiedź kanały i kliknij \"Obserwuj kanał\", aby dodać je tutaj",
+        "action": "Przeglądaj kanały"
+      },
+      "actions": {
+        "viewChannel": "Zobacz kanał",
+        "unfollow": "Przestań obserwować",
+        "refresh": "Odśwież kanały"
+      },
+      "followedOn": "Obserwowany od"
+    },
+    "sessions": {
+      "title": "Moje sesje",
+      "loading": "Ładowanie sesji...",
+      "current": "Bieżąca sesja",
+      "close": "Wyloguj się",
+      "refresh": "Odśwież sesje",
+      "device": "Urządzenie",
+      "browser": "Przeglądarka",
+      "country": "Kraj",
+      "lastActivity": "Ostatnia aktywność",
+      "created": "Utworzono"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Zaloguj się do iblups",
+        "verify": "Zweryfikuj kod"
+      },
+      "buttons": {
+        "viewerLogin": "Zaloguj się jako widz",
+        "followChannel": "Obserwuj kanał",
+        "unfollowChannel": "Przestań obserwować kanał",
+        "dashboard": "Panel",
+        "hello": "Cześć"
+      },
+      "email": {
+        "description": "Wpisz swój adres e-mail, aby otrzymać kod dostępu",
+        "label": "E-mail",
+        "placeholder": "twoj@email.com",
+        "button": "Wyślij kod",
+        "sending": "Wysyłanie..."
+      },
+      "otp": {
+        "description": "Wpisz 4-cyfrowy kod wysłany na adres",
+        "label": "Kod weryfikacyjny",
+        "placeholder": "0000",
+        "button": "Zweryfikuj kod",
+        "verifying": "Weryfikowanie...",
+        "resend": "Wyślij kod ponownie",
+        "resending": "Wysyłanie ponowne...",
+        "changeEmail": "Zmień e-mail"
+      },
+      "errors": {
+        "emailRequired": "E-mail jest wymagany",
+        "invalidEmail": "Nieprawidłowy adres e-mail",
+        "otpRequired": "Kod jest wymagany",
+        "invalidOtp": "Nieprawidłowy lub wygasły kod",
+        "networkError": "Błąd sieci. Spróbuj ponownie.",
+        "serverError": "Wewnętrzny błąd serwera"
+      },
+      "success": {
+        "emailSent": "Kod został pomyślnie wysłany",
+        "loginSuccess": "Logowanie udane"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "Twój kod dostępu do iblups",
+      "title": "Kod dostępu",
+      "greeting": "Cześć,",
+      "description": "Twój kod dostępu do iblups to:",
+      "expiration": "Ten kod wygasa za 10 minut. Jeśli nie prosiłeś o ten kod, możesz zignorować tę wiadomość e-mail.",
+      "thanks": "Dziękujemy za korzystanie z iblups!",
+      "footer": "© 2025 iblups. Wszelkie prawa zastrzeżone."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Błąd sieci. Spróbuj ponownie.",
+      "invalidOtp": "Nieprawidłowy lub wygasły kod OTP.",
+      "sendOtpError": "Błąd podczas wysyłania kodu OTP.",
+      "followError": "Błąd podczas obserwowania kanału.",
+      "unfollowError": "Błąd podczas anulowania obserwacji kanału.",
+      "profileUpdateError": "Błąd podczas aktualizacji profilu.",
+      "emailUpdateError": "Błąd podczas aktualizacji adresu e-mail.",
+      "sessionError": "Błąd sesji. Zaloguj się ponownie.",
+      "unauthorized": "Brak autoryzacji. Proszę się zalogować.",
+      "serverError": "Wewnętrzny błąd serwera."
+    },
+    "success": {
+      "profileUpdated": "Profil został pomyślnie zaktualizowany",
+      "emailUpdated": "Adres e-mail został pomyślnie zaktualizowany",
+      "channelFollowed": "Pomyślnie zaobserwowano kanał",
+      "channelUnfollowed": "Przestałeś obserwować kanał",
+      "otpSent": "Kod został pomyślnie wysłany",
+      "loginSuccess": "Logowanie udane"
+    },
+    "info": {
+      "noChannels": "Nie obserwujesz jeszcze żadnych kanałów",
+      "visitChannels": "Odwiedź kanały i kliknij \"Obserwuj kanał\", aby dodać je tutaj",
+      "exploreChannels": "Przeglądaj kanały",
+      "loading": "Ładowanie...",
+      "redirecting": "Przekierowywanie...",
+      "sessionExpired": "Twoja sesja wygasła. Zaloguj się ponownie."
+    }
+  },
+  "pagination": {
+    "previous": "Poprzednia",
+    "next": "Następna",
+    "pageOf": "Strona"
+  },
+  "sessions": {
+    "description": "Tutaj możesz zobaczyć wszystkie swoje aktywne i nieaktywne sesje. Możesz zamknąć sesje z innych urządzeń dla większego bezpieczeństwa.",
+    "inactive": "Nieaktywna",
+    "expires": "Wygasa",
+    "daysRemaining": "dni pozostało",
+    "title": "Moje Sesje",
+    "loading": "Ładowanie sesji...",
+    "current": "Bieżąca sesja",
+    "close": "Wyloguj",
+    "refresh": "Odśwież sesje",
+    "device": "Urządzenie",
+    "browser": "Przeglądarka",
+    "country": "Kraj",
+    "lastActivity": "Ostatnia aktywność",
+    "created": "Utworzona"
   }
 }

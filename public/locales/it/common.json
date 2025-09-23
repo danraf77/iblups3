@@ -5,7 +5,9 @@
     "demo": "Demo",
     "debug": "Debug",
     "producerAccess": "Accesso produttore",
-    "toggleMenu": "Attiva/disattiva menu mobile"
+    "viewerAccess": "Accesso spettatore",
+    "toggleMenu": "Attiva/disattiva menu mobile",
+    "back": "Indietro"
   },
   "tabs": {
     "all": "Tutti",
@@ -14,21 +16,24 @@
   },
   "search": {
     "placeholder": "Cerca canali...",
-    "liveChannels": "canali live"
+    "liveChannels": "canali in diretta"
   },
   "channels": {
-    "live": "LIVE",
+    "live": "IN DIRETTA",
     "loading": "Caricamento canali...",
     "error": "Errore nel caricamento dei canali",
     "notFound": "Nessun canale trovato",
-    "retry": "Riprova"
+    "retry": "Riprova",
+    "follow": "Segui il canale",
+    "unfollow": "Smetti di seguire",
+    "following": "Segui già"
   },
   "footer": {
-    "privacyPolicy": "Politica sulla Privacy",
-    "termsOfService": "Termini di Servizio",
+    "privacyPolicy": "Informativa sulla privacy",
+    "termsOfService": "Termini di servizio",
     "support": "Supporto",
     "copyright": "© 2025 danraf77 LLC - USA. Tutti i diritti riservati.",
-    "poweredBy": "Powered by"
+    "poweredBy": "Realizzato da"
   },
   "player": {
     "loading": "Caricamento...",
@@ -36,14 +41,14 @@
     "play": "Riproduci",
     "pause": "Pausa",
     "mute": "Muto",
-    "unmute": "Attiva audio",
+    "unmute": "Riattiva audio",
     "fullscreen": "Schermo intero",
     "exitFullscreen": "Esci da schermo intero"
   },
   "hero": {
-    "title": "Il Mondo, un unico Schermo.",
-    "description": "Storie che uniscono. Notizie che rivelano. Musica che emoziona. Sport che appassiona. Cultura per ogni momento.",
-    "subtitle": "Tutto accade qui. Dal vivo.",
+    "title": "Il Mondo, uno Schermo.",
+    "description": "Contenuti che connettono. Notizie che informano. Musica che ispira. Sport che uniscono. Cinema, podcast e radio che accompagnano.",
+    "subtitle": "Tutto accade qui, in diretta.",
     "createChannel": "Crea il tuo canale"
   },
   "pages": {
@@ -51,11 +56,170 @@
       "title": "Canale",
       "loading": "Caricamento canale...",
       "notFound": "Canale non trovato",
-      "liveStream": "Streaming Live"
+      "liveStream": "Trasmissione in diretta"
     },
     "embed": {
-      "title": "Streaming Live",
-      "description": "Guarda lo streaming live"
+      "title": "Trasmissione in diretta",
+      "description": "Guarda la trasmissione in diretta"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Caricamento dashboard...",
+    "profile": {
+      "title": "Il mio profilo",
+      "edit": "Modifica",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "saving": "Salvataggio...",
+      "fields": {
+        "firstName": "Nome",
+        "lastName": "Cognome",
+        "country": "Paese",
+        "city": "Città",
+        "dateOfBirth": "Data di nascita",
+        "selectCountry": "Seleziona il paese"
+      }
+    },
+    "email": {
+      "title": "Cambia Email",
+      "currentEmail": "Email attuale",
+      "changeEmail": "Cambia Email",
+      "warning": "Per cambiare la tua email, dovrai verificare la nuova email con un codice OTP.",
+      "success": "Email aggiornata con successo"
+    },
+    "channels": {
+      "title": "Canali che segui",
+      "loading": "Caricamento canali seguiti...",
+      "empty": {
+        "title": "Non segui ancora nessun canale",
+        "description": "Visita i canali e fai clic su \"Segui il canale\" per aggiungerli qui",
+        "action": "Esplora i canali"
+      },
+      "actions": {
+        "viewChannel": "Guarda il canale",
+        "unfollow": "Smetti di seguire",
+        "refresh": "Ricarica i canali"
+      },
+      "followedOn": "Seguito il"
+    },
+    "sessions": {
+      "title": "Le mie sessioni",
+      "loading": "Caricamento sessioni...",
+      "current": "Sessione attuale",
+      "close": "Esci",
+      "refresh": "Ricarica sessioni",
+      "device": "Dispositivo",
+      "browser": "Browser",
+      "country": "Paese",
+      "lastActivity": "Ultima attività",
+      "created": "Creata il"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Accedi a iblups",
+        "verify": "Verifica codice"
+      },
+      "buttons": {
+        "viewerLogin": "Accesso spettatore",
+        "followChannel": "Segui il canale",
+        "unfollowChannel": "Smetti di seguire il canale",
+        "dashboard": "Dashboard",
+        "hello": "Ciao"
+      },
+      "email": {
+        "description": "Inserisci la tua email per ricevere un codice di accesso",
+        "label": "Email",
+        "placeholder": "tua@email.com",
+        "button": "Invia codice",
+        "sending": "Invio in corso..."
+      },
+      "otp": {
+        "description": "Inserisci il codice a 4 cifre inviato a",
+        "label": "Codice di verifica",
+        "placeholder": "0000",
+        "button": "Verifica codice",
+        "verifying": "Verifica in corso...",
+        "resend": "Reinvia codice",
+        "resending": "Reinvio in corso...",
+        "changeEmail": "Cambia email"
+      },
+      "errors": {
+        "emailRequired": "L'email è obbligatoria",
+        "invalidEmail": "Email non valida",
+        "otpRequired": "Il codice è obbligatorio",
+        "invalidOtp": "Codice non valido o scaduto",
+        "networkError": "Errore di rete. Riprova.",
+        "serverError": "Errore interno del server"
+      },
+      "success": {
+        "emailSent": "Codice inviato con successo",
+        "loginSuccess": "Accesso effettuato con successo"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "Il tuo codice di accesso a iblups",
+      "title": "Codice di accesso",
+      "greeting": "Ciao,",
+      "description": "Il tuo codice di accesso per iblups è:",
+      "expiration": "Questo codice scade tra 10 minuti. Se non hai richiesto questo codice, puoi ignorare questa email.",
+      "thanks": "Grazie per aver usato iblups!",
+      "footer": "© 2025 iblups. Tutti i diritti riservati."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Errore di rete. Riprova.",
+      "invalidOtp": "Codice OTP non valido o scaduto.",
+      "sendOtpError": "Errore durante l'invio del codice OTP.",
+      "followError": "Errore nel seguire il canale.",
+      "unfollowError": "Errore nel smettere di seguire il canale.",
+      "profileUpdateError": "Errore nell'aggiornamento del profilo.",
+      "emailUpdateError": "Errore nell'aggiornamento dell'email.",
+      "sessionError": "Errore di sessione. Effettua nuovamente l'accesso.",
+      "unauthorized": "Non autorizzato. Effettua l'accesso.",
+      "serverError": "Errore interno del server."
+    },
+    "success": {
+      "profileUpdated": "Profilo aggiornato con successo",
+      "emailUpdated": "Email aggiornata con successo",
+      "channelFollowed": "Canale seguito con successo",
+      "channelUnfollowed": "Hai smesso di seguire il canale",
+      "otpSent": "Codice inviato con successo",
+      "loginSuccess": "Accesso effettuato con successo"
+    },
+    "info": {
+      "noChannels": "Non segui ancora nessun canale",
+      "visitChannels": "Visita i canali e fai clic su \"Segui il canale\" per aggiungerli qui",
+      "exploreChannels": "Esplora i canali",
+      "loading": "Caricamento...",
+      "redirecting": "Reindirizzamento...",
+      "sessionExpired": "La tua sessione è scaduta. Effettua nuovamente l'accesso."
+    }
+  },
+  "pagination": {
+    "previous": "Precedente",
+    "next": "Successivo",
+    "pageOf": "Pagina"
+  },
+  "sessions": {
+    "description": "Qui puoi vedere tutte le tue sessioni attive e inattive. Puoi chiudere le sessioni da altri dispositivi per maggiore sicurezza.",
+    "inactive": "Inattiva",
+    "expires": "Scade",
+    "daysRemaining": "giorni rimanenti",
+    "title": "Le Mie Sessioni",
+    "loading": "Caricamento sessioni...",
+    "current": "Sessione corrente",
+    "close": "Esci",
+    "refresh": "Aggiorna sessioni",
+    "device": "Dispositivo",
+    "browser": "Browser",
+    "country": "Paese",
+    "lastActivity": "Ultima attività",
+    "created": "Creata"
   }
 }

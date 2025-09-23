@@ -137,5 +137,5 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
 // - Integración con Player2 component (Video.js moderno)
 // - Manejo server-side del cifrado de streamId
 // - Optimizada para uso en iframe
-// - Logo de iBlups con hover automático
+// - Logo de iblups con hover automático
 // - Volumen por defecto al 50%

@@ -107,7 +107,7 @@ const VideoJS: React.FC<Props> = ({
       const player = (playerRef.current = videojs(videoElement, playerOptions, () => {
         videojs.log('player is ready');
         
-        // Agregar logo de iBlups - Cursor
+        // Agregar logo de iblups - Cursor
         addLogo(player as VideoJSPlayer);
         
         // Establecer volumen inicial - Cursor
@@ -139,7 +139,7 @@ const VideoJS: React.FC<Props> = ({
     };
   }, []);
 
-  // Función para agregar logo de iBlups - Cursor
+  // Función para agregar logo de iblups - Cursor
   const addLogo = (player: VideoJSPlayer) => {
     const logoContainer = document.createElement('div');
     logoContainer.className = 'vjs-logo-container';

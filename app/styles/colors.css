@@ -1,4 +1,4 @@
-/* Paleta de colores centralizada para iBlups */
+/* Paleta de colores centralizada para iblups */
 :root {
   /* Colores principales de la paleta */
   --seasalt: #f8f9fa;
@@ -18,9 +18,9 @@
   --bg-card: #25282C;           /* Tarjetas - gris oscuro */
   --bg-card-hover: #343A40;     /* Hover de tarjetas - ligeramente más claro */
   --bg-input: #343A40;          /* Inputs - ligeramente más claro para visibilidad */
-  --bg-button: #343A40;         /* Botones - ligeramente más claro para visibilidad */
-  --bg-button-hover: #495057;   /* Hover de botones */
-  --bg-button-active: #495057;  /* Botones activos */
+  --bg-button: #2c73ff;         /* Botones - azul principal */
+  --bg-button-hover: #1e5bcc;   /* Hover de botones - azul más oscuro */
+  --bg-button-active: #1e5bcc;  /* Botones activos - azul más oscuro */
   
   --text-primary: #DEE2E6;      /* Color de letras */
   --text-secondary: var(--anti-flash-white);
@@ -37,6 +37,10 @@
   /* Badges y elementos especiales */
   --badge-live: #2C73FF;        /* Fondo del badge LIVE */
   --badge-text: #F8F9FA;        /* Letras del badge LIVE */
+  
+  /* Colores de texto para botones */
+  --text-button: #FFFFFF;       /* Texto de botones - blanco */
+  --text-button-hover: #FFFFFF; /* Texto de botones en hover - blanco */
   
   /* Focus y estados */
   --focus-ring: var(--french-gray-2);
@@ -59,6 +63,8 @@
 .text-tertiary { color: var(--text-tertiary); }
 .text-muted { color: var(--text-muted); }
 .text-disabled { color: var(--text-disabled); }
+.text-button { color: var(--text-button); }
+.text-button-hover { color: var(--text-button-hover); }
 
 .border-primary { border-color: var(--border-primary); }
 .border-secondary { border-color: var(--border-secondary); }

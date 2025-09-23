@@ -83,7 +83,7 @@ export const queryConfig = {
 };
 
 // Función para limpiar datos sensibles
-export function sanitizeUser(user: any) {
+export function sanitizeUser(user: { id: string; email: string; username?: string; display_name?: string; avatar_url?: string; is_verified?: boolean } | null) {
   if (!user) return null;
   
   return {
@@ -97,7 +97,7 @@ export function sanitizeUser(user: any) {
 }
 
 // Función para limpiar datos de canal
-export function sanitizeChannel(channel: any) {
+export function sanitizeChannel(channel: { id: string; username: string; display_name?: string; avatar_url?: string; is_live?: boolean; viewer_count?: number } | null) {
   if (!channel) return null;
   
   return {

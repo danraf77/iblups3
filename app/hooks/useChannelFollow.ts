@@ -15,7 +15,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
     if (enabled && channelId) {
       checkFollowingStatus();
     }
-  }, [channelId, enabled]);
+  }, [channelId, enabled, checkFollowingStatus]);
 
   const checkFollowingStatus = async () => {
     try {
@@ -51,7 +51,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error siguiendo canal');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);
@@ -74,7 +74,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error dejando de seguir canal');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);

@@ -474,6 +474,194 @@ const resources = {
       }
     },
   },
+  hi: {
+    common: {
+      "navigation": {
+        "home": "होम",
+        "compare": "तुलना",
+        "demo": "डेमो",
+        "debug": "डिबग",
+        "producerAccess": "अपने चैनल तक पहुंचें",
+        "toggleMenu": "मोबाइल मेनू टॉगल करें"
+      },
+      "tabs": {
+        "all": "सभी",
+        "popular": "लोकप्रिय",
+        "recent": "हाल का"
+      },
+      "search": {
+        "placeholder": "चैनल खोजें...",
+        "liveChannels": "लाइव चैनल",
+        "tryDifferent": "अलग खोज शब्द आज़माएं"
+      },
+      "channels": {
+        "live": "लाइव",
+        "loading": "चैनल लोड हो रहे हैं...",
+        "error": "चैनल लोड करने में त्रुटि",
+        "notFound": "कोई चैनल नहीं मिला",
+        "retry": "पुनः प्रयास करें"
+      },
+      "footer": {
+        "privacyPolicy": "गोपनीयता नीति",
+        "termsOfService": "सेवा की शर्तें",
+        "support": "सहायता",
+        "copyright": "© 2024 danraf77 LLC - USA. सभी अधिकार सुरक्षित।",
+        "poweredBy": "Powered by"
+      },
+      "pagination": {
+        "previous": "पिछला",
+        "next": "अगला",
+        "pageOf": "{{current}} / {{total}} पृष्ठ"
+      },
+      "hero": {
+        "title": "दुनिया, एक स्क्रीन पर।",
+        "description": "जोड़े दिलों को, वो कंटेंट। ख़बरें, जो सच दिखाएँ। संगीत, जो जगाए जूनून। खेल, जो सबको एक बनाएँ। हर पल का साथी, हमारा मनोरंजन।",
+        "subtitle": "सब कुछ यहीं, लाइव।",
+        "createChannel": "अपना चैनल बनाएं"
+      }
+    },
+  },
+  pl: {
+    common: {
+      "navigation": {
+        "home": "Strona główna",
+        "compare": "Porównaj",
+        "demo": "Demo",
+        "debug": "Debuguj",
+        "producerAccess": "Dostęp do kanału",
+        "toggleMenu": "Przełącz menu mobilne"
+      },
+      "tabs": {
+        "all": "Wszystkie",
+        "popular": "Popularne",
+        "recent": "Ostatnie"
+      },
+      "search": {
+        "placeholder": "Szukaj kanałów...",
+        "liveChannels": "kanały na żywo",
+        "tryDifferent": "Spróbuj innych terminów wyszukiwania"
+      },
+      "channels": {
+        "live": "NA ŻYWO",
+        "loading": "Ładowanie kanałów...",
+        "error": "Błąd ładowania kanałów",
+        "notFound": "Nie znaleziono kanałów",
+        "retry": "Spróbuj ponownie"
+      },
+      "footer": {
+        "privacyPolicy": "Polityka prywatności",
+        "termsOfService": "Warunki usługi",
+        "support": "Wsparcie",
+        "copyright": "© 2024 danraf77 LLC - USA. Wszystkie prawa zastrzeżone.",
+        "poweredBy": "Powered by"
+      },
+      "pagination": {
+        "previous": "Poprzednia",
+        "next": "Następna",
+        "pageOf": "Strona {{current}} z {{total}}"
+      },
+      "hero": {
+        "title": "Świat na jednym ekranie.",
+        "description": "Treści, które łączą. Wiadomości, które wyjaśniają. Muzyka, która inspiruje. Sport, który jednoczy. Kultura, która towarzyszy.",
+        "subtitle": "Wszystko dzieje się tutaj. Na żywo.",
+        "createChannel": "Utwórz swój kanał"
+      }
+    },
+  },
+  ru: {
+    common: {
+      "navigation": {
+        "home": "Главная",
+        "compare": "Сравнить",
+        "demo": "Демо",
+        "debug": "Отладка",
+        "producerAccess": "Доступ к каналу",
+        "toggleMenu": "Переключить мобильное меню"
+      },
+      "tabs": {
+        "all": "Все",
+        "popular": "Популярные",
+        "recent": "Недавние"
+      },
+      "search": {
+        "placeholder": "Поиск каналов...",
+        "liveChannels": "каналы в прямом эфире",
+        "tryDifferent": "Попробуйте другие поисковые термины"
+      },
+      "channels": {
+        "live": "В ЭФИРЕ",
+        "loading": "Загрузка каналов...",
+        "error": "Ошибка загрузки каналов",
+        "notFound": "Каналы не найдены",
+        "retry": "Повторить"
+      },
+      "footer": {
+        "privacyPolicy": "Политика конфиденциальности",
+        "termsOfService": "Условия обслуживания",
+        "support": "Поддержка",
+        "copyright": "© 2024 danraf77 LLC - USA. Все права защищены.",
+        "poweredBy": "Powered by"
+      },
+      "pagination": {
+        "previous": "Предыдущая",
+        "next": "Следующая",
+        "pageOf": "Страница {{current}} из {{total}}"
+      },
+      "hero": {
+        "title": "Весь мир на одном экране.",
+        "description": "Контент, который объединяет. Новости, открывающие правду. Музыка, которая вдохновляет. Спорт, который сближает. Культура, которая всегда рядом.",
+        "subtitle": "Всё происходит здесь. В прямом эфире.",
+        "createChannel": "Создайте свой канал"
+      }
+    },
+  },
+  tr: {
+    common: {
+      "navigation": {
+        "home": "Ana Sayfa",
+        "compare": "Karşılaştır",
+        "demo": "Demo",
+        "debug": "Hata Ayıkla",
+        "producerAccess": "Kanalınıza erişin",
+        "toggleMenu": "Mobil menüyü değiştir"
+      },
+      "tabs": {
+        "all": "Tümü",
+        "popular": "Popüler",
+        "recent": "Son"
+      },
+      "search": {
+        "placeholder": "Kanal ara...",
+        "liveChannels": "canlı kanallar",
+        "tryDifferent": "Farklı arama terimleri deneyin"
+      },
+      "channels": {
+        "live": "CANLI",
+        "loading": "Kanallar yükleniyor...",
+        "error": "Kanallar yüklenirken hata",
+        "notFound": "Kanal bulunamadı",
+        "retry": "Tekrar dene"
+      },
+      "footer": {
+        "privacyPolicy": "Gizlilik Politikası",
+        "termsOfService": "Hizmet Şartları",
+        "support": "Destek",
+        "copyright": "© 2024 danraf77 LLC - USA. Tüm hakları saklıdır.",
+        "poweredBy": "Powered by"
+      },
+      "pagination": {
+        "previous": "Önceki",
+        "next": "Sonraki",
+        "pageOf": "{{current}} / {{total}} sayfa"
+      },
+      "hero": {
+        "title": "Dünya tek ekranda.",
+        "description": "İnsanları buluşturan içerik. Gerçeği gösteren haberler. İlham veren müzik. Bizi birleştiren spor. Her anınıza eşlik eden kültür.",
+        "subtitle": "Her şey burada, canlı yayında.",
+        "createChannel": "Kanalınızı oluşturun"
+      }
+    },
+  },
 };
 
 i18n
@@ -524,13 +712,19 @@ i18n
           'it-IT': 'it',
           'it-CH': 'it',
           'ko-KR': 'ko',
+          'hi-IN': 'hi',
+          'pl-PL': 'pl',
+          'ru-RU': 'ru',
+          'ru-BY': 'ru',
+          'ru-KZ': 'ru',
+          'tr-TR': 'tr',
         };
         
         // Si el idioma está en el mapa, usarlo; si no, usar solo el código base
         const mappedLang = languageMap[lng] || lng.split('-')[0];
         
         // Verificar si el idioma está soportado, si no, usar inglés
-        const supportedLngs = ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt', 'it', 'ko'];
+        const supportedLngs = ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt', 'it', 'ko', 'hi', 'pl', 'ru', 'tr'];
         return supportedLngs.includes(mappedLang) ? mappedLang : 'en';
       },
     },
@@ -539,7 +733,7 @@ i18n
       escapeValue: false, // React ya escapa los valores
     },
 
-    supportedLngs: ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt', 'it', 'ko'],
+    supportedLngs: ['en', 'es', 'zh', 'de', 'ja', 'fr', 'ar', 'pt', 'it', 'ko', 'hi', 'pl', 'ru', 'tr'],
     
     // Configuración de namespaces
     defaultNS: 'common',

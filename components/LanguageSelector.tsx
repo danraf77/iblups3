@@ -12,6 +12,10 @@ const languages = [
   { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   { code: 'it', name: 'Italiano', flag: '🇮🇹' },
   { code: 'ko', name: '한국어', flag: '🇰🇷' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
 ];
 
 export default function LanguageSelector() {

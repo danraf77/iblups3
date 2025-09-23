@@ -1,0 +1,62 @@
+{
+  "navigation": {
+    "home": "Strona główna",
+    "compare": "Porównaj",
+    "demo": "Demo",
+    "debug": "Debuguj",
+    "producerAccess": "Dostęp do kanału",
+    "toggleMenu": "Przełącz menu mobilne"
+  },
+  "tabs": {
+    "all": "Wszystkie",
+    "popular": "Popularne",
+    "recent": "Ostatnie"
+  },
+  "search": {
+    "placeholder": "Szukaj kanałów...",
+    "liveChannels": "kanały na żywo",
+    "tryDifferent": "Spróbuj innych terminów wyszukiwania"
+  },
+  "channels": {
+    "live": "NA ŻYWO",
+    "loading": "Ładowanie kanałów...",
+    "error": "Błąd ładowania kanałów",
+    "notFound": "Nie znaleziono kanałów",
+    "retry": "Spróbuj ponownie"
+  },
+  "footer": {
+    "privacyPolicy": "Polityka prywatności",
+    "termsOfService": "Warunki usługi",
+    "support": "Wsparcie",
+    "copyright": "© 2025 danraf77 LLC - USA. Wszystkie prawa zastrzeżone.",
+    "poweredBy": "Powered by"
+  },
+  "player": {
+    "loading": "Ładowanie...",
+    "error": "Błąd ładowania wideo",
+    "play": "Odtwórz",
+    "pause": "Pauza",
+    "mute": "Wycisz",
+    "unmute": "Włącz dźwięk",
+    "fullscreen": "Pełny ekran",
+    "exitFullscreen": "Wyjdź z pełnego ekranu"
+  },
+  "hero": {
+    "title": "Świat na jednym ekranie.",
+    "description": "Treści, które łączą. Wiadomości, które wyjaśniają. Muzyka, która inspiruje. Sport, który jednoczy. Kultura, która towarzyszy.",
+    "subtitle": "Wszystko dzieje się tutaj. Na żywo.",
+    "createChannel": "Utwórz swój kanał"
+  },
+  "pages": {
+    "channel": {
+      "title": "Kanał",
+      "loading": "Ładowanie kanału...",
+      "notFound": "Kanał nie znaleziony",
+      "liveStream": "Transmisja na żywo"
+    },
+    "embed": {
+      "title": "Transmisja na żywo",
+      "description": "Oglądaj transmisję na żywo"
+    }
+  }
+}

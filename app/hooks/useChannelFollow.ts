@@ -11,12 +11,6 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (enabled && channelId) {
-      checkFollowingStatus();
-    }
-  }, [channelId, enabled, checkFollowingStatus]);
-
   const checkFollowingStatus = async () => {
     try {
       const response = await fetch(`/api/channels/is-following?channelId=${channelId}`);
@@ -26,6 +20,12 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       console.error('Error checking follow status:', error);
     }
   };
+
+  useEffect(() => {
+    if (enabled && channelId) {
+      checkFollowingStatus();
+    }
+  }, [channelId, enabled]);
 
   const followChannel = async (channelUsername: string, channelName: string) => {
     setLoading(true);

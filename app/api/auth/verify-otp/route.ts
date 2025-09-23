@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       .eq('id', otpData.id);
 
     // Buscar o crear usuario
-    let { data: user, error: userError } = await supabase
+    const { data: user, error: userError } = await supabase
       .from('iblups_users_viewers')
       .select('*')
       .eq('email', email)

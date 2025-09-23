@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase, queryConfig, sanitizeUser } from '../../../lib/supabase';
+import { supabase } from '../../../lib/supabase';
 
 export async function GET() {
   try {

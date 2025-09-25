@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase } from '../../../lib/supabase';
+import { supabase, queryConfig, sanitizeUser } from '../../../lib/supabase';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -37,7 +37,7 @@ export async function GET() {
     }
 
     // Buscar perfil extendido
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from('iblups_profile_viewers')
       .select('*')
       .eq('user_id', session.user_id)
@@ -94,7 +94,7 @@ export async function PUT(request: NextRequest) {
     console.log('Datos limpios:', cleanData);
 
     // Verificar si ya existe un perfil
-    const { error: checkError } = await supabase
+    const { data: existingProfile, error: checkError } = await supabase
       .from('iblups_profile_viewers')
       .select('id')
       .eq('user_id', session.user_id)

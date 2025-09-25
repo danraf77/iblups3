@@ -16,7 +16,7 @@ interface OTPEmailTemplateProps {
   email: string;
 }
 
-export function OTPEmailTemplate({ otpCode }: OTPEmailTemplateProps) {
+export function OTPEmailTemplate({ otpCode, email }: OTPEmailTemplateProps) {
   return (
     <Html>
       <Head />

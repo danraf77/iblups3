@@ -1,23 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded } from '../../../lib/supabase';
+import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded, SESSION_CONFIG } from '../../../lib/supabase';
 
-// Definir el tipo correcto para la sesión
-interface SessionWithUser {
-  user_id: string;
-  expires_at: string;
-  iblups_users_viewers: {
-    id: string;
-    email: string;
-    username?: string;
-    display_name?: string;
-    avatar_url?: string;
-    is_verified: boolean;
-    is_active: boolean;
-  };
-}
-
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -45,14 +30,8 @@ export async function GET() {
       return NextResponse.json({ user: null });
     }
 
-    // Usar type assertion con unknown primero
-    const userData = (session as unknown as SessionWithUser).iblups_users_viewers;
-    if (!userData) {
-      return NextResponse.json({ user: null });
-    }
-
     return NextResponse.json({
-      user: sanitizeUser(userData)
+      user: sanitizeUser(session.iblups_users_viewers)
     });
 
   } catch (error) {

@@ -48,8 +48,7 @@ export const queryConfig = {
       avatar_url,
       is_verified,
       is_active,
-      created_at,
-      last_login_at
+      created_at
     `
   },
   
@@ -68,20 +67,23 @@ export const queryConfig = {
         is_active
       )
     `
+  },
+  
+  // Configuración para seguimiento de canales
+  channelFollows: {
+    select: `
+      id,
+      channel_id,
+      channel_username,
+      channel_name,
+      followed_at,
+      notifications_enabled
+    `
   }
 };
 
-// Configuración de sesión
-export const SESSION_CONFIG = {
-  maxAge: 30 * 24 * 60 * 60, // 30 días en segundos
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax' as const,
-  path: '/'
-};
-
-// Función para limpiar datos de usuario
-export function sanitizeUser(user: { id: string; email: string; username?: string; display_name?: string; avatar_url?: string; is_verified?: boolean } | null) {
+// Función para limpiar datos sensibles
+export function sanitizeUser(user: any) {
   if (!user) return null;
   
   return {
@@ -90,32 +92,17 @@ export function sanitizeUser(user: { id: string; email: string; username?: strin
     username: user.username,
     display_name: user.display_name,
     avatar_url: user.avatar_url,
-    is_verified: user.is_verified || false
+    is_verified: user.is_verified
   };
 }
 
 // Función para limpiar datos de canal
-export function sanitizeChannel(channel: { 
-  id: string; 
-  name?: string;
-  username: string; 
-  display_name?: string; 
-  avatar_url?: string; 
-  is_live?: boolean; 
-  viewer_count?: number;
-  stream_id?: string;
-  is_on_live?: boolean;
-  icon?: string;
-  cover?: string;
-  category_id?: string;
-  is_4k?: boolean;
-  channels_category?: { name?: string };
-} | null) {
+export function sanitizeChannel(channel: any) {
   if (!channel) return null;
   
   return {
     id: channel.id,
-    name: channel.name || channel.display_name || channel.username,
+    name: channel.name,
     username: channel.username,
     stream_id: channel.stream_id,
     is_on_live: channel.is_on_live,
@@ -127,37 +114,56 @@ export function sanitizeChannel(channel: {
   };
 }
 
-// Función para renovar sesión si es necesario
-export async function renewSessionIfNeeded(sessionToken: string): Promise<boolean> {
+// Configuración de sesiones
+export const SESSION_CONFIG = {
+  DURATION_DAYS: 90,
+  RENEWAL_THRESHOLD_DAYS: 7, // Renovar si quedan menos de 7 días
+  MAX_AGE_SECONDS: 90 * 24 * 60 * 60, // 90 días en segundos
+  COOKIE_OPTIONS: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    path: '/',
+    domain: process.env.NODE_ENV === 'production' ? '.iblups.com' : undefined
+  }
+};
+
+// Función para renovar sesión automáticamente
+export async function renewSessionIfNeeded(sessionToken: string) {
   try {
     const { data: session, error } = await supabase
       .from('iblups_user_sessions')
-      .select('expires_at')
+      .select('*')
       .eq('session_token', sessionToken)
       .eq('is_active', true)
       .single();
 
-    if (error || !session) {
-      return false;
-    }
+    if (error || !session) return false;
 
-    const expiresAt = new Date(session.expires_at);
     const now = new Date();
-    const timeUntilExpiry = expiresAt.getTime() - now.getTime();
-    const daysUntilExpiry = timeUntilExpiry / (1000 * 60 * 60 * 24);
+    const expiresAt = new Date(session.expires_at);
+    const daysUntilExpiry = (expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
 
-    // Si la sesión expira en menos de 7 días, renovarla
-    if (daysUntilExpiry < 7) {
-      const newExpiresAt = new Date();
-      newExpiresAt.setDate(newExpiresAt.getDate() + 30);
-
+    // Si quedan menos de 7 días, renovar la sesión
+    if (daysUntilExpiry < SESSION_CONFIG.RENEWAL_THRESHOLD_DAYS) {
+      const newExpiresAt = new Date(Date.now() + SESSION_CONFIG.DURATION_DAYS * 24 * 60 * 60 * 1000);
+      
       await supabase
         .from('iblups_user_sessions')
-        .update({ expires_at: newExpiresAt.toISOString() })
+        .update({ 
+          expires_at: newExpiresAt.toISOString(),
+          last_activity_at: now.toISOString()
+        })
         .eq('session_token', sessionToken);
 
       return true;
     }
+
+    // Actualizar última actividad
+    await supabase
+      .from('iblups_user_sessions')
+      .update({ last_activity_at: now.toISOString() })
+      .eq('session_token', sessionToken);
 
     return true;
   } catch (error) {
@@ -166,8 +172,9 @@ export async function renewSessionIfNeeded(sessionToken: string): Promise<boolea
   }
 }
 
-// Comentario: Cliente Supabase optimizado creado con Cursor
-// - Configuraciones optimizadas para consultas frecuentes
+// Comentario: Configuración optimizada de Supabase creada con Cursor
+// - Clientes separados para servidor y cliente
+// - Configuraciones predefinidas para consultas frecuentes
 // - Funciones de sanitización de datos
-// - Manejo de sesiones con renovación automática
-// - Soporte para desarrollo y producción
+// - Optimización de rendimiento
+// - Sistema de sesiones robusto con renovación automática

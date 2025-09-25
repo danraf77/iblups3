@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 interface UseChannelFollowProps {
   channelId: string;
@@ -11,7 +11,13 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const checkFollowingStatus = useCallback(async () => {
+  useEffect(() => {
+    if (enabled && channelId) {
+      checkFollowingStatus();
+    }
+  }, [channelId, enabled]);
+
+  const checkFollowingStatus = async () => {
     try {
       const response = await fetch(`/api/channels/is-following?channelId=${channelId}`);
       const data = await response.json();
@@ -19,13 +25,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
     } catch (error) {
       console.error('Error checking follow status:', error);
     }
-  }, [channelId]);
-
-  useEffect(() => {
-    if (enabled && channelId) {
-      checkFollowingStatus();
-    }
-  }, [channelId, enabled, checkFollowingStatus]);
+  };
 
   const followChannel = async (channelUsername: string, channelName: string) => {
     setLoading(true);
@@ -51,7 +51,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error siguiendo canal');
       }
-    } catch {
+    } catch (error) {
       setError('Error de conexión');
     } finally {
       setLoading(false);
@@ -74,7 +74,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error dejando de seguir canal');
       }
-    } catch {
+    } catch (error) {
       setError('Error de conexión');
     } finally {
       setLoading(false);

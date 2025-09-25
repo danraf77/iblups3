@@ -86,8 +86,10 @@ export function useChannels({
         tab
       });
 
+      // Optimización: Usar cache para mejorar rendimiento - Implementado por Cursor
       const response = await fetch(`/api/channels/paginated?${params}`, {
-        cache: 'no-store',
+        cache: 'force-cache',
+        next: { revalidate: 60 }, // Revalidar cada 60 segundos
         headers: {
           'Content-Type': 'application/json',
         }

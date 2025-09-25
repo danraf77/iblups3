@@ -7,7 +7,7 @@ import { useTranslation as useI18n } from 'react-i18next';
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (user: any) => void;
+  onSuccess: (user: { id: string; email: string; first_name?: string; last_name?: string }) => void;
 }
 
 export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {

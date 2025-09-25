@@ -42,7 +42,8 @@ export async function POST(request: NextRequest) {
       .eq('id', otpData.id);
 
     // Buscar o crear usuario
-    let { data: user, error: userError } = await supabase
+    let user;
+    const { data: existingUser, error: userError } = await supabase
       .from('iblups_users_viewers')
       .select('*')
       .eq('email', email)
@@ -76,7 +77,12 @@ export async function POST(request: NextRequest) {
           language_preference: 'es'
         });
 
-    } else if (userError) {
+    } else {
+      // Usuario ya existe
+      user = existingUser;
+    }
+
+    if (userError) {
       console.error('Error buscando usuario:', userError);
       return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
     } else {
@@ -106,7 +112,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         session_token: sessionToken,
         expires_at: expiresAt.toISOString(),
-        ip_address: request.ip || '127.0.0.1',
+        ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '127.0.0.1',
         user_agent: request.headers.get('user-agent') || 'unknown',
         device_info: {
           platform: request.headers.get('sec-ch-ua-platform') || 'unknown',

@@ -4,10 +4,10 @@ import VideoJS from '../../components/Player';
 import { getHlsUrlServerSide } from '../../utils/getHlsUrl';
 
 interface EmbedPageProps {
-  params: {
+  params: Promise<{
     username: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     autoplay?: string;
     muted?: string;
     controls?: string;
@@ -18,14 +18,14 @@ interface EmbedPageProps {
     responsive?: string;
     preload?: string;
     playsinline?: string;
-  };
+  }>;
 }
 
 // Generación de metadatos con política de Referer que SÍ envía encabezado
 export async function generateMetadata(
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ): Promise<Metadata> {
-  const { username } = params;
+  const { username } = await params;
 
   try {
     // Obtener nombre del canal para metadata
@@ -59,7 +59,7 @@ export async function generateMetadata(
 }
 
 export default async function EmbedPage({ params, searchParams }: EmbedPageProps) {
-  const { username } = params;
+  const { username } = await params;
   const { 
     autoplay, 
     muted, 
@@ -71,7 +71,7 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
     responsive, 
     preload, 
     playsinline 
-  } = searchParams ?? {};
+  } = await searchParams ?? {};
 
   // Parsear query parameters con defaults - Cursor
   const autoplayEnabled = autoplay === 'true';

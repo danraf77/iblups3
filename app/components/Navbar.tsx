@@ -30,18 +30,9 @@ export default function Navbar({
   const getUserDisplayName = () => {
     if (!user) return '';
     
-    // Prioridad: display_name -> first_name + last_name -> email
+    // Prioridad: display_name -> email
     if (user.display_name) {
       return user.display_name;
-    }
-    
-    // Si no hay display_name pero hay perfil con nombre y apellido
-    if (user.profile?.first_name && user.profile?.last_name) {
-      return `${user.profile.first_name} ${user.profile.last_name}`;
-    }
-    
-    if (user.profile?.first_name) {
-      return user.profile.first_name;
     }
     
     return user.email;
@@ -259,7 +250,10 @@ export default function Navbar({
         <AuthModal
           isOpen={showAuthModal}
           onClose={() => setShowAuthModal(false)}
-          onSuccess={login}
+          onSuccess={() => {
+            setShowAuthModal(false);
+            // El hook useAuth manejará la actualización del estado
+          }}
         />
       </div>
     </header>

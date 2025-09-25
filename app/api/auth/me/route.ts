@@ -20,7 +20,10 @@ export async function GET(request: NextRequest) {
     // Buscar sesión válida con configuración optimizada
     const { data: session, error: sessionError } = await supabase
       .from('iblups_user_sessions')
-      .select(queryConfig.sessions.select)
+      .select(`
+        *,
+        iblups_users_viewers!inner(*)
+      `)
       .eq('session_token', sessionToken)
       .eq('is_active', true)
       .gt('expires_at', new Date().toISOString())

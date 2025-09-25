@@ -35,15 +35,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
       return user.display_name;
     }
     
-    // Si no hay display_name pero hay perfil con nombre y apellido
-    if (user.profile?.first_name && user.profile?.last_name) {
-      return `${user.profile.first_name} ${user.profile.last_name}`;
-    }
-    
-    if (user.profile?.first_name) {
-      return user.profile.first_name;
-    }
-    
+    // Si no hay display_name, usar el email
     return user.email;
   };
 
@@ -263,7 +255,10 @@ export default function ChannelPage({ params }: ChannelPageProps) {
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        onSuccess={login}
+        onSuccess={() => {
+          setShowAuthModal(false);
+          // El hook useAuth se actualizará automáticamente
+        }}
       />
     </div>
   );

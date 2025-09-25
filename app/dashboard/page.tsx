@@ -5,7 +5,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, User, Mail, MapPin, Calendar, Settings, LogOut, ArrowLeft, Menu, X, Monitor, Smartphone, Globe, Clock, Shield } from 'lucide-react';
+import { Heart, User, Mail, Settings, LogOut, ArrowLeft, Menu, X, Monitor, Smartphone, Globe, Clock, Shield } from 'lucide-react';
 import Footer from '../components/Footer';
 import AuthModal from '../components/AuthModal';
 import ProtectedRoute from '../components/ProtectedRoute';
@@ -53,7 +53,7 @@ interface UserProfile {
 }
 
 export default function DashboardPage() {
-  const { user, isAuthenticated, loading, logout, renewSession } = useAuth();
+  const { isAuthenticated, loading, logout, renewSession } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -61,7 +61,7 @@ export default function DashboardPage() {
   const [countries, setCountries] = useState<Array<{id: number, name: string, slug: string}>>([]);
   const [sessions, setSessions] = useState<UserSession[]>([]);
   const [loadingData, setLoadingData] = useState(true);
-  const [loadingProfile, setLoadingProfile] = useState(false);
+  const [, setLoadingProfile] = useState(false);
   const [loadingChannels, setLoadingChannels] = useState(false);
   const [loadingSessions, setLoadingSessions] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -869,7 +869,7 @@ export default function DashboardPage() {
         <AuthModal
           isOpen={showEmailModal}
           onClose={() => setShowEmailModal(false)}
-          onSuccess={async (user) => {
+          onSuccess={async () => {
             setShowEmailModal(false);
             // Recargar datos del perfil para mostrar el nuevo email
             await loadUserData(true);

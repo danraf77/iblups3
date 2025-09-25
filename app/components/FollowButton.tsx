@@ -36,7 +36,7 @@ export default function FollowButton({
     await toggleFollow(channelUsername, channelName);
   };
 
-  const handleAuthSuccess = (user: any) => {
+  const handleAuthSuccess = (user: { id: string; email: string; first_name?: string; last_name?: string }) => {
     setShowAuthModal(false);
     // El hook useChannelFollow se actualizará automáticamente
   };

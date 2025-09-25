@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       };
 
       // Determinar el dispositivo y navegador
-      const getDeviceInfo = (userAgent: string, deviceInfo: any) => {
+      const getDeviceInfo = (userAgent: string, deviceInfo: { platform?: string; browser?: string }) => {
         if (deviceInfo?.platform) {
           return deviceInfo.platform;
         }

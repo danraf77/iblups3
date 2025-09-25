@@ -83,7 +83,7 @@ export const queryConfig = {
 };
 
 // Función para limpiar datos sensibles
-export function sanitizeUser(user: any) {
+export function sanitizeUser(user: { id: string; email: string; username?: string; display_name?: string; avatar_url?: string; [key: string]: unknown }) {
   if (!user) return null;
   
   return {
@@ -97,7 +97,7 @@ export function sanitizeUser(user: any) {
 }
 
 // Función para limpiar datos de canal
-export function sanitizeChannel(channel: any) {
+export function sanitizeChannel(channel: { id: string; username: string; display_name?: string; avatar_url?: string; [key: string]: unknown }) {
   if (!channel) return null;
   
   return {
@@ -108,7 +108,7 @@ export function sanitizeChannel(channel: any) {
     is_on_live: channel.is_on_live,
     icon: channel.icon,
     cover: channel.cover,
-    category: channel.channels_category?.name,
+    category: (channel as { channels_category?: { name: string } }).channels_category?.name,
     viewer_count: channel.viewer_count,
     is_4k: channel.is_4k
   };

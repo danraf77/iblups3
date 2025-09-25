@@ -22,7 +22,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       const response = await fetch(`/api/channels/is-following?channelId=${channelId}`);
       const data = await response.json();
       setIsFollowing(data.isFollowing);
-    } catch (error) {
+    } catch {
       console.error('Error checking follow status:', error);
     }
   };
@@ -51,7 +51,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error siguiendo canal');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);
@@ -74,7 +74,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error dejando de seguir canal');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);

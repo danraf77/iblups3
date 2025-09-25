@@ -20,7 +20,7 @@ export default function FollowButton({
   className = '' 
 }: FollowButtonProps) {
   const { t } = useTranslation();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { isFollowing, loading, error, toggleFollow } = useChannelFollow({ 
     channelId,
     enabled: isAuthenticated 
@@ -36,7 +36,7 @@ export default function FollowButton({
     await toggleFollow(channelUsername, channelName);
   };
 
-  const handleAuthSuccess = (user: { id: string; email: string; first_name?: string; last_name?: string }) => {
+  const handleAuthSuccess = () => {
     setShowAuthModal(false);
     // El hook useChannelFollow se actualizará automáticamente
   };

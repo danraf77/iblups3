@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { notFound } from 'next/navigation';
+// import { notFound } from 'next/navigation'; // No utilizado
 import Image from 'next/image';
 import Link from 'next/link';
 import { useChannelByUsername } from '../hooks/useChannelByUsername';
@@ -23,7 +23,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
   const { username } = React.use(params);
   const { t } = useTranslation();
   const { channel, loading, error } = useChannelByUsername(username);
-  const { isAuthenticated, user, login } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Función para determinar el nombre a mostrar en el saludo

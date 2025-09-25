@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useTranslation } from '../hooks/useTranslation';
 import { useRouter } from 'next/navigation';
@@ -8,10 +8,9 @@ import Footer from '../components/Footer';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 export default function DashboardPage() {
-  const { user, isAuthenticated, loading, logout } = useAuth();
+  const { user, loading, logout } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
-  const [loadingData, setLoadingData] = useState(false);
 
   const handleLogout = async () => {
     try {

@@ -2,17 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  experimental: {
-    // Optimizaciones para Vercel - Implementado por Cursor
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
-  },
+  // Configuración optimizada para Vercel - Implementado por Cursor
+  output: 'standalone',
   
   // Optimizaciones de rendimiento
   images: {
@@ -24,6 +15,9 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  
+  // Configurar paquetes externos
+  serverExternalPackages: ['@supabase/supabase-js'],
   
   // Configuración de webpack para optimizar el bundle
   webpack: (config, { isServer }) => {

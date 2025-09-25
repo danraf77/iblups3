@@ -95,7 +95,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.invalidOtp'));
       }
-    } catch (err) {
+    } catch {
       setError(t('messages.errors.networkError'));
     } finally {
       setLoading(false);

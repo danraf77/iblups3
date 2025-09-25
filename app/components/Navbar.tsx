@@ -21,7 +21,7 @@ export default function Navbar({
   searchValue = ''
 }: NavbarProps) {
   const { t } = useTranslation();
-  const { isAuthenticated, user, login } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);

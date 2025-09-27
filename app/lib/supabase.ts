@@ -83,34 +83,36 @@ export const queryConfig = {
 };
 
 // Función para limpiar datos sensibles
-export function sanitizeUser(user: { id: string; email: string; username?: string; display_name?: string; avatar_url?: string; [key: string]: unknown }) {
+export function sanitizeUser(user: unknown) {
   if (!user) return null;
   
+  const userObj = user as any;
   return {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    display_name: user.display_name,
-    avatar_url: user.avatar_url,
-    is_verified: user.is_verified
+    id: userObj.id,
+    email: userObj.email,
+    username: userObj.username,
+    display_name: userObj.display_name,
+    avatar_url: userObj.avatar_url,
+    is_verified: userObj.is_verified
   };
 }
 
 // Función para limpiar datos de canal
-export function sanitizeChannel(channel: { id: string; username: string; display_name?: string; avatar_url?: string; [key: string]: unknown }) {
+export function sanitizeChannel(channel: unknown) {
   if (!channel) return null;
   
+  const channelObj = channel as any;
   return {
-    id: channel.id,
-    name: channel.name,
-    username: channel.username,
-    stream_id: channel.stream_id,
-    is_on_live: channel.is_on_live,
-    icon: channel.icon,
-    cover: channel.cover,
-    category: (channel as { channels_category?: { name: string } }).channels_category?.name,
-    viewer_count: channel.viewer_count,
-    is_4k: channel.is_4k
+    id: channelObj.id,
+    name: channelObj.name,
+    username: channelObj.username,
+    stream_id: channelObj.stream_id,
+    is_on_live: channelObj.is_on_live,
+    icon: channelObj.icon,
+    cover: channelObj.cover,
+    category: channelObj.channels_category?.name,
+    viewer_count: channelObj.viewer_count,
+    is_4k: channelObj.is_4k
   };
 }
 

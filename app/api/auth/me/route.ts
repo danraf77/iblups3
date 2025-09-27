@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase, sanitizeUser, renewSessionIfNeeded } from '../../../lib/supabase';
+import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded, SESSION_CONFIG } from '../../../lib/supabase';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -20,10 +20,7 @@ export async function GET() {
     // Buscar sesión válida con configuración optimizada
     const { data: session, error: sessionError } = await supabase
       .from('iblups_user_sessions')
-      .select(`
-        *,
-        iblups_users_viewers!inner(*)
-      `)
+      .select(queryConfig.sessions.select)
       .eq('session_token', sessionToken)
       .eq('is_active', true)
       .gt('expires_at', new Date().toISOString())
@@ -34,7 +31,7 @@ export async function GET() {
     }
 
     return NextResponse.json({
-      user: sanitizeUser(session.iblups_users_viewers)
+      user: sanitizeUser((session as any).iblups_users_viewers)
     });
 
   } catch (error) {

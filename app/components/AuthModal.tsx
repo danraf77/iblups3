@@ -7,7 +7,7 @@ import { useTranslation as useI18n } from 'react-i18next';
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (user: { id: string; email: string; first_name?: string; last_name?: string }) => void;
+  onSuccess: (user: unknown) => void;
 }
 
 export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
@@ -17,7 +17,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState('');
 
   // Resetear estado cuando se abre el modal
@@ -95,7 +95,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.invalidOtp'));
       }
-    } catch {
+    } catch (err) {
       setError(t('messages.errors.networkError'));
     } finally {
       setLoading(false);

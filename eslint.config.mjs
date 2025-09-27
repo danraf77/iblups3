@@ -20,15 +20,6 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
-  {
-    rules: {
-      // Deshabilitar reglas que pueden causar problemas en Vercel - Implementado por Cursor
-      "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "react-hooks/exhaustive-deps": "warn",
-      "no-console": "off",
-    },
-  },
 ];
 
 export default eslintConfig;

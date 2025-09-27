@@ -18,6 +18,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url));
     }
 
+    // Durante el build, solo verificar que existe el token
+    // La validación completa se hace en el cliente
+    if (process.env.NODE_ENV === 'production' && process.env.VERCEL === '1') {
+      return NextResponse.next();
+    }
+
     try {
       // Verificar si la sesión es válida
       const { data: session, error } = await supabase

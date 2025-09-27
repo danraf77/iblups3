@@ -8,6 +8,15 @@ interface User {
   display_name?: string;
   avatar_url?: string;
   is_verified: boolean;
+  profile?: {
+    first_name?: string;
+    last_name?: string;
+    date_of_birth?: string;
+    country?: string;
+    city?: string;
+    timezone?: string;
+    language_preference?: string;
+  };
 }
 
 export function useAuth() {
@@ -15,7 +24,10 @@ export function useAuth() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
+    // Solo hacer fetch en el cliente, no durante el build
+    if (typeof window !== 'undefined') {
+      checkAuth();
+    }
   }, []);
 
   const checkAuth = async () => {
@@ -59,8 +71,8 @@ export function useAuth() {
     }
   };
 
-  const login = (userData: User) => {
-    setUser(userData);
+  const login = (userData: unknown) => {
+    setUser(userData as User);
     // Verificar autenticación después de un breve delay para asegurar persistencia
     setTimeout(() => {
       checkAuth();

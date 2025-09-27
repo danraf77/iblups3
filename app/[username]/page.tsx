@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-// import { notFound } from 'next/navigation'; // No utilizado
+import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useChannelByUsername } from '../hooks/useChannelByUsername';
@@ -23,7 +23,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
   const { username } = React.use(params);
   const { t } = useTranslation();
   const { channel, loading, error } = useChannelByUsername(username);
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, login } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Función para determinar el nombre a mostrar en el saludo
@@ -35,7 +35,15 @@ export default function ChannelPage({ params }: ChannelPageProps) {
       return user.display_name;
     }
     
-    // Si no hay display_name, usar el email
+    // Si no hay display_name pero hay perfil con nombre y apellido
+    if (user.profile?.first_name && user.profile?.last_name) {
+      return `${user.profile.first_name} ${user.profile.last_name}`;
+    }
+    
+    if (user.profile?.first_name) {
+      return user.profile.first_name;
+    }
+    
     return user.email;
   };
 
@@ -255,10 +263,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        onSuccess={() => {
-          setShowAuthModal(false);
-          // El hook useAuth se actualizará automáticamente
-        }}
+        onSuccess={login}
       />
     </div>
   );

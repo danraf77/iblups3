@@ -86,10 +86,8 @@ export function useChannels({
         tab
       });
 
-      // Optimización: Usar cache para mejorar rendimiento - Implementado por Cursor
       const response = await fetch(`/api/channels/paginated?${params}`, {
-        cache: 'force-cache',
-        next: { revalidate: 60 }, // Revalidar cada 60 segundos
+        cache: 'no-store',
         headers: {
           'Content-Type': 'application/json',
         }
@@ -120,7 +118,10 @@ export function useChannels({
   }, [fetchChannels]);
 
   useEffect(() => {
-    fetchChannels();
+    // Solo hacer fetch en el cliente, no durante el build
+    if (typeof window !== 'undefined') {
+      fetchChannels();
+    }
   }, [fetchChannels]);
 
   return {
@@ -167,7 +168,10 @@ export function useLiveChannelsCount() {
   }, []);
 
   useEffect(() => {
-    fetchLiveCount();
+    // Solo hacer fetch en el cliente, no durante el build
+    if (typeof window !== 'undefined') {
+      fetchLiveCount();
+    }
   }, [fetchLiveCount]);
 
   return {

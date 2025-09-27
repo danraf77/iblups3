@@ -77,15 +77,13 @@ export async function POST(request: NextRequest) {
           language_preference: 'es'
         });
 
-    } else {
-      // Usuario ya existe
-      user = existingUser;
-    }
-
-    if (userError) {
+    } else if (userError) {
       console.error('Error buscando usuario:', userError);
       return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
     } else {
+      // Usuario existe, asignar usuario existente
+      user = existingUser;
+      
       // Usuario existe, actualizar último login
       await supabase
         .from('iblups_users_viewers')
@@ -112,7 +110,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         session_token: sessionToken,
         expires_at: expiresAt.toISOString(),
-        ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '127.0.0.1',
+        ip_address: (request as any).ip || '127.0.0.1',
         user_agent: request.headers.get('user-agent') || 'unknown',
         device_info: {
           platform: request.headers.get('sec-ch-ua-platform') || 'unknown',

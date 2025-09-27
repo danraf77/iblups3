@@ -21,7 +21,7 @@ export default function Navbar({
   searchValue = ''
 }: NavbarProps) {
   const { t } = useTranslation();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, login } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -30,9 +30,18 @@ export default function Navbar({
   const getUserDisplayName = () => {
     if (!user) return '';
     
-    // Prioridad: display_name -> email
+    // Prioridad: display_name -> first_name + last_name -> email
     if (user.display_name) {
       return user.display_name;
+    }
+    
+    // Si no hay display_name pero hay perfil con nombre y apellido
+    if (user.profile?.first_name && user.profile?.last_name) {
+      return `${user.profile.first_name} ${user.profile.last_name}`;
+    }
+    
+    if (user.profile?.first_name) {
+      return user.profile.first_name;
     }
     
     return user.email;
@@ -250,10 +259,7 @@ export default function Navbar({
         <AuthModal
           isOpen={showAuthModal}
           onClose={() => setShowAuthModal(false)}
-          onSuccess={() => {
-            setShowAuthModal(false);
-            // El hook useAuth manejará la actualización del estado
-          }}
+          onSuccess={login}
         />
       </div>
     </header>

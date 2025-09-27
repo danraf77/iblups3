@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Permitir que el build continúe con errores de TypeScript
+    // Mantener el build bloqueando errores de TypeScript (recomendado para Vercel)
     ignoreBuildErrors: false,
   },
   experimental: {
@@ -14,17 +14,17 @@ const nextConfig: NextConfig = {
   },
   // Configuración para evitar timeouts en build
   staticPageGenerationTimeout: 1000,
-  // Deshabilitar generación estática para páginas problemáticas
+  // Deshabilitar el slash final en rutas
   trailingSlash: false,
   // Configuración de output
-  output: 'standalone',
-  // Configuración para optimizar el build
+  output: "standalone",
+  // Configuración para optimizar el build/imágenes
   images: {
-    domains: ['iblups.sfo3.cdn.digitaloceanspaces.com'],
+    domains: ["iblups.sfo3.cdn.digitaloceanspaces.com"],
     unoptimized: true,
   },
-  // Configuración para páginas dinámicas
-  generateStaticParams: false,
+  // ❌ OJO: generateStaticParams NO debe ir en next.config.*
+  // Mueve cualquier uso a la página/layout del App Router correspondiente.
 };
 
 export default nextConfig;

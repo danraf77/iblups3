@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 
@@ -19,13 +19,19 @@ export async function POST(request: NextRequest) {
         .eq('session_token', sessionToken);
     }
 
-    // Eliminar cookie
-    cookieStore.delete('iblups_session');
-
-    return NextResponse.json({ 
+    // Crear respuesta para eliminar cookie
+    const response = NextResponse.json({ 
       success: true, 
       message: 'Sesión cerrada correctamente' 
     });
+
+    // Eliminar cookie configurando su expiración
+    response.cookies.set('iblups_session', '', {
+      expires: new Date(0),
+      path: '/'
+    });
+
+    return response;
 
   } catch (error) {
     console.error('Error en logout:', error);
@@ -35,5 +41,5 @@ export async function POST(request: NextRequest) {
 
 // Comentario: API para cerrar sesión creada con Cursor
 // - Marca sesión como inactiva en BD
-// - Elimina cookie del navegador
+// - Elimina cookie del navegador usando NextResponse
 // - Maneja errores apropiadamente

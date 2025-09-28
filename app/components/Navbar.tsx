@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '../hooks/useTranslation';
 import ClientOnly from './ClientOnly';
+import ViewerLoginButton from './ViewerLoginButton';
 
 interface NavbarProps {
   showSearch?: boolean;
@@ -47,6 +48,7 @@ export default function Navbar({
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       isScrolled 
@@ -88,6 +90,13 @@ export default function Navbar({
                 />
               </div>
             )}
+
+            {/* Viewer Login Button - Cursor */}
+            <ViewerLoginButton
+              variant="primary"
+              size="md"
+              className="rounded-lg"
+            />
 
             {/* Producer Access Button - Cursor */}
             <a
@@ -149,6 +158,15 @@ export default function Navbar({
               </div>
             )}
 
+            {/* Mobile Viewer Login Button - Cursor */}
+            <div className="px-3 py-2">
+              <ViewerLoginButton
+                variant="primary"
+                size="lg"
+                className="w-full rounded-lg"
+              />
+            </div>
+
             {/* Mobile Producer Access Button - Cursor */}
             <div className="px-3 py-2">
               <a
@@ -169,6 +187,7 @@ export default function Navbar({
           </div>
         </div>
       </div>
+
     </header>
   );
 }

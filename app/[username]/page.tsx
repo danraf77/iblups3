@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useChannelByUsername } from '../hooks/useChannelByUsername';
 import Footer from '../components/Footer';
+import ChannelNavbar from '../components/ChannelNavbar';
 import '../styles/footer.css';
 
 interface ChannelPageProps {
@@ -23,24 +23,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
     return (
       <div className="page-with-footer bg-primary">
         {/* Header */}
-        <header className="bg-secondary">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center">
-                <Link href="/">
-                  <Image 
-                    src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                    alt="iBlups" 
-                    width={120}
-                    height={32}
-                    className="h-8 w-auto"
-                  />
-                </Link>
-              </div>
-              <div className="flex-1"></div>
-            </div>
-          </div>
-        </header>
+        <ChannelNavbar />
 
         {/* Error Content */}
         <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
@@ -66,24 +49,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
     return (
       <div className="page-with-footer bg-primary">
         {/* Header */}
-        <header className="bg-secondary">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center">
-                <Link href="/">
-                  <Image 
-                    src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                    alt="iBlups" 
-                    width={120}
-                    height={32}
-                    className="h-8 w-auto"
-                  />
-                </Link>
-              </div>
-              <div className="flex-1"></div>
-            </div>
-          </div>
-        </header>
+        <ChannelNavbar />
 
         {/* Loading Content */}
         <main className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
@@ -104,24 +70,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
     return (
       <div className="page-with-footer bg-primary">
         {/* Header */}
-        <header className="bg-secondary">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center">
-                <Link href="/">
-                  <Image 
-                    src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                    alt="iBlups" 
-                    width={120}
-                    height={32}
-                    className="h-8 w-auto"
-                  />
-                </Link>
-              </div>
-              <div className="flex-1"></div>
-            </div>
-          </div>
-        </header>
+        <ChannelNavbar />
 
         {/* Error Content */}
         <div className="page-content">
@@ -148,28 +97,8 @@ export default function ChannelPage({ params }: ChannelPageProps) {
 
   return (
     <div className="page-with-footer bg-primary">
-      {/* Header - Navbar simplificado sin buscador */}
-      <header className="bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Link href="/">
-                <Image 
-                  src="https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_white.svg" 
-                  alt="iBlups" 
-                  width={120}
-                  height={32}
-                  className="h-8 w-auto"
-                />
-              </Link>
-            </div>
-
-            {/* Espacio vacío para mantener el layout centrado */}
-            <div className="flex-1"></div>
-          </div>
-        </div>
-      </header>
+      {/* Header - Navbar con botón de viewer */}
+      <ChannelNavbar />
 
       {/* Main Content */}
       <div className="page-content">

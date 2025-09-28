@@ -4,12 +4,15 @@
     "compare": "Vergleichen",
     "demo": "Demo",
     "debug": "Debuggen",
-    "producerAccess": "Produzentenzugang"
+    "producerAccess": "Produzentenzugang",
+    "viewerAccess": "Zuschauerzugang",
+    "toggleMenu": "Mobiles Menü umschalten",
+    "back": "Zurück"
   },
   "tabs": {
     "all": "Alle",
     "popular": "Beliebt",
-    "recent": "Kürzlich"
+    "recent": "Neueste"
   },
   "search": {
     "placeholder": "Kanäle suchen...",
@@ -20,7 +23,10 @@
     "loading": "Kanäle werden geladen...",
     "error": "Fehler beim Laden der Kanäle",
     "notFound": "Keine Kanäle gefunden",
-    "retry": "Wiederholen"
+    "retry": "Erneut versuchen",
+    "follow": "Kanal folgen",
+    "unfollow": "Nicht mehr folgen",
+    "following": "Gefolgt"
   },
   "footer": {
     "privacyPolicy": "Datenschutzrichtlinie",
@@ -32,29 +38,176 @@
   "player": {
     "loading": "Wird geladen...",
     "error": "Fehler beim Laden des Videos",
-    "play": "Abspielen",
-    "pause": "Pausieren",
-    "mute": "Stumm",
-    "unmute": "Ton einschalten",
+    "play": "Wiedergabe",
+    "pause": "Pause",
+    "mute": "Stummschalten",
+    "unmute": "Stummschaltung aufheben",
     "fullscreen": "Vollbild",
     "exitFullscreen": "Vollbild verlassen"
   },
   "hero": {
     "title": "Die Welt, ein Bildschirm.",
-    "description": "Inhalte, die verbinden. Nachrichten, die aufklären. Musik, die inspiriert. Sport, der vereint. Unterhaltung, die Sie begleitet.",
-    "subtitle": "Alles passiert hier. Live.",
-    "createChannel": "Erstellen Sie Ihren Kanal"
+    "description": "Inhalte, die verbinden. Nachrichten, die informieren. Musik, die inspiriert. Sport, der vereint. Kino, Podcasts und Radios, die begleiten.",
+    "subtitle": "Alles passiert hier, live.",
+    "createChannel": "Erstelle deinen Kanal"
   },
   "pages": {
     "channel": {
       "title": "Kanal",
       "loading": "Kanal wird geladen...",
       "notFound": "Kanal nicht gefunden",
-      "liveStream": "Live-Stream"
+      "liveStream": "Live-Übertragung"
     },
     "embed": {
-      "title": "Live-Stream",
-      "description": "Live-Stream ansehen"
+      "title": "Live-Übertragung",
+      "description": "Live-Übertragung ansehen"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Dashboard wird geladen...",
+    "profile": {
+      "title": "Mein Profil",
+      "edit": "Bearbeiten",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saving": "Wird gespeichert...",
+      "fields": {
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "country": "Land",
+        "city": "Stadt",
+        "dateOfBirth": "Geburtsdatum",
+        "selectCountry": "Land auswählen"
+      }
+    },
+    "email": {
+      "title": "E-Mail ändern",
+      "currentEmail": "Aktuelle E-Mail",
+      "changeEmail": "E-Mail ändern",
+      "warning": "Um Ihre E-Mail zu ändern, müssen Sie die neue E-Mail mit einem OTP-Code verifizieren.",
+      "success": "E-Mail erfolgreich aktualisiert"
+    },
+    "channels": {
+      "title": "Gefolgte Kanäle",
+      "loading": "Gefolgte Kanäle werden geladen...",
+      "empty": {
+        "title": "Sie folgen noch keinem Kanal",
+        "description": "Besuchen Sie die Kanäle und klicken Sie auf \"Kanal folgen\", um sie hier hinzuzufügen",
+        "action": "Kanäle erkunden"
+      },
+      "actions": {
+        "viewChannel": "Kanal ansehen",
+        "unfollow": "Nicht mehr folgen",
+        "refresh": "Kanäle neu laden"
+      },
+      "followedOn": "Gefolgt am"
+    },
+    "sessions": {
+      "title": "Meine Sitzungen",
+      "loading": "Sitzungen werden geladen...",
+      "current": "Aktuelle Sitzung",
+      "close": "Abmelden",
+      "refresh": "Sitzungen neu laden",
+      "device": "Gerät",
+      "browser": "Browser",
+      "country": "Land",
+      "lastActivity": "Letzte Aktivität",
+      "created": "Erstellt"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Bei iblups anmelden",
+        "verify": "Code verifizieren"
+      },
+      "buttons": {
+        "viewerLogin": "Zuschauer-Anmeldung",
+        "followChannel": "Kanal folgen",
+        "unfollowChannel": "Nicht mehr folgen",
+        "dashboard": "Dashboard",
+        "hello": "Hallo"
+      },
+      "email": {
+        "description": "Geben Sie Ihre E-Mail ein, um einen Zugangscode zu erhalten",
+        "label": "E-Mail",
+        "placeholder": "ihre@email.com",
+        "button": "Code senden",
+        "sending": "Wird gesendet..."
+      },
+      "otp": {
+        "description": "Geben Sie den 4-stelligen Code ein, der an gesendet wurde",
+        "label": "Verifizierungscode",
+        "placeholder": "0000",
+        "button": "Code verifizieren",
+        "verifying": "Wird verifiziert...",
+        "resend": "Code erneut senden",
+        "resending": "Wird erneut gesendet...",
+        "changeEmail": "E-Mail ändern"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "Ihr Zugangscode für iblups",
+      "title": "Zugangscode",
+      "greeting": "Hallo,",
+      "description": "Ihr Zugangscode für iblups lautet:",
+      "expiration": "Dieser Code läuft in 10 Minuten ab. Wenn Sie diesen Code nicht angefordert haben, können Sie diese E-Mail ignorieren.",
+      "thanks": "Danke, dass Sie iblups verwenden!",
+      "footer": "© 2025 iblups. Alle Rechte vorbehalten."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Netzwerkfehler. Bitte versuchen Sie es erneut.",
+      "invalidOtp": "Ungültiger oder abgelaufener OTP-Code.",
+      "sendOtpError": "Fehler beim Senden des OTP-Codes.",
+      "followError": "Fehler beim Folgen des Kanals.",
+      "unfollowError": "Fehler beim Entfolgen des Kanals.",
+      "profileUpdateError": "Fehler beim Aktualisieren des Profils.",
+      "emailUpdateError": "Fehler beim Aktualisieren der E-Mail.",
+      "sessionError": "Sitzungsfehler. Bitte melden Sie sich erneut an.",
+      "unauthorized": "Nicht autorisiert. Bitte melden Sie sich an.",
+      "serverError": "Interner Serverfehler."
+    },
+    "success": {
+      "profileUpdated": "Profil erfolgreich aktualisiert",
+      "emailUpdated": "E-Mail erfolgreich aktualisiert",
+      "channelFollowed": "Kanal erfolgreich gefolgt",
+      "channelUnfollowed": "Kanal entfolgt",
+      "otpSent": "Code erfolgreich gesendet",
+      "loginSuccess": "Anmeldung erfolgreich"
+    },
+    "info": {
+      "noChannels": "Sie folgen noch keinen Kanälen",
+      "visitChannels": "Besuchen Sie Kanäle und klicken Sie auf \"Kanal folgen\", um sie hier hinzuzufügen",
+      "exploreChannels": "Kanäle erkunden",
+      "loading": "Wird geladen...",
+      "redirecting": "Wird weitergeleitet...",
+      "sessionExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
+    }
+  },
+  "pagination": {
+    "previous": "Zurück",
+    "next": "Weiter",
+    "pageOf": "Seite"
+  },
+  "sessions": {
+    "description": "Hier können Sie alle Ihre aktiven und inaktiven Sitzungen sehen. Sie können Sitzungen von anderen Geräten schließen, um mehr Sicherheit zu gewährleisten.",
+    "inactive": "Inaktiv",
+    "expires": "Läuft ab",
+    "daysRemaining": "Tage verbleibend",
+    "title": "Meine Sitzungen",
+    "loading": "Sitzungen werden geladen...",
+    "current": "Aktuelle Sitzung",
+    "close": "Abmelden",
+    "refresh": "Sitzungen aktualisieren",
+    "device": "Gerät",
+    "browser": "Browser",
+    "country": "Land",
+    "lastActivity": "Letzte Aktivität",
+    "created": "Erstellt"
   }
 }

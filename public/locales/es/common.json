@@ -5,7 +5,9 @@
     "demo": "Demo",
     "debug": "Depurar",
     "producerAccess": "Acceso de productor",
-    "toggleMenu": "Alternar menú móvil"
+    "viewerAccess": "Ingreso como viewer",
+    "toggleMenu": "Alternar menú móvil",
+    "back": "Volver"
   },
   "tabs": {
     "all": "Todos",
@@ -16,12 +18,20 @@
     "placeholder": "Buscar canales...",
     "liveChannels": "canales en vivo"
   },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "pageOf": "Página"
+  },
   "channels": {
     "live": "EN VIVO",
     "loading": "Cargando canales...",
     "error": "Error al cargar canales",
     "notFound": "No se encontraron canales",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "follow": "Seguir canal",
+    "unfollow": "Dejar de seguir",
+    "following": "Siguiendo"
   },
   "footer": {
     "privacyPolicy": "Política de Privacidad",
@@ -57,5 +67,163 @@
       "title": "Transmisión en vivo",
       "description": "Ver transmisión en vivo"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Cargando dashboard...",
+    "profile": {
+      "title": "Mi Perfil",
+      "edit": "Editar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "fields": {
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "country": "País",
+        "city": "Ciudad",
+        "dateOfBirth": "Fecha de nacimiento",
+        "selectCountry": "Seleccionar país"
+      }
+    },
+    "email": {
+      "title": "Cambiar Email",
+      "currentEmail": "Email actual",
+      "changeEmail": "Cambiar Email",
+      "warning": "Para cambiar tu email, necesitarás verificar el nuevo email con un código OTP.",
+      "success": "Email actualizado correctamente"
+    },
+    "channels": {
+      "title": "Canales que Sigues",
+      "loading": "Cargando canales seguidos...",
+      "empty": {
+        "title": "No sigues ningún canal aún",
+        "description": "Visita los canales y haz clic en \"Seguir canal\" para agregarlos aquí",
+        "action": "Explorar Canales"
+      },
+      "actions": {
+        "viewChannel": "Ver Canal",
+        "unfollow": "Dejar de seguir",
+        "refresh": "Recargar canales"
+      },
+      "followedOn": "Seguido el"
+    },
+    "sessions": {
+      "title": "Mis Sesiones",
+      "loading": "Cargando sesiones...",
+      "current": "Sesión actual",
+      "close": "Cerrar sesión",
+      "refresh": "Recargar sesiones",
+      "device": "Dispositivo",
+      "browser": "Navegador",
+      "country": "País",
+      "lastActivity": "Última actividad",
+      "created": "Creada",
+      "description": "Aquí puedes ver todas tus sesiones activas e inactivas. Puedes cerrar sesiones de otros dispositivos para mayor seguridad.",
+      "inactive": "Inactiva",
+      "expires": "Expira",
+      "daysRemaining": "días restantes"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Ingresar a iblups",
+        "verify": "Verificar código"
+      },
+      "buttons": {
+        "viewerLogin": "Ingreso como viewer",
+        "followChannel": "Seguir canal",
+        "unfollowChannel": "Dejar de seguir",
+        "dashboard": "Dashboard",
+        "hello": "Hola"
+      },
+      "email": {
+        "description": "Ingresa tu email para recibir un código de acceso",
+        "label": "Email",
+        "placeholder": "tu@email.com",
+        "button": "Enviar código",
+        "sending": "Enviando..."
+      },
+      "otp": {
+        "description": "Ingresa el código de 4 dígitos enviado a",
+        "label": "Código de verificación",
+        "placeholder": "0000",
+        "button": "Verificar código",
+        "verifying": "Verificando...",
+        "resend": "Reenviar código",
+        "resending": "Reenviando...",
+        "changeEmail": "Cambiar email"
+      },
+      "errors": {
+        "emailRequired": "Email es requerido",
+        "invalidEmail": "Email inválido",
+        "otpRequired": "Código es requerido",
+        "invalidOtp": "Código inválido o expirado",
+        "networkError": "Error de red. Inténtalo de nuevo.",
+        "serverError": "Error interno del servidor"
+      },
+      "success": {
+        "emailSent": "Código enviado correctamente",
+        "loginSuccess": "Inicio de sesión exitoso"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "Tu código de acceso a iblups",
+      "title": "Código de acceso",
+      "greeting": "Hola,",
+      "description": "Tu código de acceso para iblups es:",
+      "expiration": "Este código expira en 10 minutos. Si no solicitaste este código, puedes ignorar este email.",
+      "thanks": "¡Gracias por usar iblups!",
+      "footer": "© 2024 iblups. Todos los derechos reservados."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Error de red. Inténtalo de nuevo.",
+      "invalidOtp": "Código OTP inválido o expirado.",
+      "sendOtpError": "Error al enviar el código OTP.",
+      "followError": "Error al seguir el canal.",
+      "unfollowError": "Error al dejar de seguir el canal.",
+      "profileUpdateError": "Error al actualizar el perfil.",
+      "emailUpdateError": "Error al actualizar el email.",
+      "sessionError": "Error de sesión. Por favor, inicia sesión nuevamente.",
+      "unauthorized": "No autorizado. Por favor, inicia sesión.",
+      "serverError": "Error interno del servidor."
+    },
+    "success": {
+      "profileUpdated": "Perfil actualizado correctamente",
+      "emailUpdated": "Email actualizado correctamente",
+      "channelFollowed": "Canal seguido correctamente",
+      "channelUnfollowed": "Dejaste de seguir el canal",
+      "otpSent": "Código enviado correctamente",
+      "loginSuccess": "Inicio de sesión exitoso"
+    },
+    "info": {
+      "noChannels": "No sigues ningún canal aún",
+      "visitChannels": "Visita los canales y haz clic en \"Seguir canal\" para agregarlos aquí",
+      "exploreChannels": "Explorar Canales",
+      "loading": "Cargando...",
+      "redirecting": "Redirigiendo...",
+      "sessionExpired": "Tu sesión ha expirado. Por favor, inicia sesión nuevamente."
+    }
+  },
+  "sessions": {
+    "title": "Mis Sesiones",
+    "loading": "Cargando sesiones...",
+    "current": "Sesión actual",
+    "close": "Cerrar sesión",
+    "refresh": "Recargar sesiones",
+    "device": "Dispositivo",
+    "browser": "Navegador",
+    "country": "País",
+    "lastActivity": "Última actividad",
+    "created": "Creada",
+    "description": "Aquí puedes ver todas tus sesiones activas e inactivas. Puedes cerrar sesiones de otros dispositivos para mayor seguridad.",
+    "inactive": "Inactiva",
+    "expires": "Expira",
+    "daysRemaining": "días restantes"
   }
 }

@@ -4,7 +4,10 @@
     "compare": "Comparer",
     "demo": "Démo",
     "debug": "Déboguer",
-    "producerAccess": "Accès producteur"
+    "producerAccess": "Accès producteur",
+    "viewerAccess": "Accès spectateur",
+    "toggleMenu": "Basculer le menu mobile",
+    "back": "Retour"
   },
   "tabs": {
     "all": "Tous",
@@ -20,7 +23,10 @@
     "loading": "Chargement des chaînes...",
     "error": "Erreur lors du chargement des chaînes",
     "notFound": "Aucune chaîne trouvée",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "follow": "Suivre la chaîne",
+    "unfollow": "Ne plus suivre",
+    "following": "Suivi"
   },
   "footer": {
     "privacyPolicy": "Politique de confidentialité",
@@ -37,11 +43,11 @@
     "mute": "Muet",
     "unmute": "Activer le son",
     "fullscreen": "Plein écran",
-    "exitFullscreen": "Quitter le plein écran"
+    "exitFullscreen": "Quitter le mode plein écran"
   },
   "hero": {
-    "title": "Le Monde, un seul écran.",
-    "description": "Des histoires qui nous relient. L'actualité qui éclaire. La musique qui fait vibrer. Le sport qui rassemble. La culture qui vous accompagne.",
+    "title": "Le Monde, un Écran.",
+    "description": "Du contenu qui connecte. Des nouvelles qui informent. De la musique qui inspire. Des sports qui unissent. Du cinéma, des podcasts et des radios qui accompagnent.",
     "subtitle": "Tout se passe ici, en direct.",
     "createChannel": "Créez votre chaîne"
   },
@@ -56,5 +62,164 @@
       "title": "Diffusion en direct",
       "description": "Regarder la diffusion en direct"
     }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "loading": "Chargement du tableau de bord...",
+    "profile": {
+      "title": "Mon Profil",
+      "edit": "Modifier",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement en cours...",
+      "fields": {
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "country": "Pays",
+        "city": "Ville",
+        "dateOfBirth": "Date de naissance",
+        "selectCountry": "Sélectionner un pays"
+      }
+    },
+    "email": {
+      "title": "Changer d'email",
+      "currentEmail": "Email actuel",
+      "changeEmail": "Changer d'email",
+      "warning": "Pour changer votre email, vous devrez vérifier le nouvel email avec un code OTP.",
+      "success": "Email mis à jour avec succès"
+    },
+    "channels": {
+      "title": "Chaînes que vous suivez",
+      "loading": "Chargement des chaînes suivies...",
+      "empty": {
+        "title": "Vous ne suivez encore aucune chaîne",
+        "description": "Visitez les chaînes et cliquez sur \"Suivre la chaîne\" pour les ajouter ici",
+        "action": "Explorer les chaînes"
+      },
+      "actions": {
+        "viewChannel": "Voir la chaîne",
+        "unfollow": "Ne plus suivre",
+        "refresh": "Actualiser les chaînes"
+      },
+      "followedOn": "Suivi le"
+    },
+    "sessions": {
+      "title": "Mes Sessions",
+      "loading": "Chargement des sessions...",
+      "current": "Session actuelle",
+      "close": "Se déconnecter",
+      "refresh": "Actualiser les sessions",
+      "device": "Appareil",
+      "browser": "Navigateur",
+      "country": "Pays",
+      "lastActivity": "Dernière activité",
+      "created": "Créée le"
+    }
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Se connecter à iblups",
+        "verify": "Vérifier le code"
+      },
+      "buttons": {
+        "viewerLogin": "Connexion spectateur",
+        "followChannel": "Suivre la chaîne",
+        "unfollowChannel": "Ne plus suivre",
+        "dashboard": "Tableau de bord",
+        "hello": "Bonjour"
+      },
+      "email": {
+        "description": "Entrez votre email pour recevoir un code d'accès",
+        "label": "Email",
+        "placeholder": "votre@email.com",
+        "button": "Envoyer le code",
+        "sending": "Envoi en cours..."
+      },
+      "otp": {
+        "description": "Entrez le code à 4 chiffres envoyé à",
+        "label": "Code de vérification",
+        "placeholder": "0000",
+        "button": "Vérifier le code",
+        "verifying": "Vérification...",
+        "resend": "Renvoyer le code",
+        "resending": "Renvoi en cours...",
+        "changeEmail": "Changer l'email"
+      },
+      "errors": {
+        "emailRequired": "L'email est requis",
+        "invalidEmail": "Email invalide",
+        "otpRequired": "Le code est requis",
+        "invalidOtp": "Code invalide ou expiré",
+        "networkError": "Erreur réseau. Veuillez réessayer.",
+        "serverError": "Erreur interne du serveur"
+      },
+      "success": {
+        "emailSent": "Code envoyé avec succès",
+        "loginSuccess": "Connexion réussie"
+      }
+    }
+  },
+  "email": {
+    "otp": {
+      "subject": "Votre code d'accès à iblups",
+      "title": "Code d'accès",
+      "greeting": "Bonjour,",
+      "description": "Votre code d'accès pour iblups est :",
+      "expiration": "Ce code expire dans 10 minutes. Si vous n'avez pas demandé ce code, vous pouvez ignorer cet email.",
+      "thanks": "Merci d'utiliser iblups !",
+      "footer": "© 2025 iblups. Tous droits réservés."
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Erreur de réseau. Veuillez réessayer.",
+      "invalidOtp": "Code OTP invalide ou expiré.",
+      "sendOtpError": "Erreur lors de l'envoi du code OTP.",
+      "followError": "Erreur lors du suivi de la chaîne.",
+      "unfollowError": "Erreur lors de l'arrêt du suivi de la chaîne.",
+      "profileUpdateError": "Erreur lors de la mise à jour du profil.",
+      "emailUpdateError": "Erreur lors de la mise à jour de l'email.",
+      "sessionError": "Erreur de session. Veuillez vous reconnecter.",
+      "unauthorized": "Non autorisé. Veuillez vous connecter.",
+      "serverError": "Erreur interne du serveur."
+    },
+    "success": {
+      "profileUpdated": "Profil mis à jour avec succès",
+      "emailUpdated": "Email mis à jour avec succès",
+      "channelFollowed": "Chaîne suivie avec succès",
+      "channelUnfollowed": "Vous ne suivez plus la chaîne",
+      "otpSent": "Code envoyé avec succès",
+      "loginSuccess": "Connexion réussie"
+    },
+    "info": {
+      "noChannels": "Vous ne suivez encore aucune chaîne",
+      "visitChannels": "Visitez les chaînes et cliquez sur \"Suivre la chaîne\" pour les ajouter ici",
+      "exploreChannels": "Explorer les Chaînes",
+      "loading": "Chargement...",
+      "redirecting": "Redirection...",
+      "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter."
+    }
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "pageOf": "Page"
+  },
+  "sessions": {
+    "description": "Ici vous pouvez voir toutes vos sessions actives et inactives. Vous pouvez fermer les sessions d'autres appareils pour plus de sécurité.",
+    "inactive": "Inactive",
+    "expires": "Expire",
+    "daysRemaining": "jours restants",
+    "title": "Mes Sessions",
+    "loading": "Chargement des sessions...",
+    "current": "Session actuelle",
+    "close": "Se déconnecter",
+    "refresh": "Actualiser les sessions",
+    "device": "Appareil",
+    "browser": "Navigateur",
+    "country": "Pays",
+    "lastActivity": "Dernière activité",
+    "created": "Créée"
   }
 }

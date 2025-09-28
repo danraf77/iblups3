@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import OTPLoginModal from './OTPLoginModal';
 
@@ -22,14 +22,7 @@ export default function FollowChannelButton({
   const [isLoading, setIsLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Verificar si el usuario ya sigue este canal
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      checkFollowStatus();
-    }
-  }, [isAuthenticated, user, channelId]);
-
-  const checkFollowStatus = async () => {
+  const checkFollowStatus = useCallback(async () => {
     try {
       const response = await fetch(`/api/channel/follow-status?channelId=${channelId}`);
       if (response.ok) {
@@ -39,7 +32,14 @@ export default function FollowChannelButton({
     } catch (error) {
       console.error('Error checking follow status:', error);
     }
-  };
+  }, [channelId]);
+
+  // Verificar si el usuario ya sigue este canal
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      checkFollowStatus();
+    }
+  }, [isAuthenticated, user, checkFollowStatus]);
 
   const handleFollowToggle = async () => {
     if (!isAuthenticated) {

@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
       .sign(secret);
 
     // Configurar cookie de sesión
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set('auth-token', jwt, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

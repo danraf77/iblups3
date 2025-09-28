@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 interface OTPLoginModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onLoginSuccess: (user: any) => void;
+  onLoginSuccess: (user: { id: string; email: string; display_name?: string; username?: string }) => void;
 }
 
 export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLoginModalProps) {
@@ -52,7 +52,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
       } else {
         setError(data.error || 'Error enviando código');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);
@@ -84,7 +84,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
       } else {
         setError(data.error || 'Código inválido');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);
@@ -114,7 +114,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
       } else {
         setError(data.error || 'Error reenviando código');
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión');
     } finally {
       setLoading(false);

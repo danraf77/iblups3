@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
@@ -8,9 +8,9 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get('auth-token');
 
     if (!token) {
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     console.error('Error in /api/auth/logout:', error);
     
     // Limpiar cookie incluso si hay error
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.delete('auth-token');
     
     return NextResponse.json(

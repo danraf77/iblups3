@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { OTPEmailTemplate } from '../../../components/OTPEmailTemplate';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -41,12 +40,11 @@ export async function POST(request: NextRequest) {
       .eq('email', email)
       .single();
 
-    let userId: string;
     let userName: string | undefined;
 
     if (userError && userError.code === 'PGRST116') {
       // Usuario no existe, crear nuevo usuario
-      const { data: newUser, error: createError } = await supabase
+      const { error: createError } = await supabase
         .from('iblups_users_viewers')
         .insert({
           email: email,
@@ -65,7 +63,6 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      userId = newUser.id;
       userName = email.split('@')[0]; // Usar parte antes del @ como nombre
     } else if (userError) {
       console.error('Error verificando usuario:', userError);
@@ -75,7 +72,6 @@ export async function POST(request: NextRequest) {
       );
     } else {
       // Usuario existe
-      userId = existingUser.id;
       userName = existingUser.display_name || existingUser.email.split('@')[0];
     }
 
@@ -154,10 +150,10 @@ export async function POST(request: NextRequest) {
         emailId: emailData?.id
       });
 
-    } catch (emailError) {
+    } catch (emailError: unknown) {
       console.error('Error en servicio de email:', emailError);
       return NextResponse.json(
-        { error: `Error en servicio de email: ${emailError.message || emailError}` },
+        { error: `Error en servicio de email: ${emailError instanceof Error ? emailError.message : String(emailError)}` },
         { status: 500 }
       );
     }

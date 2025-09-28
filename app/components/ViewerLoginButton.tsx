@@ -18,7 +18,7 @@ export default function ViewerLoginButton({
   const { user, isAuthenticated, loading, login } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const handleLoginSuccess = (userData: any) => {
+  const handleLoginSuccess = (userData: { id: string; email: string; display_name?: string; username?: string }) => {
     login(userData);
     setShowLoginModal(false);
   };

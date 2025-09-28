@@ -11,12 +11,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (enabled && channelId) {
-      checkFollowingStatus();
-    }
-  }, [channelId, enabled, checkFollowingStatus]);
-
+  // Declarar checkFollowingStatus ANTES del useEffect
   const checkFollowingStatus = useCallback(async () => {
     try {
       const response = await fetch(`/api/channels/is-following?channelId=${channelId}`);
@@ -26,6 +21,13 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       console.error('Error checking follow status:', error);
     }
   }, [channelId]);
+
+  // Ahora useEffect puede usar checkFollowingStatus sin problemas
+  useEffect(() => {
+    if (enabled && channelId) {
+      checkFollowingStatus();
+    }
+  }, [channelId, enabled, checkFollowingStatus]);
 
   const followChannel = async (channelUsername: string, channelName: string) => {
     setLoading(true);

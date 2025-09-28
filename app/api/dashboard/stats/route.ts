@@ -44,7 +44,7 @@ export async function GET() {
       .from('iblups_channel_follows')
       .select('*', { count: 'exact', head: true })
       .eq('user_id', userId)
-      .gte('created_at', sevenDaysAgo);
+      .gte('followed_at', sevenDaysAgo);
 
     if (activityError) {
       console.error('Error counting recent activity:', activityError);

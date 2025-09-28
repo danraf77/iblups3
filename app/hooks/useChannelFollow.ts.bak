@@ -17,10 +17,10 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       const response = await fetch(`/api/channels/is-following?channelId=${channelId}`);
       const data = await response.json();
       setIsFollowing(data.isFollowing);
-    } catch {
+    } catch (error) {
       console.error('Error checking follow status:', error);
     }
-  }, [channelId, error]);
+  }, [channelId]);
 
   // Ahora useEffect puede usar checkFollowingStatus sin problemas
   useEffect(() => {
@@ -53,7 +53,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error siguiendo canal');
       }
-    } catch {
+    } catch (error) {
       setError('Error de conexión');
     } finally {
       setLoading(false);
@@ -76,7 +76,7 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
       } else {
         setError(data.error || 'Error dejando de seguir canal');
       }
-    } catch {
+    } catch (error) {
       setError('Error de conexión');
     } finally {
       setLoading(false);

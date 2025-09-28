@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { sampleChannels } from '../../../data/sampleChannels';
-
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -91,7 +90,7 @@ export async function POST(_request: NextRequest) {
 
     return NextResponse.json(response);
 
-  } catch (error) {
+  } catch {
     console.error('Error en API de canales por lotes:', error);
     
     return NextResponse.json(

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
-
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -67,7 +66,7 @@ export async function POST(_request: NextRequest) {
       message: 'Canal seguido correctamente' 
     });
 
-  } catch (error) {
+  } catch {
     console.error('Error en follow channel:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
@@ -119,7 +118,7 @@ export async function DELETE(_request: NextRequest) {
       message: 'Canal dejado de seguir correctamente' 
     });
 
-  } catch (error) {
+  } catch {
     console.error('Error en unfollow channel:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }

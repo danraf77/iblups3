@@ -1,7 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded, SESSION_CONFIG } from '../../../lib/supabase';
-
+import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded } from '../../../lib/supabase';
+function isSessionWithViewer(x: unknown): x is SessionWithViewer {
+  return typeof x === "object" && x !== null &&
+    "iblups_users_viewers" in (x as any) &&
+    Array.isArray((x as any).iblups_users_viewers);
+}
 interface UserViewer {
   [key: string]: any; // A generic type for now, as specific properties are not known
 }
@@ -10,7 +15,7 @@ interface SessionWithViewer {
   iblups_users_viewers: UserViewer[];
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -39,10 +44,10 @@ export async function GET(_request: NextRequest) {
     }
 
     return NextResponse.json({
-      user: sanitizeUser((session as SessionWithViewer).iblups_users_viewers[0])
+user: sanitizeUser((session as unknown as SessionWithViewer).iblups_users_viewers[0])
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error en /api/auth/me:', error);
     return NextResponse.json({ user: null });
   }

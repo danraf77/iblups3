@@ -61,7 +61,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.sendOtpError'));
       }
-    } catch {
+    } catch (err) {
       console.error('Error sending OTP:', err);
       setError(t('messages.errors.networkError'));
     } finally {
@@ -95,7 +95,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.invalidOtp'));
       }
-    } catch {
+    } catch (err) {
       setError(t('messages.errors.networkError'));
     } finally {
       setLoading(false);
@@ -130,7 +130,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       } else {
         setError(data.error || t('messages.errors.sendOtpError'));
       }
-    } catch {
+    } catch (err) {
       console.error('Error resending OTP:', err);
       setError(t('messages.errors.networkError'));
     } finally {

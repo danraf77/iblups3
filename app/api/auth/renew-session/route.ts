@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase, renewSessionIfNeeded } from '../../../lib/supabase';
-
-export async function POST(_request: NextRequest) {
+import { renewSessionIfNeeded } from '../../../lib/supabase';
+export async function POST() {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -23,7 +22,7 @@ export async function POST(_request: NextRequest) {
       message: 'Sesión renovada correctamente' 
     });
 
-  } catch (error) {
+  } catch {
     console.error('Error renovando sesión:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }

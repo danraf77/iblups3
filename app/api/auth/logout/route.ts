@@ -1,12 +1,11 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
-
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export async function POST(_request: NextRequest) {
+export async function POST() {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -33,8 +32,8 @@ export async function POST(_request: NextRequest) {
 
     return response;
 
-  } catch (error) {
-    console.error('Error en logout:', error);
+  } catch (e: unknown) {
+    console.error('Error en logout:', e);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }

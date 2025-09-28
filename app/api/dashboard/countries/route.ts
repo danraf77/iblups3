@@ -1,7 +1,6 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { supabase } from '../../../lib/supabase';
-
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     // Buscar países activos
     const { data: countries, error: countriesError } = await supabase
@@ -17,7 +16,7 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json(countries || []);
 
-  } catch (error) {
+  } catch {
     console.error('Error en /api/dashboard/countries:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }

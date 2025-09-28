@@ -1,8 +1,7 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase } from '../../../lib/supabase';
-
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -45,7 +44,7 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json(followedChannels || []);
 
-  } catch (error) {
+  } catch {
     console.error('Error en /api/dashboard/followed-channels:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }

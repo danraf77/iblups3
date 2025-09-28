@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-
 export async function GET(_request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const hlsUrl = searchParams.get('url');
@@ -48,7 +47,7 @@ export async function GET(_request: NextRequest) {
         'Expires': '0'
       }
     });
-  } catch (error) {
+  } catch {
     console.error('HLS proxy error:', error);
     return NextResponse.json(
       { 

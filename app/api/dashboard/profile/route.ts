@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase, queryConfig, sanitizeUser } from '../../../lib/supabase';
-
+import { supabase } from '../../../lib/supabase';
 export async function GET(_request: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -51,7 +50,7 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json(userProfile);
 
-  } catch (error) {
+  } catch {
     console.error('Error en /api/dashboard/profile:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
@@ -202,7 +201,7 @@ export async function PUT(_request: NextRequest) {
     
     return NextResponse.json(userProfile);
 
-  } catch (error) {
+  } catch {
     console.error('Error en PUT /api/dashboard/profile:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }

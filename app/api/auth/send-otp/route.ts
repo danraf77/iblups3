@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { OTPEmailTemplate } from '../../../components/email/OTPEmailTemplate';
-
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -306,7 +304,7 @@ export async function POST(_request: NextRequest) {
         subject: translations.subject,
         html: emailHTML,
       });
-    } catch (emailError) {
+    } catch {
       console.error('Error enviando email:', emailError);
       return NextResponse.json({ error: 'Error sending email' }, { status: 500 });
     }
@@ -316,7 +314,7 @@ export async function POST(_request: NextRequest) {
       message: 'Código OTP enviado correctamente' 
     });
 
-  } catch (error) {
+  } catch {
     console.error('Error en send-otp:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }

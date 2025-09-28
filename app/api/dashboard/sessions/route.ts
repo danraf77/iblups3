@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase } from '../../../lib/supabase';
-
 export async function GET(_request: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -96,7 +95,7 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json({ sessions: processedSessions });
 
-  } catch (error) {
+  } catch {
     console.error('Error en /api/dashboard/sessions:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
@@ -161,7 +160,7 @@ export async function DELETE(_request: NextRequest) {
 
     return NextResponse.json({ success: true, message: 'Sesión cerrada correctamente' });
 
-  } catch (error) {
+  } catch {
     console.error('Error en DELETE /api/dashboard/sessions:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

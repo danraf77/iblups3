@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
-
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -47,7 +46,7 @@ export async function GET(_request: NextRequest) {
       isFollowing: !!follow 
     });
 
-  } catch (error) {
+  } catch {
     console.error('Error en is-following:', error);
     return NextResponse.json({ isFollowing: false });
   }

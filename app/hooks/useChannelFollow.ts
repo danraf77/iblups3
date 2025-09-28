@@ -20,13 +20,17 @@ export function useChannelFollow({ channelId, enabled = true }: UseChannelFollow
     } catch (error) {
       console.error('Error checking follow status:', error);
     }
+      }
   }, [channelId]);
 
   // Ahora useEffect puede usar checkFollowingStatus sin problemas
   useEffect(() => {
+    // Solo hacer fetch en el cliente, no durante el build
+    if (typeof window !== 'undefined') {
     if (enabled && channelId) {
       checkFollowingStatus();
     }
+      }
   }, [channelId, enabled, checkFollowingStatus]);
 
   const followChannel = async (channelUsername: string, channelName: string) => {

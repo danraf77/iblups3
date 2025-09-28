@@ -3,6 +3,11 @@ import type { Metadata } from 'next';
 import VideoJS from '../../components/Player';
 import { getHlsUrlServerSide } from '../../utils/getHlsUrl';
 
+// Forzar renderizado dinámico para evitar timeout en build
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+
 interface EmbedPageProps {
   params: {
     username: string;

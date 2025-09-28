@@ -64,14 +64,19 @@ export function useChannelDetail(channelId: string): UseChannelDetailReturn {
     } finally {
       setLoading(false);
     }
+      }
   }, [channelId]);
 
   const refetch = useCallback(() => {
     fetchChannelDetail();
+      }
   }, [fetchChannelDetail]);
 
   useEffect(() => {
+    // Solo hacer fetch en el cliente, no durante el build
+    if (typeof window !== 'undefined') {
     fetchChannelDetail();
+      }
   }, [fetchChannelDetail]);
 
   return {
@@ -135,14 +140,19 @@ export function useBatchChannels({
     } finally {
       setLoading(false);
     }
+      }
   }, [ids, enabled]);
 
   const refetch = useCallback(() => {
     fetchBatchChannels();
+      }
   }, [fetchBatchChannels]);
 
   useEffect(() => {
+    // Solo hacer fetch en el cliente, no durante el build
+    if (typeof window !== 'undefined') {
     fetchBatchChannels();
+      }
   }, [fetchBatchChannels]);
 
   return {

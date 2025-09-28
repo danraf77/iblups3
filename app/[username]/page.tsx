@@ -12,6 +12,11 @@ import AuthModal from '../components/AuthModal';
 import { User } from 'lucide-react';
 import '../styles/footer.css';
 
+// Forzar renderizado dinámico para evitar timeout en build
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+
 interface ChannelPageProps {
   params: Promise<{
     username: string;

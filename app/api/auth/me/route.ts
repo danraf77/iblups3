@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded, SESSION_CONFIG } from '../../../lib/supabase';
 

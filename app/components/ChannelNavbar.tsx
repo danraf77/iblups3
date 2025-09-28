@@ -31,9 +31,8 @@ export default function ChannelNavbar({ className = '' }: ChannelNavbarProps) {
           {/* Botón de Iniciar como Viewer - Cursor */}
           <div className="flex items-center">
             <ViewerLoginButton 
-              variant="primary" 
-              size="md"
-              className="rounded-lg"
+              variant="outline"
+              size="sm"
             />
           </div>
         </div>

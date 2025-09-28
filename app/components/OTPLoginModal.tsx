@@ -210,7 +210,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 4))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-2xl font-mono tracking-widest"
-                  placeholder="1234"
+                  placeholder="0000"
                   maxLength={4}
                   required
                 />

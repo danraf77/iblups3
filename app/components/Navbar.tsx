@@ -56,7 +56,7 @@ export default function Navbar({
         : 'bg-secondary'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo - Siempre visible y responsive - Cursor */}
           <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2 group">
@@ -73,6 +73,21 @@ export default function Navbar({
 
           {/* Desktop Navigation - Oculto en móviles - Cursor */}
           <div className="hidden md:flex md:items-center md:space-x-6 lg:space-x-8">
+            {/* Producer Access Button - Más pequeño para productores - Cursor */}
+            <a
+              href="https://studio.iblups.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-lg hover:bg-[#1e5bb8] transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              <ClientOnly fallback="Access your channel">
+                {t('navigation.producerAccess')}
+              </ClientOnly>
+            </a>
+
             {/* Search Bar - Solo si showSearch es true - Cursor */}
             {showSearch && (
               <div className="relative">
@@ -91,24 +106,11 @@ export default function Navbar({
               </div>
             )}
 
-            {/* Viewer Login Button - Cursor */}
+            {/* Viewer Login Button - Minimalista para viewers - Cursor */}
             <ViewerLoginButton
-              variant="primary"
-              size="md"
-              className="rounded-lg"
+              variant="outline"
+              size="sm"
             />
-
-            {/* Producer Access Button - Cursor */}
-            <a
-              href="https://studio.iblups.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-lg hover:bg-[#1e5bb8] transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105"
-            >
-              <ClientOnly fallback="Access your channel">
-                {t('navigation.producerAccess')}
-              </ClientOnly>
-            </a>
 
           </div>
 

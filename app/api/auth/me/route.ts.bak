@@ -2,15 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase, queryConfig, sanitizeUser, renewSessionIfNeeded, SESSION_CONFIG } from '../../../lib/supabase';
 
-interface UserViewer {
-  [key: string]: any; // A generic type for now, as specific properties are not known
-}
-
-interface SessionWithViewer {
-  iblups_users_viewers: UserViewer[];
-}
-
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -39,7 +31,7 @@ export async function GET(_request: NextRequest) {
     }
 
     return NextResponse.json({
-      user: sanitizeUser((session as SessionWithViewer).iblups_users_viewers[0])
+      user: sanitizeUser((session as any).iblups_users_viewers)
     });
 
   } catch (error) {

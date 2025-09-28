@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { sampleChannels } from '../../../data/sampleChannels';
+import { sampleChannels } from '../../data/sampleChannels';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -25,28 +25,19 @@ interface Channel {
   is_4k?: boolean;
 }
 
-interface PaginatedChannelsResponse {
+interface ChannelsResponse {
   channels: Channel[];
-  pagination: {
-    currentPage: number;
-    totalPages: number;
-    totalChannels: number;
-    totalLiveChannels: number;
-    channelsPerPage: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-  };
-  filters: {
-    search: string;
-    tab: string;
-  };
+  totalChannels: number;
+  totalLiveChannels: number;
+  currentPage: number;
+  totalPages: number;
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
-    const limit = Math.min(50, Math.max(1, parseInt(searchParams.get('limit') || '16')));
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '16');
     const search = searchParams.get('search') || '';
     const tab = searchParams.get('tab') || 'todos';
 
@@ -86,7 +77,7 @@ export async function GET(_request: NextRequest) {
 
     if (error || !data || data.length === 0) {
       // Usar datos de ejemplo si no hay datos de la base de datos
-      console.log('Usando datos de ejemplo para paginación');
+      console.log('Usando datos de ejemplo');
       
       // Filtrar datos de ejemplo según búsqueda
       let filteredChannels = sampleChannels;
@@ -122,7 +113,7 @@ export async function GET(_request: NextRequest) {
       // Usar datos de la base de datos
       allChannels = data.map(channel => ({
         ...channel,
-        name: channel.name.toLowerCase(),
+        name: channel.name.toLowerCase(), // Convertir nombres a minúsculas
         cover: channel.stream_id ? `https://thumbnail.iblups.com/thumb/live/${channel.stream_id}.png` : undefined,
         category: {
           name: channel.channels_category && channel.channels_category.length > 0 
@@ -132,70 +123,46 @@ export async function GET(_request: NextRequest) {
       }));
     }
 
-    // Filtrar solo canales en vivo para la paginación
-    const liveChannels = allChannels.filter(channel => channel.is_on_live);
-    
-    // Calcular totales basados en canales en vivo
+    // Calcular totales
     const totalChannels = allChannels.length;
-    const totalLiveChannels = liveChannels.length;
-    const totalPages = Math.ceil(totalLiveChannels / limit);
+    const totalLiveChannels = allChannels.filter(channel => channel.is_on_live).length;
+    const totalPages = Math.ceil(totalChannels / limit);
 
-    // Aplicar paginación a canales en vivo
+    // Aplicar paginación
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-    const paginatedChannels = liveChannels.slice(startIndex, endIndex);
+    const paginatedChannels = allChannels.slice(startIndex, endIndex);
 
-    const response: PaginatedChannelsResponse = {
+    const response: ChannelsResponse = {
       channels: paginatedChannels,
-      pagination: {
-        currentPage: page,
-        totalPages,
-        totalChannels,
-        totalLiveChannels,
-        channelsPerPage: limit,
-        hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1
-      },
-      filters: {
-        search,
-        tab
-      }
+      totalChannels,
+      totalLiveChannels,
+      currentPage: page,
+      totalPages
     };
 
     return NextResponse.json(response);
 
   } catch (error) {
-    console.error('Error en API de canales paginados:', error);
+    console.error('Error en API de canales:', error);
     
     // En caso de error, devolver datos de ejemplo
-    const page = Math.max(1, parseInt(new URL(request.url).searchParams.get('page') || '1'));
-    const limit = Math.min(50, Math.max(1, parseInt(new URL(request.url).searchParams.get('limit') || '16')));
-    
-    // Filtrar solo canales en vivo
-    const liveChannels = sampleChannels.filter(channel => channel.is_on_live);
     const totalChannels = sampleChannels.length;
-    const totalLiveChannels = liveChannels.length;
-    const totalPages = Math.ceil(totalLiveChannels / limit);
+    const totalLiveChannels = sampleChannels.filter(channel => channel.is_on_live).length;
+    const page = parseInt(new URL(request.url).searchParams.get('page') || '1');
+    const limit = parseInt(new URL(request.url).searchParams.get('limit') || '16');
+    const totalPages = Math.ceil(totalChannels / limit);
     
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-    const paginatedChannels = liveChannels.slice(startIndex, endIndex);
+    const paginatedChannels = sampleChannels.slice(startIndex, endIndex);
 
-    const response: PaginatedChannelsResponse = {
+    const response: ChannelsResponse = {
       channels: paginatedChannels,
-      pagination: {
-        currentPage: page,
-        totalPages,
-        totalChannels,
-        totalLiveChannels,
-        channelsPerPage: limit,
-        hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1
-      },
-      filters: {
-        search: '',
-        tab: 'todos'
-      }
+      totalChannels,
+      totalLiveChannels,
+      currentPage: page,
+      totalPages
     };
 
     return NextResponse.json(response);

@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: { ignoreDuringBuilds: true },
   // Configuración para evitar timeouts en build
   output: 'standalone',
   staticPageGenerationTimeout: 120, // 120 segundos en lugar de 60

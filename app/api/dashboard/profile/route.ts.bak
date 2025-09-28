@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { supabase, queryConfig, sanitizeUser } from '../../../lib/supabase';
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;
@@ -57,7 +57,7 @@ export async function GET(_request: NextRequest) {
   }
 }
 
-export async function PUT(_request: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get('iblups_session')?.value;

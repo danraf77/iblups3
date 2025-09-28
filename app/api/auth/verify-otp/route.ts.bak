@@ -6,7 +6,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export async function POST(_request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const { email, code } = await request.json();
 
@@ -110,7 +110,7 @@ export async function POST(_request: NextRequest) {
         user_id: user.id,
         session_token: sessionToken,
         expires_at: expiresAt.toISOString(),
-        ip_address: (request as unknown).ip || '127.0.0.1',
+        ip_address: (request as any).ip || '127.0.0.1',
         user_agent: request.headers.get('user-agent') || 'unknown',
         device_info: {
           platform: request.headers.get('sec-ch-ua-platform') || 'unknown',

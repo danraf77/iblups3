@@ -86,7 +86,7 @@ export const queryConfig = {
 export function sanitizeUser(user: unknown) {
   if (!user) return null;
   
-  const userObj = user as unknown;
+  const userObj = user as any;
   return {
     id: userObj.id,
     email: userObj.email,
@@ -101,7 +101,7 @@ export function sanitizeUser(user: unknown) {
 export function sanitizeChannel(channel: unknown) {
   if (!channel) return null;
   
-  const channelObj = channel as unknown;
+  const channelObj = channel as any;
   return {
     id: channelObj.id,
     name: channelObj.name,

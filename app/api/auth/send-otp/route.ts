@@ -11,7 +11,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const { email, action = 'login' } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -33,46 +33,64 @@ export async function POST(request: NextRequest) {
     const otpCode = Math.floor(1000 + Math.random() * 9000).toString();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutos
 
-    // Verificar si el usuario existe
-    const { data: existingUser, error: userError } = await supabase
-      .from('iblups_users_viewers')
-      .select('id, email, display_name')
-      .eq('email', email)
-      .single();
-
     let userName: string | undefined;
 
-    if (userError && userError.code === 'PGRST116') {
-      // Usuario no existe, crear nuevo usuario
-      const { error: createError } = await supabase
+    if (action === 'change_email') {
+      // Para cambio de email, no crear usuario, solo verificar que el email no esté en uso
+      const { data: existingUser, error: userError } = await supabase
         .from('iblups_users_viewers')
-        .insert({
-          email: email,
-          is_active: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })
-        .select('id')
+        .select('id, email')
+        .eq('email', email)
         .single();
 
-      if (createError) {
-        console.error('Error creando usuario:', createError);
+      if (!userError && existingUser) {
         return NextResponse.json(
-          { error: 'Error creando usuario' },
-          { status: 500 }
+          { error: 'Este email ya está en uso por otra cuenta' },
+          { status: 400 }
         );
       }
 
       userName = email.split('@')[0]; // Usar parte antes del @ como nombre
-    } else if (userError) {
-      console.error('Error verificando usuario:', userError);
-      return NextResponse.json(
-        { error: 'Error verificando usuario' },
-        { status: 500 }
-      );
     } else {
-      // Usuario existe
-      userName = existingUser.display_name || existingUser.email.split('@')[0];
+      // Lógica original para login
+      const { data: existingUser, error: userError } = await supabase
+        .from('iblups_users_viewers')
+        .select('id, email, display_name')
+        .eq('email', email)
+        .single();
+
+      if (userError && userError.code === 'PGRST116') {
+        // Usuario no existe, crear nuevo usuario
+        const { error: createError } = await supabase
+          .from('iblups_users_viewers')
+          .insert({
+            email: email,
+            is_active: true,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          })
+          .select('id')
+          .single();
+
+        if (createError) {
+          console.error('Error creando usuario:', createError);
+          return NextResponse.json(
+            { error: 'Error creando usuario' },
+            { status: 500 }
+          );
+        }
+
+        userName = email.split('@')[0]; // Usar parte antes del @ como nombre
+      } else if (userError) {
+        console.error('Error verificando usuario:', userError);
+        return NextResponse.json(
+          { error: 'Error verificando usuario' },
+          { status: 500 }
+        );
+      } else {
+        // Usuario existe
+        userName = existingUser.display_name || existingUser.email.split('@')[0];
+      }
     }
 
     // Eliminar códigos OTP anteriores para este usuario
@@ -87,7 +105,7 @@ export async function POST(request: NextRequest) {
       .insert({
         email: email,
         code: otpCode,
-        type: 'login',
+        type: action,
         expires_at: expiresAt.toISOString(),
         is_used: false,
         attempts: 0
@@ -103,10 +121,18 @@ export async function POST(request: NextRequest) {
 
     // Enviar email con OTP
     try {
+      const subject = action === 'change_email' 
+        ? 'Código de verificación para cambio de email - iBluPS'
+        : 'Tu código de verificación - iBluPS';
+      
+      const purpose = action === 'change_email'
+        ? 'cambiar tu dirección de email'
+        : 'iniciar sesión';
+
       const { data: emailData, error: emailError } = await resend.emails.send({
         from: 'iBluPS <noreply@email.iblups.com>',
         to: [email],
-        subject: 'Tu código de verificación - iBluPS',
+        subject: subject,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
             <div style="background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -117,7 +143,7 @@ export async function POST(request: NextRequest) {
               
               <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border: 2px dashed #007bff;">
                 <p style="color: #333; font-size: 18px; margin: 0 0 15px 0; font-weight: 500;">Hola ${userName || 'Usuario'},</p>
-                <p style="color: #666; font-size: 16px; margin: 0 0 20px 0;">Usa este código para iniciar sesión:</p>
+                <p style="color: #666; font-size: 16px; margin: 0 0 20px 0;">Usa este código para ${purpose}:</p>
                 <div style="font-size: 32px; font-weight: bold; color: #007bff; letter-spacing: 8px; background-color: white; padding: 15px 25px; border-radius: 8px; border: 2px solid #007bff; display: inline-block; font-family: monospace;">
                   ${otpCode}
                 </div>

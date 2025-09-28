@@ -109,7 +109,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
             {channel.name}
           </h1>
           <FollowChannelButton
-            channelId={channel.stream_id || ''}
+            channelId={channel.id || ''}
             channelUsername={channel.username || ''}
             channelName={channel.name || ''}
           />

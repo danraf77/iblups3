@@ -1,0 +1,13 @@
+# Debug Profile Log - Cleared Sun Sep 28 16:50:12 -05 2025
+[2025-09-28T21:52:15.047Z] API Profile PUT - User: 44e1037a-3cb7-439b-8fb2-c58069d0efd1
+Data: {
+  "timestamp": "2025-09-28T21:52:15.047Z",
+  "userId": "44e1037a-3cb7-439b-8fb2-c58069d0efd1",
+  "display_name": "dante77",
+  "first_name": "Dante",
+  "last_name": "Huaman",
+  "date_of_birth": "1977-05-13",
+  "city": "",
+  "country_name": "Perú"
+}
+---

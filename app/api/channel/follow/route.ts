@@ -34,40 +34,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Verificar si ya sigue el canal
-    const { data: existingFollow, error: checkError } = await supabase
+    // Usar UPSERT para prevenir duplicados - Cursor
+    const { data: followData, error: followError } = await supabase
       .from('iblups_channel_follows')
-      .select('id')
-      .eq('user_id', userId)
-      .eq('channel_id', channelId)
-      .single();
-
-    if (checkError && checkError.code !== 'PGRST116') {
-      console.error('Error verificando follow:', checkError);
-      return NextResponse.json(
-        { error: 'Error verificando seguimiento' },
-        { status: 500 }
-      );
-    }
-
-    if (existingFollow) {
-      return NextResponse.json(
-        { error: 'Ya sigues este canal' },
-        { status: 400 }
-      );
-    }
-
-    // Crear el follow
-    const { error: followError } = await supabase
-      .from('iblups_channel_follows')
-      .insert({
+      .upsert({
         user_id: userId,
         channel_id: channelId,
         channel_username: channelUsername,
         channel_name: channelName,
         followed_at: new Date().toISOString(),
         notifications_enabled: true
-      });
+      }, {
+        onConflict: 'user_id,channel_id',
+        ignoreDuplicates: false
+      })
+      .select();
 
     if (followError) {
       console.error('Error creando follow:', followError);
@@ -79,7 +60,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Canal seguido exitosamente'
+      message: 'Canal seguido exitosamente',
+      isNewFollow: followData && followData.length > 0
     });
 
   } catch (error) {

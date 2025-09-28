@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
 
     // Crear sesión
     const sessionToken = crypto.randomUUID();
-    const expiresAtSession = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 días
+    const expiresAtSession = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000); // 60 días - Cursor
 
     // Guardar sesión en la base de datos
     const { error: sessionError } = await supabase
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
     })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
-      .setExpirationTime('30d')
+      .setExpirationTime('60d') // 60 días - Cursor
       .sign(secret);
 
     // Configurar cookie de sesión
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60, // 30 días
+      maxAge: 60 * 24 * 60 * 60, // 60 días - Cursor
       path: '/'
     });
 

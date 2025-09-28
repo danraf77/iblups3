@@ -264,4 +264,4 @@ console.log('\n📝 Próximos pasos:');
 console.log('1. Ejecuta: npm run build (para probar localmente)');
 console.log('2. Si el build local funciona, haz commit de los cambios');
 console.log('3. Push a tu repositorio para que Vercel haga deploy');
-console.log('\n💡 Si aún hay problemas, revisa los logs de Vercel para más detalles.');
+console.log('\n💡 Si aún hay problemas, revisa los logs de Vercel para más detalles..');

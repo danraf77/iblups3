@@ -53,7 +53,7 @@ export default function DashboardPage() {
       {/* Welcome Section */}
       <div className="bg-card rounded-lg p-6 border border-border-primary">
         <h1 className="text-2xl font-bold text-primary mb-2">
-          {t('dashboard.welcome', { username: user?.email?.split('@')[0] || t('dashboard.viewer') })}
+          {t('dashboard.welcome', { username: user?.email?.split('@')[0] || 'Viewer' })}
         </h1>
         <p className="text-muted">
           {t('dashboard.description')}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 
 interface UserSession {
   id: string;
@@ -22,6 +23,7 @@ interface SessionStats {
 }
 
 export default function SessionsPage() {
+  const { t } = useTranslation();
   const [sessions, setSessions] = useState<UserSession[]>([]);
   const [stats, setStats] = useState<SessionStats>({ total: 0, active: 0 });
   const [loading, setLoading] = useState(true);
@@ -56,23 +58,23 @@ export default function SessionsPage() {
   };
 
   const getBrowserInfo = (deviceInfo: UserSession['device_info']) => {
-    if (!deviceInfo?.userAgent) return 'Desconocido';
+    if (!deviceInfo?.userAgent) return t('sessions.unknown');
     
     const userAgent = deviceInfo.userAgent;
     if (userAgent.includes('Chrome')) return 'Chrome';
     if (userAgent.includes('Firefox')) return 'Firefox';
     if (userAgent.includes('Safari')) return 'Safari';
     if (userAgent.includes('Edge')) return 'Edge';
-    return 'Otro';
+    return t('sessions.unknown');
   };
 
   const getDeviceInfo = (deviceInfo: UserSession['device_info']) => {
-    if (!deviceInfo?.userAgent) return 'Desconocido';
+    if (!deviceInfo?.userAgent) return t('sessions.unknown');
     
     const userAgent = deviceInfo.userAgent;
-    if (userAgent.includes('Mobile')) return 'Móvil';
-    if (userAgent.includes('Tablet')) return 'Tablet';
-    return 'Escritorio';
+    if (userAgent.includes('Mobile')) return t('sessions.mobile');
+    if (userAgent.includes('Tablet')) return t('sessions.tablet');
+    return t('sessions.desktop');
   };
 
   if (loading) {
@@ -80,7 +82,7 @@ export default function SessionsPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-primary">Cargando sesiones...</p>
+          <p className="text-primary">{t('sessions.loading')}</p>
         </div>
       </div>
     );
@@ -91,9 +93,9 @@ export default function SessionsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Mis Sesiones</h1>
+          <h1 className="text-2xl font-bold text-primary">{t('sessions.title')}</h1>
           <p className="text-muted">
-            Gestiona tus sesiones activas y revisa el historial de acceso
+            {t('sessions.description')}
           </p>
         </div>
       </div>
@@ -108,7 +110,7 @@ export default function SessionsPage() {
               </svg>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted">Sesiones Activas</p>
+              <p className="text-sm font-medium text-muted">{t('sessions.activeSessions')}</p>
               <p className="text-2xl font-bold text-primary">{stats.active}</p>
             </div>
           </div>
@@ -122,7 +124,7 @@ export default function SessionsPage() {
               </svg>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted">Total de Sesiones</p>
+              <p className="text-sm font-medium text-muted">{t('sessions.totalSessions')}</p>
               <p className="text-2xl font-bold text-primary">{stats.total}</p>
             </div>
           </div>
@@ -135,9 +137,9 @@ export default function SessionsPage() {
           <svg className="w-16 h-16 text-muted mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          <h3 className="text-lg font-semibold text-primary mb-2">No hay sesiones</h3>
+          <h3 className="text-lg font-semibold text-primary mb-2">{t('sessions.noSessions')}</h3>
           <p className="text-muted">
-            No se encontraron sesiones registradas para tu cuenta.
+            {t('sessions.noSessionsDescription')}
           </p>
         </div>
       ) : (
@@ -149,7 +151,7 @@ export default function SessionsPage() {
                   <div className={`w-3 h-3 rounded-full ${session.is_active ? 'bg-green-500' : 'bg-gray-400'}`}></div>
                   <div>
                     <h3 className="font-semibold text-primary">
-                      {session.is_active ? 'Sesión Activa' : 'Sesión Cerrada'}
+                      {session.is_active ? t('sessions.activeSession') : t('sessions.closedSession')}
                     </h3>
                     <p className="text-sm text-muted">
                       {getBrowserInfo(session.device_info)} • {getDeviceInfo(session.device_info)}
@@ -158,22 +160,22 @@ export default function SessionsPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-muted">
-                    {session.ip_address || 'IP no disponible'}
+                    {session.ip_address || t('sessions.ipNotAvailable')}
                   </p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div>
-                  <p className="text-muted mb-1">Creada</p>
+                  <p className="text-muted mb-1">{t('sessions.created')}</p>
                   <p className="text-primary">{formatDate(session.created_at)}</p>
                 </div>
                 <div>
-                  <p className="text-muted mb-1">Última Actividad</p>
+                  <p className="text-muted mb-1">{t('sessions.lastActivity')}</p>
                   <p className="text-primary">{formatDate(session.last_activity_at)}</p>
                 </div>
                 <div>
-                  <p className="text-muted mb-1">Expira</p>
+                  <p className="text-muted mb-1">{t('sessions.expires')}</p>
                   <p className="text-primary">{formatDate(session.expires_at)}</p>
                 </div>
               </div>

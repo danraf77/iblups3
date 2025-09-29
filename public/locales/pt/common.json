@@ -65,56 +65,31 @@
   },
   "dashboard": {
     "title": "Painel",
-    "loading": "Carregando painel...",
-    "profile": {
-      "title": "Meu Perfil",
-      "edit": "Editar",
-      "cancel": "Cancelar",
-      "save": "Salvar",
-      "saving": "Salvando...",
-      "fields": {
-        "firstName": "Nome",
-        "lastName": "Sobrenome",
-        "country": "País",
-        "city": "Cidade",
-        "dateOfBirth": "Data de nascimento",
-        "selectCountry": "Selecione o país"
-      }
+    "welcome": "Bem-vindo, {{username}}!",
+    "description": "Aqui você pode gerenciar seu perfil e ver os canais que você segue.",
+    "loading": "Carregando estatísticas...",
+    "stats": {
+      "following": "Seguindo",
+      "recentActivity": "Atividade Recente",
+      "memberSince": "Membro desde"
     },
-    "email": {
-      "title": "Alterar E-mail",
-      "currentEmail": "E-mail atual",
-      "changeEmail": "Alterar E-mail",
-      "warning": "Para alterar seu e-mail, você precisará verificar o novo e-mail com um código OTP.",
-      "success": "E-mail atualizado com sucesso"
+    "quickActions": {
+      "title": "Ações Rápidas",
+      "editProfile": "Editar Perfil",
+      "editProfileDesc": "Atualize suas informações pessoais",
+      "viewFollowing": "Ver Seguindo",
+      "viewFollowingDesc": "Gerencie seus canais favoritos"
     },
-    "channels": {
-      "title": "Canais que você segue",
-      "loading": "Carregando canais seguidos...",
-      "empty": {
-        "title": "Você ainda não segue nenhum canal",
-        "description": "Visite os canais e clique em \"Seguir canal\" para adicioná-los aqui",
-        "action": "Explorar Canais"
-      },
-      "actions": {
-        "viewChannel": "Ver Canal",
-        "unfollow": "Deixar de seguir",
-        "refresh": "Recarregar canais"
-      },
-      "followedOn": "Seguindo desde"
+    "sidebar": {
+      "home": "Início",
+      "profile": "Meu Perfil",
+      "following": "Seguindo",
+      "sessions": "Sessões",
+      "email": "E-mail",
+      "logout": "Sair",
+      "backToHome": "← Voltar ao início"
     },
-    "sessions": {
-      "title": "Minhas Sessões",
-      "loading": "Carregando sessões...",
-      "current": "Sessão atual",
-      "close": "Sair",
-      "refresh": "Recarregar sessões",
-      "device": "Dispositivo",
-      "browser": "Navegador",
-      "country": "País",
-      "lastActivity": "Última atividade",
-      "created": "Criada em"
-    }
+    "loadingDashboard": "Carregando painel..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "Seu código de acesso para iblups",
-      "title": "Código de Acesso",
-      "greeting": "Olá,",
-      "description": "Seu código de acesso para iblups é:",
-      "expiration": "Este código expira em 10 minutos. Se você não solicitou este código, pode ignorar este e-mail.",
-      "thanks": "Obrigado por usar o iblups!",
-      "footer": "© 2025 iblups. Todos os direitos reservados."
+    "title": "Alterar E-mail",
+    "description": "Atualize seu endereço de e-mail com verificação OTP",
+    "currentEmail": "E-mail Atual",
+    "currentEmailDescription": "E-mail atual da sua conta",
+    "newEmail": "Novo E-mail",
+    "verifyCode": "Verificar Código",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Código de Verificação",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Digite o código de 4 dígitos enviado para {{email}}",
+    "cancel": "Cancelar",
+    "sendCode": "Enviar Código",
+    "sending": "Enviando...",
+    "changeEmail": "Alterar E-mail",
+    "verifyAndChange": "Verificar e Alterar",
+    "verifying": "Verificando...",
+    "securityInfo": "Informações de Segurança",
+    "otpVerification": "Verificação OTP",
+    "otpVerificationDescription": "Um código de 4 dígitos será enviado para o novo e-mail para verificar a propriedade",
+    "security": "Segurança",
+    "securityDescription": "A alteração de e-mail requer verificação para proteger sua conta",
+    "success": {
+      "codeSent": "Código de verificação enviado para o novo e-mail",
+      "emailUpdated": "E-mail atualizado com sucesso"
+    },
+    "errors": {
+      "sendCodeError": "Erro ao enviar código",
+      "verificationError": "Erro ao verificar código",
+      "invalidCode": "Código de verificação inválido"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "Página"
   },
   "sessions": {
-    "description": "Aqui você pode ver todas as suas sessões ativas e inativas. Você pode fechar sessões de outros dispositivos para maior segurança.",
-    "inactive": "Inativa",
-    "expires": "Expira",
-    "daysRemaining": "dias restantes",
     "title": "Minhas Sessões",
+    "description": "Gerencie suas sessões ativas e revise o histórico de acesso",
     "loading": "Carregando sessões...",
-    "current": "Sessão atual",
-    "close": "Sair",
-    "refresh": "Atualizar sessões",
-    "device": "Dispositivo",
-    "browser": "Navegador",
+    "activeSessions": "Sessões Ativas",
+    "totalSessions": "Total de Sessões",
+    "noSessions": "Nenhuma sessão",
+    "noSessionsDescription": "Nenhuma sessão encontrada para sua conta.",
+    "activeSession": "Sessão Ativa",
+    "closedSession": "Sessão Fechada",
+    "unknown": "Desconhecido",
+    "mobile": "Móvel",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "ipNotAvailable": "IP não disponível",
+    "created": "Criada",
+    "lastActivity": "Última Atividade",
+    "expires": "Expira"
+  },
+  "profile": {
+    "title": "Meu Perfil",
+    "loading": "Carregando perfil...",
+    "personalInfo": "Informações Pessoais",
+    "accountInfo": "Informações da Conta",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "displayName": "Nome de Exibição",
+    "dateOfBirth": "Data de Nascimento",
+    "city": "Cidade",
     "country": "País",
-    "lastActivity": "Última atividade",
-    "created": "Criada"
+    "firstNamePlaceholder": "Seu nome",
+    "lastNamePlaceholder": "Seu sobrenome",
+    "displayNamePlaceholder": "Seu nome público",
+    "cityPlaceholder": "Sua cidade",
+    "countryPlaceholder": "Selecionar país",
+    "memberSince": "Membro desde",
+    "userId": "ID do Usuário",
+    "creationDate": "Data de Criação",
+    "lastUpdate": "Última Atualização",
+    "cancel": "Cancelar",
+    "saveChanges": "Salvar Alterações",
+    "saving": "Salvando...",
+    "success": "Perfil atualizado com sucesso",
+    "error": "Erro ao atualizar perfil"
+  },
+  "following": {
+    "title": "Canais Seguidos",
+    "loading": "Carregando canais seguidos...",
+    "channelsCount": "{{count}} canal",
+    "channelsCountPlural": "{{count}} canais",
+    "exploreChannels": "Explorar Canais",
+    "noChannels": "Você não está seguindo nenhum canal",
+    "noChannelsDescription": "Comece a seguir canais para vê-los aqui e receber notificações quando estiverem ao vivo.",
+    "followingSince": "Seguindo desde",
+    "viewChannel": "Ver Canal →"
+  },
+  "viewerLogin": {
+    "loading": "Carregando...",
+    "hello": "Olá",
+    "viewer": "Visualizador",
+    "dashboard": "Painel",
+    "logout": "Sair",
+    "loginAsViewer": "Entrar como Visualizador",
+    "loginAsViewerAria": "Entrar como visualizador"
+  },
+  "navbar": {
+    "searchPlaceholder": "Pesquisar canais..."
+  },
+  "otpModal": {
+    "loginTitle": "Entrar",
+    "verifyTitle": "Verificar código",
+    "emailLabel": "Endereço de e-mail",
+    "emailPlaceholder": "seu@email.com",
+    "sendCodeButton": "Enviar código",
+    "sendingCode": "Enviando...",
+    "codeSentSuccess": "Código enviado para seu e-mail",
+    "otpLabel": "Código de verificação",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Verificar código",
+    "verifyingCode": "Verificando...",
+    "loginSuccess": "Login bem-sucedido",
+    "resendCode": "Reenviar código",
+    "resendIn": "Reenviar em",
+    "resendCodeSuccess": "Código reenviado",
+    "backToEmail": "Voltar ao e-mail",
+    "invalidCode": "Código inválido",
+    "connectionError": "Erro de conexão",
+    "sendCodeError": "Erro ao enviar código",
+    "resendCodeError": "Erro ao reenviar código",
+    "codeSentTo": "Enviamos um código de verificação para:",
+    "closeButton": "Fechar",
+    "termsText": "Ao continuar, você aceita nossos termos de serviço e política de privacidade.",
+    "emailTemplate": {
+      "verificationCode": "Seu código de verificação",
+      "hello": "Olá",
+      "useThisCode": "Use este código para fazer login:",
+      "codeExpires": "Este código expira em 10 minutos",
+      "ignoreEmail": "Se você não solicitou este código, pode ignorar este e-mail.",
+      "copyright": "© 2025 iblups. Todos os direitos reservados."
+    }
   }
 }

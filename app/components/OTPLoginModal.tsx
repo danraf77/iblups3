@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface OTPLoginModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface OTPLoginModalProps {
 }
 
 export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLoginModalProps) {
+  const { t, currentLanguage } = useTranslation();
   const [step, setStep] = useState<'email' | 'otp'>('email');
   const [email, setEmail] = useState('');
   const [otpCode, setOtpCode] = useState('');
@@ -40,20 +42,20 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, language: currentLanguage }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Código enviado a tu email');
+        setSuccess(t('otpModal.codeSentSuccess'));
         setStep('otp');
         setCountdown(60); // 60 segundos de cooldown
       } else {
-        setError(data.error || 'Error enviando código');
+        setError(data.error || t('otpModal.sendCodeError'));
       }
     } catch {
-      setError('Error de conexión');
+      setError(t('otpModal.connectionError'));
     } finally {
       setLoading(false);
     }
@@ -76,16 +78,16 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Login exitoso');
+        setSuccess(t('otpModal.loginSuccess'));
         onLoginSuccess(data.user);
         onClose();
         // Redirigir a la página actual para refrescar el estado
         router.refresh();
       } else {
-        setError(data.error || 'Código inválido');
+        setError(data.error || t('otpModal.invalidCode'));
       }
     } catch {
-      setError('Error de conexión');
+      setError(t('otpModal.connectionError'));
     } finally {
       setLoading(false);
     }
@@ -103,19 +105,19 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, language: currentLanguage }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Código reenviado');
+        setSuccess(t('otpModal.resendCodeSuccess'));
         setCountdown(60);
       } else {
-        setError(data.error || 'Error reenviando código');
+        setError(data.error || t('otpModal.resendCodeError'));
       }
     } catch {
-      setError('Error de conexión');
+      setError(t('otpModal.connectionError'));
     } finally {
       setLoading(false);
     }
@@ -138,7 +140,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">
-              {step === 'email' ? 'Iniciar Sesión' : 'Verificar Código'}
+              {step === 'email' ? t('otpModal.loginTitle') : t('otpModal.verifyTitle')}
             </h2>
             <button
               onClick={onClose}
@@ -155,7 +157,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
             <form onSubmit={handleSendOTP} className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
+                  {t('otpModal.emailLabel')}
                 </label>
                 <input
                   type="email"
@@ -163,7 +165,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="tu@email.com"
+                  placeholder={t('otpModal.emailPlaceholder')}
                   required
                 />
               </div>
@@ -185,7 +187,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                 disabled={loading}
                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {loading ? 'Enviando...' : 'Enviar Código'}
+                {loading ? t('otpModal.sendingCode') : t('otpModal.sendCodeButton')}
               </button>
             </form>
           )}
@@ -195,14 +197,14 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
             <form onSubmit={handleVerifyOTP} className="space-y-4">
               <div className="text-center mb-4">
                 <p className="text-gray-600">
-                  Hemos enviado un código de 4 dígitos a:
+                  {t('otpModal.codeSentTo')}
                 </p>
                 <p className="font-medium text-gray-900">{email}</p>
               </div>
 
               <div>
                 <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-2">
-                  Código de Verificación
+                  {t('otpModal.otpLabel')}
                 </label>
                 <input
                   type="text"
@@ -210,7 +212,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 4))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-2xl font-mono tracking-widest"
-                  placeholder="0000"
+                  placeholder={t('otpModal.otpPlaceholder')}
                   maxLength={4}
                   required
                 />
@@ -234,7 +236,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                   disabled={loading || otpCode.length !== 4}
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  {loading ? 'Verificando...' : 'Verificar Código'}
+                  {loading ? t('otpModal.verifyingCode') : t('otpModal.verifyCodeButton')}
                 </button>
 
                 <div className="flex justify-between items-center text-sm">
@@ -243,7 +245,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                     onClick={handleBackToEmail}
                     className="text-blue-600 hover:text-blue-800 transition-colors"
                   >
-                    ← Cambiar email
+                    ← {t('otpModal.backToEmail')}
                   </button>
 
                   <button
@@ -252,7 +254,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
                     disabled={countdown > 0 || loading}
                     className="text-blue-600 hover:text-blue-800 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors"
                   >
-                    {countdown > 0 ? `Reenviar en ${countdown}s` : 'Reenviar código'}
+                    {countdown > 0 ? `${t('otpModal.resendIn')} ${countdown}s` : t('otpModal.resendCode')}
                   </button>
                 </div>
               </div>
@@ -262,7 +264,7 @@ export default function OTPLoginModal({ isOpen, onClose, onLoginSuccess }: OTPLo
           {/* Footer */}
           <div className="mt-6 text-center text-sm text-gray-500">
             <p>
-              Al continuar, aceptas nuestros términos de servicio y política de privacidad.
+              {t('otpModal.termsText')}
             </p>
           </div>
         </div>

@@ -3,7 +3,7 @@
 // Script para probar el debugging del perfil
 const fs = require('fs');
 
-console.log('🔍 Sistema de Debug del Perfil - iBluPS');
+console.log('🔍 Sistema de Debug del Perfil - iblups');
 console.log('=====================================');
 
 // Verificar si el archivo de log existe

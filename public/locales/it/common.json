@@ -65,56 +65,31 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "loading": "Caricamento dashboard...",
-    "profile": {
-      "title": "Il mio profilo",
-      "edit": "Modifica",
-      "cancel": "Annulla",
-      "save": "Salva",
-      "saving": "Salvataggio...",
-      "fields": {
-        "firstName": "Nome",
-        "lastName": "Cognome",
-        "country": "Paese",
-        "city": "Città",
-        "dateOfBirth": "Data di nascita",
-        "selectCountry": "Seleziona il paese"
-      }
+    "welcome": "Benvenuto, {{username}}!",
+    "description": "Qui puoi gestire il tuo profilo e vedere i canali che segui.",
+    "loading": "Caricamento statistiche...",
+    "stats": {
+      "following": "Seguiti",
+      "recentActivity": "Attività Recente",
+      "memberSince": "Membro dal"
     },
-    "email": {
-      "title": "Cambia Email",
-      "currentEmail": "Email attuale",
-      "changeEmail": "Cambia Email",
-      "warning": "Per cambiare la tua email, dovrai verificare la nuova email con un codice OTP.",
-      "success": "Email aggiornata con successo"
+    "quickActions": {
+      "title": "Azioni Rapide",
+      "editProfile": "Modifica Profilo",
+      "editProfileDesc": "Aggiorna le tue informazioni personali",
+      "viewFollowing": "Visualizza Seguiti",
+      "viewFollowingDesc": "Gestisci i tuoi canali preferiti"
     },
-    "channels": {
-      "title": "Canali che segui",
-      "loading": "Caricamento canali seguiti...",
-      "empty": {
-        "title": "Non segui ancora nessun canale",
-        "description": "Visita i canali e fai clic su \"Segui il canale\" per aggiungerli qui",
-        "action": "Esplora i canali"
-      },
-      "actions": {
-        "viewChannel": "Guarda il canale",
-        "unfollow": "Smetti di seguire",
-        "refresh": "Ricarica i canali"
-      },
-      "followedOn": "Seguito il"
+    "sidebar": {
+      "home": "Home",
+      "profile": "Il Mio Profilo",
+      "following": "Seguiti",
+      "sessions": "Sessioni",
+      "email": "Email",
+      "logout": "Esci",
+      "backToHome": "← Torna alla home"
     },
-    "sessions": {
-      "title": "Le mie sessioni",
-      "loading": "Caricamento sessioni...",
-      "current": "Sessione attuale",
-      "close": "Esci",
-      "refresh": "Ricarica sessioni",
-      "device": "Dispositivo",
-      "browser": "Browser",
-      "country": "Paese",
-      "lastActivity": "Ultima attività",
-      "created": "Creata il"
-    }
+    "loadingDashboard": "Caricamento dashboard..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "Il tuo codice di accesso a iblups",
-      "title": "Codice di accesso",
-      "greeting": "Ciao,",
-      "description": "Il tuo codice di accesso per iblups è:",
-      "expiration": "Questo codice scade tra 10 minuti. Se non hai richiesto questo codice, puoi ignorare questa email.",
-      "thanks": "Grazie per aver usato iblups!",
-      "footer": "© 2025 iblups. Tutti i diritti riservati."
+    "title": "Cambia E-mail",
+    "description": "Aggiorna il tuo indirizzo e-mail con verifica OTP",
+    "currentEmail": "E-mail Attuale",
+    "currentEmailDescription": "E-mail attuale del tuo account",
+    "newEmail": "Nuova E-mail",
+    "verifyCode": "Verifica Codice",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Codice di Verifica",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Inserisci il codice a 4 cifre inviato a {{email}}",
+    "cancel": "Annulla",
+    "sendCode": "Invia Codice",
+    "sending": "Invio...",
+    "changeEmail": "Cambia E-mail",
+    "verifyAndChange": "Verifica e Cambia",
+    "verifying": "Verifica...",
+    "securityInfo": "Informazioni di Sicurezza",
+    "otpVerification": "Verifica OTP",
+    "otpVerificationDescription": "Un codice a 4 cifre verrà inviato alla nuova e-mail per verificare la proprietà",
+    "security": "Sicurezza",
+    "securityDescription": "Il cambio di e-mail richiede verifica per proteggere il tuo account",
+    "success": {
+      "codeSent": "Codice di verifica inviato alla nuova e-mail",
+      "emailUpdated": "E-mail aggiornata con successo"
+    },
+    "errors": {
+      "sendCodeError": "Errore nell'invio del codice",
+      "verificationError": "Errore nella verifica del codice",
+      "invalidCode": "Codice di verifica non valido"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "Pagina"
   },
   "sessions": {
-    "description": "Qui puoi vedere tutte le tue sessioni attive e inattive. Puoi chiudere le sessioni da altri dispositivi per maggiore sicurezza.",
-    "inactive": "Inattiva",
-    "expires": "Scade",
-    "daysRemaining": "giorni rimanenti",
     "title": "Le Mie Sessioni",
+    "description": "Gestisci le tue sessioni attive e rivedi la cronologia degli accessi",
     "loading": "Caricamento sessioni...",
-    "current": "Sessione corrente",
-    "close": "Esci",
-    "refresh": "Aggiorna sessioni",
-    "device": "Dispositivo",
-    "browser": "Browser",
+    "activeSessions": "Sessioni Attive",
+    "totalSessions": "Totale Sessioni",
+    "noSessions": "Nessuna sessione",
+    "noSessionsDescription": "Nessuna sessione trovata per il tuo account.",
+    "activeSession": "Sessione Attiva",
+    "closedSession": "Sessione Chiusa",
+    "unknown": "Sconosciuto",
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "ipNotAvailable": "IP non disponibile",
+    "created": "Creata",
+    "lastActivity": "Ultima Attività",
+    "expires": "Scade"
+  },
+  "profile": {
+    "title": "Il Mio Profilo",
+    "loading": "Caricamento profilo...",
+    "personalInfo": "Informazioni Personali",
+    "accountInfo": "Informazioni Account",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "displayName": "Nome Visualizzato",
+    "dateOfBirth": "Data di Nascita",
+    "city": "Città",
     "country": "Paese",
-    "lastActivity": "Ultima attività",
-    "created": "Creata"
+    "firstNamePlaceholder": "Il tuo nome",
+    "lastNamePlaceholder": "Il tuo cognome",
+    "displayNamePlaceholder": "Il tuo nome pubblico",
+    "cityPlaceholder": "La tua città",
+    "countryPlaceholder": "Seleziona paese",
+    "memberSince": "Membro dal",
+    "userId": "ID Utente",
+    "creationDate": "Data di Creazione",
+    "lastUpdate": "Ultimo Aggiornamento",
+    "cancel": "Annulla",
+    "saveChanges": "Salva Modifiche",
+    "saving": "Salvataggio...",
+    "success": "Profilo aggiornato con successo",
+    "error": "Errore nell'aggiornamento del profilo"
+  },
+  "following": {
+    "title": "Canali Seguiti",
+    "loading": "Caricamento canali seguiti...",
+    "channelsCount": "{{count}} canale",
+    "channelsCountPlural": "{{count}} canali",
+    "exploreChannels": "Esplora Canali",
+    "noChannels": "Non stai seguendo nessun canale",
+    "noChannelsDescription": "Inizia a seguire i canali per vederli qui e ricevere notifiche quando vanno in diretta.",
+    "followingSince": "Seguito dal",
+    "viewChannel": "Visualizza Canale →"
+  },
+  "viewerLogin": {
+    "loading": "Caricamento...",
+    "hello": "Ciao",
+    "viewer": "Spettatore",
+    "dashboard": "Dashboard",
+    "logout": "Disconnetti",
+    "loginAsViewer": "Accedi come Spettatore",
+    "loginAsViewerAria": "Accedi come spettatore"
+  },
+  "navbar": {
+    "searchPlaceholder": "Cerca canali..."
+  },
+  "otpModal": {
+    "loginTitle": "Accedi",
+    "verifyTitle": "Verifica codice",
+    "emailLabel": "Indirizzo e-mail",
+    "emailPlaceholder": "tuo@email.com",
+    "sendCodeButton": "Invia codice",
+    "sendingCode": "Invio...",
+    "codeSentSuccess": "Codice inviato alla tua e-mail",
+    "otpLabel": "Codice di verifica",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Verifica codice",
+    "verifyingCode": "Verifica...",
+    "loginSuccess": "Accesso riuscito",
+    "resendCode": "Invia di nuovo il codice",
+    "resendIn": "Invia di nuovo tra",
+    "resendCodeSuccess": "Codice inviato di nuovo",
+    "backToEmail": "Torna all'e-mail",
+    "invalidCode": "Codice non valido",
+    "connectionError": "Errore di connessione",
+    "sendCodeError": "Errore nell'invio del codice",
+    "resendCodeError": "Errore nell'invio del codice",
+    "codeSentTo": "Abbiamo inviato un codice di verifica a:",
+    "closeButton": "Chiudi",
+    "termsText": "Continuando, accetti i nostri termini di servizio e la politica sulla privacy.",
+    "emailTemplate": {
+      "verificationCode": "Il tuo codice di verifica",
+      "hello": "Ciao",
+      "useThisCode": "Usa questo codice per accedere:",
+      "codeExpires": "Questo codice scade tra 10 minuti",
+      "ignoreEmail": "Se non hai richiesto questo codice, puoi ignorare questa e-mail.",
+      "copyright": "© 2025 iblups. Tutti i diritti riservati."
+    }
   }
 }

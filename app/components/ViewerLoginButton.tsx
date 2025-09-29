@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../hooks/useAuth';
+import { useTranslation } from '../hooks/useTranslation';
 import OTPLoginModal from './OTPLoginModal';
 
 interface ViewerLoginButtonProps {
@@ -16,6 +17,7 @@ export default function ViewerLoginButton({
   variant = 'primary',
   size = 'md'
 }: ViewerLoginButtonProps) {
+  const { t } = useTranslation();
   const { user, isAuthenticated, loading, login, logout } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -74,7 +76,7 @@ export default function ViewerLoginButton({
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
-        Cargando...
+        {t('viewerLogin.loading')}
       </div>
     );
   }
@@ -87,7 +89,7 @@ export default function ViewerLoginButton({
           className="w-full flex items-center justify-between text-sm font-medium text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded-md px-4 py-2"
           style={{ backgroundColor: '#343A40' }}
         >
-          <span>Hola, {user?.email?.split('@')[0] || 'Viewer'}</span>
+          <span>{t('viewerLogin.hello')}, {user?.email?.split('@')[0] || t('viewerLogin.viewer')}</span>
           <svg 
             className={`w-4 h-4 transition-transform duration-200 ${showUserMenu ? 'rotate-180' : ''}`} 
             fill="none" 
@@ -109,7 +111,7 @@ export default function ViewerLoginButton({
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
-                        <span>Dashboard</span>
+                        <span>{t('viewerLogin.dashboard')}</span>
                       </Link>
                       <button
                         onClick={handleLogout}
@@ -118,7 +120,7 @@ export default function ViewerLoginButton({
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>
-                        <span>Cerrar sesión</span>
+                        <span>{t('viewerLogin.logout')}</span>
                       </button>
                     </div>
                   </div>
@@ -132,12 +134,12 @@ export default function ViewerLoginButton({
       <button
         onClick={() => setShowLoginModal(true)}
         className={getButtonClasses()}
-        aria-label="Iniciar sesión como viewer"
+        aria-label={t('viewerLogin.loginAsViewerAria')}
       >
         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
-        Iniciar como Viewer
+        {t('viewerLogin.loginAsViewer')}
       </button>
 
       <OTPLoginModal

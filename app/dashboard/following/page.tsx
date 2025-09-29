@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useTranslation } from '../../hooks/useTranslation';
 
 interface FollowedChannel {
   id: string;
@@ -12,6 +13,7 @@ interface FollowedChannel {
 }
 
 export default function FollowingPage() {
+  const { t } = useTranslation();
   const [channels, setChannels] = useState<FollowedChannel[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -40,7 +42,7 @@ export default function FollowingPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-primary">Cargando canales seguidos...</p>
+          <p className="text-primary">{t('following.loading')}</p>
         </div>
       </div>
     );
@@ -51,9 +53,9 @@ export default function FollowingPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Canales Seguidos</h1>
+          <h1 className="text-2xl font-bold text-primary">{t('following.title')}</h1>
           <p className="text-muted">
-            {channels.length} canal{channels.length !== 1 ? 'es' : ''} seguido{channels.length !== 1 ? 's' : ''}
+            {t(channels.length === 1 ? 'following.channelsCount' : 'following.channelsCountPlural', { count: channels.length })}
           </p>
         </div>
         <Link
@@ -65,7 +67,7 @@ export default function FollowingPage() {
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
-          Explorar Canales
+          {t('following.exploreChannels')}
         </Link>
       </div>
 
@@ -75,9 +77,9 @@ export default function FollowingPage() {
           <svg className="w-16 h-16 text-muted mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
-          <h3 className="text-lg font-semibold text-primary mb-2">No sigues ningún canal</h3>
+          <h3 className="text-lg font-semibold text-primary mb-2">{t('following.noChannels')}</h3>
           <p className="text-muted mb-6">
-            Comienza a seguir canales para verlos aquí y recibir notificaciones cuando estén en vivo.
+            {t('following.noChannelsDescription')}
           </p>
           <Link
             href="/"
@@ -86,7 +88,7 @@ export default function FollowingPage() {
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            Explorar Canales
+            {t('following.exploreChannels')}
           </Link>
         </div>
       ) : (
@@ -113,11 +115,11 @@ export default function FollowingPage() {
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                            Siguiendo desde {new Date(channel.followed_at).toLocaleDateString('es-ES', {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric'
-                            })}
+                    {t('following.followingSince')} {new Date(channel.followed_at).toLocaleDateString('es-ES', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
                   </div>
 
                   <div className="flex items-center">
@@ -127,7 +129,7 @@ export default function FollowingPage() {
                       rel="noopener noreferrer"
                       className="text-sm text-[#2c73ff] hover:text-[#1e5bb8] hover:underline transition-colors duration-200"
                     >
-                      Ver Canal →
+                      {t('following.viewChannel')}
                     </Link>
                   </div>
                 </div>

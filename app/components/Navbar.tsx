@@ -98,7 +98,7 @@ export default function Navbar({
                 </div>
                 <input
                   type="text"
-                  placeholder="Search channels..."
+                  placeholder={t('navbar.searchPlaceholder')}
                   value={searchValue}
                   onChange={(e) => onSearchChange?.(e.target.value)}
                   className="w-64 lg:w-80 bg-input text-primary placeholder-muted pl-10 pr-4 py-2 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
@@ -151,7 +151,7 @@ export default function Navbar({
                   </div>
                   <input
                     type="text"
-                    placeholder="Search channels..."
+                    placeholder={t('navbar.searchPlaceholder')}
                     value={searchValue}
                     onChange={(e) => onSearchChange?.(e.target.value)}
                     className="w-full bg-input text-primary placeholder-muted pl-10 pr-4 py-3 rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"

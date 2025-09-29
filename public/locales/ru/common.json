@@ -65,56 +65,31 @@
   },
   "dashboard": {
     "title": "Панель управления",
-    "loading": "Загрузка панели управления...",
-    "profile": {
-      "title": "Мой профиль",
-      "edit": "Редактировать",
-      "cancel": "Отмена",
-      "save": "Сохранить",
-      "saving": "Сохранение...",
-      "fields": {
-        "firstName": "Имя",
-        "lastName": "Фамилия",
-        "country": "Страна",
-        "city": "Город",
-        "dateOfBirth": "Дата рождения",
-        "selectCountry": "Выберите страну"
-      }
+    "welcome": "Добро пожаловать, {{username}}!",
+    "description": "Здесь вы можете управлять своим профилем и просматривать каналы, на которые подписаны.",
+    "loading": "Загрузка статистики...",
+    "stats": {
+      "following": "Подписки",
+      "recentActivity": "Недавняя активность",
+      "memberSince": "Участник с"
     },
-    "email": {
-      "title": "Изменить Email",
-      "currentEmail": "Текущий Email",
-      "changeEmail": "Изменить Email",
-      "warning": "Чтобы изменить свой адрес электронной почты, вам потребуется подтвердить новый адрес с помощью OTP-кода.",
-      "success": "Email успешно обновлен"
+    "quickActions": {
+      "title": "Быстрые действия",
+      "editProfile": "Редактировать профиль",
+      "editProfileDesc": "Обновите свою личную информацию",
+      "viewFollowing": "Просмотр подписок",
+      "viewFollowingDesc": "Управляйте любимыми каналами"
     },
-    "channels": {
-      "title": "Каналы, на которые вы подписаны",
-      "loading": "Загрузка отслеживаемых каналов...",
-      "empty": {
-        "title": "Вы еще не подписаны ни на один канал",
-        "description": "Посетите каналы и нажмите «Подписаться на канал», чтобы добавить их сюда",
-        "action": "Обзор каналов"
-      },
-      "actions": {
-        "viewChannel": "Смотреть канал",
-        "unfollow": "Отписаться",
-        "refresh": "Обновить каналы"
-      },
-      "followedOn": "Подписан с"
+    "sidebar": {
+      "home": "Главная",
+      "profile": "Мой профиль",
+      "following": "Подписки",
+      "sessions": "Сессии",
+      "email": "Электронная почта",
+      "logout": "Выйти",
+      "backToHome": "← Вернуться на главную"
     },
-    "sessions": {
-      "title": "Мои сессии",
-      "loading": "Загрузка сессий...",
-      "current": "Текущая сессия",
-      "close": "Выйти",
-      "refresh": "Обновить сессии",
-      "device": "Устройство",
-      "browser": "Браузер",
-      "country": "Страна",
-      "lastActivity": "Последняя активность",
-      "created": "Создана"
-    }
+    "loadingDashboard": "Загрузка панели управления..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "Ваш код доступа к iblups",
-      "title": "Код доступа",
-      "greeting": "Здравствуйте,",
-      "description": "Ваш код доступа для iblups:",
-      "expiration": "Срок действия этого кода истекает через 10 минут. Если вы не запрашивали этот код, вы можете проигнорировать это письмо.",
-      "thanks": "Спасибо за использование iblups!",
-      "footer": "© 2025 iblups. Все права защищены."
+    "title": "Изменить E-mail",
+    "description": "Обновите свой адрес электронной почты с OTP-проверкой",
+    "currentEmail": "Текущий E-mail",
+    "currentEmailDescription": "Текущий e-mail вашего аккаунта",
+    "newEmail": "Новый E-mail",
+    "verifyCode": "Проверить Код",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Код Проверки",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Введите 4-значный код, отправленный на {{email}}",
+    "cancel": "Отмена",
+    "sendCode": "Отправить Код",
+    "sending": "Отправка...",
+    "changeEmail": "Изменить E-mail",
+    "verifyAndChange": "Проверить и Изменить",
+    "verifying": "Проверка...",
+    "securityInfo": "Информация о Безопасности",
+    "otpVerification": "OTP-Проверка",
+    "otpVerificationDescription": "4-значный код будет отправлен на новый e-mail для проверки владения",
+    "security": "Безопасность",
+    "securityDescription": "Изменение e-mail требует проверки для защиты вашего аккаунта",
+    "success": {
+      "codeSent": "Код проверки отправлен на новый e-mail",
+      "emailUpdated": "E-mail успешно обновлен"
+    },
+    "errors": {
+      "sendCodeError": "Ошибка отправки кода",
+      "verificationError": "Ошибка проверки кода",
+      "invalidCode": "Недействительный код проверки"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "Страница"
   },
   "sessions": {
-    "description": "Здесь вы можете увидеть все ваши активные и неактивные сессии. Вы можете закрыть сессии с других устройств для большей безопасности.",
-    "inactive": "Неактивна",
-    "expires": "Истекает",
-    "daysRemaining": "дней осталось",
-    "title": "Мои сессии",
+    "title": "Мои Сессии",
+    "description": "Управляйте активными сессиями и просматривайте историю доступа",
     "loading": "Загрузка сессий...",
-    "current": "Текущая сессия",
-    "close": "Выйти",
-    "refresh": "Обновить сессии",
-    "device": "Устройство",
-    "browser": "Браузер",
+    "activeSessions": "Активные Сессии",
+    "totalSessions": "Всего Сессий",
+    "noSessions": "Нет сессий",
+    "noSessionsDescription": "Сессии для вашего аккаунта не найдены.",
+    "activeSession": "Активная Сессия",
+    "closedSession": "Закрытая Сессия",
+    "unknown": "Неизвестно",
+    "mobile": "Мобильный",
+    "tablet": "Планшет",
+    "desktop": "Рабочий стол",
+    "ipNotAvailable": "IP недоступен",
+    "created": "Создана",
+    "lastActivity": "Последняя Активность",
+    "expires": "Истекает"
+  },
+  "profile": {
+    "title": "Мой Профиль",
+    "loading": "Загрузка профиля...",
+    "personalInfo": "Личная Информация",
+    "accountInfo": "Информация об Аккаунте",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "displayName": "Отображаемое Имя",
+    "dateOfBirth": "Дата Рождения",
+    "city": "Город",
     "country": "Страна",
-    "lastActivity": "Последняя активность",
-    "created": "Создана"
+    "firstNamePlaceholder": "Ваше имя",
+    "lastNamePlaceholder": "Ваша фамилия",
+    "displayNamePlaceholder": "Ваше публичное имя",
+    "cityPlaceholder": "Ваш город",
+    "countryPlaceholder": "Выберите страну",
+    "memberSince": "Участник с",
+    "userId": "ID Пользователя",
+    "creationDate": "Дата Создания",
+    "lastUpdate": "Последнее Обновление",
+    "cancel": "Отмена",
+    "saveChanges": "Сохранить Изменения",
+    "saving": "Сохранение...",
+    "success": "Профиль успешно обновлен",
+    "error": "Ошибка при обновлении профиля"
+  },
+  "following": {
+    "title": "Отслеживаемые Каналы",
+    "loading": "Загрузка отслеживаемых каналов...",
+    "channelsCount": "{{count}} канал",
+    "channelsCountPlural": "{{count}} каналов",
+    "exploreChannels": "Исследовать Каналы",
+    "noChannels": "Вы не отслеживаете никаких каналов",
+    "noChannelsDescription": "Начните отслеживать каналы, чтобы видеть их здесь и получать уведомления, когда они в эфире.",
+    "followingSince": "Отслеживается с",
+    "viewChannel": "Посмотреть Канал →"
+  },
+  "viewerLogin": {
+    "loading": "Загрузка...",
+    "hello": "Привет",
+    "viewer": "Зритель",
+    "dashboard": "Панель",
+    "logout": "Выйти",
+    "loginAsViewer": "Войти как Зритель",
+    "loginAsViewerAria": "Войти как зритель"
+  },
+  "navbar": {
+    "searchPlaceholder": "Поиск каналов..."
+  },
+  "otpModal": {
+    "loginTitle": "Войти",
+    "verifyTitle": "Проверить код",
+    "emailLabel": "Адрес электронной почты",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "Отправить код",
+    "sendingCode": "Отправка...",
+    "codeSentSuccess": "Код отправлен на вашу почту",
+    "otpLabel": "Код подтверждения",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Проверить код",
+    "verifyingCode": "Проверка...",
+    "loginSuccess": "Вход выполнен успешно",
+    "resendCode": "Отправить код повторно",
+    "resendIn": "Отправить повторно через",
+    "resendCodeSuccess": "Код отправлен повторно",
+    "backToEmail": "Вернуться к почте",
+    "invalidCode": "Неверный код",
+    "connectionError": "Ошибка соединения",
+    "sendCodeError": "Ошибка отправки кода",
+    "resendCodeError": "Ошибка повторной отправки кода",
+    "codeSentTo": "Мы отправили код подтверждения на:",
+    "closeButton": "Закрыть",
+    "termsText": "Продолжая, вы принимаете наши условия обслуживания и политику конфиденциальности.",
+    "emailTemplate": {
+      "verificationCode": "Ваш код подтверждения",
+      "hello": "Привет",
+      "useThisCode": "Используйте этот код для входа:",
+      "codeExpires": "Этот код истекает через 10 минут",
+      "ignoreEmail": "Если вы не запрашивали этот код, можете проигнорировать это письмо.",
+      "copyright": "© 2025 iblups. Все права защищены."
+    }
   }
 }

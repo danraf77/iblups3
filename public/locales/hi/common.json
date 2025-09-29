@@ -65,56 +65,31 @@
   },
   "dashboard": {
     "title": "डैशबोर्ड",
-    "loading": "डैशबोर्ड लोड हो रहा है...",
-    "profile": {
-      "title": "मेरी प्रोफाइल",
-      "edit": "संपादित करें",
-      "cancel": "रद्द करें",
-      "save": "सहेजें",
-      "saving": "सहेजा जा रहा है...",
-      "fields": {
-        "firstName": "पहला नाम",
-        "lastName": "अंतिम नाम",
-        "country": "देश",
-        "city": "शहर",
-        "dateOfBirth": "जन्म की तारीख",
-        "selectCountry": "देश चुनें"
-      }
+    "welcome": "स्वागत है, {{username}}!",
+    "description": "यहाँ आप अपना प्रोफ़ाइल प्रबंधित कर सकते हैं और जिन चैनलों को आप फॉलो करते हैं उन्हें देख सकते हैं।",
+    "loading": "आंकड़े लोड हो रहे हैं...",
+    "stats": {
+      "following": "फॉलो कर रहे हैं",
+      "recentActivity": "हाल की गतिविधि",
+      "memberSince": "सदस्यता से"
     },
-    "email": {
-      "title": "ईमेल बदलें",
-      "currentEmail": "वर्तमान ईमेल",
-      "changeEmail": "ईमेल बदलें",
-      "warning": "अपना ईमेल बदलने के लिए, आपको नए ईमेल को एक ओटीपी कोड से सत्यापित करना होगा।",
-      "success": "ईमेल सफलतापूर्वक अपडेट किया गया"
+    "quickActions": {
+      "title": "त्वरित कार्य",
+      "editProfile": "प्रोफ़ाइल संपादित करें",
+      "editProfileDesc": "अपनी व्यक्तिगत जानकारी अपडेट करें",
+      "viewFollowing": "फॉलो करने वाले देखें",
+      "viewFollowingDesc": "अपने पसंदीदा चैनल प्रबंधित करें"
     },
-    "channels": {
-      "title": "जिन चैनलों को आप फॉलो करते हैं",
-      "loading": "फॉलो किए गए चैनल लोड हो रहे हैं...",
-      "empty": {
-        "title": "आप अभी तक किसी भी चैनल को फॉलो नहीं करते हैं",
-        "description": "चैनलों पर जाएं और उन्हें यहां जोड़ने के लिए \"चैनल को फॉलो करें\" पर क्लिक करें",
-        "action": "चैनल एक्सप्लोर करें"
-      },
-      "actions": {
-        "viewChannel": "चैनल देखें",
-        "unfollow": "अनफॉलो करें",
-        "refresh": "चैनल रीफ्रेश करें"
-      },
-      "followedOn": "फॉलो किया गया"
+    "sidebar": {
+      "home": "होम",
+      "profile": "मेरा प्रोफ़ाइल",
+      "following": "फॉलो कर रहे हैं",
+      "sessions": "सत्र",
+      "email": "ईमेल",
+      "logout": "लॉग आउट",
+      "backToHome": "← होम पर वापस जाएं"
     },
-    "sessions": {
-      "title": "मेरे सत्र",
-      "loading": "सत्र लोड हो रहे हैं...",
-      "current": "वर्तमान सत्र",
-      "close": "लॉग आउट करें",
-      "refresh": "सत्र रीफ्रेश करें",
-      "device": "डिवाइस",
-      "browser": "ब्राउज़र",
-      "country": "देश",
-      "lastActivity": "अंतिम गतिविधि",
-      "created": "बनाया गया"
-    }
+    "loadingDashboard": "डैशबोर्ड लोड हो रहा है..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "iblups के लिए आपका एक्सेस कोड",
-      "title": "एक्सेस कोड",
-      "greeting": "नमस्ते,",
-      "description": "iblups के लिए आपका एक्सेस कोड है:",
-      "expiration": "यह कोड 10 मिनट में समाप्त हो जाएगा। यदि आपने इस कोड का अनुरोध नहीं किया है, तो आप इस ईमेल को अनदेखा कर सकते हैं।",
-      "thanks": "iblups का उपयोग करने के लिए धन्यवाद!",
-      "footer": "© 2025 iblups. सर्वाधिकार सुरक्षित।"
+    "title": "ईमेल बदलें",
+    "description": "OTP सत्यापन के साथ अपना ईमेल पता अपडेट करें",
+    "currentEmail": "वर्तमान ईमेल",
+    "currentEmailDescription": "आपके खाते का वर्तमान ईमेल",
+    "newEmail": "नया ईमेल",
+    "verifyCode": "कोड सत्यापित करें",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "सत्यापन कोड",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "{{email}} पर भेजे गए 4 अंकों का कोड दर्ज करें",
+    "cancel": "रद्द करें",
+    "sendCode": "कोड भेजें",
+    "sending": "भेजा जा रहा है...",
+    "changeEmail": "ईमेल बदलें",
+    "verifyAndChange": "सत्यापित करें और बदलें",
+    "verifying": "सत्यापित किया जा रहा है...",
+    "securityInfo": "सुरक्षा जानकारी",
+    "otpVerification": "OTP सत्यापन",
+    "otpVerificationDescription": "स्वामित्व सत्यापित करने के लिए नए ईमेल पर 4 अंकों का कोड भेजा जाएगा",
+    "security": "सुरक्षा",
+    "securityDescription": "ईमेल बदलने के लिए आपके खाते की सुरक्षा के लिए सत्यापन आवश्यक है",
+    "success": {
+      "codeSent": "सत्यापन कोड नए ईमेल पर भेजा गया",
+      "emailUpdated": "ईमेल सफलतापूर्वक अपडेट किया गया"
+    },
+    "errors": {
+      "sendCodeError": "कोड भेजने में त्रुटि",
+      "verificationError": "कोड सत्यापित करने में त्रुटि",
+      "invalidCode": "अमान्य सत्यापन कोड"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "पृष्ठ"
   },
   "sessions": {
-    "description": "यहाँ आप अपने सभी सक्रिय और निष्क्रिय सत्र देख सकते हैं। अधिक सुरक्षा के लिए आप अन्य उपकरणों के सत्र बंद कर सकते हैं।",
-    "inactive": "निष्क्रिय",
-    "expires": "समाप्त होता है",
-    "daysRemaining": "दिन शेष",
-    "title": "मेरे सत्र",
-    "loading": "सत्र लोड हो रहे हैं...",
-    "current": "वर्तमान सत्र",
-    "close": "लॉग आउट",
-    "refresh": "सत्र रिफ्रेश करें",
-    "device": "डिवाइस",
-    "browser": "ब्राउज़र",
-    "country": "देश",
+    "title": "मेरे सेशन",
+    "description": "अपने सक्रिय सेशन प्रबंधित करें और एक्सेस इतिहास की समीक्षा करें",
+    "loading": "सेशन लोड हो रहे हैं...",
+    "activeSessions": "सक्रिय सेशन",
+    "totalSessions": "कुल सेशन",
+    "noSessions": "कोई सेशन नहीं",
+    "noSessionsDescription": "आपके खाते के लिए कोई सेशन नहीं मिला।",
+    "activeSession": "सक्रिय सेशन",
+    "closedSession": "बंद सेशन",
+    "unknown": "अज्ञात",
+    "mobile": "मोबाइल",
+    "tablet": "टैबलेट",
+    "desktop": "डेस्कटॉप",
+    "ipNotAvailable": "IP उपलब्ध नहीं",
+    "created": "बनाया गया",
     "lastActivity": "अंतिम गतिविधि",
-    "created": "बनाया गया"
+    "expires": "समाप्त होता है"
+  },
+  "profile": {
+    "title": "मेरा प्रोफ़ाइल",
+    "loading": "प्रोफ़ाइल लोड हो रहा है...",
+    "personalInfo": "व्यक्तिगत जानकारी",
+    "accountInfo": "खाता जानकारी",
+    "firstName": "नाम",
+    "lastName": "उपनाम",
+    "displayName": "प्रदर्शन नाम",
+    "dateOfBirth": "जन्म तिथि",
+    "city": "शहर",
+    "country": "देश",
+    "firstNamePlaceholder": "आपका नाम",
+    "lastNamePlaceholder": "आपका उपनाम",
+    "displayNamePlaceholder": "आपका सार्वजनिक नाम",
+    "cityPlaceholder": "आपका शहर",
+    "countryPlaceholder": "देश चुनें",
+    "memberSince": "सदस्यता से",
+    "userId": "उपयोगकर्ता ID",
+    "creationDate": "निर्माण तिथि",
+    "lastUpdate": "अंतिम अपडेट",
+    "cancel": "रद्द करें",
+    "saveChanges": "परिवर्तन सहेजें",
+    "saving": "सहेजा जा रहा है...",
+    "success": "प्रोफ़ाइल सफलतापूर्वक अपडेट किया गया",
+    "error": "प्रोफ़ाइल अपडेट करने में त्रुटि"
+  },
+  "following": {
+    "title": "फॉलो किए गए चैनल",
+    "loading": "फॉलो किए गए चैनल लोड हो रहे हैं...",
+    "channelsCount": "{{count}} चैनल",
+    "channelsCountPlural": "{{count}} चैनल",
+    "exploreChannels": "चैनल एक्सप्लोर करें",
+    "noChannels": "आप कोई चैनल फॉलो नहीं कर रहे",
+    "noChannelsDescription": "चैनल फॉलो करना शुरू करें ताकि आप उन्हें यहाँ देख सकें और लाइव होने पर नोटिफिकेशन प्राप्त कर सकें।",
+    "followingSince": "फॉलो करना शुरू किया",
+    "viewChannel": "चैनल देखें →"
+  },
+  "viewerLogin": {
+    "loading": "लोड हो रहा है...",
+    "hello": "नमस्ते",
+    "viewer": "दर्शक",
+    "dashboard": "डैशबोर्ड",
+    "logout": "लॉग आउट",
+    "loginAsViewer": "दर्शक के रूप में लॉगिन करें",
+    "loginAsViewerAria": "दर्शक के रूप में लॉगिन करें"
+  },
+  "navbar": {
+    "searchPlaceholder": "चैनल खोजें..."
+  },
+  "otpModal": {
+    "loginTitle": "लॉग इन करें",
+    "verifyTitle": "कोड सत्यापित करें",
+    "emailLabel": "ईमेल पता",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "कोड भेजें",
+    "sendingCode": "भेजा जा रहा है...",
+    "codeSentSuccess": "कोड आपके ईमेल पर भेजा गया",
+    "otpLabel": "सत्यापन कोड",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "कोड सत्यापित करें",
+    "verifyingCode": "सत्यापित किया जा रहा है...",
+    "loginSuccess": "लॉग इन सफल",
+    "resendCode": "कोड पुनः भेजें",
+    "resendIn": "पुनः भेजें",
+    "resendCodeSuccess": "कोड पुनः भेजा गया",
+    "backToEmail": "ईमेल पर वापस जाएं",
+    "invalidCode": "अमान्य कोड",
+    "connectionError": "कनेक्शन त्रुटि",
+    "sendCodeError": "कोड भेजने में त्रुटि",
+    "resendCodeError": "कोड पुनः भेजने में त्रुटि",
+    "codeSentTo": "हमने सत्यापन कोड भेजा है:",
+    "closeButton": "बंद करें",
+    "termsText": "जारी रखकर, आप हमारी सेवा की शर्तों और गोपनीयता नीति को स्वीकार करते हैं।",
+    "emailTemplate": {
+      "verificationCode": "आपका सत्यापन कोड",
+      "hello": "नमस्ते",
+      "useThisCode": "लॉग इन करने के लिए इस कोड का उपयोग करें:",
+      "codeExpires": "यह कोड 10 मिनट में समाप्त हो जाएगा",
+      "ignoreEmail": "यदि आपने इस कोड का अनुरोध नहीं किया है, तो आप इस ईमेल को नजरअंदाज कर सकते हैं।",
+      "copyright": "© 2025 iblups. सभी अधिकार सुरक्षित।"
+    }
   }
 }

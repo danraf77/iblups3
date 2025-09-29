@@ -65,56 +65,31 @@
   },
   "dashboard": {
     "title": "لوحة التحكم",
-    "loading": "جاري تحميل لوحة التحكم...",
-    "profile": {
-      "title": "ملفي الشخصي",
-      "edit": "تعديل",
-      "cancel": "إلغاء",
-      "save": "حفظ",
-      "saving": "جاري الحفظ...",
-      "fields": {
-        "firstName": "الاسم الأول",
-        "lastName": "الاسم الأخير",
-        "country": "البلد",
-        "city": "المدينة",
-        "dateOfBirth": "تاريخ الميلاد",
-        "selectCountry": "اختر البلد"
-      }
+    "welcome": "مرحباً، {{username}}!",
+    "description": "هنا يمكنك إدارة ملفك الشخصي ومشاهدة القنوات التي تتابعها.",
+    "loading": "جاري تحميل الإحصائيات...",
+    "stats": {
+      "following": "المتابعة",
+      "recentActivity": "النشاط الأخير",
+      "memberSince": "عضو منذ"
     },
-    "email": {
-      "title": "تغيير البريد الإلكتروني",
-      "currentEmail": "البريد الإلكتروني الحالي",
-      "changeEmail": "تغيير البريد الإلكتروني",
-      "warning": "لتغيير بريدك الإلكتروني، ستحتاج إلى التحقق من البريد الإلكتروني الجديد باستخدام رمز OTP.",
-      "success": "تم تحديث البريد الإلكتروني بنجاح"
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "editProfile": "تعديل الملف الشخصي",
+      "editProfileDesc": "تحديث معلوماتك الشخصية",
+      "viewFollowing": "عرض المتابعة",
+      "viewFollowingDesc": "إدارة قنواتك المفضلة"
     },
-    "channels": {
-      "title": "القنوات التي تتابعها",
-      "loading": "جاري تحميل القنوات المتابَعة...",
-      "empty": {
-        "title": "أنت لا تتابع أي قناة بعد",
-        "description": "قم بزيارة القنوات وانقر على \"متابعة القناة\" لإضافتها هنا",
-        "action": "استكشاف القنوات"
-      },
-      "actions": {
-        "viewChannel": "مشاهدة القناة",
-        "unfollow": "إلغاء المتابعة",
-        "refresh": "إعادة تحميل القنوات"
-      },
-      "followedOn": "تمت المتابعة في"
+    "sidebar": {
+      "home": "الرئيسية",
+      "profile": "ملفي الشخصي",
+      "following": "المتابعة",
+      "sessions": "الجلسات",
+      "email": "البريد الإلكتروني",
+      "logout": "تسجيل الخروج",
+      "backToHome": "← العودة للرئيسية"
     },
-    "sessions": {
-      "title": "جلساتي",
-      "loading": "جاري تحميل الجلسات...",
-      "current": "الجلسة الحالية",
-      "close": "تسجيل الخروج",
-      "refresh": "إعادة تحميل الجلسات",
-      "device": "الجهاز",
-      "browser": "المتصفح",
-      "country": "البلد",
-      "lastActivity": "آخر نشاط",
-      "created": "تم الإنشاء"
-    }
+    "loadingDashboard": "جاري تحميل لوحة التحكم..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "رمز الدخول الخاص بك إلى iblups",
-      "title": "رمز الدخول",
-      "greeting": "مرحباً،",
-      "description": "رمز الدخول الخاص بك لـ iblups هو:",
-      "expiration": "ينتهي هذا الرمز في غضون 10 دقائق. إذا لم تطلب هذا الرمز، يمكنك تجاهل هذا البريد الإلكتروني.",
-      "thanks": "شكراً لاستخدامك iblups!",
-      "footer": "© 2025 iblups. جميع الحقوق محفوظة."
+    "title": "تغيير البريد الإلكتروني",
+    "description": "قم بتحديث عنوان بريدك الإلكتروني مع التحقق من OTP",
+    "currentEmail": "البريد الإلكتروني الحالي",
+    "currentEmailDescription": "البريد الإلكتروني الحالي لحسابك",
+    "newEmail": "بريد إلكتروني جديد",
+    "verifyCode": "التحقق من الرمز",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "رمز التحقق",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "أدخل الرمز المكون من 4 أرقام المرسل إلى {{email}}",
+    "cancel": "إلغاء",
+    "sendCode": "إرسال الرمز",
+    "sending": "جاري الإرسال...",
+    "changeEmail": "تغيير البريد الإلكتروني",
+    "verifyAndChange": "التحقق والتغيير",
+    "verifying": "جاري التحقق...",
+    "securityInfo": "معلومات الأمان",
+    "otpVerification": "التحقق من OTP",
+    "otpVerificationDescription": "سيتم إرسال رمز مكون من 4 أرقام إلى البريد الإلكتروني الجديد للتحقق من الملكية",
+    "security": "الأمان",
+    "securityDescription": "تغيير البريد الإلكتروني يتطلب التحقق لحماية حسابك",
+    "success": {
+      "codeSent": "تم إرسال رمز التحقق إلى البريد الإلكتروني الجديد",
+      "emailUpdated": "تم تحديث البريد الإلكتروني بنجاح"
+    },
+    "errors": {
+      "sendCodeError": "خطأ في إرسال الرمز",
+      "verificationError": "خطأ في التحقق من الرمز",
+      "invalidCode": "رمز التحقق غير صالح"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "صفحة"
   },
   "sessions": {
-    "description": "هنا يمكنك رؤية جميع جلساتك النشطة وغير النشطة. يمكنك إغلاق جلسات من أجهزة أخرى لمزيد من الأمان.",
-    "inactive": "غير نشط",
-    "expires": "ينتهي",
-    "daysRemaining": "أيام متبقية",
     "title": "جلساتي",
+    "description": "إدارة الجلسات النشطة ومراجعة تاريخ الوصول",
     "loading": "جاري تحميل الجلسات...",
-    "current": "الجلسة الحالية",
-    "close": "تسجيل الخروج",
-    "refresh": "تحديث الجلسات",
-    "device": "الجهاز",
-    "browser": "المتصفح",
+    "activeSessions": "الجلسات النشطة",
+    "totalSessions": "إجمالي الجلسات",
+    "noSessions": "لا توجد جلسات",
+    "noSessionsDescription": "لم يتم العثور على جلسات لحسابك.",
+    "activeSession": "جلسة نشطة",
+    "closedSession": "جلسة مغلقة",
+    "unknown": "غير معروف",
+    "mobile": "محمول",
+    "tablet": "تابلت",
+    "desktop": "سطح المكتب",
+    "ipNotAvailable": "IP غير متاح",
+    "created": "تم الإنشاء",
+    "lastActivity": "آخر نشاط",
+    "expires": "ينتهي"
+  },
+  "profile": {
+    "title": "ملفي الشخصي",
+    "loading": "جاري تحميل الملف الشخصي...",
+    "personalInfo": "المعلومات الشخصية",
+    "accountInfo": "معلومات الحساب",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "displayName": "اسم العرض",
+    "dateOfBirth": "تاريخ الميلاد",
+    "city": "المدينة",
     "country": "البلد",
-    "lastActivity": "النشاط الأخير",
-    "created": "تم الإنشاء"
+    "firstNamePlaceholder": "اسمك الأول",
+    "lastNamePlaceholder": "اسم عائلتك",
+    "displayNamePlaceholder": "اسمك العام",
+    "cityPlaceholder": "مدينتك",
+    "countryPlaceholder": "اختر البلد",
+    "memberSince": "عضو منذ",
+    "userId": "معرف المستخدم",
+    "creationDate": "تاريخ الإنشاء",
+    "lastUpdate": "آخر تحديث",
+    "cancel": "إلغاء",
+    "saveChanges": "حفظ التغييرات",
+    "saving": "جاري الحفظ...",
+    "success": "تم تحديث الملف الشخصي بنجاح",
+    "error": "خطأ في تحديث الملف الشخصي"
+  },
+  "following": {
+    "title": "القنوات المتابعة",
+    "loading": "جاري تحميل القنوات المتابعة...",
+    "channelsCount": "{{count}} قناة",
+    "channelsCountPlural": "{{count}} قناة",
+    "exploreChannels": "استكشاف القنوات",
+    "noChannels": "لا تتابع أي قناة",
+    "noChannelsDescription": "ابدأ بمتابعة القنوات لرؤيتها هنا والحصول على إشعارات عندما تكون مباشرة.",
+    "followingSince": "متابعة منذ",
+    "viewChannel": "عرض القناة →"
+  },
+  "viewerLogin": {
+    "loading": "جاري التحميل...",
+    "hello": "مرحبا",
+    "viewer": "مشاهد",
+    "dashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج",
+    "loginAsViewer": "تسجيل الدخول كمشاهد",
+    "loginAsViewerAria": "تسجيل الدخول كمشاهد"
+  },
+  "navbar": {
+    "searchPlaceholder": "البحث عن القنوات..."
+  },
+  "otpModal": {
+    "loginTitle": "تسجيل الدخول",
+    "verifyTitle": "التحقق من الرمز",
+    "emailLabel": "عنوان البريد الإلكتروني",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "إرسال الرمز",
+    "sendingCode": "جاري الإرسال...",
+    "codeSentSuccess": "تم إرسال الرمز إلى بريدك الإلكتروني",
+    "otpLabel": "رمز التحقق",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "التحقق من الرمز",
+    "verifyingCode": "جاري التحقق...",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "resendCode": "إعادة إرسال الرمز",
+    "resendIn": "إعادة الإرسال في",
+    "resendCodeSuccess": "تم إعادة إرسال الرمز",
+    "backToEmail": "العودة إلى البريد الإلكتروني",
+    "invalidCode": "رمز غير صحيح",
+    "connectionError": "خطأ في الاتصال",
+    "sendCodeError": "خطأ في إرسال الرمز",
+    "resendCodeError": "خطأ في إعادة إرسال الرمز",
+    "codeSentTo": "أرسلنا رمز التحقق إلى:",
+    "closeButton": "إغلاق",
+    "termsText": "بالمتابعة، فإنك تقبل شروط الخدمة وسياسة الخصوصية الخاصة بنا.",
+    "emailTemplate": {
+      "verificationCode": "رمز التحقق الخاص بك",
+      "hello": "مرحبا",
+      "useThisCode": "استخدم هذا الرمز لتسجيل الدخول:",
+      "codeExpires": "ينتهي هذا الرمز خلال 10 دقائق",
+      "ignoreEmail": "إذا لم تطلب هذا الرمز، يمكنك تجاهل هذا البريد الإلكتروني.",
+      "copyright": "© 2025 iblups. جميع الحقوق محفوظة."
+    }
   }
 }

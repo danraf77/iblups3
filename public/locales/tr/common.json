@@ -65,56 +65,31 @@
   },
   "dashboard": {
     "title": "Kontrol Paneli",
-    "loading": "Kontrol paneli yükleniyor...",
-    "profile": {
-      "title": "Profilim",
-      "edit": "Düzenle",
-      "cancel": "İptal",
-      "save": "Kaydet",
-      "saving": "Kaydediliyor...",
-      "fields": {
-        "firstName": "Ad",
-        "lastName": "Soyad",
-        "country": "Ülke",
-        "city": "Şehir",
-        "dateOfBirth": "Doğum Tarihi",
-        "selectCountry": "Ülke seç"
-      }
+    "welcome": "Hoş geldin, {{username}}!",
+    "description": "Burada profilinizi yönetebilir ve takip ettiğiniz kanalları görüntüleyebilirsiniz.",
+    "loading": "İstatistikler yükleniyor...",
+    "stats": {
+      "following": "Takip Edilenler",
+      "recentActivity": "Son Aktiviteler",
+      "memberSince": "Üye olma tarihi"
     },
-    "email": {
-      "title": "E-postayı Değiştir",
-      "currentEmail": "Mevcut E-posta",
-      "changeEmail": "E-postayı Değiştir",
-      "warning": "E-postanızı değiştirmek için yeni e-postayı bir OTP kodu ile doğrulamanız gerekecektir.",
-      "success": "E-posta başarıyla güncellendi"
+    "quickActions": {
+      "title": "Hızlı İşlemler",
+      "editProfile": "Profili Düzenle",
+      "editProfileDesc": "Kişisel bilgilerinizi güncelleyin",
+      "viewFollowing": "Takip Edilenleri Görüntüle",
+      "viewFollowingDesc": "Favori kanallarınızı yönetin"
     },
-    "channels": {
-      "title": "Takip Ettiğin Kanallar",
-      "loading": "Takip edilen kanallar yükleniyor...",
-      "empty": {
-        "title": "Henüz hiçbir kanalı takip etmiyorsun",
-        "description": "Kanalları ziyaret et ve buraya eklemek için \"Kanalı takip et\"e tıkla",
-        "action": "Kanalları Keşfet"
-      },
-      "actions": {
-        "viewChannel": "Kanalı Görüntüle",
-        "unfollow": "Takibi bırak",
-        "refresh": "Kanalları Yenile"
-      },
-      "followedOn": "Takip tarihi"
+    "sidebar": {
+      "home": "Ana Sayfa",
+      "profile": "Profilim",
+      "following": "Takip Edilenler",
+      "sessions": "Oturumlar",
+      "email": "E-posta",
+      "logout": "Çıkış Yap",
+      "backToHome": "← Ana sayfaya dön"
     },
-    "sessions": {
-      "title": "Oturumlarım",
-      "loading": "Oturumlar yükleniyor...",
-      "current": "Mevcut oturum",
-      "close": "Oturumu Kapat",
-      "refresh": "Oturumları Yenile",
-      "device": "Cihaz",
-      "browser": "Tarayıcı",
-      "country": "Ülke",
-      "lastActivity": "Son etkinlik",
-      "created": "Oluşturulma"
-    }
+    "loadingDashboard": "Kontrol paneli yükleniyor..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "iblups erişim kodunuz",
-      "title": "Erişim Kodu",
-      "greeting": "Merhaba,",
-      "description": "iblups için erişim kodunuz:",
-      "expiration": "Bu kod 10 dakika içinde sona erecektir. Bu kodu siz istemediyseniz, bu e-postayı görmezden gelebilirsiniz.",
-      "thanks": "iblups'ı kullandığınız için teşekkürler!",
-      "footer": "© 2025 iblups. Tüm hakları saklıdır."
+    "title": "E-posta Değiştir",
+    "description": "E-posta adresinizi OTP doğrulaması ile güncelleyin",
+    "currentEmail": "Mevcut E-posta",
+    "currentEmailDescription": "Hesabınızın mevcut e-postası",
+    "newEmail": "Yeni E-posta",
+    "verifyCode": "Kodu Doğrula",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Doğrulama Kodu",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "{{email}} adresine gönderilen 4 haneli kodu girin",
+    "cancel": "İptal",
+    "sendCode": "Kod Gönder",
+    "sending": "Gönderiliyor...",
+    "changeEmail": "E-posta Değiştir",
+    "verifyAndChange": "Doğrula ve Değiştir",
+    "verifying": "Doğrulanıyor...",
+    "securityInfo": "Güvenlik Bilgileri",
+    "otpVerification": "OTP Doğrulaması",
+    "otpVerificationDescription": "Mülkiyeti doğrulamak için yeni e-postaya 4 haneli kod gönderilecek",
+    "security": "Güvenlik",
+    "securityDescription": "E-posta değişikliği hesabınızı korumak için doğrulama gerektirir",
+    "success": {
+      "codeSent": "Doğrulama kodu yeni e-postaya gönderildi",
+      "emailUpdated": "E-posta başarıyla güncellendi"
+    },
+    "errors": {
+      "sendCodeError": "Kod gönderme hatası",
+      "verificationError": "Kod doğrulama hatası",
+      "invalidCode": "Geçersiz doğrulama kodu"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "Sayfa"
   },
   "sessions": {
-    "description": "Burada tüm aktif ve pasif oturumlarınızı görebilirsiniz. Daha fazla güvenlik için diğer cihazlardaki oturumları kapatabilirsiniz.",
-    "inactive": "Pasif",
-    "expires": "Süresi doluyor",
-    "daysRemaining": "gün kaldı",
     "title": "Oturumlarım",
+    "description": "Aktif oturumlarınızı yönetin ve erişim geçmişini inceleyin",
     "loading": "Oturumlar yükleniyor...",
-    "current": "Mevcut oturum",
-    "close": "Çıkış yap",
-    "refresh": "Oturumları yenile",
-    "device": "Cihaz",
-    "browser": "Tarayıcı",
+    "activeSessions": "Aktif Oturumlar",
+    "totalSessions": "Toplam Oturum",
+    "noSessions": "Oturum yok",
+    "noSessionsDescription": "Hesabınız için oturum bulunamadı.",
+    "activeSession": "Aktif Oturum",
+    "closedSession": "Kapalı Oturum",
+    "unknown": "Bilinmeyen",
+    "mobile": "Mobil",
+    "tablet": "Tablet",
+    "desktop": "Masaüstü",
+    "ipNotAvailable": "IP mevcut değil",
+    "created": "Oluşturuldu",
+    "lastActivity": "Son Aktivite",
+    "expires": "Süresi Doluyor"
+  },
+  "profile": {
+    "title": "Profilim",
+    "loading": "Profil yükleniyor...",
+    "personalInfo": "Kişisel Bilgiler",
+    "accountInfo": "Hesap Bilgileri",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "displayName": "Görünen Ad",
+    "dateOfBirth": "Doğum Tarihi",
+    "city": "Şehir",
     "country": "Ülke",
-    "lastActivity": "Son aktivite",
-    "created": "Oluşturuldu"
+    "firstNamePlaceholder": "Adınız",
+    "lastNamePlaceholder": "Soyadınız",
+    "displayNamePlaceholder": "Genel adınız",
+    "cityPlaceholder": "Şehriniz",
+    "countryPlaceholder": "Ülke seçin",
+    "memberSince": "Üye olma tarihi",
+    "userId": "Kullanıcı ID",
+    "creationDate": "Oluşturulma Tarihi",
+    "lastUpdate": "Son Güncelleme",
+    "cancel": "İptal",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "saving": "Kaydediliyor...",
+    "success": "Profil başarıyla güncellendi",
+    "error": "Profil güncellenirken hata oluştu"
+  },
+  "following": {
+    "title": "Takip Edilen Kanallar",
+    "loading": "Takip edilen kanallar yükleniyor...",
+    "channelsCount": "{{count}} kanal",
+    "channelsCountPlural": "{{count}} kanal",
+    "exploreChannels": "Kanalları Keşfet",
+    "noChannels": "Hiçbir kanalı takip etmiyorsunuz",
+    "noChannelsDescription": "Kanalları takip etmeye başlayın, burada görün ve canlı yayın yaptıklarında bildirim alın.",
+    "followingSince": "Takip ediliyor",
+    "viewChannel": "Kanalı Görüntüle →"
+  },
+  "viewerLogin": {
+    "loading": "Yükleniyor...",
+    "hello": "Merhaba",
+    "viewer": "İzleyici",
+    "dashboard": "Kontrol Paneli",
+    "logout": "Çıkış Yap",
+    "loginAsViewer": "İzleyici Olarak Giriş Yap",
+    "loginAsViewerAria": "İzleyici olarak giriş yap"
+  },
+  "navbar": {
+    "searchPlaceholder": "Kanal ara..."
+  },
+  "otpModal": {
+    "loginTitle": "Giriş Yap",
+    "verifyTitle": "Kodu Doğrula",
+    "emailLabel": "E-posta adresi",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "Kod Gönder",
+    "sendingCode": "Gönderiliyor...",
+    "codeSentSuccess": "Kod e-postanıza gönderildi",
+    "otpLabel": "Doğrulama kodu",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Kodu Doğrula",
+    "verifyingCode": "Doğrulanıyor...",
+    "loginSuccess": "Giriş başarılı",
+    "resendCode": "Kodu tekrar gönder",
+    "resendIn": "Tekrar gönder",
+    "resendCodeSuccess": "Kod tekrar gönderildi",
+    "backToEmail": "E-postaya dön",
+    "invalidCode": "Geçersiz kod",
+    "connectionError": "Bağlantı hatası",
+    "sendCodeError": "Kod gönderme hatası",
+    "resendCodeError": "Kod tekrar gönderme hatası",
+    "codeSentTo": "Doğrulama kodunu şu adrese gönderdik:",
+    "closeButton": "Kapat",
+    "termsText": "Devam ederek hizmet şartlarımızı ve gizlilik politikamızı kabul etmiş olursunuz.",
+    "emailTemplate": {
+      "verificationCode": "Doğrulama kodunuz",
+      "hello": "Merhaba",
+      "useThisCode": "Giriş yapmak için bu kodu kullanın:",
+      "codeExpires": "Bu kod 10 dakika içinde sona erer",
+      "ignoreEmail": "Bu kodu talep etmediyseniz, bu e-postayı yok sayabilirsiniz.",
+      "copyright": "© 2025 iblups. Tüm hakları saklıdır."
+    }
   }
 }

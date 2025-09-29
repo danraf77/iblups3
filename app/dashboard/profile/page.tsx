@@ -3,6 +3,7 @@
 import { useAuth } from '../useAuth';
 import { useState, useEffect } from 'react';
 import CountrySelect from '../../components/CountrySelect';
+import { useTranslation } from '../../hooks/useTranslation';
 import '../../styles/profile.css';
 
 interface UserProfile {
@@ -28,6 +29,7 @@ interface Country {
 
 export default function ProfilePage() {
   const { } = useAuth();
+  const { t } = useTranslation();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(true);
@@ -98,15 +100,15 @@ export default function ProfilePage() {
         const data = await response.json();
         console.log('Success data:', data);
         setProfile(data.profile);
-        setMessage('Perfil actualizado correctamente');
+        setMessage(t('profile.success'));
       } else {
         const data = await response.json();
         console.error('Error response:', data);
-        setMessage(data.error || 'Error al actualizar el perfil');
+        setMessage(data.error || t('profile.error'));
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      setMessage('Error al actualizar el perfil');
+      setMessage(t('profile.error'));
     } finally {
       setSaving(false);
     }
@@ -117,7 +119,7 @@ export default function ProfilePage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-primary">Cargando perfil...</p>
+          <p className="text-primary">{t('profile.loading')}</p>
         </div>
       </div>
     );
@@ -135,11 +137,11 @@ export default function ProfilePage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-primary">
-              {profile?.display_name || 'Mi Perfil'}
+              {profile?.display_name || t('profile.title')}
             </h1>
             <p className="text-muted">{profile?.email}</p>
             <p className="text-sm text-muted">
-              Miembro desde {new Date(profile?.created_at || '').toLocaleDateString()}
+              {t('profile.memberSince')} {new Date(profile?.created_at || '').toLocaleDateString()}
             </p>
           </div>
         </div>
@@ -147,11 +149,11 @@ export default function ProfilePage() {
 
       {/* Profile Form */}
       <div className="bg-card rounded-lg p-6 border border-border-primary">
-        <h2 className="text-lg font-semibold text-primary mb-4">Información Personal</h2>
+        <h2 className="text-lg font-semibold text-primary mb-4">{t('profile.personalInfo')}</h2>
         
         {message && (
           <div className={`mb-4 p-3 rounded-lg ${
-            message.includes('correctamente') 
+            message.includes(t('profile.success')) 
               ? 'bg-green-100 text-green-700 border border-green-200' 
               : 'bg-red-100 text-red-700 border border-red-200'
           }`}>
@@ -164,28 +166,28 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="first_name" className="block text-sm font-medium text-primary mb-1">
-                Nombre
+                {t('profile.firstName')}
               </label>
               <input
                 type="text"
                 id="first_name"
                 name="first_name"
                 defaultValue={profile?.first_name || ''}
-                placeholder="Tu nombre"
+                placeholder={t('profile.firstNamePlaceholder')}
                 className="w-full px-3 py-2 bg-input text-primary rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-[#2c73ff] focus:border-transparent"
               />
             </div>
 
             <div>
               <label htmlFor="last_name" className="block text-sm font-medium text-primary mb-1">
-                Apellido
+                {t('profile.lastName')}
               </label>
               <input
                 type="text"
                 id="last_name"
                 name="last_name"
                 defaultValue={profile?.last_name || ''}
-                placeholder="Tu apellido"
+                placeholder={t('profile.lastNamePlaceholder')}
                 className="w-full px-3 py-2 bg-input text-primary rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-[#2c73ff] focus:border-transparent"
               />
             </div>
@@ -193,21 +195,21 @@ export default function ProfilePage() {
 
           <div>
             <label htmlFor="display_name" className="block text-sm font-medium text-primary mb-1">
-              Nombre para mostrar
+              {t('profile.displayName')}
             </label>
             <input
               type="text"
               id="display_name"
               name="display_name"
               defaultValue={profile?.display_name || ''}
-              placeholder="Tu nombre público"
+              placeholder={t('profile.displayNamePlaceholder')}
               className="w-full px-3 py-2 bg-input text-primary rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-[#2c73ff] focus:border-transparent"
             />
           </div>
 
           <div>
             <label htmlFor="date_of_birth" className="block text-sm font-medium text-primary mb-1">
-              Fecha de nacimiento
+              {t('profile.dateOfBirth')}
             </label>
             <input
               type="date"
@@ -226,14 +228,14 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="city" className="block text-sm font-medium text-primary mb-1">
-                Ciudad
+                {t('profile.city')}
               </label>
               <input
                 type="text"
                 id="city"
                 name="city"
                 defaultValue={profile?.city || ''}
-                placeholder="Tu ciudad"
+                placeholder={t('profile.cityPlaceholder')}
                 className="w-full px-3 py-2 bg-input text-primary rounded-lg border border-border-primary focus:outline-none focus:ring-2 focus:ring-[#2c73ff] focus:border-transparent"
               />
             </div>
@@ -248,8 +250,8 @@ export default function ProfilePage() {
                     setProfile({ ...profile, country_name: value });
                   }
                 }}
-                label="País"
-                placeholder="Seleccionar país"
+                label={t('profile.country')}
+                placeholder={t('profile.countryPlaceholder')}
               />
             </div>
           </div>
@@ -259,14 +261,14 @@ export default function ProfilePage() {
               type="button"
               className="px-4 py-2 text-sm font-medium text-muted hover:text-primary transition-colors duration-200"
             >
-              Cancelar
+              {t('profile.cancel')}
             </button>
             <button
               type="submit"
               disabled={saving}
               className="px-4 py-2 text-sm font-medium text-white bg-[#2c73ff] rounded-lg hover:bg-[#1e5bb8] focus:outline-none focus:ring-2 focus:ring-[#2c73ff] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              {saving ? 'Guardando...' : 'Guardar Cambios'}
+              {saving ? t('profile.saving') : t('profile.saveChanges')}
             </button>
           </div>
         </form>
@@ -274,14 +276,14 @@ export default function ProfilePage() {
 
       {/* Account Info */}
       <div className="bg-card rounded-lg p-6 border border-border-primary">
-        <h2 className="text-lg font-semibold text-primary mb-4">Información de la Cuenta</h2>
+        <h2 className="text-lg font-semibold text-primary mb-4">{t('profile.accountInfo')}</h2>
         <div className="space-y-3">
           <div className="flex justify-between">
-            <span className="text-muted">ID de Usuario:</span>
+            <span className="text-muted">{t('profile.userId')}:</span>
             <span className="text-primary font-mono text-sm">{profile?.id}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted">Fecha de Creación:</span>
+            <span className="text-muted">{t('profile.creationDate')}:</span>
             <span className="text-primary">
               {new Date(profile?.created_at || '').toLocaleDateString('es-ES', {
                 year: 'numeric',
@@ -291,7 +293,7 @@ export default function ProfilePage() {
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted">Última Actualización:</span>
+            <span className="text-muted">{t('profile.lastUpdate')}:</span>
             <span className="text-primary">
               {new Date(profile?.updated_at || '').toLocaleDateString('es-ES', {
                 year: 'numeric',

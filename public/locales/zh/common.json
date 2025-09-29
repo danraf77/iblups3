@@ -64,57 +64,32 @@
     }
   },
   "dashboard": {
-    "title": "仪表盘",
-    "loading": "正在加载仪表盘...",
-    "profile": {
-      "title": "我的个人资料",
-      "edit": "编辑",
-      "cancel": "取消",
-      "save": "保存",
-      "saving": "保存中...",
-      "fields": {
-        "firstName": "名",
-        "lastName": "姓",
-        "country": "国家",
-        "city": "城市",
-        "dateOfBirth": "出生日期",
-        "selectCountry": "选择国家"
-      }
+    "title": "仪表板",
+    "welcome": "欢迎，{{username}}！",
+    "description": "在这里您可以管理您的个人资料并查看您关注的频道。",
+    "loading": "加载统计信息...",
+    "stats": {
+      "following": "关注中",
+      "recentActivity": "最近活动",
+      "memberSince": "会员自"
     },
-    "email": {
-      "title": "更改电子邮件",
-      "currentEmail": "当前电子邮件",
-      "changeEmail": "更改电子邮件",
-      "warning": "要更改您的电子邮件，您需要使用一次性密码（OTP）验证新的电子邮件地址。",
-      "success": "电子邮件更新成功"
+    "quickActions": {
+      "title": "快速操作",
+      "editProfile": "编辑个人资料",
+      "editProfileDesc": "更新您的个人信息",
+      "viewFollowing": "查看关注",
+      "viewFollowingDesc": "管理您喜爱的频道"
     },
-    "channels": {
-      "title": "您关注的频道",
-      "loading": "正在加载已关注的频道...",
-      "empty": {
-        "title": "您尚未关注任何频道",
-        "description": "访问频道并点击“关注频道”即可将其添加至此",
-        "action": "浏览频道"
-      },
-      "actions": {
-        "viewChannel": "查看频道",
-        "unfollow": "取消关注",
-        "refresh": "刷新频道"
-      },
-      "followedOn": "关注于"
+    "sidebar": {
+      "home": "首页",
+      "profile": "我的个人资料",
+      "following": "关注中",
+      "sessions": "会话",
+      "email": "电子邮件",
+      "logout": "退出登录",
+      "backToHome": "← 返回首页"
     },
-    "sessions": {
-      "title": "我的会话",
-      "loading": "正在加载会话...",
-      "current": "当前会话",
-      "close": "退出登录",
-      "refresh": "刷新会话",
-      "device": "设备",
-      "browser": "浏览器",
-      "country": "国家",
-      "lastActivity": "最后活动",
-      "created": "创建于"
-    }
+    "loadingDashboard": "加载仪表板..."
   },
   "auth": {
     "modal": {
@@ -161,14 +136,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "您在 iblups 的访问代码",
-      "title": "访问代码",
-      "greeting": "您好，",
-      "description": "您用于 iblups 的访问代码是：",
-      "expiration": "此代码将在10分钟后过期。如果您没有请求此代码，可以忽略此电子邮件。",
-      "thanks": "感谢您使用 iblups！",
-      "footer": "© 2025 iblups. 版权所有。"
+    "title": "更改邮箱",
+    "description": "通过OTP验证更新您的邮箱地址",
+    "currentEmail": "当前邮箱",
+    "currentEmailDescription": "您账户的当前邮箱",
+    "newEmail": "新邮箱",
+    "verifyCode": "验证代码",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "验证代码",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "输入发送到 {{email}} 的4位数字代码",
+    "cancel": "取消",
+    "sendCode": "发送代码",
+    "sending": "发送中...",
+    "changeEmail": "更改邮箱",
+    "verifyAndChange": "验证并更改",
+    "verifying": "验证中...",
+    "securityInfo": "安全信息",
+    "otpVerification": "OTP验证",
+    "otpVerificationDescription": "将向新邮箱发送4位数字代码以验证所有权",
+    "security": "安全性",
+    "securityDescription": "更改邮箱需要验证以保护您的账户",
+    "success": {
+      "codeSent": "验证代码已发送到新邮箱",
+      "emailUpdated": "邮箱更新成功"
+    },
+    "errors": {
+      "sendCodeError": "发送代码时出错",
+      "verificationError": "验证代码时出错",
+      "invalidCode": "验证代码无效"
     }
   },
   "messages": {
@@ -207,19 +203,104 @@
     "pageOf": "第"
   },
   "sessions": {
-    "description": "在这里您可以查看所有活跃和非活跃会话。您可以关闭其他设备的会话以提高安全性。",
-    "inactive": "非活跃",
-    "expires": "过期",
-    "daysRemaining": "剩余天数",
     "title": "我的会话",
+    "description": "管理您的活动会话并查看访问历史",
     "loading": "加载会话中...",
-    "current": "当前会话",
-    "close": "退出登录",
-    "refresh": "刷新会话",
-    "device": "设备",
-    "browser": "浏览器",
-    "country": "国家",
+    "activeSessions": "活动会话",
+    "totalSessions": "总会话数",
+    "noSessions": "没有会话",
+    "noSessionsDescription": "未找到您账户的会话记录。",
+    "activeSession": "活动会话",
+    "closedSession": "已关闭会话",
+    "unknown": "未知",
+    "mobile": "移动设备",
+    "tablet": "平板电脑",
+    "desktop": "桌面",
+    "ipNotAvailable": "IP不可用",
+    "created": "创建时间",
     "lastActivity": "最后活动",
-    "created": "创建时间"
+    "expires": "过期时间"
+  },
+  "profile": {
+    "title": "我的个人资料",
+    "loading": "加载个人资料中...",
+    "personalInfo": "个人信息",
+    "accountInfo": "账户信息",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "displayName": "显示名称",
+    "dateOfBirth": "出生日期",
+    "city": "城市",
+    "country": "国家",
+    "firstNamePlaceholder": "您的名字",
+    "lastNamePlaceholder": "您的姓氏",
+    "displayNamePlaceholder": "您的公开名称",
+    "cityPlaceholder": "您的城市",
+    "countryPlaceholder": "选择国家",
+    "memberSince": "注册时间",
+    "userId": "用户ID",
+    "creationDate": "创建日期",
+    "lastUpdate": "最后更新",
+    "cancel": "取消",
+    "saveChanges": "保存更改",
+    "saving": "保存中...",
+    "success": "个人资料更新成功",
+    "error": "更新个人资料时出错"
+  },
+  "following": {
+    "title": "关注的频道",
+    "loading": "加载关注的频道中...",
+    "channelsCount": "{{count}} 个频道",
+    "channelsCountPlural": "{{count}} 个频道",
+    "exploreChannels": "探索频道",
+    "noChannels": "您还没有关注任何频道",
+    "noChannelsDescription": "开始关注频道，在这里查看它们，并在它们直播时接收通知。",
+    "followingSince": "关注于",
+    "viewChannel": "查看频道 →"
+  },
+  "viewerLogin": {
+    "loading": "加载中...",
+    "hello": "你好",
+    "viewer": "观众",
+    "dashboard": "仪表板",
+    "logout": "退出登录",
+    "loginAsViewer": "以观众身份登录",
+    "loginAsViewerAria": "以观众身份登录"
+  },
+  "navbar": {
+    "searchPlaceholder": "搜索频道..."
+  },
+  "otpModal": {
+    "loginTitle": "登录",
+    "verifyTitle": "验证代码",
+    "emailLabel": "电子邮件地址",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "发送代码",
+    "sendingCode": "发送中...",
+    "codeSentSuccess": "代码已发送到您的邮箱",
+    "otpLabel": "验证码",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "验证代码",
+    "verifyingCode": "验证中...",
+    "loginSuccess": "登录成功",
+    "resendCode": "重新发送代码",
+    "resendIn": "重新发送",
+    "resendCodeSuccess": "代码已重新发送",
+    "backToEmail": "返回邮箱",
+    "invalidCode": "无效代码",
+    "connectionError": "连接错误",
+    "sendCodeError": "发送代码错误",
+    "resendCodeError": "重新发送代码错误",
+    "codeSentTo": "我们向以下地址发送了验证码：",
+    "closeButton": "关闭",
+    "termsText": "继续即表示您接受我们的服务条款和隐私政策。",
+    "emailTemplate": {
+      "verificationCode": "您的验证码",
+      "hello": "您好",
+      "useThisCode": "使用此代码登录：",
+      "codeExpires": "此代码将在10分钟后过期",
+      "ignoreEmail": "如果您没有请求此代码，可以忽略此邮件。",
+      "copyright": "© 2025 iblups. 保留所有权利。"
+    }
   }
 }

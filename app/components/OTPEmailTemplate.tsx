@@ -3,113 +3,132 @@ import * as React from 'react';
 interface OTPEmailTemplateProps {
   otpCode: string;
   userName?: string;
+  language?: string;
+  translations?: {
+    verificationCode: string;
+    hello: string;
+    useThisCode: string;
+    codeExpires: string;
+    ignoreEmail: string;
+    copyright: string;
+  };
 }
 
-export function OTPEmailTemplate({ otpCode, userName }: OTPEmailTemplateProps) {
+export function OTPEmailTemplate({ otpCode, userName, translations }: OTPEmailTemplateProps) {
+  // Fallback translations en español si no se proporcionan
+  const t = translations || {
+    verificationCode: "Tu código de verificación",
+    hello: "Hola",
+    useThisCode: "Usa este código para iniciar sesión:",
+    codeExpires: "Este código expira en 10 minutos",
+    ignoreEmail: "Si no solicitaste este código, puedes ignorar este email.",
+    copyright: "© 2025 iblups. Todos los derechos reservados."
+  };
   return (
     <div style={{ 
       fontFamily: 'Arial, sans-serif', 
-      maxWidth: '600px', 
+      maxWidth: '500px', 
       margin: '0 auto', 
-      padding: '20px',
+      padding: '40px 20px',
       backgroundColor: '#f8f9fa'
     }}>
       <div style={{
         backgroundColor: 'white',
-        padding: '30px',
-        borderRadius: '10px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+        padding: '40px 30px',
+        borderRadius: '8px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+        {/* Header minimalista */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1 style={{ 
-            color: '#333', 
-            fontSize: '28px', 
-            margin: '0 0 10px 0',
-            fontWeight: 'bold'
+            color: '#6b7280', 
+            fontSize: '24px', 
+            margin: '0 0 8px 0',
+            fontWeight: '300',
+            letterSpacing: '1px'
           }}>
-            iBluPS
+            iblups
           </h1>
-          <p style={{ color: '#666', fontSize: '16px', margin: '0' }}>
-            Tu código de verificación
+          <p style={{ color: '#9ca3af', fontSize: '14px', margin: '0' }}>
+            {t.verificationCode}
           </p>
         </div>
         
+        {/* Código OTP */}
         <div style={{ 
           textAlign: 'center', 
-          margin: '30px 0',
-          padding: '20px',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '8px',
-          border: '2px dashed #007bff'
+          margin: '40px 0'
         }}>
           <p style={{ 
-            color: '#333', 
-            fontSize: '18px', 
-            margin: '0 0 15px 0',
-            fontWeight: '500'
+            color: '#6b7280', 
+            fontSize: '16px', 
+            margin: '0 0 20px 0',
+            fontWeight: '400'
           }}>
-            {userName ? `Hola ${userName},` : 'Hola,'}
+            {userName ? `${t.hello} ${userName},` : `${t.hello},`}
           </p>
           <p style={{ 
-            color: '#666', 
-            fontSize: '16px', 
-            margin: '0 0 20px 0' 
+            color: '#9ca3af', 
+            fontSize: '14px', 
+            margin: '0 0 30px 0' 
           }}>
-            Usa este código para iniciar sesión:
+            {t.useThisCode}
           </p>
           <div style={{
-            fontSize: '32px',
-            fontWeight: 'bold',
-            color: '#007bff',
-            letterSpacing: '8px',
-            backgroundColor: 'white',
-            padding: '15px 25px',
-            borderRadius: '8px',
-            border: '2px solid #007bff',
+            fontSize: '36px',
+            fontWeight: '600',
+            color: '#2c73ff',
+            letterSpacing: '12px',
+            backgroundColor: '#f8f9fa',
+            padding: '20px 30px',
+            borderRadius: '6px',
             display: 'inline-block',
-            fontFamily: 'monospace'
+            fontFamily: 'monospace',
+            border: '1px solid #e5e7eb'
           }}>
             {otpCode}
           </div>
         </div>
         
+        {/* Información de expiración */}
         <div style={{ 
           textAlign: 'center', 
-          marginTop: '30px',
+          marginTop: '40px',
           padding: '20px',
-          backgroundColor: '#fff3cd',
-          borderRadius: '8px',
-          border: '1px solid #ffeaa7'
+          backgroundColor: '#f9fafb',
+          borderRadius: '6px',
+          border: '1px solid #e5e7eb'
         }}>
           <p style={{ 
-            color: '#856404', 
-            fontSize: '14px', 
-            margin: '0',
+            color: '#6b7280', 
+            fontSize: '13px', 
+            margin: '0 0 8px 0',
             fontWeight: '500'
           }}>
-            ⚠️ Este código expira en 10 minutos
+            {t.codeExpires}
           </p>
           <p style={{ 
-            color: '#856404', 
-            fontSize: '12px', 
-            margin: '10px 0 0 0' 
-          }}>
-            Si no solicitaste este código, puedes ignorar este email.
-          </p>
-        </div>
-        
-        <div style={{ 
-          textAlign: 'center', 
-          marginTop: '30px',
-          paddingTop: '20px',
-          borderTop: '1px solid #eee'
-        }}>
-          <p style={{ 
-            color: '#999', 
+            color: '#9ca3af', 
             fontSize: '12px', 
             margin: '0' 
           }}>
-            © 2024 iBluPS. Todos los derechos reservados.
+            {t.ignoreEmail}
+          </p>
+        </div>
+        
+        {/* Footer minimalista */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginTop: '40px',
+          paddingTop: '20px',
+          borderTop: '1px solid #e5e7eb'
+        }}>
+          <p style={{ 
+            color: '#9ca3af', 
+            fontSize: '11px', 
+            margin: '0' 
+          }}>
+            {t.copyright}
           </p>
         </div>
       </div>

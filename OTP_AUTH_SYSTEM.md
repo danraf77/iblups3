@@ -1,4 +1,4 @@
-# Sistema de Autenticación OTP - iBluPS
+# Sistema de Autenticación OTP - iblups
 
 ## Descripción
 

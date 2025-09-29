@@ -70,56 +70,31 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "loading": "Loading dashboard...",
-    "profile": {
-      "title": "My Profile",
-      "edit": "Edit",
-      "cancel": "Cancel",
-      "save": "Save",
-      "saving": "Saving...",
-      "fields": {
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "country": "Country",
-        "city": "City",
-        "dateOfBirth": "Date of Birth",
-        "selectCountry": "Select country"
-      }
+    "welcome": "Welcome, {{username}}!",
+    "description": "Here you can manage your profile and see the channels you follow.",
+    "loading": "Loading statistics...",
+    "stats": {
+      "following": "Following",
+      "recentActivity": "Recent Activity",
+      "memberSince": "Member since"
     },
-    "email": {
-      "title": "Change Email",
-      "currentEmail": "Current email",
-      "changeEmail": "Change Email",
-      "warning": "To change your email, you'll need to verify the new email with an OTP code.",
-      "success": "Email updated successfully"
+    "quickActions": {
+      "title": "Quick Actions",
+      "editProfile": "Edit Profile",
+      "editProfileDesc": "Update your personal information",
+      "viewFollowing": "View Following",
+      "viewFollowingDesc": "Manage your favorite channels"
     },
-    "channels": {
-      "title": "Channels I Follow",
-      "loading": "Loading followed channels...",
-      "empty": {
-        "title": "You don't follow any channels yet",
-        "description": "Visit channels and click \"Follow channel\" to add them here",
-        "action": "Explore Channels"
-      },
-      "actions": {
-        "viewChannel": "View Channel",
-        "unfollow": "Unfollow",
-        "refresh": "Refresh channels"
-      },
-      "followedOn": "Followed on"
+    "sidebar": {
+      "home": "Home",
+      "profile": "My Profile",
+      "following": "Following",
+      "sessions": "Sessions",
+      "email": "Email",
+      "logout": "Log out",
+      "backToHome": "← Back to home"
     },
-    "sessions": {
-      "title": "My Sessions",
-      "loading": "Loading sessions...",
-      "current": "Current session",
-      "close": "Close session",
-      "refresh": "Refresh sessions",
-      "device": "Device",
-      "browser": "Browser",
-      "country": "Country",
-      "lastActivity": "Last activity",
-      "created": "Created"
-    }
+    "loadingDashboard": "Loading dashboard..."
   },
   "auth": {
     "modal": {
@@ -154,14 +129,35 @@
     }
   },
   "email": {
-    "otp": {
-      "subject": "Your iblups access code",
-      "title": "Access code",
-      "greeting": "Hello,",
-      "description": "Your access code for iblups is:",
-      "expiration": "This code expires in 10 minutes. If you didn't request this code, you can ignore this email.",
-      "thanks": "Thanks for using iblups!",
-      "footer": "© 2024 iblups. All rights reserved."
+    "title": "Change Email",
+    "description": "Update your email address with OTP verification",
+    "currentEmail": "Current Email",
+    "currentEmailDescription": "Current email for your account",
+    "newEmail": "New Email",
+    "verifyCode": "Verify Code",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Verification Code",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Enter the 4-digit code sent to {{email}}",
+    "cancel": "Cancel",
+    "sendCode": "Send Code",
+    "sending": "Sending...",
+    "changeEmail": "Change Email",
+    "verifyAndChange": "Verify and Change",
+    "verifying": "Verifying...",
+    "securityInfo": "Security Information",
+    "otpVerification": "OTP Verification",
+    "otpVerificationDescription": "A 4-digit code will be sent to the new email to verify ownership",
+    "security": "Security",
+    "securityDescription": "Email change requires verification to protect your account",
+    "success": {
+      "codeSent": "Verification code sent to new email",
+      "emailUpdated": "Email updated successfully"
+    },
+    "errors": {
+      "sendCodeError": "Error sending code",
+      "verificationError": "Error verifying code",
+      "invalidCode": "Invalid verification code"
     }
   },
   "messages": {
@@ -195,19 +191,104 @@
     }
   },
   "sessions": {
-    "description": "Here you can see all your active and inactive sessions. You can close sessions from other devices for greater security.",
-    "inactive": "Inactive",
-    "expires": "Expires",
-    "daysRemaining": "days remaining",
     "title": "My Sessions",
+    "description": "Manage your active sessions and review access history",
     "loading": "Loading sessions...",
-    "current": "Current session",
-    "close": "Log out",
-    "refresh": "Refresh sessions",
-    "device": "Device",
-    "browser": "Browser",
+    "activeSessions": "Active Sessions",
+    "totalSessions": "Total Sessions",
+    "noSessions": "No sessions",
+    "noSessionsDescription": "No sessions found for your account.",
+    "activeSession": "Active Session",
+    "closedSession": "Closed Session",
+    "unknown": "Unknown",
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "ipNotAvailable": "IP not available",
+    "created": "Created",
+    "lastActivity": "Last Activity",
+    "expires": "Expires"
+  },
+  "profile": {
+    "title": "My Profile",
+    "loading": "Loading profile...",
+    "personalInfo": "Personal Information",
+    "accountInfo": "Account Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "displayName": "Display Name",
+    "dateOfBirth": "Date of Birth",
+    "city": "City",
     "country": "Country",
-    "lastActivity": "Last activity",
-    "created": "Created"
+    "firstNamePlaceholder": "Your first name",
+    "lastNamePlaceholder": "Your last name",
+    "displayNamePlaceholder": "Your public name",
+    "cityPlaceholder": "Your city",
+    "countryPlaceholder": "Select country",
+    "memberSince": "Member since",
+    "userId": "User ID",
+    "creationDate": "Creation Date",
+    "lastUpdate": "Last Update",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "success": "Profile updated successfully",
+    "error": "Error updating profile"
+  },
+  "following": {
+    "title": "Following",
+    "loading": "Loading followed channels...",
+    "channelsCount": "{{count}} channel",
+    "channelsCountPlural": "{{count}} channels",
+    "exploreChannels": "Explore Channels",
+    "noChannels": "You're not following any channels",
+    "noChannelsDescription": "Start following channels to see them here and get notifications when they go live.",
+    "followingSince": "Following since",
+    "viewChannel": "View Channel →"
+  },
+  "viewerLogin": {
+    "loading": "Loading...",
+    "hello": "Hello",
+    "viewer": "Viewer",
+    "dashboard": "Dashboard",
+    "logout": "Log out",
+    "loginAsViewer": "Login as Viewer",
+    "loginAsViewerAria": "Login as viewer"
+  },
+  "navbar": {
+    "searchPlaceholder": "Search channels..."
+  },
+  "otpModal": {
+    "loginTitle": "Login",
+    "verifyTitle": "Verify Code",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "Send Code",
+    "sendingCode": "Sending...",
+    "codeSentSuccess": "Code sent to your email",
+    "otpLabel": "Verification code",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Verify Code",
+    "verifyingCode": "Verifying...",
+    "loginSuccess": "Login successful",
+    "resendCode": "Resend code",
+    "resendIn": "Resend in",
+    "resendCodeSuccess": "Code resent",
+    "backToEmail": "Back to email",
+    "invalidCode": "Invalid code",
+    "connectionError": "Connection error",
+    "sendCodeError": "Error sending code",
+    "resendCodeError": "Error resending code",
+    "codeSentTo": "We sent a verification code to:",
+    "closeButton": "Close",
+    "termsText": "By continuing, you accept our terms of service and privacy policy.",
+    "emailTemplate": {
+      "verificationCode": "Your verification code",
+      "hello": "Hello",
+      "useThisCode": "Use this code to log in:",
+      "codeExpires": "This code expires in 10 minutes",
+      "ignoreEmail": "If you didn't request this code, you can ignore this email.",
+      "copyright": "© 2025 iblups. All rights reserved."
+    }
   }
 }

@@ -19,7 +19,6 @@ interface Channel {
   is_4k?: boolean;
 }
 
-
 interface PaginatedChannelsResponse {
   channels: Channel[];
   pagination: {
@@ -35,11 +34,6 @@ interface PaginatedChannelsResponse {
     search: string;
     tab: string;
   };
-}
-
-interface LiveCountResponse {
-  totalLiveChannels: number;
-  totalChannels: number;
 }
 
 interface UseChannelsProps {
@@ -73,7 +67,6 @@ export function useChannels({
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   const fetchChannels = useCallback(async () => {
     try {
@@ -87,6 +80,8 @@ export function useChannels({
         tab
       });
 
+      console.log('🔍 Fetching channels with params:', params.toString());
+
       const response = await fetch(`/api/channels/paginated?${params}`, {
         cache: 'no-store',
         headers: {
@@ -94,11 +89,19 @@ export function useChannels({
         }
       });
       
+      console.log('📡 API Response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error('Error fetching channels');
+        throw new Error(`Error fetching channels: ${response.status}`);
       }
 
       const data: PaginatedChannelsResponse = await response.json();
+      
+      console.log('📊 API Response data:', {
+        channelsCount: data.channels.length,
+        totalChannels: data.pagination.totalChannels,
+        totalLiveChannels: data.pagination.totalLiveChannels
+      });
       
       setChannels(data.channels);
       setTotalChannels(data.pagination.totalChannels);
@@ -107,10 +110,12 @@ export function useChannels({
       setTotalPages(data.pagination.totalPages);
 
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error desconocido');
-      console.error('Error fetching channels:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
+      setError(errorMessage);
+      console.error('❌ Error fetching channels:', err);
     } finally {
       setLoading(false);
+      console.log('✅ Loading finished');
     }
   }, [page, limit, search, tab]);
 
@@ -119,14 +124,9 @@ export function useChannels({
   };
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (mounted) {
-      fetchChannels();
-    }
-  }, [mounted, page, limit, search, tab, fetchChannels]);
+    console.log('🚀 useEffect triggered with:', { page, limit, search, tab });
+    fetchChannels();
+  }, [page, limit, search, tab, fetchChannels]);
 
   return {
     channels,
@@ -147,7 +147,7 @@ export function useLiveChannelsCount() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchLiveCount = useCallback(async () => {
+  const fetchLiveCount = async () => {
     try {
       setLoading(true);
       setError(null);
@@ -155,31 +155,29 @@ export function useLiveChannelsCount() {
       const response = await fetch('/api/channels/live-count');
       
       if (!response.ok) {
-        throw new Error('Error fetching live channels count');
+        throw new Error('Error fetching live count');
       }
 
-      const data: LiveCountResponse = await response.json();
-      
+      const data = await response.json();
       setTotalLiveChannels(data.totalLiveChannels);
       setTotalChannels(data.totalChannels);
 
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
-      console.error('Error fetching live channels count:', err);
+      console.error('Error fetching live count:', err);
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchLiveCount();
-  }, [fetchLiveCount]);
+  }, []);
 
   return {
     totalLiveChannels,
     totalChannels,
     loading,
-    error,
-    refetch: fetchLiveCount
+    error
   };
 }

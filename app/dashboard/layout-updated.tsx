@@ -6,8 +6,6 @@ import Image from 'next/image';
 import { useAuth } from './useAuth';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { useTranslation } from '../hooks/useTranslation';
-import Footer from '../components/Footer';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -18,7 +16,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
@@ -39,7 +36,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="min-h-screen bg-primary flex items-center justify-center">
         <div className="text-center">
           <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-primary">{t('dashboard.loadingDashboard')}</p>
+          <p className="text-primary">Cargando dashboard...</p>
         </div>
       </div>
     );
@@ -50,7 +47,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-primary flex flex-col">
+    <div className="min-h-screen bg-primary">
       {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-secondary transform transition-transform duration-300 ease-in-out ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -91,7 +88,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z" />
               </svg>
-              {t('dashboard.sidebar.home')}
+              Inicio
             </Link>
             
             <Link
@@ -105,7 +102,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              {t('dashboard.sidebar.profile')}
+              Mi Perfil
             </Link>
             
             <Link
@@ -119,7 +116,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              {t('dashboard.sidebar.following')}
+              Canales Seguidos
             </Link>
             
             <Link
@@ -133,7 +130,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              {t('dashboard.sidebar.sessions')}
+              Sesiones
             </Link>
             
             <Link
@@ -147,7 +144,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              {t('dashboard.sidebar.email')}
+              Email
             </Link>
           </div>
         </nav>
@@ -187,7 +184,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-            {t('dashboard.sidebar.logout')}
+            Cerrar sesión
           </button>
         </div>
       </div>
@@ -201,7 +198,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       )}
 
       {/* Main content */}
-      <div className="lg:ml-64 flex-1 flex flex-col">
+      <div className="lg:ml-64">
         {/* Top bar */}
         <div className="bg-secondary border-b border-border-primary">
           <div className="flex items-center justify-between h-16 px-6">
@@ -219,19 +216,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 href="/"
                 className="text-sm text-muted hover:text-primary transition-colors duration-200"
               >
-                {t('dashboard.sidebar.backToHome')}
+                ← Volver al inicio
               </Link>
             </div>
           </div>
         </div>
 
         {/* Page content */}
-        <main className="p-6 flex-1">
+        <main className="p-6">
           {children}
         </main>
-
-        {/* Footer */}
-        <Footer />
       </div>
     </div>
   );

@@ -2,9 +2,12 @@
   "navigation": {
     "home": "Início",
     "compare": "Comparar",
-    "demo": "Demo",
+    "demo": "Demonstração",
     "debug": "Depurar",
-    "producerAccess": "Acesso do produtor"
+    "producerAccess": "Acesso de produtor",
+    "viewerAccess": "Acesso de espectador",
+    "toggleMenu": "Alternar menu móvel",
+    "back": "Voltar"
   },
   "tabs": {
     "all": "Todos",
@@ -12,7 +15,7 @@
     "recent": "Recente"
   },
   "search": {
-    "placeholder": "Pesquisar canais...",
+    "placeholder": "Buscar canais...",
     "liveChannels": "canais ao vivo"
   },
   "channels": {
@@ -20,7 +23,10 @@
     "loading": "Carregando canais...",
     "error": "Erro ao carregar canais",
     "notFound": "Nenhum canal encontrado",
-    "retry": "Tentar novamente"
+    "retry": "Tentar novamente",
+    "follow": "Seguir canal",
+    "unfollow": "Deixar de seguir",
+    "following": "Seguindo"
   },
   "footer": {
     "privacyPolicy": "Política de Privacidade",
@@ -40,9 +46,9 @@
     "exitFullscreen": "Sair da tela cheia"
   },
   "hero": {
-    "title": "O Mundo, uma só Tela.",
-    "description": "Conteúdo que conecta. Notícias que revelam. Música que inspira. Esportes que unem. Cultura que te acompanha.",
-    "subtitle": "Tudo acontece aqui. Ao vivo.",
+    "title": "O Mundo, uma Tela.",
+    "description": "Conteúdo que conecta. Notícias que informam. Música que inspira. Esportes que unem. Cinema, podcasts e rádios que acompanham.",
+    "subtitle": "Tudo acontece aqui, ao vivo.",
     "createChannel": "Crie seu canal"
   },
   "pages": {
@@ -55,6 +61,246 @@
     "embed": {
       "title": "Transmissão ao vivo",
       "description": "Assistir transmissão ao vivo"
+    }
+  },
+  "dashboard": {
+    "title": "Painel",
+    "welcome": "Bem-vindo, {{username}}!",
+    "description": "Aqui você pode gerenciar seu perfil e ver os canais que você segue.",
+    "loading": "Carregando estatísticas...",
+    "stats": {
+      "following": "Seguindo",
+      "recentActivity": "Atividade Recente",
+      "memberSince": "Membro desde"
+    },
+    "quickActions": {
+      "title": "Ações Rápidas",
+      "editProfile": "Editar Perfil",
+      "editProfileDesc": "Atualize suas informações pessoais",
+      "viewFollowing": "Ver Seguindo",
+      "viewFollowingDesc": "Gerencie seus canais favoritos"
+    },
+    "sidebar": {
+      "home": "Início",
+      "profile": "Meu Perfil",
+      "following": "Seguindo",
+      "sessions": "Sessões",
+      "email": "E-mail",
+      "logout": "Sair",
+      "backToHome": "← Voltar ao início"
+    },
+    "loadingDashboard": "Carregando painel..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Entrar no iblups",
+        "verify": "Verificar código"
+      },
+      "buttons": {
+        "viewerLogin": "Entrar como espectador",
+        "followChannel": "Seguir canal",
+        "unfollowChannel": "Deixar de seguir o canal",
+        "dashboard": "Painel",
+        "hello": "Olá"
+      },
+      "email": {
+        "description": "Digite seu e-mail para receber um código de acesso",
+        "label": "E-mail",
+        "placeholder": "seu@email.com",
+        "button": "Enviar código",
+        "sending": "Enviando..."
+      },
+      "otp": {
+        "description": "Digite o código de 4 dígitos enviado para",
+        "label": "Código de verificação",
+        "placeholder": "0000",
+        "button": "Verificar código",
+        "verifying": "Verificando...",
+        "resend": "Reenviar código",
+        "resending": "Reenviando...",
+        "changeEmail": "Alterar e-mail"
+      },
+      "errors": {
+        "emailRequired": "O e-mail é obrigatório",
+        "invalidEmail": "E-mail inválido",
+        "otpRequired": "O código é obrigatório",
+        "invalidOtp": "Código inválido ou expirado",
+        "networkError": "Erro de rede. Tente novamente.",
+        "serverError": "Erro interno do servidor"
+      },
+      "success": {
+        "emailSent": "Código enviado com sucesso",
+        "loginSuccess": "Login realizado com sucesso"
+      }
+    }
+  },
+  "email": {
+    "title": "Alterar E-mail",
+    "description": "Atualize seu endereço de e-mail com verificação OTP",
+    "currentEmail": "E-mail Atual",
+    "currentEmailDescription": "E-mail atual da sua conta",
+    "newEmail": "Novo E-mail",
+    "verifyCode": "Verificar Código",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Código de Verificação",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Digite o código de 4 dígitos enviado para {{email}}",
+    "cancel": "Cancelar",
+    "sendCode": "Enviar Código",
+    "sending": "Enviando...",
+    "changeEmail": "Alterar E-mail",
+    "verifyAndChange": "Verificar e Alterar",
+    "verifying": "Verificando...",
+    "securityInfo": "Informações de Segurança",
+    "otpVerification": "Verificação OTP",
+    "otpVerificationDescription": "Um código de 4 dígitos será enviado para o novo e-mail para verificar a propriedade",
+    "security": "Segurança",
+    "securityDescription": "A alteração de e-mail requer verificação para proteger sua conta",
+    "success": {
+      "codeSent": "Código de verificação enviado para o novo e-mail",
+      "emailUpdated": "E-mail atualizado com sucesso"
+    },
+    "errors": {
+      "sendCodeError": "Erro ao enviar código",
+      "verificationError": "Erro ao verificar código",
+      "invalidCode": "Código de verificação inválido"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Erro de rede. Tente novamente.",
+      "invalidOtp": "Código OTP inválido ou expirado.",
+      "sendOtpError": "Erro ao enviar o código OTP.",
+      "followError": "Erro ao seguir o canal.",
+      "unfollowError": "Erro ao deixar de seguir o canal.",
+      "profileUpdateError": "Erro ao atualizar o perfil.",
+      "emailUpdateError": "Erro ao atualizar o e-mail.",
+      "sessionError": "Erro de sessão. Por favor, faça login novamente.",
+      "unauthorized": "Não autorizado. Por favor, faça login.",
+      "serverError": "Erro interno do servidor."
+    },
+    "success": {
+      "profileUpdated": "Perfil atualizado com sucesso",
+      "emailUpdated": "E-mail atualizado com sucesso",
+      "channelFollowed": "Canal seguido com sucesso",
+      "channelUnfollowed": "Você deixou de seguir o canal",
+      "otpSent": "Código enviado com sucesso",
+      "loginSuccess": "Login realizado com sucesso"
+    },
+    "info": {
+      "noChannels": "Você ainda não segue nenhum canal",
+      "visitChannels": "Visite os canais e clique em \"Seguir canal\" para adicioná-los aqui",
+      "exploreChannels": "Explorar Canais",
+      "loading": "Carregando...",
+      "redirecting": "Redirecionando...",
+      "sessionExpired": "Sua sessão expirou. Por favor, faça login novamente."
+    }
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Próximo",
+    "pageOf": "Página"
+  },
+  "sessions": {
+    "title": "Minhas Sessões",
+    "description": "Gerencie suas sessões ativas e revise o histórico de acesso",
+    "loading": "Carregando sessões...",
+    "activeSessions": "Sessões Ativas",
+    "totalSessions": "Total de Sessões",
+    "noSessions": "Nenhuma sessão",
+    "noSessionsDescription": "Nenhuma sessão encontrada para sua conta.",
+    "activeSession": "Sessão Ativa",
+    "closedSession": "Sessão Fechada",
+    "unknown": "Desconhecido",
+    "mobile": "Móvel",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "ipNotAvailable": "IP não disponível",
+    "created": "Criada",
+    "lastActivity": "Última Atividade",
+    "expires": "Expira"
+  },
+  "profile": {
+    "title": "Meu Perfil",
+    "loading": "Carregando perfil...",
+    "personalInfo": "Informações Pessoais",
+    "accountInfo": "Informações da Conta",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "displayName": "Nome de Exibição",
+    "dateOfBirth": "Data de Nascimento",
+    "city": "Cidade",
+    "country": "País",
+    "firstNamePlaceholder": "Seu nome",
+    "lastNamePlaceholder": "Seu sobrenome",
+    "displayNamePlaceholder": "Seu nome público",
+    "cityPlaceholder": "Sua cidade",
+    "countryPlaceholder": "Selecionar país",
+    "memberSince": "Membro desde",
+    "userId": "ID do Usuário",
+    "creationDate": "Data de Criação",
+    "lastUpdate": "Última Atualização",
+    "cancel": "Cancelar",
+    "saveChanges": "Salvar Alterações",
+    "saving": "Salvando...",
+    "success": "Perfil atualizado com sucesso",
+    "error": "Erro ao atualizar perfil"
+  },
+  "following": {
+    "title": "Canais Seguidos",
+    "loading": "Carregando canais seguidos...",
+    "channelsCount": "{{count}} canal",
+    "channelsCountPlural": "{{count}} canais",
+    "exploreChannels": "Explorar Canais",
+    "noChannels": "Você não está seguindo nenhum canal",
+    "noChannelsDescription": "Comece a seguir canais para vê-los aqui e receber notificações quando estiverem ao vivo.",
+    "followingSince": "Seguindo desde",
+    "viewChannel": "Ver Canal →"
+  },
+  "viewerLogin": {
+    "loading": "Carregando...",
+    "hello": "Olá",
+    "viewer": "Visualizador",
+    "dashboard": "Painel",
+    "logout": "Sair",
+    "loginAsViewer": "Entrar como Visualizador",
+    "loginAsViewerAria": "Entrar como visualizador"
+  },
+  "navbar": {
+    "searchPlaceholder": "Pesquisar canais..."
+  },
+  "otpModal": {
+    "loginTitle": "Entrar",
+    "verifyTitle": "Verificar código",
+    "emailLabel": "Endereço de e-mail",
+    "emailPlaceholder": "seu@email.com",
+    "sendCodeButton": "Enviar código",
+    "sendingCode": "Enviando...",
+    "codeSentSuccess": "Código enviado para seu e-mail",
+    "otpLabel": "Código de verificação",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Verificar código",
+    "verifyingCode": "Verificando...",
+    "loginSuccess": "Login bem-sucedido",
+    "resendCode": "Reenviar código",
+    "resendIn": "Reenviar em",
+    "resendCodeSuccess": "Código reenviado",
+    "backToEmail": "Voltar ao e-mail",
+    "invalidCode": "Código inválido",
+    "connectionError": "Erro de conexão",
+    "sendCodeError": "Erro ao enviar código",
+    "resendCodeError": "Erro ao reenviar código",
+    "codeSentTo": "Enviamos um código de verificação para:",
+    "closeButton": "Fechar",
+    "termsText": "Ao continuar, você aceita nossos termos de serviço e política de privacidade.",
+    "emailTemplate": {
+      "verificationCode": "Seu código de verificação",
+      "hello": "Olá",
+      "useThisCode": "Use este código para fazer login:",
+      "codeExpires": "Este código expira em 10 minutos",
+      "ignoreEmail": "Se você não solicitou este código, pode ignorar este e-mail.",
+      "copyright": "© 2025 iblups. Todos os direitos reservados."
     }
   }
 }

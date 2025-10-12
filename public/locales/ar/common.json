@@ -2,25 +2,31 @@
   "navigation": {
     "home": "الرئيسية",
     "compare": "مقارنة",
-    "demo": "عرض توضيحي",
+    "demo": "تجريبي",
     "debug": "تصحيح",
-    "producerAccess": "وصول المنتج"
+    "producerAccess": "وصول المنتج",
+    "viewerAccess": "تسجيل الدخول كمشاهد",
+    "toggleMenu": "تبديل قائمة الجوال",
+    "back": "رجوع"
   },
   "tabs": {
     "all": "الكل",
     "popular": "شائع",
-    "recent": "حديث"
+    "recent": "الأخيرة"
   },
   "search": {
-    "placeholder": "البحث عن القنوات...",
-    "liveChannels": "قناة مباشرة"
+    "placeholder": "ابحث عن قنوات...",
+    "liveChannels": "قنوات مباشرة"
   },
   "channels": {
     "live": "مباشر",
     "loading": "جاري تحميل القنوات...",
     "error": "خطأ في تحميل القنوات",
     "notFound": "لم يتم العثور على قنوات",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "follow": "متابعة القناة",
+    "unfollow": "إلغاء المتابعة",
+    "following": "تتابع"
   },
   "footer": {
     "privacyPolicy": "سياسة الخصوصية",
@@ -37,24 +43,264 @@
     "mute": "كتم الصوت",
     "unmute": "إلغاء كتم الصوت",
     "fullscreen": "ملء الشاشة",
-    "exitFullscreen": "الخروج من ملء الشاشة"
+    "exitFullscreen": "الخروج من وضع ملء الشاشة"
   },
   "hero": {
-    "title": "العالم في شاشة واحدة.",
-    "description": "محتوى يجمعنا. أخبار تنيرنا. موسيقى تلهمنا. رياضة توحدنا. ثقافة ترافقنا.",
+    "title": "العالم، شاشة واحدة.",
+    "description": "محتوى يربط. أخبار تُعلم. موسيقى تُلهم. رياضة توحد. سينما وبودكاست وراديو يرافقونك.",
     "subtitle": "كل شيء يحدث هنا، على الهواء مباشرة.",
     "createChannel": "أنشئ قناتك"
   },
   "pages": {
     "channel": {
-      "title": "القناة",
+      "title": "قناة",
       "loading": "جاري تحميل القناة...",
       "notFound": "القناة غير موجودة",
-      "liveStream": "البث المباشر"
+      "liveStream": "بث مباشر"
     },
     "embed": {
-      "title": "البث المباشر",
+      "title": "بث مباشر",
       "description": "مشاهدة البث المباشر"
+    }
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحباً، {{username}}!",
+    "description": "هنا يمكنك إدارة ملفك الشخصي ومشاهدة القنوات التي تتابعها.",
+    "loading": "جاري تحميل الإحصائيات...",
+    "stats": {
+      "following": "المتابعة",
+      "recentActivity": "النشاط الأخير",
+      "memberSince": "عضو منذ"
+    },
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "editProfile": "تعديل الملف الشخصي",
+      "editProfileDesc": "تحديث معلوماتك الشخصية",
+      "viewFollowing": "عرض المتابعة",
+      "viewFollowingDesc": "إدارة قنواتك المفضلة"
+    },
+    "sidebar": {
+      "home": "الرئيسية",
+      "profile": "ملفي الشخصي",
+      "following": "المتابعة",
+      "sessions": "الجلسات",
+      "email": "البريد الإلكتروني",
+      "logout": "تسجيل الخروج",
+      "backToHome": "← العودة للرئيسية"
+    },
+    "loadingDashboard": "جاري تحميل لوحة التحكم..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "تسجيل الدخول إلى iblups",
+        "verify": "التحقق من الرمز"
+      },
+      "buttons": {
+        "viewerLogin": "تسجيل الدخول كمشاهد",
+        "followChannel": "متابعة القناة",
+        "unfollowChannel": "إلغاء متابعة القناة",
+        "dashboard": "لوحة التحكم",
+        "hello": "مرحباً"
+      },
+      "email": {
+        "description": "أدخل بريدك الإلكتروني لتلقي رمز الدخول",
+        "label": "البريد الإلكتروني",
+        "placeholder": "your@email.com",
+        "button": "إرسال الرمز",
+        "sending": "جاري الإرسال..."
+      },
+      "otp": {
+        "description": "أدخل الرمز المكون من 4 أرقام المرسل إلى",
+        "label": "رمز التحقق",
+        "placeholder": "0000",
+        "button": "التحقق من الرمز",
+        "verifying": "جاري التحقق...",
+        "resend": "إعادة إرسال الرمز",
+        "resending": "جاري إعادة الإرسال...",
+        "changeEmail": "تغيير البريد الإلكتروني"
+      },
+      "errors": {
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "invalidEmail": "بريد إلكتروني غير صالح",
+        "otpRequired": "الرمز مطلوب",
+        "invalidOtp": "رمز غير صالح أو منتهي الصلاحية",
+        "networkError": "خطأ في الشبكة. حاول مرة أخرى.",
+        "serverError": "خطأ داخلي في الخادم"
+      },
+      "success": {
+        "emailSent": "تم إرسال الرمز بنجاح",
+        "loginSuccess": "تم تسجيل الدخول بنجاح"
+      }
+    }
+  },
+  "email": {
+    "title": "تغيير البريد الإلكتروني",
+    "description": "قم بتحديث عنوان بريدك الإلكتروني مع التحقق من OTP",
+    "currentEmail": "البريد الإلكتروني الحالي",
+    "currentEmailDescription": "البريد الإلكتروني الحالي لحسابك",
+    "newEmail": "بريد إلكتروني جديد",
+    "verifyCode": "التحقق من الرمز",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "رمز التحقق",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "أدخل الرمز المكون من 4 أرقام المرسل إلى {{email}}",
+    "cancel": "إلغاء",
+    "sendCode": "إرسال الرمز",
+    "sending": "جاري الإرسال...",
+    "changeEmail": "تغيير البريد الإلكتروني",
+    "verifyAndChange": "التحقق والتغيير",
+    "verifying": "جاري التحقق...",
+    "securityInfo": "معلومات الأمان",
+    "otpVerification": "التحقق من OTP",
+    "otpVerificationDescription": "سيتم إرسال رمز مكون من 4 أرقام إلى البريد الإلكتروني الجديد للتحقق من الملكية",
+    "security": "الأمان",
+    "securityDescription": "تغيير البريد الإلكتروني يتطلب التحقق لحماية حسابك",
+    "success": {
+      "codeSent": "تم إرسال رمز التحقق إلى البريد الإلكتروني الجديد",
+      "emailUpdated": "تم تحديث البريد الإلكتروني بنجاح"
+    },
+    "errors": {
+      "sendCodeError": "خطأ في إرسال الرمز",
+      "verificationError": "خطأ في التحقق من الرمز",
+      "invalidCode": "رمز التحقق غير صالح"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "خطأ في الشبكة. حاول مرة أخرى.",
+      "invalidOtp": "رمز OTP غير صالح أو منتهي الصلاحية.",
+      "sendOtpError": "خطأ في إرسال رمز OTP.",
+      "followError": "خطأ في متابعة القناة.",
+      "unfollowError": "خطأ في إلغاء متابعة القناة.",
+      "profileUpdateError": "خطأ في تحديث الملف الشخصي.",
+      "emailUpdateError": "خطأ في تحديث البريد الإلكتروني.",
+      "sessionError": "خطأ في الجلسة. يرجى تسجيل الدخول مرة أخرى.",
+      "unauthorized": "غير مصرح به. يرجى تسجيل الدخول.",
+      "serverError": "خطأ داخلي في الخادم."
+    },
+    "success": {
+      "profileUpdated": "تم تحديث الملف الشخصي بنجاح",
+      "emailUpdated": "تم تحديث البريد الإلكتروني بنجاح",
+      "channelFollowed": "تمت متابعة القناة بنجاح",
+      "channelUnfollowed": "لقد قمت بإلغاء متابعة القناة",
+      "otpSent": "تم إرسال الرمز بنجاح",
+      "loginSuccess": "تم تسجيل الدخول بنجاح"
+    },
+    "info": {
+      "noChannels": "أنت لا تتابع أي قناة بعد",
+      "visitChannels": "قم بزيارة القنوات وانقر على \"متابعة القناة\" لإضافتها هنا",
+      "exploreChannels": "استكشاف القنوات",
+      "loading": "جاري التحميل...",
+      "redirecting": "جاري إعادة التوجيه...",
+      "sessionExpired": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى."
+    }
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي",
+    "pageOf": "صفحة"
+  },
+  "sessions": {
+    "title": "جلساتي",
+    "description": "إدارة الجلسات النشطة ومراجعة تاريخ الوصول",
+    "loading": "جاري تحميل الجلسات...",
+    "activeSessions": "الجلسات النشطة",
+    "totalSessions": "إجمالي الجلسات",
+    "noSessions": "لا توجد جلسات",
+    "noSessionsDescription": "لم يتم العثور على جلسات لحسابك.",
+    "activeSession": "جلسة نشطة",
+    "closedSession": "جلسة مغلقة",
+    "unknown": "غير معروف",
+    "mobile": "محمول",
+    "tablet": "تابلت",
+    "desktop": "سطح المكتب",
+    "ipNotAvailable": "IP غير متاح",
+    "created": "تم الإنشاء",
+    "lastActivity": "آخر نشاط",
+    "expires": "ينتهي"
+  },
+  "profile": {
+    "title": "ملفي الشخصي",
+    "loading": "جاري تحميل الملف الشخصي...",
+    "personalInfo": "المعلومات الشخصية",
+    "accountInfo": "معلومات الحساب",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "displayName": "اسم العرض",
+    "dateOfBirth": "تاريخ الميلاد",
+    "city": "المدينة",
+    "country": "البلد",
+    "firstNamePlaceholder": "اسمك الأول",
+    "lastNamePlaceholder": "اسم عائلتك",
+    "displayNamePlaceholder": "اسمك العام",
+    "cityPlaceholder": "مدينتك",
+    "countryPlaceholder": "اختر البلد",
+    "memberSince": "عضو منذ",
+    "userId": "معرف المستخدم",
+    "creationDate": "تاريخ الإنشاء",
+    "lastUpdate": "آخر تحديث",
+    "cancel": "إلغاء",
+    "saveChanges": "حفظ التغييرات",
+    "saving": "جاري الحفظ...",
+    "success": "تم تحديث الملف الشخصي بنجاح",
+    "error": "خطأ في تحديث الملف الشخصي"
+  },
+  "following": {
+    "title": "القنوات المتابعة",
+    "loading": "جاري تحميل القنوات المتابعة...",
+    "channelsCount": "{{count}} قناة",
+    "channelsCountPlural": "{{count}} قناة",
+    "exploreChannels": "استكشاف القنوات",
+    "noChannels": "لا تتابع أي قناة",
+    "noChannelsDescription": "ابدأ بمتابعة القنوات لرؤيتها هنا والحصول على إشعارات عندما تكون مباشرة.",
+    "followingSince": "متابعة منذ",
+    "viewChannel": "عرض القناة →"
+  },
+  "viewerLogin": {
+    "loading": "جاري التحميل...",
+    "hello": "مرحبا",
+    "viewer": "مشاهد",
+    "dashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج",
+    "loginAsViewer": "تسجيل الدخول كمشاهد",
+    "loginAsViewerAria": "تسجيل الدخول كمشاهد"
+  },
+  "navbar": {
+    "searchPlaceholder": "البحث عن القنوات..."
+  },
+  "otpModal": {
+    "loginTitle": "تسجيل الدخول",
+    "verifyTitle": "التحقق من الرمز",
+    "emailLabel": "عنوان البريد الإلكتروني",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "إرسال الرمز",
+    "sendingCode": "جاري الإرسال...",
+    "codeSentSuccess": "تم إرسال الرمز إلى بريدك الإلكتروني",
+    "otpLabel": "رمز التحقق",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "التحقق من الرمز",
+    "verifyingCode": "جاري التحقق...",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "resendCode": "إعادة إرسال الرمز",
+    "resendIn": "إعادة الإرسال في",
+    "resendCodeSuccess": "تم إعادة إرسال الرمز",
+    "backToEmail": "العودة إلى البريد الإلكتروني",
+    "invalidCode": "رمز غير صحيح",
+    "connectionError": "خطأ في الاتصال",
+    "sendCodeError": "خطأ في إرسال الرمز",
+    "resendCodeError": "خطأ في إعادة إرسال الرمز",
+    "codeSentTo": "أرسلنا رمز التحقق إلى:",
+    "closeButton": "إغلاق",
+    "termsText": "بالمتابعة، فإنك تقبل شروط الخدمة وسياسة الخصوصية الخاصة بنا.",
+    "emailTemplate": {
+      "verificationCode": "رمز التحقق الخاص بك",
+      "hello": "مرحبا",
+      "useThisCode": "استخدم هذا الرمز لتسجيل الدخول:",
+      "codeExpires": "ينتهي هذا الرمز خلال 10 دقائق",
+      "ignoreEmail": "إذا لم تطلب هذا الرمز، يمكنك تجاهل هذا البريد الإلكتروني.",
+      "copyright": "© 2025 iblups. جميع الحقوق محفوظة."
     }
   }
 }

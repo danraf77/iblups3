@@ -73,6 +73,7 @@ export function useChannels({
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const fetchChannels = useCallback(async () => {
     try {
@@ -113,13 +114,19 @@ export function useChannels({
     }
   }, [page, limit, search, tab]);
 
-  const refetch = useCallback(() => {
+  const refetch = () => {
     fetchChannels();
-  }, [fetchChannels]);
+  };
 
   useEffect(() => {
-    fetchChannels();
-  }, [fetchChannels]);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      fetchChannels();
+    }
+  }, [mounted, page, limit, search, tab, fetchChannels]);
 
   return {
     channels,

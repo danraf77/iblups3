@@ -4,7 +4,10 @@
     "compare": "比较",
     "demo": "演示",
     "debug": "调试",
-    "producerAccess": "制作人访问"
+    "producerAccess": "创作者入口",
+    "viewerAccess": "观众入口",
+    "toggleMenu": "切换移动菜单",
+    "back": "返回"
   },
   "tabs": {
     "all": "全部",
@@ -13,14 +16,17 @@
   },
   "search": {
     "placeholder": "搜索频道...",
-    "liveChannels": "个直播频道"
+    "liveChannels": "直播频道"
   },
   "channels": {
-    "live": "直播",
+    "live": "直播中",
     "loading": "正在加载频道...",
-    "error": "加载频道时出错",
+    "error": "加载频道出错",
     "notFound": "未找到频道",
-    "retry": "重试"
+    "retry": "重试",
+    "follow": "关注频道",
+    "unfollow": "取消关注",
+    "following": "已关注"
   },
   "footer": {
     "privacyPolicy": "隐私政策",
@@ -31,7 +37,7 @@
   },
   "player": {
     "loading": "加载中...",
-    "error": "加载视频时出错",
+    "error": "视频加载错误",
     "play": "播放",
     "pause": "暂停",
     "mute": "静音",
@@ -41,8 +47,8 @@
   },
   "hero": {
     "title": "世界，尽在一屏。",
-    "description": "内容连接彼此。新闻洞悉万象。音乐启迪心灵。体育凝聚人心。文化陪伴同行。",
-    "subtitle": "一切尽在现场直播。",
+    "description": "连接你我的内容。报道事实的新闻。激发灵感的音乐。凝聚人心的体育。伴你同行的电影、播客和广播。",
+    "subtitle": "所有精彩，尽在直播。",
     "createChannel": "创建您的频道"
   },
   "pages": {
@@ -50,11 +56,251 @@
       "title": "频道",
       "loading": "正在加载频道...",
       "notFound": "未找到频道",
-      "liveStream": "直播流"
+      "liveStream": "直播"
     },
     "embed": {
-      "title": "直播流",
+      "title": "直播",
       "description": "观看直播"
+    }
+  },
+  "dashboard": {
+    "title": "仪表板",
+    "welcome": "欢迎，{{username}}！",
+    "description": "在这里您可以管理您的个人资料并查看您关注的频道。",
+    "loading": "加载统计信息...",
+    "stats": {
+      "following": "关注中",
+      "recentActivity": "最近活动",
+      "memberSince": "会员自"
+    },
+    "quickActions": {
+      "title": "快速操作",
+      "editProfile": "编辑个人资料",
+      "editProfileDesc": "更新您的个人信息",
+      "viewFollowing": "查看关注",
+      "viewFollowingDesc": "管理您喜爱的频道"
+    },
+    "sidebar": {
+      "home": "首页",
+      "profile": "我的个人资料",
+      "following": "关注中",
+      "sessions": "会话",
+      "email": "电子邮件",
+      "logout": "退出登录",
+      "backToHome": "← 返回首页"
+    },
+    "loadingDashboard": "加载仪表板..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "登录 iblups",
+        "verify": "验证代码"
+      },
+      "buttons": {
+        "viewerLogin": "以观众身份登录",
+        "followChannel": "关注频道",
+        "unfollowChannel": "取消关注频道",
+        "dashboard": "仪表盘",
+        "hello": "你好"
+      },
+      "email": {
+        "description": "输入您的电子邮件以接收访问代码",
+        "label": "电子邮件",
+        "placeholder": "your@email.com",
+        "button": "发送代码",
+        "sending": "发送中..."
+      },
+      "otp": {
+        "description": "请输入发送至的4位数代码",
+        "label": "验证码",
+        "placeholder": "0000",
+        "button": "验证代码",
+        "verifying": "验证中...",
+        "resend": "重新发送代码",
+        "resending": "重新发送中...",
+        "changeEmail": "更改电子邮件"
+      },
+      "errors": {
+        "emailRequired": "需要提供电子邮件",
+        "invalidEmail": "无效的电子邮件",
+        "otpRequired": "需要提供代码",
+        "invalidOtp": "代码无效或已过期",
+        "networkError": "网络错误，请重试。",
+        "serverError": "服务器内部错误"
+      },
+      "success": {
+        "emailSent": "代码已成功发送",
+        "loginSuccess": "登录成功"
+      }
+    }
+  },
+  "email": {
+    "title": "更改邮箱",
+    "description": "通过OTP验证更新您的邮箱地址",
+    "currentEmail": "当前邮箱",
+    "currentEmailDescription": "您账户的当前邮箱",
+    "newEmail": "新邮箱",
+    "verifyCode": "验证代码",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "验证代码",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "输入发送到 {{email}} 的4位数字代码",
+    "cancel": "取消",
+    "sendCode": "发送代码",
+    "sending": "发送中...",
+    "changeEmail": "更改邮箱",
+    "verifyAndChange": "验证并更改",
+    "verifying": "验证中...",
+    "securityInfo": "安全信息",
+    "otpVerification": "OTP验证",
+    "otpVerificationDescription": "将向新邮箱发送4位数字代码以验证所有权",
+    "security": "安全性",
+    "securityDescription": "更改邮箱需要验证以保护您的账户",
+    "success": {
+      "codeSent": "验证代码已发送到新邮箱",
+      "emailUpdated": "邮箱更新成功"
+    },
+    "errors": {
+      "sendCodeError": "发送代码时出错",
+      "verificationError": "验证代码时出错",
+      "invalidCode": "验证代码无效"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "网络错误，请重试。",
+      "invalidOtp": "一次性密码（OTP）无效或已过期。",
+      "sendOtpError": "发送一次性密码（OTP）时出错。",
+      "followError": "关注频道时出错。",
+      "unfollowError": "取消关注频道时出错。",
+      "profileUpdateError": "更新个人资料时出错。",
+      "emailUpdateError": "更新电子邮件时出错。",
+      "sessionError": "会话错误。请重新登录。",
+      "unauthorized": "未经授权。请登录。",
+      "serverError": "服务器内部错误。"
+    },
+    "success": {
+      "profileUpdated": "个人资料更新成功",
+      "emailUpdated": "电子邮件更新成功",
+      "channelFollowed": "成功关注频道",
+      "channelUnfollowed": "已取消关注频道",
+      "otpSent": "代码已成功发送",
+      "loginSuccess": "登录成功"
+    },
+    "info": {
+      "noChannels": "您尚未关注任何频道",
+      "visitChannels": "访问频道并点击“关注频道”即可将其添加至此",
+      "exploreChannels": "浏览频道",
+      "loading": "加载中...",
+      "redirecting": "正在重定向...",
+      "sessionExpired": "您的会话已过期。请重新登录。"
+    }
+  },
+  "pagination": {
+    "previous": "上一页",
+    "next": "下一页",
+    "pageOf": "第"
+  },
+  "sessions": {
+    "title": "我的会话",
+    "description": "管理您的活动会话并查看访问历史",
+    "loading": "加载会话中...",
+    "activeSessions": "活动会话",
+    "totalSessions": "总会话数",
+    "noSessions": "没有会话",
+    "noSessionsDescription": "未找到您账户的会话记录。",
+    "activeSession": "活动会话",
+    "closedSession": "已关闭会话",
+    "unknown": "未知",
+    "mobile": "移动设备",
+    "tablet": "平板电脑",
+    "desktop": "桌面",
+    "ipNotAvailable": "IP不可用",
+    "created": "创建时间",
+    "lastActivity": "最后活动",
+    "expires": "过期时间"
+  },
+  "profile": {
+    "title": "我的个人资料",
+    "loading": "加载个人资料中...",
+    "personalInfo": "个人信息",
+    "accountInfo": "账户信息",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "displayName": "显示名称",
+    "dateOfBirth": "出生日期",
+    "city": "城市",
+    "country": "国家",
+    "firstNamePlaceholder": "您的名字",
+    "lastNamePlaceholder": "您的姓氏",
+    "displayNamePlaceholder": "您的公开名称",
+    "cityPlaceholder": "您的城市",
+    "countryPlaceholder": "选择国家",
+    "memberSince": "注册时间",
+    "userId": "用户ID",
+    "creationDate": "创建日期",
+    "lastUpdate": "最后更新",
+    "cancel": "取消",
+    "saveChanges": "保存更改",
+    "saving": "保存中...",
+    "success": "个人资料更新成功",
+    "error": "更新个人资料时出错"
+  },
+  "following": {
+    "title": "关注的频道",
+    "loading": "加载关注的频道中...",
+    "channelsCount": "{{count}} 个频道",
+    "channelsCountPlural": "{{count}} 个频道",
+    "exploreChannels": "探索频道",
+    "noChannels": "您还没有关注任何频道",
+    "noChannelsDescription": "开始关注频道，在这里查看它们，并在它们直播时接收通知。",
+    "followingSince": "关注于",
+    "viewChannel": "查看频道 →"
+  },
+  "viewerLogin": {
+    "loading": "加载中...",
+    "hello": "你好",
+    "viewer": "观众",
+    "dashboard": "仪表板",
+    "logout": "退出登录",
+    "loginAsViewer": "以观众身份登录",
+    "loginAsViewerAria": "以观众身份登录"
+  },
+  "navbar": {
+    "searchPlaceholder": "搜索频道..."
+  },
+  "otpModal": {
+    "loginTitle": "登录",
+    "verifyTitle": "验证代码",
+    "emailLabel": "电子邮件地址",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "发送代码",
+    "sendingCode": "发送中...",
+    "codeSentSuccess": "代码已发送到您的邮箱",
+    "otpLabel": "验证码",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "验证代码",
+    "verifyingCode": "验证中...",
+    "loginSuccess": "登录成功",
+    "resendCode": "重新发送代码",
+    "resendIn": "重新发送",
+    "resendCodeSuccess": "代码已重新发送",
+    "backToEmail": "返回邮箱",
+    "invalidCode": "无效代码",
+    "connectionError": "连接错误",
+    "sendCodeError": "发送代码错误",
+    "resendCodeError": "重新发送代码错误",
+    "codeSentTo": "我们向以下地址发送了验证码：",
+    "closeButton": "关闭",
+    "termsText": "继续即表示您接受我们的服务条款和隐私政策。",
+    "emailTemplate": {
+      "verificationCode": "您的验证码",
+      "hello": "您好",
+      "useThisCode": "使用此代码登录：",
+      "codeExpires": "此代码将在10分钟后过期",
+      "ignoreEmail": "如果您没有请求此代码，可以忽略此邮件。",
+      "copyright": "© 2025 iblups. 保留所有权利。"
     }
   }
 }

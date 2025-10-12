@@ -4,8 +4,10 @@
     "compare": "Сравнить",
     "demo": "Демо",
     "debug": "Отладка",
-    "producerAccess": "Доступ к каналу",
-    "toggleMenu": "Переключить мобильное меню"
+    "producerAccess": "Доступ для создателей",
+    "viewerAccess": "Вход для зрителей",
+    "toggleMenu": "Переключить мобильное меню",
+    "back": "Назад"
   },
   "tabs": {
     "all": "Все",
@@ -14,38 +16,40 @@
   },
   "search": {
     "placeholder": "Поиск каналов...",
-    "liveChannels": "каналы в прямом эфире",
-    "tryDifferent": "Попробуйте другие поисковые термины"
+    "liveChannels": "каналы в прямом эфире"
   },
   "channels": {
     "live": "В ЭФИРЕ",
     "loading": "Загрузка каналов...",
     "error": "Ошибка загрузки каналов",
     "notFound": "Каналы не найдены",
-    "retry": "Повторить"
+    "retry": "Повторить",
+    "follow": "Подписаться на канал",
+    "unfollow": "Отписаться",
+    "following": "Вы подписаны"
   },
   "footer": {
     "privacyPolicy": "Политика конфиденциальности",
     "termsOfService": "Условия обслуживания",
     "support": "Поддержка",
     "copyright": "© 2025 danraf77 LLC - USA. Все права защищены.",
-    "poweredBy": "Powered by"
+    "poweredBy": "Разработано"
   },
   "player": {
     "loading": "Загрузка...",
     "error": "Ошибка загрузки видео",
     "play": "Воспроизвести",
     "pause": "Пауза",
-    "mute": "Отключить звук",
+    "mute": "Выключить звук",
     "unmute": "Включить звук",
     "fullscreen": "Полный экран",
     "exitFullscreen": "Выйти из полноэкранного режима"
   },
   "hero": {
-    "title": "Весь мир на одном экране.",
-    "description": "Контент, который объединяет. Новости, открывающие правду. Музыка, которая вдохновляет. Спорт, который сближает. Культура, которая всегда рядом.",
-    "subtitle": "Всё происходит здесь. В прямом эфире.",
-    "createChannel": "Создайте свой канал"
+    "title": "Мир — один экран.",
+    "description": "Контент, который объединяет. Новости, которые информируют. Музыка, которая вдохновляет. Спорт, который сближает. Кино, подкасты и радио, которые сопровождают.",
+    "subtitle": "Все происходит здесь, в прямом эфире.",
+    "createChannel": "Создать свой канал"
   },
   "pages": {
     "channel": {
@@ -57,6 +61,246 @@
     "embed": {
       "title": "Прямая трансляция",
       "description": "Смотреть прямую трансляцию"
+    }
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "welcome": "Добро пожаловать, {{username}}!",
+    "description": "Здесь вы можете управлять своим профилем и просматривать каналы, на которые подписаны.",
+    "loading": "Загрузка статистики...",
+    "stats": {
+      "following": "Подписки",
+      "recentActivity": "Недавняя активность",
+      "memberSince": "Участник с"
+    },
+    "quickActions": {
+      "title": "Быстрые действия",
+      "editProfile": "Редактировать профиль",
+      "editProfileDesc": "Обновите свою личную информацию",
+      "viewFollowing": "Просмотр подписок",
+      "viewFollowingDesc": "Управляйте любимыми каналами"
+    },
+    "sidebar": {
+      "home": "Главная",
+      "profile": "Мой профиль",
+      "following": "Подписки",
+      "sessions": "Сессии",
+      "email": "Электронная почта",
+      "logout": "Выйти",
+      "backToHome": "← Вернуться на главную"
+    },
+    "loadingDashboard": "Загрузка панели управления..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Войти в iblups",
+        "verify": "Проверить код"
+      },
+      "buttons": {
+        "viewerLogin": "Вход для зрителей",
+        "followChannel": "Подписаться на канал",
+        "unfollowChannel": "Отписаться от канала",
+        "dashboard": "Панель управления",
+        "hello": "Привет"
+      },
+      "email": {
+        "description": "Введите свой адрес электронной почты, чтобы получить код доступа",
+        "label": "Email",
+        "placeholder": "vash@email.com",
+        "button": "Отправить код",
+        "sending": "Отправка..."
+      },
+      "otp": {
+        "description": "Введите 4-значный код, отправленный на",
+        "label": "Код подтверждения",
+        "placeholder": "0000",
+        "button": "Проверить код",
+        "verifying": "Проверка...",
+        "resend": "Отправить код повторно",
+        "resending": "Повторная отправка...",
+        "changeEmail": "Изменить email"
+      },
+      "errors": {
+        "emailRequired": "Требуется адрес электронной почты",
+        "invalidEmail": "Неверный адрес электронной почты",
+        "otpRequired": "Требуется код",
+        "invalidOtp": "Неверный или истекший код",
+        "networkError": "Сетевая ошибка. Попробуйте снова.",
+        "serverError": "Внутренняя ошибка сервера"
+      },
+      "success": {
+        "emailSent": "Код успешно отправлен",
+        "loginSuccess": "Вход выполнен успешно"
+      }
+    }
+  },
+  "email": {
+    "title": "Изменить E-mail",
+    "description": "Обновите свой адрес электронной почты с OTP-проверкой",
+    "currentEmail": "Текущий E-mail",
+    "currentEmailDescription": "Текущий e-mail вашего аккаунта",
+    "newEmail": "Новый E-mail",
+    "verifyCode": "Проверить Код",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Код Проверки",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Введите 4-значный код, отправленный на {{email}}",
+    "cancel": "Отмена",
+    "sendCode": "Отправить Код",
+    "sending": "Отправка...",
+    "changeEmail": "Изменить E-mail",
+    "verifyAndChange": "Проверить и Изменить",
+    "verifying": "Проверка...",
+    "securityInfo": "Информация о Безопасности",
+    "otpVerification": "OTP-Проверка",
+    "otpVerificationDescription": "4-значный код будет отправлен на новый e-mail для проверки владения",
+    "security": "Безопасность",
+    "securityDescription": "Изменение e-mail требует проверки для защиты вашего аккаунта",
+    "success": {
+      "codeSent": "Код проверки отправлен на новый e-mail",
+      "emailUpdated": "E-mail успешно обновлен"
+    },
+    "errors": {
+      "sendCodeError": "Ошибка отправки кода",
+      "verificationError": "Ошибка проверки кода",
+      "invalidCode": "Недействительный код проверки"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Сетевая ошибка. Попробуйте снова.",
+      "invalidOtp": "Неверный или истекший OTP-код.",
+      "sendOtpError": "Ошибка при отправке OTP-кода.",
+      "followError": "Ошибка при подписке на канал.",
+      "unfollowError": "Ошибка при отписке от канала.",
+      "profileUpdateError": "Ошибка при обновлении профиля.",
+      "emailUpdateError": "Ошибка при обновлении адреса электронной почты.",
+      "sessionError": "Ошибка сеанса. Пожалуйста, войдите снова.",
+      "unauthorized": "Не авторизован. Пожалуйста, войдите.",
+      "serverError": "Внутренняя ошибка сервера."
+    },
+    "success": {
+      "profileUpdated": "Профиль успешно обновлен",
+      "emailUpdated": "Email успешно обновлен",
+      "channelFollowed": "Вы успешно подписались на канал",
+      "channelUnfollowed": "Вы отписались от канала",
+      "otpSent": "Код успешно отправлен",
+      "loginSuccess": "Вход выполнен успешно"
+    },
+    "info": {
+      "noChannels": "Вы еще не подписаны ни на один канал",
+      "visitChannels": "Посетите каналы и нажмите «Подписаться на канал», чтобы добавить их сюда",
+      "exploreChannels": "Обзор каналов",
+      "loading": "Загрузка...",
+      "redirecting": "Перенаправление...",
+      "sessionExpired": "Ваша сессия истекла. Пожалуйста, войдите снова."
+    }
+  },
+  "pagination": {
+    "previous": "Назад",
+    "next": "Вперед",
+    "pageOf": "Страница"
+  },
+  "sessions": {
+    "title": "Мои Сессии",
+    "description": "Управляйте активными сессиями и просматривайте историю доступа",
+    "loading": "Загрузка сессий...",
+    "activeSessions": "Активные Сессии",
+    "totalSessions": "Всего Сессий",
+    "noSessions": "Нет сессий",
+    "noSessionsDescription": "Сессии для вашего аккаунта не найдены.",
+    "activeSession": "Активная Сессия",
+    "closedSession": "Закрытая Сессия",
+    "unknown": "Неизвестно",
+    "mobile": "Мобильный",
+    "tablet": "Планшет",
+    "desktop": "Рабочий стол",
+    "ipNotAvailable": "IP недоступен",
+    "created": "Создана",
+    "lastActivity": "Последняя Активность",
+    "expires": "Истекает"
+  },
+  "profile": {
+    "title": "Мой Профиль",
+    "loading": "Загрузка профиля...",
+    "personalInfo": "Личная Информация",
+    "accountInfo": "Информация об Аккаунте",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "displayName": "Отображаемое Имя",
+    "dateOfBirth": "Дата Рождения",
+    "city": "Город",
+    "country": "Страна",
+    "firstNamePlaceholder": "Ваше имя",
+    "lastNamePlaceholder": "Ваша фамилия",
+    "displayNamePlaceholder": "Ваше публичное имя",
+    "cityPlaceholder": "Ваш город",
+    "countryPlaceholder": "Выберите страну",
+    "memberSince": "Участник с",
+    "userId": "ID Пользователя",
+    "creationDate": "Дата Создания",
+    "lastUpdate": "Последнее Обновление",
+    "cancel": "Отмена",
+    "saveChanges": "Сохранить Изменения",
+    "saving": "Сохранение...",
+    "success": "Профиль успешно обновлен",
+    "error": "Ошибка при обновлении профиля"
+  },
+  "following": {
+    "title": "Отслеживаемые Каналы",
+    "loading": "Загрузка отслеживаемых каналов...",
+    "channelsCount": "{{count}} канал",
+    "channelsCountPlural": "{{count}} каналов",
+    "exploreChannels": "Исследовать Каналы",
+    "noChannels": "Вы не отслеживаете никаких каналов",
+    "noChannelsDescription": "Начните отслеживать каналы, чтобы видеть их здесь и получать уведомления, когда они в эфире.",
+    "followingSince": "Отслеживается с",
+    "viewChannel": "Посмотреть Канал →"
+  },
+  "viewerLogin": {
+    "loading": "Загрузка...",
+    "hello": "Привет",
+    "viewer": "Зритель",
+    "dashboard": "Панель",
+    "logout": "Выйти",
+    "loginAsViewer": "Войти как Зритель",
+    "loginAsViewerAria": "Войти как зритель"
+  },
+  "navbar": {
+    "searchPlaceholder": "Поиск каналов..."
+  },
+  "otpModal": {
+    "loginTitle": "Войти",
+    "verifyTitle": "Проверить код",
+    "emailLabel": "Адрес электронной почты",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "Отправить код",
+    "sendingCode": "Отправка...",
+    "codeSentSuccess": "Код отправлен на вашу почту",
+    "otpLabel": "Код подтверждения",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Проверить код",
+    "verifyingCode": "Проверка...",
+    "loginSuccess": "Вход выполнен успешно",
+    "resendCode": "Отправить код повторно",
+    "resendIn": "Отправить повторно через",
+    "resendCodeSuccess": "Код отправлен повторно",
+    "backToEmail": "Вернуться к почте",
+    "invalidCode": "Неверный код",
+    "connectionError": "Ошибка соединения",
+    "sendCodeError": "Ошибка отправки кода",
+    "resendCodeError": "Ошибка повторной отправки кода",
+    "codeSentTo": "Мы отправили код подтверждения на:",
+    "closeButton": "Закрыть",
+    "termsText": "Продолжая, вы принимаете наши условия обслуживания и политику конфиденциальности.",
+    "emailTemplate": {
+      "verificationCode": "Ваш код подтверждения",
+      "hello": "Привет",
+      "useThisCode": "Используйте этот код для входа:",
+      "codeExpires": "Этот код истекает через 10 минут",
+      "ignoreEmail": "Если вы не запрашивали этот код, можете проигнорировать это письмо.",
+      "copyright": "© 2025 iblups. Все права защищены."
     }
   }
 }

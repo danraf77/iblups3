@@ -5,7 +5,9 @@
     "demo": "Demo",
     "debug": "Debug",
     "producerAccess": "Accesso produttore",
-    "toggleMenu": "Attiva/disattiva menu mobile"
+    "viewerAccess": "Accesso spettatore",
+    "toggleMenu": "Attiva/disattiva menu mobile",
+    "back": "Indietro"
   },
   "tabs": {
     "all": "Tutti",
@@ -14,21 +16,24 @@
   },
   "search": {
     "placeholder": "Cerca canali...",
-    "liveChannels": "canali live"
+    "liveChannels": "canali in diretta"
   },
   "channels": {
-    "live": "LIVE",
+    "live": "IN DIRETTA",
     "loading": "Caricamento canali...",
     "error": "Errore nel caricamento dei canali",
     "notFound": "Nessun canale trovato",
-    "retry": "Riprova"
+    "retry": "Riprova",
+    "follow": "Segui il canale",
+    "unfollow": "Smetti di seguire",
+    "following": "Segui già"
   },
   "footer": {
-    "privacyPolicy": "Politica sulla Privacy",
-    "termsOfService": "Termini di Servizio",
+    "privacyPolicy": "Informativa sulla privacy",
+    "termsOfService": "Termini di servizio",
     "support": "Supporto",
     "copyright": "© 2025 danraf77 LLC - USA. Tutti i diritti riservati.",
-    "poweredBy": "Powered by"
+    "poweredBy": "Realizzato da"
   },
   "player": {
     "loading": "Caricamento...",
@@ -36,14 +41,14 @@
     "play": "Riproduci",
     "pause": "Pausa",
     "mute": "Muto",
-    "unmute": "Attiva audio",
+    "unmute": "Riattiva audio",
     "fullscreen": "Schermo intero",
     "exitFullscreen": "Esci da schermo intero"
   },
   "hero": {
-    "title": "Il Mondo, un unico Schermo.",
-    "description": "Storie che uniscono. Notizie che rivelano. Musica che emoziona. Sport che appassiona. Cultura per ogni momento.",
-    "subtitle": "Tutto accade qui. Dal vivo.",
+    "title": "Il Mondo, uno Schermo.",
+    "description": "Contenuti che connettono. Notizie che informano. Musica che ispira. Sport che uniscono. Cinema, podcast e radio che accompagnano.",
+    "subtitle": "Tutto accade qui, in diretta.",
     "createChannel": "Crea il tuo canale"
   },
   "pages": {
@@ -51,11 +56,251 @@
       "title": "Canale",
       "loading": "Caricamento canale...",
       "notFound": "Canale non trovato",
-      "liveStream": "Streaming Live"
+      "liveStream": "Trasmissione in diretta"
     },
     "embed": {
-      "title": "Streaming Live",
-      "description": "Guarda lo streaming live"
+      "title": "Trasmissione in diretta",
+      "description": "Guarda la trasmissione in diretta"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Benvenuto, {{username}}!",
+    "description": "Qui puoi gestire il tuo profilo e vedere i canali che segui.",
+    "loading": "Caricamento statistiche...",
+    "stats": {
+      "following": "Seguiti",
+      "recentActivity": "Attività Recente",
+      "memberSince": "Membro dal"
+    },
+    "quickActions": {
+      "title": "Azioni Rapide",
+      "editProfile": "Modifica Profilo",
+      "editProfileDesc": "Aggiorna le tue informazioni personali",
+      "viewFollowing": "Visualizza Seguiti",
+      "viewFollowingDesc": "Gestisci i tuoi canali preferiti"
+    },
+    "sidebar": {
+      "home": "Home",
+      "profile": "Il Mio Profilo",
+      "following": "Seguiti",
+      "sessions": "Sessioni",
+      "email": "Email",
+      "logout": "Esci",
+      "backToHome": "← Torna alla home"
+    },
+    "loadingDashboard": "Caricamento dashboard..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Accedi a iblups",
+        "verify": "Verifica codice"
+      },
+      "buttons": {
+        "viewerLogin": "Accesso spettatore",
+        "followChannel": "Segui il canale",
+        "unfollowChannel": "Smetti di seguire il canale",
+        "dashboard": "Dashboard",
+        "hello": "Ciao"
+      },
+      "email": {
+        "description": "Inserisci la tua email per ricevere un codice di accesso",
+        "label": "Email",
+        "placeholder": "tua@email.com",
+        "button": "Invia codice",
+        "sending": "Invio in corso..."
+      },
+      "otp": {
+        "description": "Inserisci il codice a 4 cifre inviato a",
+        "label": "Codice di verifica",
+        "placeholder": "0000",
+        "button": "Verifica codice",
+        "verifying": "Verifica in corso...",
+        "resend": "Reinvia codice",
+        "resending": "Reinvio in corso...",
+        "changeEmail": "Cambia email"
+      },
+      "errors": {
+        "emailRequired": "L'email è obbligatoria",
+        "invalidEmail": "Email non valida",
+        "otpRequired": "Il codice è obbligatorio",
+        "invalidOtp": "Codice non valido o scaduto",
+        "networkError": "Errore di rete. Riprova.",
+        "serverError": "Errore interno del server"
+      },
+      "success": {
+        "emailSent": "Codice inviato con successo",
+        "loginSuccess": "Accesso effettuato con successo"
+      }
+    }
+  },
+  "email": {
+    "title": "Cambia E-mail",
+    "description": "Aggiorna il tuo indirizzo e-mail con verifica OTP",
+    "currentEmail": "E-mail Attuale",
+    "currentEmailDescription": "E-mail attuale del tuo account",
+    "newEmail": "Nuova E-mail",
+    "verifyCode": "Verifica Codice",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Codice di Verifica",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Inserisci il codice a 4 cifre inviato a {{email}}",
+    "cancel": "Annulla",
+    "sendCode": "Invia Codice",
+    "sending": "Invio...",
+    "changeEmail": "Cambia E-mail",
+    "verifyAndChange": "Verifica e Cambia",
+    "verifying": "Verifica...",
+    "securityInfo": "Informazioni di Sicurezza",
+    "otpVerification": "Verifica OTP",
+    "otpVerificationDescription": "Un codice a 4 cifre verrà inviato alla nuova e-mail per verificare la proprietà",
+    "security": "Sicurezza",
+    "securityDescription": "Il cambio di e-mail richiede verifica per proteggere il tuo account",
+    "success": {
+      "codeSent": "Codice di verifica inviato alla nuova e-mail",
+      "emailUpdated": "E-mail aggiornata con successo"
+    },
+    "errors": {
+      "sendCodeError": "Errore nell'invio del codice",
+      "verificationError": "Errore nella verifica del codice",
+      "invalidCode": "Codice di verifica non valido"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Errore di rete. Riprova.",
+      "invalidOtp": "Codice OTP non valido o scaduto.",
+      "sendOtpError": "Errore durante l'invio del codice OTP.",
+      "followError": "Errore nel seguire il canale.",
+      "unfollowError": "Errore nel smettere di seguire il canale.",
+      "profileUpdateError": "Errore nell'aggiornamento del profilo.",
+      "emailUpdateError": "Errore nell'aggiornamento dell'email.",
+      "sessionError": "Errore di sessione. Effettua nuovamente l'accesso.",
+      "unauthorized": "Non autorizzato. Effettua l'accesso.",
+      "serverError": "Errore interno del server."
+    },
+    "success": {
+      "profileUpdated": "Profilo aggiornato con successo",
+      "emailUpdated": "Email aggiornata con successo",
+      "channelFollowed": "Canale seguito con successo",
+      "channelUnfollowed": "Hai smesso di seguire il canale",
+      "otpSent": "Codice inviato con successo",
+      "loginSuccess": "Accesso effettuato con successo"
+    },
+    "info": {
+      "noChannels": "Non segui ancora nessun canale",
+      "visitChannels": "Visita i canali e fai clic su \"Segui il canale\" per aggiungerli qui",
+      "exploreChannels": "Esplora i canali",
+      "loading": "Caricamento...",
+      "redirecting": "Reindirizzamento...",
+      "sessionExpired": "La tua sessione è scaduta. Effettua nuovamente l'accesso."
+    }
+  },
+  "pagination": {
+    "previous": "Precedente",
+    "next": "Successivo",
+    "pageOf": "Pagina"
+  },
+  "sessions": {
+    "title": "Le Mie Sessioni",
+    "description": "Gestisci le tue sessioni attive e rivedi la cronologia degli accessi",
+    "loading": "Caricamento sessioni...",
+    "activeSessions": "Sessioni Attive",
+    "totalSessions": "Totale Sessioni",
+    "noSessions": "Nessuna sessione",
+    "noSessionsDescription": "Nessuna sessione trovata per il tuo account.",
+    "activeSession": "Sessione Attiva",
+    "closedSession": "Sessione Chiusa",
+    "unknown": "Sconosciuto",
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "ipNotAvailable": "IP non disponibile",
+    "created": "Creata",
+    "lastActivity": "Ultima Attività",
+    "expires": "Scade"
+  },
+  "profile": {
+    "title": "Il Mio Profilo",
+    "loading": "Caricamento profilo...",
+    "personalInfo": "Informazioni Personali",
+    "accountInfo": "Informazioni Account",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "displayName": "Nome Visualizzato",
+    "dateOfBirth": "Data di Nascita",
+    "city": "Città",
+    "country": "Paese",
+    "firstNamePlaceholder": "Il tuo nome",
+    "lastNamePlaceholder": "Il tuo cognome",
+    "displayNamePlaceholder": "Il tuo nome pubblico",
+    "cityPlaceholder": "La tua città",
+    "countryPlaceholder": "Seleziona paese",
+    "memberSince": "Membro dal",
+    "userId": "ID Utente",
+    "creationDate": "Data di Creazione",
+    "lastUpdate": "Ultimo Aggiornamento",
+    "cancel": "Annulla",
+    "saveChanges": "Salva Modifiche",
+    "saving": "Salvataggio...",
+    "success": "Profilo aggiornato con successo",
+    "error": "Errore nell'aggiornamento del profilo"
+  },
+  "following": {
+    "title": "Canali Seguiti",
+    "loading": "Caricamento canali seguiti...",
+    "channelsCount": "{{count}} canale",
+    "channelsCountPlural": "{{count}} canali",
+    "exploreChannels": "Esplora Canali",
+    "noChannels": "Non stai seguendo nessun canale",
+    "noChannelsDescription": "Inizia a seguire i canali per vederli qui e ricevere notifiche quando vanno in diretta.",
+    "followingSince": "Seguito dal",
+    "viewChannel": "Visualizza Canale →"
+  },
+  "viewerLogin": {
+    "loading": "Caricamento...",
+    "hello": "Ciao",
+    "viewer": "Spettatore",
+    "dashboard": "Dashboard",
+    "logout": "Disconnetti",
+    "loginAsViewer": "Accedi come Spettatore",
+    "loginAsViewerAria": "Accedi come spettatore"
+  },
+  "navbar": {
+    "searchPlaceholder": "Cerca canali..."
+  },
+  "otpModal": {
+    "loginTitle": "Accedi",
+    "verifyTitle": "Verifica codice",
+    "emailLabel": "Indirizzo e-mail",
+    "emailPlaceholder": "tuo@email.com",
+    "sendCodeButton": "Invia codice",
+    "sendingCode": "Invio...",
+    "codeSentSuccess": "Codice inviato alla tua e-mail",
+    "otpLabel": "Codice di verifica",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Verifica codice",
+    "verifyingCode": "Verifica...",
+    "loginSuccess": "Accesso riuscito",
+    "resendCode": "Invia di nuovo il codice",
+    "resendIn": "Invia di nuovo tra",
+    "resendCodeSuccess": "Codice inviato di nuovo",
+    "backToEmail": "Torna all'e-mail",
+    "invalidCode": "Codice non valido",
+    "connectionError": "Errore di connessione",
+    "sendCodeError": "Errore nell'invio del codice",
+    "resendCodeError": "Errore nell'invio del codice",
+    "codeSentTo": "Abbiamo inviato un codice di verifica a:",
+    "closeButton": "Chiudi",
+    "termsText": "Continuando, accetti i nostri termini di servizio e la politica sulla privacy.",
+    "emailTemplate": {
+      "verificationCode": "Il tuo codice di verifica",
+      "hello": "Ciao",
+      "useThisCode": "Usa questo codice per accedere:",
+      "codeExpires": "Questo codice scade tra 10 minuti",
+      "ignoreEmail": "Se non hai richiesto questo codice, puoi ignorare questa e-mail.",
+      "copyright": "© 2025 iblups. Tutti i diritti riservati."
     }
   }
 }

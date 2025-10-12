@@ -1,51 +1,55 @@
 {
   "navigation": {
-    "home": "Ana Sayfa",
+    "home": "Anasayfa",
     "compare": "Karşılaştır",
     "demo": "Demo",
     "debug": "Hata Ayıkla",
-    "producerAccess": "Kanalınıza erişin",
-    "toggleMenu": "Mobil menüyü değiştir"
+    "producerAccess": "Yapımcı Erişimi",
+    "viewerAccess": "İzleyici Olarak Giriş",
+    "toggleMenu": "Mobil Menüyü Aç/Kapat",
+    "back": "Geri"
   },
   "tabs": {
     "all": "Tümü",
     "popular": "Popüler",
-    "recent": "Son"
+    "recent": "Son Eklenenler"
   },
   "search": {
     "placeholder": "Kanal ara...",
-    "liveChannels": "canlı kanallar",
-    "tryDifferent": "Farklı arama terimleri deneyin"
+    "liveChannels": "canlı kanallar"
   },
   "channels": {
     "live": "CANLI",
     "loading": "Kanallar yükleniyor...",
-    "error": "Kanallar yüklenirken hata",
+    "error": "Kanallar yüklenirken hata oluştu",
     "notFound": "Kanal bulunamadı",
-    "retry": "Tekrar dene"
+    "retry": "Tekrar Dene",
+    "follow": "Kanalı takip et",
+    "unfollow": "Takibi bırak",
+    "following": "Takip ediliyor"
   },
   "footer": {
     "privacyPolicy": "Gizlilik Politikası",
     "termsOfService": "Hizmet Şartları",
     "support": "Destek",
     "copyright": "© 2025 danraf77 LLC - USA. Tüm hakları saklıdır.",
-    "poweredBy": "Powered by"
+    "poweredBy": "Sağlayan"
   },
   "player": {
     "loading": "Yükleniyor...",
-    "error": "Video yüklenirken hata",
+    "error": "Video yüklenirken hata oluştu",
     "play": "Oynat",
     "pause": "Duraklat",
-    "mute": "Sessiz",
-    "unmute": "Sesi aç",
-    "fullscreen": "Tam ekran",
-    "exitFullscreen": "Tam ekrandan çık"
+    "mute": "Sessize Al",
+    "unmute": "Sesi Aç",
+    "fullscreen": "Tam Ekran",
+    "exitFullscreen": "Tam Ekrandan Çık"
   },
   "hero": {
-    "title": "Dünya tek ekranda.",
-    "description": "İnsanları buluşturan içerik. Gerçeği gösteren haberler. İlham veren müzik. Bizi birleştiren spor. Her anınıza eşlik eden kültür.",
-    "subtitle": "Her şey burada, canlı yayında.",
-    "createChannel": "Kanalınızı oluşturun"
+    "title": "Dünya, Tek Bir Ekran.",
+    "description": "Bağlantı kuran içerikler. Bilgilendiren haberler. İlham veren müzikler. Birleştiren sporlar. Eşlik eden sinema, podcast'ler ve radyolar.",
+    "subtitle": "Her şey burada, canlı yayında olur.",
+    "createChannel": "Kanalını oluştur"
   },
   "pages": {
     "channel": {
@@ -56,7 +60,247 @@
     },
     "embed": {
       "title": "Canlı Yayın",
-      "description": "Canlı yayını izleyin"
+      "description": "Canlı yayını izle"
+    }
+  },
+  "dashboard": {
+    "title": "Kontrol Paneli",
+    "welcome": "Hoş geldin, {{username}}!",
+    "description": "Burada profilinizi yönetebilir ve takip ettiğiniz kanalları görüntüleyebilirsiniz.",
+    "loading": "İstatistikler yükleniyor...",
+    "stats": {
+      "following": "Takip Edilenler",
+      "recentActivity": "Son Aktiviteler",
+      "memberSince": "Üye olma tarihi"
+    },
+    "quickActions": {
+      "title": "Hızlı İşlemler",
+      "editProfile": "Profili Düzenle",
+      "editProfileDesc": "Kişisel bilgilerinizi güncelleyin",
+      "viewFollowing": "Takip Edilenleri Görüntüle",
+      "viewFollowingDesc": "Favori kanallarınızı yönetin"
+    },
+    "sidebar": {
+      "home": "Ana Sayfa",
+      "profile": "Profilim",
+      "following": "Takip Edilenler",
+      "sessions": "Oturumlar",
+      "email": "E-posta",
+      "logout": "Çıkış Yap",
+      "backToHome": "← Ana sayfaya dön"
+    },
+    "loadingDashboard": "Kontrol paneli yükleniyor..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "iblups'a giriş yap",
+        "verify": "Kodu doğrula"
+      },
+      "buttons": {
+        "viewerLogin": "İzleyici olarak giriş yap",
+        "followChannel": "Kanalı takip et",
+        "unfollowChannel": "Kanalı takibi bırak",
+        "dashboard": "Kontrol Paneli",
+        "hello": "Merhaba"
+      },
+      "email": {
+        "description": "Bir erişim kodu almak için e-postanızı girin",
+        "label": "E-posta",
+        "placeholder": "senin@epostan.com",
+        "button": "Kodu gönder",
+        "sending": "Gönderiliyor..."
+      },
+      "otp": {
+        "description": "adresine gönderilen 4 haneli kodu girin",
+        "label": "Doğrulama kodu",
+        "placeholder": "0000",
+        "button": "Kodu doğrula",
+        "verifying": "Doğrulanıyor...",
+        "resend": "Kodu tekrar gönder",
+        "resending": "Tekrar gönderiliyor...",
+        "changeEmail": "E-postayı değiştir"
+      },
+      "errors": {
+        "emailRequired": "E-posta gereklidir",
+        "invalidEmail": "Geçersiz e-posta",
+        "otpRequired": "Kod gereklidir",
+        "invalidOtp": "Geçersiz veya süresi dolmuş kod",
+        "networkError": "Ağ hatası. Tekrar deneyin.",
+        "serverError": "Dahili sunucu hatası"
+      },
+      "success": {
+        "emailSent": "Kod başarıyla gönderildi",
+        "loginSuccess": "Giriş başarılı"
+      }
+    }
+  },
+  "email": {
+    "title": "E-posta Değiştir",
+    "description": "E-posta adresinizi OTP doğrulaması ile güncelleyin",
+    "currentEmail": "Mevcut E-posta",
+    "currentEmailDescription": "Hesabınızın mevcut e-postası",
+    "newEmail": "Yeni E-posta",
+    "verifyCode": "Kodu Doğrula",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Doğrulama Kodu",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "{{email}} adresine gönderilen 4 haneli kodu girin",
+    "cancel": "İptal",
+    "sendCode": "Kod Gönder",
+    "sending": "Gönderiliyor...",
+    "changeEmail": "E-posta Değiştir",
+    "verifyAndChange": "Doğrula ve Değiştir",
+    "verifying": "Doğrulanıyor...",
+    "securityInfo": "Güvenlik Bilgileri",
+    "otpVerification": "OTP Doğrulaması",
+    "otpVerificationDescription": "Mülkiyeti doğrulamak için yeni e-postaya 4 haneli kod gönderilecek",
+    "security": "Güvenlik",
+    "securityDescription": "E-posta değişikliği hesabınızı korumak için doğrulama gerektirir",
+    "success": {
+      "codeSent": "Doğrulama kodu yeni e-postaya gönderildi",
+      "emailUpdated": "E-posta başarıyla güncellendi"
+    },
+    "errors": {
+      "sendCodeError": "Kod gönderme hatası",
+      "verificationError": "Kod doğrulama hatası",
+      "invalidCode": "Geçersiz doğrulama kodu"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Ağ hatası. Tekrar deneyin.",
+      "invalidOtp": "Geçersiz veya süresi dolmuş OTP kodu.",
+      "sendOtpError": "OTP kodu gönderilirken hata oluştu.",
+      "followError": "Kanal takip edilirken hata oluştu.",
+      "unfollowError": "Kanal takibi bırakılırken hata oluştu.",
+      "profileUpdateError": "Profil güncellenirken hata oluştu.",
+      "emailUpdateError": "E-posta güncellenirken hata oluştu.",
+      "sessionError": "Oturum hatası. Lütfen tekrar giriş yapın.",
+      "unauthorized": "Yetkisiz. Lütfen giriş yapın.",
+      "serverError": "Dahili sunucu hatası."
+    },
+    "success": {
+      "profileUpdated": "Profil başarıyla güncellendi",
+      "emailUpdated": "E-posta başarıyla güncellendi",
+      "channelFollowed": "Kanal başarıyla takip edildi",
+      "channelUnfollowed": "Kanalı takibi bıraktınız",
+      "otpSent": "Kod başarıyla gönderildi",
+      "loginSuccess": "Giriş başarılı"
+    },
+    "info": {
+      "noChannels": "Henüz hiçbir kanalı takip etmiyorsun",
+      "visitChannels": "Kanalları ziyaret et ve buraya eklemek için \"Kanalı takip et\"e tıkla",
+      "exploreChannels": "Kanalları Keşfet",
+      "loading": "Yükleniyor...",
+      "redirecting": "Yönlendiriliyor...",
+      "sessionExpired": "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın."
+    }
+  },
+  "pagination": {
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "pageOf": "Sayfa"
+  },
+  "sessions": {
+    "title": "Oturumlarım",
+    "description": "Aktif oturumlarınızı yönetin ve erişim geçmişini inceleyin",
+    "loading": "Oturumlar yükleniyor...",
+    "activeSessions": "Aktif Oturumlar",
+    "totalSessions": "Toplam Oturum",
+    "noSessions": "Oturum yok",
+    "noSessionsDescription": "Hesabınız için oturum bulunamadı.",
+    "activeSession": "Aktif Oturum",
+    "closedSession": "Kapalı Oturum",
+    "unknown": "Bilinmeyen",
+    "mobile": "Mobil",
+    "tablet": "Tablet",
+    "desktop": "Masaüstü",
+    "ipNotAvailable": "IP mevcut değil",
+    "created": "Oluşturuldu",
+    "lastActivity": "Son Aktivite",
+    "expires": "Süresi Doluyor"
+  },
+  "profile": {
+    "title": "Profilim",
+    "loading": "Profil yükleniyor...",
+    "personalInfo": "Kişisel Bilgiler",
+    "accountInfo": "Hesap Bilgileri",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "displayName": "Görünen Ad",
+    "dateOfBirth": "Doğum Tarihi",
+    "city": "Şehir",
+    "country": "Ülke",
+    "firstNamePlaceholder": "Adınız",
+    "lastNamePlaceholder": "Soyadınız",
+    "displayNamePlaceholder": "Genel adınız",
+    "cityPlaceholder": "Şehriniz",
+    "countryPlaceholder": "Ülke seçin",
+    "memberSince": "Üye olma tarihi",
+    "userId": "Kullanıcı ID",
+    "creationDate": "Oluşturulma Tarihi",
+    "lastUpdate": "Son Güncelleme",
+    "cancel": "İptal",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "saving": "Kaydediliyor...",
+    "success": "Profil başarıyla güncellendi",
+    "error": "Profil güncellenirken hata oluştu"
+  },
+  "following": {
+    "title": "Takip Edilen Kanallar",
+    "loading": "Takip edilen kanallar yükleniyor...",
+    "channelsCount": "{{count}} kanal",
+    "channelsCountPlural": "{{count}} kanal",
+    "exploreChannels": "Kanalları Keşfet",
+    "noChannels": "Hiçbir kanalı takip etmiyorsunuz",
+    "noChannelsDescription": "Kanalları takip etmeye başlayın, burada görün ve canlı yayın yaptıklarında bildirim alın.",
+    "followingSince": "Takip ediliyor",
+    "viewChannel": "Kanalı Görüntüle →"
+  },
+  "viewerLogin": {
+    "loading": "Yükleniyor...",
+    "hello": "Merhaba",
+    "viewer": "İzleyici",
+    "dashboard": "Kontrol Paneli",
+    "logout": "Çıkış Yap",
+    "loginAsViewer": "İzleyici Olarak Giriş Yap",
+    "loginAsViewerAria": "İzleyici olarak giriş yap"
+  },
+  "navbar": {
+    "searchPlaceholder": "Kanal ara..."
+  },
+  "otpModal": {
+    "loginTitle": "Giriş Yap",
+    "verifyTitle": "Kodu Doğrula",
+    "emailLabel": "E-posta adresi",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "Kod Gönder",
+    "sendingCode": "Gönderiliyor...",
+    "codeSentSuccess": "Kod e-postanıza gönderildi",
+    "otpLabel": "Doğrulama kodu",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Kodu Doğrula",
+    "verifyingCode": "Doğrulanıyor...",
+    "loginSuccess": "Giriş başarılı",
+    "resendCode": "Kodu tekrar gönder",
+    "resendIn": "Tekrar gönder",
+    "resendCodeSuccess": "Kod tekrar gönderildi",
+    "backToEmail": "E-postaya dön",
+    "invalidCode": "Geçersiz kod",
+    "connectionError": "Bağlantı hatası",
+    "sendCodeError": "Kod gönderme hatası",
+    "resendCodeError": "Kod tekrar gönderme hatası",
+    "codeSentTo": "Doğrulama kodunu şu adrese gönderdik:",
+    "closeButton": "Kapat",
+    "termsText": "Devam ederek hizmet şartlarımızı ve gizlilik politikamızı kabul etmiş olursunuz.",
+    "emailTemplate": {
+      "verificationCode": "Doğrulama kodunuz",
+      "hello": "Merhaba",
+      "useThisCode": "Giriş yapmak için bu kodu kullanın:",
+      "codeExpires": "Bu kod 10 dakika içinde sona erer",
+      "ignoreEmail": "Bu kodu talep etmediyseniz, bu e-postayı yok sayabilirsiniz.",
+      "copyright": "© 2025 iblups. Tüm hakları saklıdır."
     }
   }
 }

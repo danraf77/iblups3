@@ -1,0 +1,49 @@
+# Debug Profile Log - Cleared Sun Sep 28 16:50:12 -05 2025
+[2025-09-28T21:52:15.047Z] API Profile PUT - User: 44e1037a-3cb7-439b-8fb2-c58069d0efd1
+Data: {
+  "timestamp": "2025-09-28T21:52:15.047Z",
+  "userId": "44e1037a-3cb7-439b-8fb2-c58069d0efd1",
+  "display_name": "dante77",
+  "first_name": "Dante",
+  "last_name": "Huaman",
+  "date_of_birth": "1977-05-13",
+  "city": "",
+  "country_name": "Perú"
+}
+---
+[2025-09-29T00:54:56.476Z] API Profile PUT - User: 44e1037a-3cb7-439b-8fb2-c58069d0efd1
+Data: {
+  "timestamp": "2025-09-29T00:54:56.476Z",
+  "userId": "44e1037a-3cb7-439b-8fb2-c58069d0efd1",
+  "display_name": "dante77",
+  "first_name": "Dante",
+  "last_name": "Huaman",
+  "date_of_birth": "1977-05-13",
+  "city": "",
+  "country_name": "Perú"
+}
+---
+[2025-09-29T00:55:14.506Z] API Profile PUT - User: 44e1037a-3cb7-439b-8fb2-c58069d0efd1
+Data: {
+  "timestamp": "2025-09-29T00:55:14.506Z",
+  "userId": "44e1037a-3cb7-439b-8fb2-c58069d0efd1",
+  "display_name": "dante77",
+  "first_name": "Dante",
+  "last_name": "Huaman",
+  "date_of_birth": "1977-05-13",
+  "city": "",
+  "country_name": "Perú"
+}
+---
+[2025-09-29T04:12:41.977Z] API Profile PUT - User: 9e576c8c-3bbc-4ea3-b6bd-bd56a181d80a
+Data: {
+  "timestamp": "2025-09-29T04:12:41.977Z",
+  "userId": "9e576c8c-3bbc-4ea3-b6bd-bd56a181d80a",
+  "display_name": "",
+  "first_name": "dante",
+  "last_name": "",
+  "date_of_birth": "",
+  "city": "lima",
+  "country_name": ""
+}
+---

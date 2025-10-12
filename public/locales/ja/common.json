@@ -4,7 +4,10 @@
     "compare": "比較",
     "demo": "デモ",
     "debug": "デバッグ",
-    "producerAccess": "プロデューサーアクセス"
+    "producerAccess": "プロデューサーアクセス",
+    "viewerAccess": "視聴者としてログイン",
+    "toggleMenu": "モバイルメニューの切り替え",
+    "back": "戻る"
   },
   "tabs": {
     "all": "すべて",
@@ -20,13 +23,16 @@
     "loading": "チャンネルを読み込み中...",
     "error": "チャンネルの読み込みエラー",
     "notFound": "チャンネルが見つかりません",
-    "retry": "再試行"
+    "retry": "再試行",
+    "follow": "チャンネルをフォロー",
+    "unfollow": "フォローを解除",
+    "following": "フォロー中"
   },
   "footer": {
     "privacyPolicy": "プライバシーポリシー",
     "termsOfService": "利用規約",
     "support": "サポート",
-    "copyright": "© 2025 danraf77 LLC - USA. 全著作権所有。",
+    "copyright": "© 2025 danraf77 LLC - USA. 無断複写・転載を禁じます。",
     "poweredBy": "提供"
   },
   "player": {
@@ -36,13 +42,13 @@
     "pause": "一時停止",
     "mute": "ミュート",
     "unmute": "ミュート解除",
-    "fullscreen": "フルスクリーン",
-    "exitFullscreen": "フルスクリーン終了"
+    "fullscreen": "全画面",
+    "exitFullscreen": "全画面表示を終了"
   },
   "hero": {
-    "title": "世界を、一つのスクリーンに。",
-    "description": "つながるコンテンツ。世界を知るニュース。心に響く音楽。一つになるスポーツ。毎日に寄り添うエンタメ。",
-    "subtitle": "すべてが、ここでライブに。",
+    "title": "世界、一つのスクリーン。",
+    "description": "つながるコンテンツ。知らせるニュース。感動を与える音楽。団結させるスポーツ。寄り添う映画、ポッドキャスト、ラジオ。",
+    "subtitle": "すべてがここで、ライブで起こります。",
     "createChannel": "チャンネルを作成"
   },
   "pages": {
@@ -50,11 +56,251 @@
       "title": "チャンネル",
       "loading": "チャンネルを読み込み中...",
       "notFound": "チャンネルが見つかりません",
-      "liveStream": "ライブストリーム"
+      "liveStream": "ライブ配信"
     },
     "embed": {
-      "title": "ライブストリーム",
-      "description": "ライブストリームを視聴"
+      "title": "ライブ配信",
+      "description": "ライブ配信を見る"
+    }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "welcome": "ようこそ、{{username}}さん！",
+    "description": "ここでプロフィールを管理し、フォローしているチャンネルを確認できます。",
+    "loading": "統計情報を読み込み中...",
+    "stats": {
+      "following": "フォロー中",
+      "recentActivity": "最近のアクティビティ",
+      "memberSince": "メンバー登録日"
+    },
+    "quickActions": {
+      "title": "クイックアクション",
+      "editProfile": "プロフィール編集",
+      "editProfileDesc": "個人情報を更新する",
+      "viewFollowing": "フォロー中を表示",
+      "viewFollowingDesc": "お気に入りのチャンネルを管理する"
+    },
+    "sidebar": {
+      "home": "ホーム",
+      "profile": "マイプロフィール",
+      "following": "フォロー中",
+      "sessions": "セッション",
+      "email": "メール",
+      "logout": "ログアウト",
+      "backToHome": "← ホームに戻る"
+    },
+    "loadingDashboard": "ダッシュボードを読み込み中..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "iblupsにログイン",
+        "verify": "コードを確認"
+      },
+      "buttons": {
+        "viewerLogin": "視聴者としてログイン",
+        "followChannel": "チャンネルをフォロー",
+        "unfollowChannel": "チャンネルのフォローを解除",
+        "dashboard": "ダッシュボード",
+        "hello": "こんにちは"
+      },
+      "email": {
+        "description": "アクセスコードを受け取るためにメールアドレスを入力してください",
+        "label": "メールアドレス",
+        "placeholder": "your@email.com",
+        "button": "コードを送信",
+        "sending": "送信中..."
+      },
+      "otp": {
+        "description": "に送信された4桁のコードを入力してください",
+        "label": "確認コード",
+        "placeholder": "0000",
+        "button": "コードを確認",
+        "verifying": "確認中...",
+        "resend": "コードを再送信",
+        "resending": "再送信中...",
+        "changeEmail": "メールアドレスを変更"
+      },
+      "errors": {
+        "emailRequired": "メールアドレスは必須です",
+        "invalidEmail": "無効なメールアドレスです",
+        "otpRequired": "コードは必須です",
+        "invalidOtp": "コードが無効か、有効期限が切れています",
+        "networkError": "ネットワークエラー。もう一度お試しください。",
+        "serverError": "内部サーバーエラー"
+      },
+      "success": {
+        "emailSent": "コードが正常に送信されました",
+        "loginSuccess": "ログインに成功しました"
+      }
+    }
+  },
+  "email": {
+    "title": "メール変更",
+    "description": "OTP検証でメールアドレスを更新",
+    "currentEmail": "現在のメール",
+    "currentEmailDescription": "アカウントの現在のメール",
+    "newEmail": "新しいメール",
+    "verifyCode": "コード検証",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "検証コード",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "{{email}} に送信された4桁のコードを入力",
+    "cancel": "キャンセル",
+    "sendCode": "コード送信",
+    "sending": "送信中...",
+    "changeEmail": "メール変更",
+    "verifyAndChange": "検証して変更",
+    "verifying": "検証中...",
+    "securityInfo": "セキュリティ情報",
+    "otpVerification": "OTP検証",
+    "otpVerificationDescription": "所有権を検証するために新しいメールに4桁のコードが送信されます",
+    "security": "セキュリティ",
+    "securityDescription": "メール変更にはアカウント保護のための検証が必要です",
+    "success": {
+      "codeSent": "検証コードが新しいメールに送信されました",
+      "emailUpdated": "メールが正常に更新されました"
+    },
+    "errors": {
+      "sendCodeError": "コード送信エラー",
+      "verificationError": "コード検証エラー",
+      "invalidCode": "無効な検証コード"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "ネットワークエラー。もう一度お試しください。",
+      "invalidOtp": "OTPコードが無効か、有効期限が切れています。",
+      "sendOtpError": "OTPコードの送信中にエラーが発生しました。",
+      "followError": "チャンネルのフォロー中にエラーが発生しました。",
+      "unfollowError": "チャンネルのフォロー解除中にエラーが発生しました。",
+      "profileUpdateError": "プロフィールの更新中にエラーが発生しました。",
+      "emailUpdateError": "メールアドレスの更新中にエラーが発生しました。",
+      "sessionError": "セッションエラー。もう一度ログインしてください。",
+      "unauthorized": "認証されていません。ログインしてください。",
+      "serverError": "内部サーバーエラー。"
+    },
+    "success": {
+      "profileUpdated": "プロフィールが正常に更新されました",
+      "emailUpdated": "メールアドレスが正常に更新されました",
+      "channelFollowed": "チャンネルを正常にフォローしました",
+      "channelUnfollowed": "チャンネルのフォローを解除しました",
+      "otpSent": "コードが正常に送信されました",
+      "loginSuccess": "ログインに成功しました"
+    },
+    "info": {
+      "noChannels": "まだチャンネルをフォローしていません",
+      "visitChannels": "チャンネルにアクセスし、「チャンネルをフォロー」をクリックしてここに追加してください",
+      "exploreChannels": "チャンネルを探す",
+      "loading": "読み込み中...",
+      "redirecting": "リダイレクト中...",
+      "sessionExpired": "セッションの有効期限が切れました。もう一度ログインしてください。"
+    }
+  },
+  "pagination": {
+    "previous": "前へ",
+    "next": "次へ",
+    "pageOf": "ページ"
+  },
+  "sessions": {
+    "title": "マイセッション",
+    "description": "アクティブなセッションを管理し、アクセス履歴を確認します",
+    "loading": "セッションを読み込み中...",
+    "activeSessions": "アクティブセッション",
+    "totalSessions": "総セッション数",
+    "noSessions": "セッションがありません",
+    "noSessionsDescription": "アカウントのセッションが見つかりませんでした。",
+    "activeSession": "アクティブセッション",
+    "closedSession": "閉じられたセッション",
+    "unknown": "不明",
+    "mobile": "モバイル",
+    "tablet": "タブレット",
+    "desktop": "デスクトップ",
+    "ipNotAvailable": "IP利用不可",
+    "created": "作成日時",
+    "lastActivity": "最終活動",
+    "expires": "有効期限"
+  },
+  "profile": {
+    "title": "マイプロフィール",
+    "loading": "プロフィールを読み込み中...",
+    "personalInfo": "個人情報",
+    "accountInfo": "アカウント情報",
+    "firstName": "名",
+    "lastName": "姓",
+    "displayName": "表示名",
+    "dateOfBirth": "生年月日",
+    "city": "都市",
+    "country": "国",
+    "firstNamePlaceholder": "お名前",
+    "lastNamePlaceholder": "お姓",
+    "displayNamePlaceholder": "公開名",
+    "cityPlaceholder": "お住まいの都市",
+    "countryPlaceholder": "国を選択",
+    "memberSince": "登録日",
+    "userId": "ユーザーID",
+    "creationDate": "作成日",
+    "lastUpdate": "最終更新",
+    "cancel": "キャンセル",
+    "saveChanges": "変更を保存",
+    "saving": "保存中...",
+    "success": "プロフィールが正常に更新されました",
+    "error": "プロフィールの更新中にエラーが発生しました"
+  },
+  "following": {
+    "title": "フォロー中のチャンネル",
+    "loading": "フォロー中のチャンネルを読み込み中...",
+    "channelsCount": "{{count}} チャンネル",
+    "channelsCountPlural": "{{count}} チャンネル",
+    "exploreChannels": "チャンネルを探索",
+    "noChannels": "フォロー中のチャンネルがありません",
+    "noChannelsDescription": "チャンネルをフォローして、ここで表示し、ライブ配信時に通知を受け取るようにしましょう。",
+    "followingSince": "フォロー開始日",
+    "viewChannel": "チャンネルを見る →"
+  },
+  "viewerLogin": {
+    "loading": "読み込み中...",
+    "hello": "こんにちは",
+    "viewer": "視聴者",
+    "dashboard": "ダッシュボード",
+    "logout": "ログアウト",
+    "loginAsViewer": "視聴者としてログイン",
+    "loginAsViewerAria": "視聴者としてログイン"
+  },
+  "navbar": {
+    "searchPlaceholder": "チャンネルを検索..."
+  },
+  "otpModal": {
+    "loginTitle": "ログイン",
+    "verifyTitle": "コード確認",
+    "emailLabel": "メールアドレス",
+    "emailPlaceholder": "your@email.com",
+    "sendCodeButton": "コード送信",
+    "sendingCode": "送信中...",
+    "codeSentSuccess": "コードをメールに送信しました",
+    "otpLabel": "確認コード",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "コード確認",
+    "verifyingCode": "確認中...",
+    "loginSuccess": "ログイン成功",
+    "resendCode": "コード再送信",
+    "resendIn": "再送信",
+    "resendCodeSuccess": "コードを再送信しました",
+    "backToEmail": "メールに戻る",
+    "invalidCode": "無効なコード",
+    "connectionError": "接続エラー",
+    "sendCodeError": "コード送信エラー",
+    "resendCodeError": "コード再送信エラー",
+    "codeSentTo": "確認コードを送信しました：",
+    "closeButton": "閉じる",
+    "termsText": "続行することで、利用規約とプライバシーポリシーに同意したことになります。",
+    "emailTemplate": {
+      "verificationCode": "認証コード",
+      "hello": "こんにちは",
+      "useThisCode": "このコードでログインしてください：",
+      "codeExpires": "このコードは10分で期限切れになります",
+      "ignoreEmail": "このコードをリクエストしていない場合は、このメールを無視できます。",
+      "copyright": "© 2025 iblups. 全著作権所有。"
     }
   }
 }

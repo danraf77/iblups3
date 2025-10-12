@@ -4,8 +4,10 @@
     "compare": "Porównaj",
     "demo": "Demo",
     "debug": "Debuguj",
-    "producerAccess": "Dostęp do kanału",
-    "toggleMenu": "Przełącz menu mobilne"
+    "producerAccess": "Dostęp producenta",
+    "viewerAccess": "Dostęp dla widzów",
+    "toggleMenu": "Przełącz menu mobilne",
+    "back": "Wróć"
   },
   "tabs": {
     "all": "Wszystkie",
@@ -14,49 +16,291 @@
   },
   "search": {
     "placeholder": "Szukaj kanałów...",
-    "liveChannels": "kanały na żywo",
-    "tryDifferent": "Spróbuj innych terminów wyszukiwania"
+    "liveChannels": "kanały na żywo"
   },
   "channels": {
     "live": "NA ŻYWO",
     "loading": "Ładowanie kanałów...",
     "error": "Błąd ładowania kanałów",
     "notFound": "Nie znaleziono kanałów",
-    "retry": "Spróbuj ponownie"
+    "retry": "Spróbuj ponownie",
+    "follow": "Obserwuj kanał",
+    "unfollow": "Przestań obserwować",
+    "following": "Obserwujesz"
   },
   "footer": {
     "privacyPolicy": "Polityka prywatności",
-    "termsOfService": "Warunki usługi",
+    "termsOfService": "Warunki korzystania z usługi",
     "support": "Wsparcie",
-    "copyright": "© 2025 danraf77 LLC - USA. Wszystkie prawa zastrzeżone.",
-    "poweredBy": "Powered by"
+    "copyright": "© 2025 danraf77 LLC - USA. Wszelkie prawa zastrzeżone.",
+    "poweredBy": "Oparte na"
   },
   "player": {
     "loading": "Ładowanie...",
     "error": "Błąd ładowania wideo",
-    "play": "Odtwórz",
+    "play": "Odtwarzaj",
     "pause": "Pauza",
     "mute": "Wycisz",
-    "unmute": "Włącz dźwięk",
+    "unmute": "Wyłącz wyciszenie",
     "fullscreen": "Pełny ekran",
-    "exitFullscreen": "Wyjdź z pełnego ekranu"
+    "exitFullscreen": "Opuść pełny ekran"
   },
   "hero": {
-    "title": "Świat na jednym ekranie.",
-    "description": "Treści, które łączą. Wiadomości, które wyjaśniają. Muzyka, która inspiruje. Sport, który jednoczy. Kultura, która towarzyszy.",
-    "subtitle": "Wszystko dzieje się tutaj. Na żywo.",
-    "createChannel": "Utwórz swój kanał"
+    "title": "Świat, jeden ekran.",
+    "description": "Treści, które łączą. Wiadomości, które informują. Muzyka, która inspiruje. Sport, który jednoczy. Kino, podcasty i radio, które towarzyszą.",
+    "subtitle": "Wszystko dzieje się tutaj, na żywo.",
+    "createChannel": "Stwórz swój kanał"
   },
   "pages": {
     "channel": {
       "title": "Kanał",
       "loading": "Ładowanie kanału...",
-      "notFound": "Kanał nie znaleziony",
+      "notFound": "Kanał nie został znaleziony",
       "liveStream": "Transmisja na żywo"
     },
     "embed": {
       "title": "Transmisja na żywo",
       "description": "Oglądaj transmisję na żywo"
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Witaj, {{username}}!",
+    "description": "Tutaj możesz zarządzać swoim profilem i zobaczyć kanały, które obserwujesz.",
+    "loading": "Ładowanie statystyk...",
+    "stats": {
+      "following": "Obserwowane",
+      "recentActivity": "Ostatnia aktywność",
+      "memberSince": "Członek od"
+    },
+    "quickActions": {
+      "title": "Szybkie akcje",
+      "editProfile": "Edytuj profil",
+      "editProfileDesc": "Zaktualizuj swoje dane osobowe",
+      "viewFollowing": "Zobacz obserwowane",
+      "viewFollowingDesc": "Zarządzaj ulubionymi kanałami"
+    },
+    "sidebar": {
+      "home": "Strona główna",
+      "profile": "Mój profil",
+      "following": "Obserwowane",
+      "sessions": "Sesje",
+      "email": "E-mail",
+      "logout": "Wyloguj",
+      "backToHome": "← Powrót do strony głównej"
+    },
+    "loadingDashboard": "Ładowanie panelu..."
+  },
+  "auth": {
+    "modal": {
+      "title": {
+        "login": "Zaloguj się do iblups",
+        "verify": "Zweryfikuj kod"
+      },
+      "buttons": {
+        "viewerLogin": "Zaloguj się jako widz",
+        "followChannel": "Obserwuj kanał",
+        "unfollowChannel": "Przestań obserwować kanał",
+        "dashboard": "Panel",
+        "hello": "Cześć"
+      },
+      "email": {
+        "description": "Wpisz swój adres e-mail, aby otrzymać kod dostępu",
+        "label": "E-mail",
+        "placeholder": "twoj@email.com",
+        "button": "Wyślij kod",
+        "sending": "Wysyłanie..."
+      },
+      "otp": {
+        "description": "Wpisz 4-cyfrowy kod wysłany na adres",
+        "label": "Kod weryfikacyjny",
+        "placeholder": "0000",
+        "button": "Zweryfikuj kod",
+        "verifying": "Weryfikowanie...",
+        "resend": "Wyślij kod ponownie",
+        "resending": "Wysyłanie ponowne...",
+        "changeEmail": "Zmień e-mail"
+      },
+      "errors": {
+        "emailRequired": "E-mail jest wymagany",
+        "invalidEmail": "Nieprawidłowy adres e-mail",
+        "otpRequired": "Kod jest wymagany",
+        "invalidOtp": "Nieprawidłowy lub wygasły kod",
+        "networkError": "Błąd sieci. Spróbuj ponownie.",
+        "serverError": "Wewnętrzny błąd serwera"
+      },
+      "success": {
+        "emailSent": "Kod został pomyślnie wysłany",
+        "loginSuccess": "Logowanie udane"
+      }
+    }
+  },
+  "email": {
+    "title": "Zmień E-mail",
+    "description": "Zaktualizuj swój adres e-mail z weryfikacją OTP",
+    "currentEmail": "Aktualny E-mail",
+    "currentEmailDescription": "Aktualny e-mail Twojego konta",
+    "newEmail": "Nowy E-mail",
+    "verifyCode": "Zweryfikuj Kod",
+    "newEmailPlaceholder": "your@new-email.com",
+    "verificationCode": "Kod Weryfikacyjny",
+    "verificationCodePlaceholder": "0000",
+    "verificationCodeDescription": "Wprowadź 4-cyfrowy kod wysłany na {{email}}",
+    "cancel": "Anuluj",
+    "sendCode": "Wyślij Kod",
+    "sending": "Wysyłanie...",
+    "changeEmail": "Zmień E-mail",
+    "verifyAndChange": "Zweryfikuj i Zmień",
+    "verifying": "Weryfikacja...",
+    "securityInfo": "Informacje Bezpieczeństwa",
+    "otpVerification": "Weryfikacja OTP",
+    "otpVerificationDescription": "4-cyfrowy kod zostanie wysłany na nowy e-mail w celu weryfikacji własności",
+    "security": "Bezpieczeństwo",
+    "securityDescription": "Zmiana e-maila wymaga weryfikacji w celu ochrony Twojego konta",
+    "success": {
+      "codeSent": "Kod weryfikacyjny wysłany na nowy e-mail",
+      "emailUpdated": "E-mail pomyślnie zaktualizowany"
+    },
+    "errors": {
+      "sendCodeError": "Błąd wysyłania kodu",
+      "verificationError": "Błąd weryfikacji kodu",
+      "invalidCode": "Nieprawidłowy kod weryfikacyjny"
+    }
+  },
+  "messages": {
+    "errors": {
+      "networkError": "Błąd sieci. Spróbuj ponownie.",
+      "invalidOtp": "Nieprawidłowy lub wygasły kod OTP.",
+      "sendOtpError": "Błąd podczas wysyłania kodu OTP.",
+      "followError": "Błąd podczas obserwowania kanału.",
+      "unfollowError": "Błąd podczas anulowania obserwacji kanału.",
+      "profileUpdateError": "Błąd podczas aktualizacji profilu.",
+      "emailUpdateError": "Błąd podczas aktualizacji adresu e-mail.",
+      "sessionError": "Błąd sesji. Zaloguj się ponownie.",
+      "unauthorized": "Brak autoryzacji. Proszę się zalogować.",
+      "serverError": "Wewnętrzny błąd serwera."
+    },
+    "success": {
+      "profileUpdated": "Profil został pomyślnie zaktualizowany",
+      "emailUpdated": "Adres e-mail został pomyślnie zaktualizowany",
+      "channelFollowed": "Pomyślnie zaobserwowano kanał",
+      "channelUnfollowed": "Przestałeś obserwować kanał",
+      "otpSent": "Kod został pomyślnie wysłany",
+      "loginSuccess": "Logowanie udane"
+    },
+    "info": {
+      "noChannels": "Nie obserwujesz jeszcze żadnych kanałów",
+      "visitChannels": "Odwiedź kanały i kliknij \"Obserwuj kanał\", aby dodać je tutaj",
+      "exploreChannels": "Przeglądaj kanały",
+      "loading": "Ładowanie...",
+      "redirecting": "Przekierowywanie...",
+      "sessionExpired": "Twoja sesja wygasła. Zaloguj się ponownie."
+    }
+  },
+  "pagination": {
+    "previous": "Poprzednia",
+    "next": "Następna",
+    "pageOf": "Strona"
+  },
+  "sessions": {
+    "title": "Moje Sesje",
+    "description": "Zarządzaj aktywnymi sesjami i przeglądaj historię dostępu",
+    "loading": "Ładowanie sesji...",
+    "activeSessions": "Aktywne Sesje",
+    "totalSessions": "Łącznie Sesji",
+    "noSessions": "Brak sesji",
+    "noSessionsDescription": "Nie znaleziono sesji dla Twojego konta.",
+    "activeSession": "Aktywna Sesja",
+    "closedSession": "Zamknięta Sesja",
+    "unknown": "Nieznane",
+    "mobile": "Mobilne",
+    "tablet": "Tablet",
+    "desktop": "Pulpit",
+    "ipNotAvailable": "IP niedostępne",
+    "created": "Utworzona",
+    "lastActivity": "Ostatnia Aktywność",
+    "expires": "Wygasa"
+  },
+  "profile": {
+    "title": "Mój Profil",
+    "loading": "Ładowanie profilu...",
+    "personalInfo": "Informacje Osobiste",
+    "accountInfo": "Informacje o Koncie",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "displayName": "Nazwa Wyświetlana",
+    "dateOfBirth": "Data Urodzenia",
+    "city": "Miasto",
+    "country": "Kraj",
+    "firstNamePlaceholder": "Twoje imię",
+    "lastNamePlaceholder": "Twoje nazwisko",
+    "displayNamePlaceholder": "Twoja publiczna nazwa",
+    "cityPlaceholder": "Twoje miasto",
+    "countryPlaceholder": "Wybierz kraj",
+    "memberSince": "Członek od",
+    "userId": "ID Użytkownika",
+    "creationDate": "Data Utworzenia",
+    "lastUpdate": "Ostatnia Aktualizacja",
+    "cancel": "Anuluj",
+    "saveChanges": "Zapisz Zmiany",
+    "saving": "Zapisywanie...",
+    "success": "Profil został pomyślnie zaktualizowany",
+    "error": "Błąd podczas aktualizacji profilu"
+  },
+  "following": {
+    "title": "Obserwowane Kanały",
+    "loading": "Ładowanie obserwowanych kanałów...",
+    "channelsCount": "{{count}} kanał",
+    "channelsCountPlural": "{{count}} kanałów",
+    "exploreChannels": "Przeglądaj Kanały",
+    "noChannels": "Nie obserwujesz żadnych kanałów",
+    "noChannelsDescription": "Zacznij obserwować kanały, aby zobaczyć je tutaj i otrzymywać powiadomienia, gdy są na żywo.",
+    "followingSince": "Obserwowane od",
+    "viewChannel": "Zobacz Kanał →"
+  },
+  "viewerLogin": {
+    "loading": "Ładowanie...",
+    "hello": "Cześć",
+    "viewer": "Widz",
+    "dashboard": "Panel",
+    "logout": "Wyloguj",
+    "loginAsViewer": "Zaloguj jako Widz",
+    "loginAsViewerAria": "Zaloguj jako widz"
+  },
+  "navbar": {
+    "searchPlaceholder": "Szukaj kanałów..."
+  },
+  "otpModal": {
+    "loginTitle": "Zaloguj się",
+    "verifyTitle": "Zweryfikuj kod",
+    "emailLabel": "Adres e-mail",
+    "emailPlaceholder": "twoj@email.com",
+    "sendCodeButton": "Wyślij kod",
+    "sendingCode": "Wysyłanie...",
+    "codeSentSuccess": "Kod wysłany na Twój e-mail",
+    "otpLabel": "Kod weryfikacyjny",
+    "otpPlaceholder": "0000",
+    "verifyCodeButton": "Zweryfikuj kod",
+    "verifyingCode": "Weryfikacja...",
+    "loginSuccess": "Logowanie udane",
+    "resendCode": "Wyślij ponownie kod",
+    "resendIn": "Wyślij ponownie za",
+    "resendCodeSuccess": "Kod wysłany ponownie",
+    "backToEmail": "Wróć do e-maila",
+    "invalidCode": "Nieprawidłowy kod",
+    "connectionError": "Błąd połączenia",
+    "sendCodeError": "Błąd wysyłania kodu",
+    "resendCodeError": "Błąd ponownego wysyłania kodu",
+    "codeSentTo": "Wysłaliśmy kod weryfikacyjny na:",
+    "closeButton": "Zamknij",
+    "termsText": "Kontynuując, akceptujesz nasze warunki usługi i politykę prywatności.",
+    "emailTemplate": {
+      "verificationCode": "Twój kod weryfikacyjny",
+      "hello": "Cześć",
+      "useThisCode": "Użyj tego kodu, aby się zalogować:",
+      "codeExpires": "Ten kod wygasa za 10 minut",
+      "ignoreEmail": "Jeśli nie prosiłeś o ten kod, możesz zignorować ten e-mail.",
+      "copyright": "© 2025 iblups. Wszelkie prawa zastrzeżone."
     }
   }
 }

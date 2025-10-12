@@ -52,7 +52,8 @@ function HomePageContent() {
     if (urlTab !== activeTab) {
       setActiveTab(urlTab);
     }
-  }, [urlPage, urlSearch, urlTab, currentPage, searchTerm, activeTab]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlPage, urlSearch, urlTab]);
 
   // Function to update the URL
   const updateURL = useCallback((page: number, search: string, tab: string) => {
@@ -233,7 +234,8 @@ function HomePageContentTranslated() {
     if (urlTab !== activeTab) {
       setActiveTab(urlTab);
     }
-  }, [urlPage, urlSearch, urlTab, currentPage, searchTerm, activeTab]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlPage, urlSearch, urlTab]);
 
   // Function to update the URL
   const updateURL = useCallback((page: number, search: string, tab: string) => {

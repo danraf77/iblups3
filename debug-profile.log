@@ -35,3 +35,15 @@ Data: {
   "country_name": "Perú"
 }
 ---
+[2025-09-29T04:12:41.977Z] API Profile PUT - User: 9e576c8c-3bbc-4ea3-b6bd-bd56a181d80a
+Data: {
+  "timestamp": "2025-09-29T04:12:41.977Z",
+  "userId": "9e576c8c-3bbc-4ea3-b6bd-bd56a181d80a",
+  "display_name": "",
+  "first_name": "dante",
+  "last_name": "",
+  "date_of_birth": "",
+  "city": "lima",
+  "country_name": ""
+}
+---

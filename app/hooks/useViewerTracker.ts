@@ -9,7 +9,7 @@ interface UseViewerTrackerProps {
 
 // Leer de variable de entorno o usar default
 const HEARTBEAT_INTERVAL = parseInt(
-  process.env.NEXT_PUBLIC_VIEWER_HEARTBEAT_INTERVAL || '120000'
+  process.env.NEXT_PUBLIC_VIEWER_HEARTBEAT_INTERVAL || '30000'
 );
 
 export function useViewerTracker({

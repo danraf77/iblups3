@@ -2,7 +2,7 @@ import { redis } from './client';
 import { REDIS_CONFIG } from './config';
 
 // ============================================
-// CACHE EN MEMORIA (Crítico para reducir ops)
+// CACHE EN MEMORIA (Reducir lecturas)
 // ============================================
 interface CacheEntry {
   count: number;
@@ -12,121 +12,74 @@ interface CacheEntry {
 const countCache = new Map<string, CacheEntry>();
 const lastCleanupTime = new Map<string, number>();
 
-// ============================================
-// BATCH QUEUE (Agrupar operaciones)
-// ============================================
-interface BatchOperation {
-  channelId: string;
-  viewerId: string;
-  operation: 'add' | 'remove' | 'update';
-  timestamp: number;
-}
-
-const batchQueue: BatchOperation[] = [];
-let batchTimer: NodeJS.Timeout | null = null;
-const BATCH_DELAY = 5000; // Procesar batch cada 5 segundos
-
 /**
- * Procesar batch de operaciones
- */
-async function processBatch() {
-  if (batchQueue.length === 0) return;
-
-  const operations = [...batchQueue];
-  batchQueue.length = 0;
-
-  try {
-    // Agrupar por canal
-    const channelOps = new Map<string, BatchOperation[]>();
-    
-    for (const op of operations) {
-      const ops = channelOps.get(op.channelId) || [];
-      ops.push(op);
-      channelOps.set(op.channelId, ops);
-    }
-
-    // Procesar cada canal en pipeline
-    for (const [channelId, ops] of channelOps) {
-      const key = `channel:${channelId}:viewers`;
-      const pipeline = redis.pipeline();
-
-      for (const op of ops) {
-        if (op.operation === 'add' || op.operation === 'update') {
-          pipeline.zadd(key, { score: op.timestamp, member: op.viewerId });
-        } else if (op.operation === 'remove') {
-          pipeline.zrem(key, op.viewerId);
-        }
-      }
-
-      // Ejecutar pipeline
-      await pipeline.exec();
-      
-      // Invalidar cache
-      countCache.delete(channelId);
-    }
-  } catch (error) {
-    console.error('[BATCH] Error procesando batch:', error);
-  }
-}
-
-/**
- * Agregar operación al batch
- */
-function addToBatch(operation: BatchOperation) {
-  batchQueue.push(operation);
-
-  // Programar procesamiento
-  if (batchTimer) {
-    clearTimeout(batchTimer);
-  }
-  batchTimer = setTimeout(processBatch, BATCH_DELAY);
-}
-
-/**
- * Agregar un viewer (con batching)
+ * Agregar un viewer (ESCRITURA DIRECTA - SIN BATCHING)
  */
 export async function addViewer(
   channelId: string,
   viewerId: string
 ): Promise<void> {
-  addToBatch({
-    channelId,
-    viewerId,
-    operation: 'add',
-    timestamp: Date.now(),
-  });
+  const key = `channel:${channelId}:viewers`;
+  const timestamp = Date.now();
   
-  // Invalidar cache
-  countCache.delete(channelId);
+  console.log(`[REDIS] Adding viewer ${viewerId} to ${channelId}`);
+  
+  try {
+    // Escribir DIRECTAMENTE a Redis
+    await redis.pipeline()
+      .zadd(key, { score: timestamp, member: viewerId })
+      .expire(key, 600) // 10 minutos
+      .exec();
+    
+    // Invalidar cache
+    countCache.delete(channelId);
+    
+    console.log(`[REDIS] Viewer added successfully`);
+  } catch (error) {
+    console.error(`[REDIS] Error adding viewer:`, error);
+    throw error;
+  }
 }
 
 /**
- * Remover un viewer (inmediato, es crítico)
+ * Remover un viewer
  */
 export async function removeViewer(
   channelId: string,
   viewerId: string
 ): Promise<void> {
   const key = `channel:${channelId}:viewers`;
-  await redis.zrem(key, viewerId);
   
-  // Invalidar cache
-  countCache.delete(channelId);
+  console.log(`[REDIS] Removing viewer ${viewerId} from ${channelId}`);
+  
+  try {
+    await redis.zrem(key, viewerId);
+    
+    // Invalidar cache
+    countCache.delete(channelId);
+    
+    console.log(`[REDIS] Viewer removed successfully`);
+  } catch (error) {
+    console.error(`[REDIS] Error removing viewer:`, error);
+  }
 }
 
 /**
- * Actualizar heartbeat (con batching)
+ * Actualizar heartbeat (ESCRITURA DIRECTA - SIN BATCHING)
  */
 export async function updateViewerHeartbeat(
   channelId: string,
   viewerId: string
 ): Promise<void> {
-  addToBatch({
-    channelId,
-    viewerId,
-    operation: 'update',
-    timestamp: Date.now(),
-  });
+  const key = `channel:${channelId}:viewers`;
+  const timestamp = Date.now();
+  
+  try {
+    // Escribir DIRECTAMENTE a Redis (solo actualizar score)
+    await redis.zadd(key, { score: timestamp, member: viewerId });
+  } catch (error) {
+    console.error(`[REDIS] Error updating heartbeat:`, error);
+  }
 }
 
 /**
@@ -145,15 +98,19 @@ async function cleanupInactiveViewers(channelId: string): Promise<void> {
   const cutoffTime = now - (REDIS_CONFIG.TIMEOUT * 1000);
   
   try {
-    await redis.zremrangebyscore(key, 0, cutoffTime);
+    const removed = await redis.zremrangebyscore(key, 0, cutoffTime);
     lastCleanupTime.set(channelId, now);
+    
+    if (removed > 0) {
+      console.log(`[REDIS] Cleaned up ${removed} inactive viewers from ${channelId}`);
+    }
   } catch (error) {
     console.error('[CLEANUP] Error:', error);
   }
 }
 
 /**
- * Obtener count de viewers (CON CACHE AGRESIVO)
+ * Obtener count de viewers (CON CACHE)
  */
 export async function getActiveViewerCount(
   channelId: string
@@ -163,6 +120,7 @@ export async function getActiveViewerCount(
   // 1. Verificar cache
   const cached = countCache.get(channelId);
   if (cached && (now - cached.timestamp < REDIS_CONFIG.CACHE_TTL)) {
+    console.log(`[REDIS] Cache hit for ${channelId}: ${cached.count}`);
     return cached.count;
   }
 
@@ -175,6 +133,7 @@ export async function getActiveViewerCount(
   
   try {
     count = await redis.zcard(key) || 0;
+    console.log(`[REDIS] Count for ${channelId}: ${count}`);
   } catch (error) {
     console.error('[COUNT] Error:', error);
     // Retornar cache antiguo si hay error
@@ -197,20 +156,27 @@ export async function clearChannelViewers(
   channelId: string
 ): Promise<void> {
   const key = `channel:${channelId}:viewers`;
-  await redis.del(key);
   
-  // Limpiar caches
-  countCache.delete(channelId);
-  lastCleanupTime.delete(channelId);
+  try {
+    await redis.del(key);
+    
+    // Limpiar caches
+    countCache.delete(channelId);
+    lastCleanupTime.delete(channelId);
+    
+    console.log(`[REDIS] Cleared all viewers from ${channelId}`);
+  } catch (error) {
+    console.error('[REDIS] Error clearing viewers:', error);
+  }
 }
 
 /**
- * Obtener estadísticas del cache (útil para debugging)
+ * Obtener estadísticas del cache
  */
 export function getCacheStats() {
   return {
     cachedChannels: countCache.size,
     cleanupTracked: lastCleanupTime.size,
-    batchQueueSize: batchQueue.length,
+    batchQueueSize: 0, // No hay batch
   };
 }

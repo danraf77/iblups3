@@ -1,15 +1,13 @@
 import { NextRequest } from 'next/server';
 import { getActiveViewerCount } from '@/utils/redis/viewerCounter';
+import { REDIS_CONFIG } from '@/utils/redis/config';
 
 export const runtime = 'edge';
-
-const UPDATE_INTERVAL = 2000; // 2 segundos
 
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ channelId: string }> }
 ) {
-  // Await params en Next.js 15
   const { channelId } = await context.params;
   
   if (!channelId) {
@@ -17,6 +15,7 @@ export async function GET(
   }
 
   const encoder = new TextEncoder();
+  let lastCount = -1; // Para evitar enviar el mismo valor
   
   const stream = new ReadableStream({
     async start(controller) {
@@ -24,20 +23,28 @@ export async function GET(
         try {
           const count = await getActiveViewerCount(channelId);
           
-          const data = JSON.stringify({
-            channelId,
-            viewerCount: count,
-            timestamp: Date.now()
-          });
-          
-          controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+          // Solo enviar si el count cambió
+          if (count !== lastCount) {
+            lastCount = count;
+            
+            const data = JSON.stringify({
+              channelId,
+              viewerCount: count,
+              timestamp: Date.now()
+            });
+            
+            controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+          }
         } catch (error) {
           console.error('[SSE] Error:', error);
         }
       };
       
+      // Primera actualización inmediata
       await sendUpdate();
-      const intervalId = setInterval(sendUpdate, UPDATE_INTERVAL);
+      
+      // Actualizaciones periódicas según config
+      const intervalId = setInterval(sendUpdate, REDIS_CONFIG.UPDATE_INTERVAL);
       
       request.signal.addEventListener('abort', () => {
         clearInterval(intervalId);

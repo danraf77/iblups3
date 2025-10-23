@@ -7,7 +7,10 @@ interface UseViewerTrackerProps {
   enabled?: boolean;
 }
 
-const HEARTBEAT_INTERVAL = 30000; // 30 segundos
+// Leer de variable de entorno o usar default
+const HEARTBEAT_INTERVAL = parseInt(
+  process.env.NEXT_PUBLIC_VIEWER_HEARTBEAT_INTERVAL || '120000'
+);
 
 export function useViewerTracker({
   channelId,

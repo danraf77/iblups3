@@ -128,48 +128,39 @@ export default function FollowChannelButton({
 
   return (
     <>
-      <div className="flex items-center space-x-2">
-        {/* Contador de seguidores */}
-        <div className="flex items-center space-x-1 text-sm text-gray-300">
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      {/* Botón de seguir con contador integrado */}
+      <button
+        onClick={handleFollowToggle}
+        disabled={isLoading}
+        className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50 ${
+          isFollowing 
+            ? 'bg-[#2c73ff] hover:bg-[#1e5bb8] text-white' 
+            : 'bg-gray-800/50 backdrop-blur-sm border border-white/20 hover:bg-gray-700/50 text-white'
+        } ${className}`}
+        title={isFollowing ? 'Dejar de seguir' : 'Seguir canal'}
+      >
+        {isLoading ? (
+          <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <span className="font-medium">{followersCount}</span>
-        </div>
-
-        {/* Botón de seguir */}
-        <button
-          onClick={handleFollowToggle}
-          disabled={isLoading}
-          className={`p-2 rounded-full transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50 ${
-            isFollowing 
-              ? 'bg-[#2c73ff] hover:bg-[#1e5bb8] text-white' 
-              : 'bg-gray-800/50 backdrop-blur-sm border border-white/20 hover:bg-gray-700/50 text-white'
-          } ${className}`}
-          title={isFollowing ? 'Dejar de seguir' : 'Seguir canal'}
-        >
-          {isLoading ? (
-            <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          ) : (
-            <svg 
-              className={`w-5 h-5 transition-all duration-200 ${isFollowing ? 'fill-current' : ''}`} 
-              fill={isFollowing ? 'currentColor' : 'none'} 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
-              />
-            </svg>
-          )}
-        </button>
-      </div>
+        ) : (
+          <svg 
+            className={`w-5 h-5 transition-all duration-200 ${isFollowing ? 'fill-current' : ''}`} 
+            fill={isFollowing ? 'currentColor' : 'none'} 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+            />
+          </svg>
+        )}
+        <span className="text-sm font-medium">{followersCount}</span>
+      </button>
 
       <OTPLoginModal
         isOpen={showLoginModal}

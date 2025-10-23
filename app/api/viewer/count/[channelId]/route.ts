@@ -5,10 +5,11 @@ export const runtime = 'edge';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { channelId: string } }
+  context: { params: Promise<{ channelId: string }> }
 ) {
   try {
-    const { channelId } = params;
+    // Await params en Next.js 15
+    const { channelId } = await context.params;
     
     if (!channelId) {
       return NextResponse.json(

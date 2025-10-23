@@ -7,9 +7,10 @@ const UPDATE_INTERVAL = 2000; // 2 segundos
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { channelId: string } }
+  context: { params: Promise<{ channelId: string }> }
 ) {
-  const { channelId } = params;
+  // Await params en Next.js 15
+  const { channelId } = await context.params;
   
   if (!channelId) {
     return new Response('channelId es requerido', { status: 400 });

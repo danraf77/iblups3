@@ -22,12 +22,16 @@ export function useViewerTracker({
     let isMounted = true;
 
     const joinChannel = async () => {
+      if (!isMounted) return;
+      
       try {
         const response = await fetch('/api/viewer/join', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ channelId })
         });
+        
+        if (!isMounted) return;
         
         const data = await response.json();
         viewerIdRef.current = data.viewerId;
@@ -39,7 +43,7 @@ export function useViewerTracker({
     };
 
     const sendHeartbeat = async () => {
-      if (!viewerIdRef.current) return;
+      if (!isMounted || !viewerIdRef.current) return;
       
       try {
         await fetch('/api/viewer/heartbeat', {

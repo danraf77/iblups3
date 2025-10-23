@@ -1,7 +1,9 @@
+// app/embed/[username]/page.
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import VideoJS from '../../components/Player';
 import { getHlsUrlServerSide } from '../../utils/getHlsUrl';
+import { EmbedViewerTracker } from '../../components/EmbedViewerTracker';
 
 interface EmbedPageProps {
   params: {
@@ -124,6 +126,9 @@ export default async function EmbedPage({ params, searchParams }: EmbedPageProps
           <link rel="preconnect" href="https://thumbnail.iblups.com" crossOrigin="" />
         </>
       ) : null}
+
+      {/* 🔥 VIEWER TRACKER - Registra viewers en Redis */}
+      <EmbedViewerTracker username={username} />
 
       <div className="embed-page w-full h-screen bg-black">
         <VideoJS {...playerConfig} />

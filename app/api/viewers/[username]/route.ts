@@ -1,5 +1,4 @@
 // /app/api/viewers/[username]/route.ts
-// /app/api/viewers/[username]/route.ts
 import { redis } from '@/lib/redis';
 
 export const runtime = 'edge';
@@ -12,6 +11,18 @@ const CONFIG = {
   COUNT_UPDATE_INTERVAL: 10000,   // 10s - Envía conteo actualizado
   INITIAL_HEARTBEAT: 5000,        // 5s - Primer heartbeat rápido
 } as const;
+
+// 🎯 Tipos
+interface ViewerCountData {
+  count: number;
+  timestamp: number;
+}
+
+interface PingData {
+  timestamp: number;
+}
+
+type SSEData = ViewerCountData | PingData;
 
 /**
  * Genera un ID de sesión único y corto
@@ -36,8 +47,8 @@ async function cleanupZombieViewers(username: string): Promise<number> {
     }
     
     return removed;
-  } catch (err) {
-    console.error(`❌ [${username}] Error limpiando zombies:`, err);
+  } catch (error) {
+    console.error(`❌ [${username}] Error limpiando zombies:`, error);
     return 0;
   }
 }
@@ -56,8 +67,8 @@ async function getActiveViewerCount(username: string): Promise<number> {
     const count = await redis.zcard(key);
     
     return count;
-  } catch (err) {
-    console.error(`❌ [${username}] Error obteniendo conteo:`, err);
+  } catch (error) {
+    console.error(`❌ [${username}] Error obteniendo conteo:`, error);
     return 0;
   }
 }
@@ -75,8 +86,8 @@ async function updateViewerPresence(username: string, sessionId: string): Promis
     
     // Expira la key completa después de 1 hora de inactividad total
     await redis.expire(key, 3600);
-  } catch (err) {
-    console.error(`❌ [${username}/${sessionId}] Error actualizando presencia:`, err);
+  } catch (error) {
+    console.error(`❌ [${username}/${sessionId}] Error actualizando presencia:`, error);
   }
 }
 
@@ -88,8 +99,8 @@ async function removeViewer(username: string, sessionId: string): Promise<void> 
     const key = `viewers:${username}`;
     await redis.zrem(key, sessionId);
     console.log(`👋 [${username}/${sessionId}] Viewer eliminado`);
-  } catch (err) {
-    console.error(`❌ [${username}/${sessionId}] Error eliminando viewer:`, err);
+  } catch (error) {
+    console.error(`❌ [${username}/${sessionId}] Error eliminando viewer:`, error);
   }
 }
 
@@ -125,21 +136,21 @@ export async function GET(
       /**
        * Envía un mensaje SSE al cliente
        */
-      const sendMessage = (event: string, data: any) => {
+      const sendMessage = (event: string, data: SSEData): void => {
         if (isClosed) return;
         
         try {
           const message = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
           controller.enqueue(encoder.encode(message));
-        } catch (err) {
-          console.error(`❌ [${username}/${sessionId}] Error enviando mensaje:`, err);
+        } catch (error) {
+          console.error(`❌ [${username}/${sessionId}] Error enviando mensaje:`, error);
         }
       };
 
       /**
        * Envía conteo actualizado de viewers
        */
-      const sendViewerCount = async () => {
+      const sendViewerCount = async (): Promise<void> => {
         const count = await getActiveViewerCount(username);
         sendMessage('count', { count, timestamp: Date.now() });
       };
@@ -147,7 +158,7 @@ export async function GET(
       /**
        * Limpieza completa de recursos
        */
-      const cleanup = async () => {
+      const cleanup = async (): Promise<void> => {
         if (isClosed) return;
         isClosed = true;
 
@@ -165,14 +176,14 @@ export async function GET(
         try {
           const finalCount = await getActiveViewerCount(username);
           console.log(`📊 [${username}] Viewers restantes: ${finalCount}`);
-        } catch (err) {
-          console.error(`❌ [${username}] Error obteniendo conteo final:`, err);
+        } catch (error) {
+          console.error(`❌ [${username}] Error obteniendo conteo final:`, error);
         }
 
         // Cierra el stream
         try {
           controller.close();
-        } catch (err) {
+        } catch {
           // Stream ya cerrado
         }
       };
@@ -223,8 +234,8 @@ export async function GET(
           cleanup();
         });
 
-      } catch (err) {
-        console.error(`❌ [${username}/${sessionId}] Error en start:`, err);
+      } catch (error) {
+        console.error(`❌ [${username}/${sessionId}] Error en start:`, error);
         cleanup();
       }
     },
@@ -255,8 +266,8 @@ export async function POST(
       count,
       timestamp: Date.now()
     });
-  } catch (err) {
-    console.error('Error en POST viewers:', err);
+  } catch (error) {
+    console.error('Error en POST viewers:', error);
     return Response.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

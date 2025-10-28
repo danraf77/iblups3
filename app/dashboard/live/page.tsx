@@ -6,16 +6,22 @@ export const dynamic = 'force-dynamic';
 async function getLiveChannels() {
   const { data, error } = await supabaseServer
     .from('channels_channel')
-    .select('id, name, username, is_live')
-    .eq('is_live', true)
+    .select('id, name, username, is_on_live')
+    .eq('is_on_live', true) // ✅ campo correcto
     .order('name', { ascending: true });
 
   if (error) {
-    console.error('Error fetching live channels:', error);
+    console.error('❌ Error fetching live channels:', error.message);
     return [];
   }
 
-  return data || [];
+  // Filtrar por seguridad: solo canales con username y nombre válido
+  const valid = (data || []).filter(
+    (ch) => ch.username && ch.is_on_live === true
+  );
+
+  console.log(`✅ ${valid.length} canales en vivo encontrados`);
+  return valid;
 }
 
 export default async function LiveDashboardPage() {

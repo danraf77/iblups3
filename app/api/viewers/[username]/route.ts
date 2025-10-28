@@ -5,9 +5,9 @@ export const runtime = 'edge';
 
 export async function GET(
   req: Request,
-  context: { params: Promise<{ username: string }> } // 👈 ahora es Promise
+  context: { params: Promise<{ username: string }> }
 ) {
-  const { username } = await context.params; // 👈 await aquí
+  const { username } = await context.params;
 
   const headers = {
     'Content-Type': 'text/event-stream',
@@ -20,15 +20,16 @@ export async function GET(
       try {
         // Incrementar viewers
         await redis.incr(`viewers:${username}`);
-        await redis.expire(`viewers:${username}`, 60);
+        await redis.expire(`viewers:${username}`, 30); // TTL de 30 s
 
-        // Mantener conexión viva y renovar TTL
-        const interval = setInterval(async () => {
-          await redis.expire(`viewers:${username}`, 60);
-        }, 20000);
+        // 🔁 Cada 10 s renueva el TTL mientras la conexión esté viva
+        const ttlInterval = setInterval(async () => {
+          await redis.expire(`viewers:${username}`, 30);
+        }, 10000);
 
+        // Cuando el navegador cierra o recarga, el abort debería dispararse
         req.signal.addEventListener('abort', async () => {
-          clearInterval(interval);
+          clearInterval(ttlInterval);
           await redis.decr(`viewers:${username}`);
         });
       } catch (error) {

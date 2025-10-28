@@ -1,18 +1,14 @@
-// /app/api/viewers/[username]/route.ts
 import { redis } from '@/lib/redis';
 
 export const runtime = 'edge';
 
-// ⚙️ Configuración optimizada para detección rápida
 const CONFIG = {
-  HEARTBEAT_INTERVAL: 8000,       // 8s - Renueva presencia
-  VIEWER_TIMEOUT: 20000,          // 20s - Timeout para considerar viewer inactivo (más agresivo)
-  CLEANUP_INTERVAL: 6000,         // 6s - Limpia viewers zombies frecuentemente
-  COUNT_BROADCAST_INTERVAL: 5000, // 5s - Envía conteo actualizado
-  INITIAL_HEARTBEAT: 2000,        // 2s - Primer heartbeat rápido
+  HEARTBEAT_INTERVAL: 5000,       // 5s - Renueva presencia
+  VIEWER_TIMEOUT: 12000,          // 12s - Timeout
+  CLEANUP_INTERVAL: 3000,         // 3s - Limpia zombies
+  KEEPALIVE_INTERVAL: 15000,      // 15s - Mensaje keepalive
 } as const;
 
-// 🎯 Tipos
 interface ViewerCountData {
   count: number;
   timestamp: number;
@@ -24,27 +20,18 @@ interface PingData {
 
 type SSEData = ViewerCountData | PingData;
 
-/**
- * Genera un ID de sesión único y corto
- */
 function generateSessionId(): string {
   return `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 9)}`;
 }
 
-/**
- * Limpia viewers inactivos (zombies) de Redis
- * Retorna el número de viewers eliminados
- */
 async function cleanupZombieViewers(username: string): Promise<number> {
   try {
     const key = `viewers:${username}`;
     const cutoff = Date.now() - CONFIG.VIEWER_TIMEOUT;
-    
-    // Elimina viewers con timestamp anterior al cutoff
     const removed = await redis.zremrangebyscore(key, 0, cutoff);
     
     if (removed > 0) {
-      console.log(`🧹 [${username}] Limpiados ${removed} viewers zombies (cutoff: ${new Date(cutoff).toISOString()})`);
+      console.log(`🧹 [${username}] Limpiados ${removed} viewers zombies`);
     }
     
     return removed;
@@ -54,19 +41,11 @@ async function cleanupZombieViewers(username: string): Promise<number> {
   }
 }
 
-/**
- * Obtiene el conteo actual de viewers activos
- */
 async function getActiveViewerCount(username: string): Promise<number> {
   try {
     const key = `viewers:${username}`;
-    
-    // Limpia zombies antes de contar
     await cleanupZombieViewers(username);
-    
-    // Cuenta viewers activos
     const count = await redis.zcard(key);
-    
     return count;
   } catch (error) {
     console.error(`❌ [${username}] Error obteniendo conteo:`, error);
@@ -74,70 +53,36 @@ async function getActiveViewerCount(username: string): Promise<number> {
   }
 }
 
-/**
- * Registra o actualiza el timestamp de un viewer
- */
 async function updateViewerPresence(username: string, sessionId: string): Promise<boolean> {
   try {
     const key = `viewers:${username}`;
     const timestamp = Date.now();
-    
-    // Usa ZADD para agregar/actualizar con timestamp como score
     await redis.zadd(key, { score: timestamp, member: sessionId });
-    
-    // Expira la key completa después de 2 horas de inactividad total
-    await redis.expire(key, 7200);
-    
+    await redis.expire(key, 3600);
     return true;
   } catch (error) {
-    console.error(`❌ [${username}/${sessionId}] Error actualizando presencia:`, error);
+    console.error(`❌ [${username}/${sessionId}] Error actualizando:`, error);
     return false;
   }
 }
 
-/**
- * Elimina un viewer específico
- */
 async function removeViewer(username: string, sessionId: string): Promise<boolean> {
   try {
     const key = `viewers:${username}`;
     const result = await redis.zrem(key, sessionId);
     
     if (result > 0) {
-      console.log(`👋 [${username}/${sessionId}] Viewer eliminado exitosamente`);
+      console.log(`👋 [${username}/${sessionId}] Viewer eliminado`);
       return true;
     }
     
     return false;
   } catch (error) {
-    console.error(`❌ [${username}/${sessionId}] Error eliminando viewer:`, error);
+    console.error(`❌ Error eliminando:`, error);
     return false;
   }
 }
 
-/**
- * Obtiene todos los viewers activos (para debugging)
- */
-async function getActiveViewers(username: string): Promise<string[]> {
-  try {
-    const key = `viewers:${username}`;
-    const cutoff = Date.now() - CONFIG.VIEWER_TIMEOUT;
-    
-    // Obtiene solo viewers con timestamp reciente usando zrange con byScore
-    const viewers = await redis.zrange(key, cutoff, '+inf', { 
-      byScore: true 
-    }) as string[];
-    
-    return viewers;
-  } catch (error) {
-    console.error(`❌ [${username}] Error obteniendo viewers activos:`, error);
-    return [];
-  }
-}
-
-/**
- * Maneja la conexión SSE de un viewer
- */
 export async function GET(
   req: Request,
   context: { params: Promise<{ username: string }> }
@@ -145,190 +90,134 @@ export async function GET(
   const { username } = await context.params;
   const sessionId = generateSessionId();
   
-  console.log(`👁️ [${username}/${sessionId}] Nuevo viewer conectado`);
+  console.log(`👁️ [${username}/${sessionId}] Conectado`);
 
   const headers = {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache, no-transform',
     'Connection': 'keep-alive',
-    'X-Accel-Buffering': 'no', // Desactiva buffering en nginx
+    'X-Accel-Buffering': 'no',
   };
 
   const encoder = new TextEncoder();
-  let isClosed = false;
-  let lastCount = 0;
 
   const stream = new ReadableStream({
     async start(controller) {
-      // 📊 Timers
-      let heartbeatTimer: NodeJS.Timeout | null = null;
-      let cleanupTimer: NodeJS.Timeout | null = null;
-      let countBroadcastTimer: NodeJS.Timeout | null = null;
+      let isClosed = false;
+      let lastHeartbeat = Date.now();
+      let lastCleanup = Date.now();
+      let lastCount = 0;
 
-      /**
-       * Envía un mensaje SSE al cliente
-       */
       const sendMessage = (event: string, data: SSEData): void => {
         if (isClosed) return;
-        
         try {
           const message = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
           controller.enqueue(encoder.encode(message));
         } catch (error) {
-          console.error(`❌ [${username}/${sessionId}] Error enviando mensaje:`, error);
+          console.error(`❌ Error enviando:`, error);
+          isClosed = true;
         }
       };
 
-      /**
-       * Envía conteo actualizado de viewers (solo si cambió)
-       */
+      const sendKeepAlive = (): void => {
+        if (isClosed) return;
+        try {
+          controller.enqueue(encoder.encode(`: keepalive ${Date.now()}\n\n`));
+        } catch (error) {
+          isClosed = true;
+        }
+      };
+
       const sendViewerCount = async (force = false): Promise<void> => {
         const count = await getActiveViewerCount(username);
-        
-        // Solo envía si el conteo cambió o es forzado
         if (force || count !== lastCount) {
           lastCount = count;
           sendMessage('count', { count, timestamp: Date.now() });
-          console.log(`📊 [${username}/${sessionId}] Conteo actualizado: ${count} viewers`);
+          console.log(`📊 [${username}/${sessionId}] Count: ${count}`);
         }
       };
 
-      /**
-       * Limpieza completa de recursos
-       */
       const cleanup = async (): Promise<void> => {
         if (isClosed) return;
         isClosed = true;
-
-        console.log(`🧹 [${username}/${sessionId}] Iniciando cleanup`);
-
-        // Limpia timers
-        if (heartbeatTimer) clearInterval(heartbeatTimer);
-        if (cleanupTimer) clearInterval(cleanupTimer);
-        if (countBroadcastTimer) clearInterval(countBroadcastTimer);
-
-        // Elimina viewer de Redis
-        const removed = await removeViewer(username, sessionId);
-        
-        if (removed) {
-          // Log viewers restantes
-          const remainingViewers = await getActiveViewers(username);
-          console.log(`📊 [${username}] Viewers activos: ${remainingViewers.length} - IDs: ${remainingViewers.join(', ')}`);
-        }
-
-        // Cierra el stream
+        console.log(`🧹 [${username}/${sessionId}] Cleanup final`);
+        await removeViewer(username, sessionId);
         try {
           controller.close();
         } catch {
-          // Stream ya cerrado
+          // Ya cerrado
         }
       };
 
+      // Registra viewer inicial
+      await updateViewerPresence(username, sessionId);
+      await sendViewerCount(true);
+
+      // Cleanup en desconexión
+      req.signal.addEventListener('abort', cleanup);
+
+      // 🔥 LOOP PRINCIPAL - Mantiene la conexión viva
       try {
-        // 🎬 Registra viewer inicial
-        await updateViewerPresence(username, sessionId);
-        
-        // 📊 Envía conteo inicial inmediatamente
-        await sendViewerCount(true);
-        
-        // Log de viewers activos inicial
-        const activeViewers = await getActiveViewers(username);
-        console.log(`✅ [${username}/${sessionId}] Registrado. Total viewers: ${activeViewers.length}`);
+        while (!isClosed && !req.signal.aborted) {
+          const now = Date.now();
 
-        // 💓 Heartbeat inicial rápido (2s)
-        setTimeout(async () => {
-          if (isClosed) return;
-          const success = await updateViewerPresence(username, sessionId);
-          if (!success) {
-            console.error(`⚠️ [${username}/${sessionId}] Falló heartbeat inicial`);
+          // 💓 Heartbeat cada 5s
+          if (now - lastHeartbeat >= CONFIG.HEARTBEAT_INTERVAL) {
+            const success = await updateViewerPresence(username, sessionId);
+            if (success) {
+              sendMessage('ping', { timestamp: now });
+            }
+            lastHeartbeat = now;
           }
-        }, CONFIG.INITIAL_HEARTBEAT);
 
-        // 💓 Heartbeat periódico (8s) - Mantiene viewer activo
-        heartbeatTimer = setInterval(async () => {
-          if (isClosed) return;
-          
-          const success = await updateViewerPresence(username, sessionId);
-          
-          if (success) {
-            // Envía ping para mantener conexión viva
-            sendMessage('ping', { timestamp: Date.now() });
-          } else {
-            console.error(`⚠️ [${username}/${sessionId}] Falló actualización de presencia`);
-            cleanup();
+          // 🧹 Cleanup cada 3s
+          if (now - lastCleanup >= CONFIG.CLEANUP_INTERVAL) {
+            const removed = await cleanupZombieViewers(username);
+            if (removed > 0) {
+              await sendViewerCount(true);
+            } else {
+              await sendViewerCount(false);
+            }
+            lastCleanup = now;
           }
-        }, CONFIG.HEARTBEAT_INTERVAL);
 
-        // 🧹 Cleanup periódico de zombies (6s) - MUY IMPORTANTE
-        cleanupTimer = setInterval(async () => {
-          if (isClosed) return;
-          
-          const removed = await cleanupZombieViewers(username);
-          
-          // Si se limpiaron zombies, envía conteo actualizado
-          if (removed > 0) {
-            await sendViewerCount(true);
-          }
-        }, CONFIG.CLEANUP_INTERVAL);
+          // 📡 Keepalive cada 15s
+          sendKeepAlive();
 
-        // 📊 Broadcast periódico de conteo (5s)
-        countBroadcastTimer = setInterval(async () => {
-          if (isClosed) return;
-          await sendViewerCount(false);
-        }, CONFIG.COUNT_BROADCAST_INTERVAL);
-
-        // 📴 Listener de desconexión del cliente (backup, no confiable en Edge)
-        req.signal.addEventListener('abort', () => {
-          console.log(`📴 [${username}/${sessionId}] Cliente desconectado (abort event)`);
-          cleanup();
-        });
-
+          // Espera 1 segundo antes del siguiente ciclo
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
       } catch (error) {
-        console.error(`❌ [${username}/${sessionId}] Error en start:`, error);
+        console.error(`❌ Error en loop:`, error);
+      } finally {
         cleanup();
       }
     },
 
-    // Se ejecuta cuando el stream se cancela
     cancel() {
-      console.log(`🚫 [${username}/${sessionId}] Stream cancelado`);
-      isClosed = true;
+      console.log(`🚫 Stream cancelado`);
     }
   });
 
   return new Response(stream, { headers });
 }
 
-/**
- * Endpoint para obtener conteo sin SSE
- */
 export async function POST(
   req: Request,
   context: { params: Promise<{ username: string }> }
 ) {
   try {
     const { username } = await context.params;
-    
-    // Limpia zombies antes de retornar
     await cleanupZombieViewers(username);
-    
     const count = await getActiveViewerCount(username);
-    const viewers = await getActiveViewers(username);
     
     return Response.json({ 
       username,
       count,
-      viewers: viewers.length,
-      viewerIds: viewers,
       timestamp: Date.now(),
-      config: {
-        heartbeat: CONFIG.HEARTBEAT_INTERVAL,
-        timeout: CONFIG.VIEWER_TIMEOUT,
-        cleanup: CONFIG.CLEANUP_INTERVAL,
-      }
     });
   } catch (error) {
-    console.error('Error en POST viewers:', error);
-    return Response.json({ error: 'Internal server error' }, { status: 500 });
+    console.error('Error en POST:', error);
+    return Response.json({ error: 'Internal error' }, { status: 500 });
   }
 }

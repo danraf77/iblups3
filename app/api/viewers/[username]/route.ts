@@ -1,13 +1,20 @@
 // /app/api/viewers/[username]/route.ts
 import { redis } from '@/lib/redis';
 
+// Edge runtime compatible
 export const runtime = 'edge';
+
+function randomSessionId() {
+  // Genera ID corto tipo "a1b2c3d4"
+  return Math.random().toString(36).substring(2, 10);
+}
 
 export async function GET(
   req: Request,
   context: { params: Promise<{ username: string }> }
 ) {
   const { username } = await context.params;
+  const sessionId = randomSessionId(); // ID único por viewer
 
   const headers = {
     'Content-Type': 'text/event-stream',
@@ -15,26 +22,26 @@ export async function GET(
     Connection: 'keep-alive',
   };
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      try {
-        // 🔼 Aumentar contador al conectar
-        await redis.incr(`viewers:${username}`);
-        await redis.expire(`viewers:${username}`, 20); // TTL de 20s
+  const key = `viewers:${username}:${sessionId}`;
 
-        // 🔁 Mientras la conexión esté viva, renovamos TTL cada 10s
-        const renew = setInterval(async () => {
-          await redis.expire(`viewers:${username}`, 20);
+  const stream = new ReadableStream({
+    async start() {
+      try {
+        // 👁️ Marca esta sesión como activa por 25 s
+        await redis.set(key, 1, { ex: 25 });
+
+        // ♻️ Mientras siga conectada, renueva TTL cada 10 s
+        const interval = setInterval(async () => {
+          await redis.expire(key, 25);
         }, 10000);
 
-        // ❌ Si la conexión se cierra manualmente
+        // 📴 Si el cliente se desconecta
         req.signal.addEventListener('abort', async () => {
-          clearInterval(renew);
-          await redis.decr(`viewers:${username}`);
+          clearInterval(interval);
+          await redis.del(key); // elimina inmediatamente
         });
-
       } catch (err) {
-        console.error('Error SSE viewers:', err);
+        console.error('Error en viewers SSE:', err);
       }
     },
   });

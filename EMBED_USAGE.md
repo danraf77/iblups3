@@ -120,3 +120,4 @@ app/
 - Implementado con Cursor
 - Código optimizado para métricas y personalización futura
 - Estructura preparada para expansión de funcionalidades
+x

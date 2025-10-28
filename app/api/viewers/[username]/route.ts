@@ -1,4 +1,4 @@
-// /app/api/viewers/[username]/route.ts
++// /app/api/viewers/[username]/route.ts
 import { redis } from '@/lib/redis';
 
 export const runtime = 'edge';
@@ -123,8 +123,10 @@ async function getActiveViewers(username: string): Promise<string[]> {
     const key = `viewers:${username}`;
     const cutoff = Date.now() - CONFIG.VIEWER_TIMEOUT;
     
-    // Obtiene solo viewers con timestamp reciente
-    const viewers = await redis.zrangebyscore(key, cutoff, '+inf');
+    // Obtiene solo viewers con timestamp reciente usando zrange con byScore
+    const viewers = await redis.zrange(key, cutoff, '+inf', { 
+      byScore: true 
+    }) as string[];
     
     return viewers;
   } catch (error) {
@@ -317,6 +319,7 @@ export async function POST(
       username,
       count,
       viewers: viewers.length,
+      viewerIds: viewers,
       timestamp: Date.now(),
       config: {
         heartbeat: CONFIG.HEARTBEAT_INTERVAL,

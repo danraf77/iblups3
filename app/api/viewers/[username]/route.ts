@@ -1,4 +1,4 @@
-+// /app/api/viewers/[username]/route.ts
+// /app/api/viewers/[username]/route.ts
 import { redis } from '@/lib/redis';
 
 export const runtime = 'edge';

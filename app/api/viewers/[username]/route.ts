@@ -11,29 +11,30 @@ export async function GET(
 
   const headers = {
     'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
+    'Cache-Control': 'no-cache, no-transform',
     Connection: 'keep-alive',
   };
 
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        // Incrementar viewers
+        // 🔼 Aumentar contador al conectar
         await redis.incr(`viewers:${username}`);
-        await redis.expire(`viewers:${username}`, 30); // TTL de 30 s
+        await redis.expire(`viewers:${username}`, 20); // TTL de 20s
 
-        // 🔁 Cada 10 s renueva el TTL mientras la conexión esté viva
-        const ttlInterval = setInterval(async () => {
-          await redis.expire(`viewers:${username}`, 30);
+        // 🔁 Mientras la conexión esté viva, renovamos TTL cada 10s
+        const renew = setInterval(async () => {
+          await redis.expire(`viewers:${username}`, 20);
         }, 10000);
 
-        // Cuando el navegador cierra o recarga, el abort debería dispararse
+        // ❌ Si la conexión se cierra manualmente
         req.signal.addEventListener('abort', async () => {
-          clearInterval(ttlInterval);
+          clearInterval(renew);
           await redis.decr(`viewers:${username}`);
         });
-      } catch (error) {
-        console.error('Error SSE viewers:', error);
+
+      } catch (err) {
+        console.error('Error SSE viewers:', err);
       }
     },
   });

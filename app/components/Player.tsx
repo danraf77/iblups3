@@ -5,7 +5,7 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '../styles/player.css';
 
-// Definir tipos para video.js - Cursor
+// Tipado de Video.js
 type VideoJSPlayer = {
   autoplay: (value: boolean) => void;
   muted: (value: boolean) => void;
@@ -22,7 +22,6 @@ type VideoJSPlayer = {
 };
 
 type Props = {
-  // Opciones del player - Cursor
   streamUrl: string;
   thumbnailUrl?: string;
   autoplay?: boolean;
@@ -35,8 +34,6 @@ type Props = {
   playsinline?: boolean;
   volume?: number;
   className?: string;
-  
-  // Opciones avanzadas - Cursor
   options?: {
     sources?: { src: string; type: string }[];
     [key: string]: unknown;
@@ -44,7 +41,7 @@ type Props = {
   onReady?: (player: VideoJSPlayer) => void;
 };
 
-const VideoJS: React.FC<Props> = ({ 
+const VideoJS: React.FC<Props> = ({
   streamUrl,
   thumbnailUrl,
   autoplay = false,
@@ -58,20 +55,39 @@ const VideoJS: React.FC<Props> = ({
   volume = 0.5,
   className = '',
   options = {},
-  onReady 
+  onReady,
 }) => {
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
+  // 🎯 Nuevo: Tracking de viewers (silencioso)
+  React.useEffect(() => {
+    // Capturamos el username desde la URL (/embed/[username])
+    const path = window.location.pathname.split('/');
+    const username = path[path.length - 1];
+    if (!username) return;
+
+    // Inicia el tracking de viewers (SSE)
+    const es = new EventSource(`/api/viewers/${username}`);
+
+    // No escuchamos mensajes, solo mantenemos la conexión viva
+    es.onerror = () => {
+      console.warn('Viewer tracking reconnection...');
+      es.close();
+      setTimeout(() => new EventSource(`/api/viewers/${username}`), 2000);
+    };
+
+    return () => {
+      es.close(); // Al cerrar pestaña, decrementa viewers en backend
+    };
+  }, []);
+
+  // ⚙️ Inicialización del player
   React.useEffect(() => {
     if (!playerRef.current && wrapRef.current) {
-      // Crear el <video-js> dentro del contenedor (compat con React 18 StrictMode)
       const videoElement = document.createElement('video-js');
-
-      // clases tal como tu Nuxt: video-js vjs-16-9 iblups
       videoElement.classList.add('video-js', 'vjs-16-9', 'iblups', 'vjs-big-play-centered');
 
-      // atributos HTML directos - Cursor
       if (playsinline) {
         videoElement.setAttribute('playsinline', '');
         videoElement.setAttribute('webkit-playsinline', '');
@@ -79,13 +95,10 @@ const VideoJS: React.FC<Props> = ({
       if (autoplay) videoElement.setAttribute('autoplay', '');
       if (controls) videoElement.setAttribute('controls', '');
       if (muted) videoElement.setAttribute('muted', '');
-
-      // id opcional para inspección
       videoElement.setAttribute('id', 'player');
 
       wrapRef.current.appendChild(videoElement);
 
-      // Configuración del player con props - Cursor
       const playerOptions = {
         autoplay,
         muted,
@@ -97,38 +110,49 @@ const VideoJS: React.FC<Props> = ({
         playsinline,
         volume,
         poster: thumbnailUrl ? `${thumbnailUrl}?p=${Date.now()}` : undefined,
-        sources: options.sources || [{
-          src: streamUrl,
-          type: 'application/x-mpegURL'
-        }],
-        ...options // Merge con opciones adicionales
+        sources:
+          options.sources || [
+            {
+              src: streamUrl,
+              type: 'application/x-mpegURL',
+            },
+          ],
+        ...options,
       };
 
       const player = (playerRef.current = videojs(videoElement, playerOptions, () => {
         videojs.log('player is ready');
-        
-        // Agregar logo de iBlups - Cursor
         addLogo(player as VideoJSPlayer);
-        
-        // Establecer volumen inicial - Cursor
         player.volume(volume);
-        if (muted) {
-          player.muted(false); // Desmutear para que el volumen funcione
-        }
-        
-        if (onReady) {
-          onReady(player as VideoJSPlayer);
-        }
+        if (muted) player.muted(false);
+        onReady?.(player as VideoJSPlayer);
       }));
     } else if (playerRef.current) {
       const player = playerRef.current;
       player.autoplay(!!autoplay);
       player.muted(!!muted);
       player.controls(!!controls);
-      player.src(options.sources || [{ src: streamUrl, type: 'application/x-mpegURL' }]);
+      player.src(
+        options.sources || [{ src: streamUrl, type: 'application/x-mpegURL' }]
+      );
     }
-  }, [streamUrl, thumbnailUrl, autoplay, muted, controls, fluid, liveui, responsive, preload, playsinline, volume, options, onReady]);
+  }, [
+    streamUrl,
+    thumbnailUrl,
+    autoplay,
+    muted,
+    controls,
+    fluid,
+    liveui,
+    responsive,
+    preload,
+    playsinline,
+    volume,
+    options,
+    onReady,
+  ]);
 
+  // Limpieza al desmontar
   React.useEffect(() => {
     const player = playerRef.current;
     return () => {
@@ -139,47 +163,34 @@ const VideoJS: React.FC<Props> = ({
     };
   }, []);
 
-  // Función para agregar logo de iBlups - Cursor
+  // 🎨 Logo iBlups
   const addLogo = (player: VideoJSPlayer) => {
     const logoContainer = document.createElement('div');
     logoContainer.className = 'vjs-logo-container';
-    
+
     const logoImage = document.createElement('img');
-    logoImage.src = 'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
+    logoImage.src =
+      'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
     logoImage.alt = 'iblups';
     logoImage.className = 'vjs-logo-image';
-    
+
     const logoLink = document.createElement('a');
     logoLink.href = 'https://iblups.com';
     logoLink.target = '_blank';
     logoLink.appendChild(logoImage);
-    
+
     logoContainer.appendChild(logoLink);
-    
+
     if (player.el_) {
       player.el_.appendChild(logoContainer);
-      
-      // Mostrar/ocultar logo con hover - Cursor
-      player.on('useractive', function() {
-        logoContainer.style.opacity = '1';
+
+      player.on('useractive', () => (logoContainer.style.opacity = '1'));
+      player.on('userinactive', () => {
+        if (!player.paused()) logoContainer.style.opacity = '0';
       });
-      
-      player.on('userinactive', function() {
-        if (!player.paused()) {
-          logoContainer.style.opacity = '0';
-        }
-      });
-      
-      player.on('pause', function() {
-        logoContainer.style.opacity = '1';
-      });
-      
-      player.on('play', function() {
-        if (player.userActive()) {
-          logoContainer.style.opacity = '1';
-        } else {
-          logoContainer.style.opacity = '0';
-        }
+      player.on('pause', () => (logoContainer.style.opacity = '1'));
+      player.on('play', () => {
+        logoContainer.style.opacity = player.userActive() ? '1' : '0';
       });
     }
   };

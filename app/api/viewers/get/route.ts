@@ -2,20 +2,26 @@
 import { redis } from '@/lib/redis';
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 export async function GET() {
-  const keys = await redis.keys('viewers:*'); // obtiene todos los canales/sesiones
-  const channels = new Map<string, number>();
+  try {
+    // Obtener todas las keys de viewers
+    const keys = await redis.keys('viewers:*');
+    const data = await Promise.all(
+      keys.map(async (key) => {
+        const username = key.replace('viewers:', '');
+        const count = Number(await redis.get(key)) || 0;
+        return { username, viewers: count };
+      })
+    );
 
-  for (const key of keys) {
-    const [_, channel, __] = key.split(':'); // viewers:canal:session
-    if (!channel) continue;
-    channels.set(channel, (channels.get(channel) || 0) + 1);
+    // Filtrar canales con viewers > 0
+    const filtered = data.filter((item) => item.viewers > 0);
+
+    return NextResponse.json({ data: filtered });
+  } catch (err) {
+    console.error('Error obteniendo viewers:', err);
+    return NextResponse.json({ data: [] });
   }
-
-  const data = Array.from(channels.entries()).map(([username, viewers]) => ({
-    username,
-    viewers,
-  }));
-
-  return NextResponse.json({ data });
 }

@@ -60,39 +60,26 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Tracking de viewers (modo sesión)
+  // 🎯 Tracking de viewers con WebSocket Gateway (Fly.io)
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
     if (!username) return;
 
-    // 🔹 Crear un ID único por viewer
-    const sessionId = Math.random().toString(36).substring(2, 10);
+    // ✅ Conexión al Gateway WebSocket
+    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}`);
 
-    // 🔹 Abrir la conexión SSE con sessionId
-    const es = new EventSource(`/api/viewers/${username}?session=${sessionId}`);
+    ws.onopen = () => console.log(`🟢 Conectado al WS (${username})`);
+    ws.onclose = () => console.log(`🔴 Desconectado del WS (${username})`);
+    ws.onerror = (err) => console.error('⚠️ Error en WebSocket:', err);
 
-    es.onerror = () => {
-      console.warn('⚠️ Reconectando viewer tracking...');
-      es.close();
-      setTimeout(() => new EventSource(`/api/viewers/${username}?session=${sessionId}`), 2000);
-    };
-
-    // 🔹 Al cerrar o recargar la pestaña: desconectar viewer
-    const handleClose = () => {
-      try {
-        es.close();
-        navigator.sendBeacon(`/api/viewers/${username}?disconnect=1&session=${sessionId}`);
-      } catch (err) {
-        console.error('Error enviando disconnect beacon:', err);
-      }
-    };
-
+    // Cerrar conexión al salir o recargar
+    const handleClose = () => ws.close();
     window.addEventListener('beforeunload', handleClose);
-    window.addEventListener('pagehide', handleClose); // Safari / iOS
+    window.addEventListener('pagehide', handleClose); // Safari/iOS
 
     return () => {
-      es.close();
+      ws.close();
       window.removeEventListener('beforeunload', handleClose);
       window.removeEventListener('pagehide', handleClose);
     };

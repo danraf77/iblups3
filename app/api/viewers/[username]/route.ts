@@ -2,7 +2,6 @@ import { redis } from '@/lib/redis';
 
 export const runtime = 'edge';
 
-// 🔹 Crea un ID único por viewer
 function genSessionId() {
   return Math.random().toString(36).substring(2, 10);
 }
@@ -12,17 +11,13 @@ export async function GET(
   context: { params: Promise<{ username: string }> }
 ) {
   const { username } = await context.params;
-  const url = new URL(req.url);
-  const disconnect = url.searchParams.get('disconnect');
+  const sessionId = genSessionId();
 
-  // 🚪 Si viene disconnect=1 → elimina la sesión inmediatamente
-  if (disconnect === '1') {
-    const session = url.searchParams.get('session');
-    if (session) {
-      await redis.del(`viewers:${username}:${session}`);
-    }
-    return new Response('disconnected', { status: 200 });
-  }
+  // clave única por viewer
+  const key = `viewers:${username}:${sessionId}`;
+
+  // registrar sesión (expira en 40s)
+  await redis.set(key, 1, { ex: 40 });
 
   const headers = {
     'Content-Type': 'text/event-stream',
@@ -30,27 +25,17 @@ export async function GET(
     Connection: 'keep-alive',
   };
 
-  const sessionId = genSessionId();
-  const key = `viewers:${username}:${sessionId}`;
-
+  // mantener viva la conexión y renovar TTL mientras siga activa
   const stream = new ReadableStream({
     async start() {
-      try {
-        // 👁️ Registrar viewer (expira en 40 s)
-        await redis.set(key, 1, { ex: 40 });
+      const interval = setInterval(async () => {
+        await redis.expire(key, 40);
+      }, 20000);
 
-        // ♻️ Renovar TTL cada 20 s mientras siga conectado
-        const refresh = setInterval(async () => {
-          await redis.expire(key, 40);
-        }, 20000);
-
-        req.signal.addEventListener('abort', async () => {
-          clearInterval(refresh);
-          await redis.del(key);
-        });
-      } catch (error) {
-        console.error('Error en viewers SSE:', error);
-      }
+      req.signal.addEventListener('abort', async () => {
+        clearInterval(interval);
+        // no hacemos DEL, dejamos que expire naturalmente
+      });
     },
   });
 

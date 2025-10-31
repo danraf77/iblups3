@@ -15,6 +15,7 @@
     "@supabase/supabase-js": "^2.57.2",
     "@types/hls.js": "^0.13.3",
     "@types/video.js": "^7.3.58",
+    "@upstash/redis": "^1.35.6",
     "hls.js": "^1.6.12",
     "i18next": "^25.5.2",
     "i18next-browser-languagedetector": "^8.2.0",

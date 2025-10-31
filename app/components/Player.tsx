@@ -60,25 +60,34 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Nuevo: Tracking de viewers (silencioso)
+  // 🎯 Tracking de viewers silencioso
   React.useEffect(() => {
-    // Capturamos el username desde la URL (/embed/[username])
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
     if (!username) return;
 
-    // Inicia el tracking de viewers (SSE)
     const es = new EventSource(`/api/viewers/${username}`);
 
-    // No escuchamos mensajes, solo mantenemos la conexión viva
+    // reconexión básica
     es.onerror = () => {
       console.warn('Viewer tracking reconnection...');
       es.close();
       setTimeout(() => new EventSource(`/api/viewers/${username}`), 2000);
     };
 
+    // ✅ cierre seguro al salir de la pestaña o recargar
+    const handleClose = () => {
+      es.close();
+      navigator.sendBeacon(`/api/viewers/${username}?disconnect=1`);
+    };
+
+    window.addEventListener('beforeunload', handleClose);
+    window.addEventListener('pagehide', handleClose); // para móviles/Safari
+
     return () => {
-      es.close(); // Al cerrar pestaña, decrementa viewers en backend
+      es.close();
+      window.removeEventListener('beforeunload', handleClose);
+      window.removeEventListener('pagehide', handleClose);
     };
   }, []);
 

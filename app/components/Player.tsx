@@ -60,29 +60,36 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Tracking de viewers silencioso
+  // 🎯 Tracking de viewers (modo sesión)
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
     if (!username) return;
 
-    const es = new EventSource(`/api/viewers/${username}`);
+    // 🔹 Crear un ID único por viewer
+    const sessionId = Math.random().toString(36).substring(2, 10);
 
-    // reconexión básica
+    // 🔹 Abrir la conexión SSE con sessionId
+    const es = new EventSource(`/api/viewers/${username}?session=${sessionId}`);
+
     es.onerror = () => {
-      console.warn('Viewer tracking reconnection...');
+      console.warn('⚠️ Reconectando viewer tracking...');
       es.close();
-      setTimeout(() => new EventSource(`/api/viewers/${username}`), 2000);
+      setTimeout(() => new EventSource(`/api/viewers/${username}?session=${sessionId}`), 2000);
     };
 
-    // ✅ cierre seguro al salir de la pestaña o recargar
+    // 🔹 Al cerrar o recargar la pestaña: desconectar viewer
     const handleClose = () => {
-      es.close();
-      navigator.sendBeacon(`/api/viewers/${username}?disconnect=1`);
+      try {
+        es.close();
+        navigator.sendBeacon(`/api/viewers/${username}?disconnect=1&session=${sessionId}`);
+      } catch (err) {
+        console.error('Error enviando disconnect beacon:', err);
+      }
     };
 
     window.addEventListener('beforeunload', handleClose);
-    window.addEventListener('pagehide', handleClose); // para móviles/Safari
+    window.addEventListener('pagehide', handleClose); // Safari / iOS
 
     return () => {
       es.close();
@@ -161,7 +168,7 @@ const VideoJS: React.FC<Props> = ({
     onReady,
   ]);
 
-  // Limpieza al desmontar
+  // Limpieza del player
   React.useEffect(() => {
     const player = playerRef.current;
     return () => {

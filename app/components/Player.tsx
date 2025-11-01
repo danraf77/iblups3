@@ -11,8 +11,6 @@ type IBlupsMetrics = {
 };
 
 // Tipos extendidos para APIs del navegador y Video.js
-// Modificado por Cursor: Agregados tipos para evitar el uso de 'any'
-// Usando type en lugar de interface extendida para evitar conflictos con tipos nativos
 type VideoElementWithQuality = HTMLVideoElement & {
   getVideoPlaybackQuality?: () => {
     totalVideoFrames: number;
@@ -20,7 +18,7 @@ type VideoElementWithQuality = HTMLVideoElement & {
     corruptedVideoFrames: number;
   };
   webkitVideoDecodedByteCount?: number;
-}
+};
 
 interface VHSPlaylist {
   master?: unknown;
@@ -32,11 +30,49 @@ interface VHSPlaylist {
       HEIGHT?: number;
     };
   };
+  masterPlaylistLoader?: {
+    master?: {
+      playlists?: Array<{
+        attributes?: {
+          BANDWIDTH?: number;
+          RESOLUTION?: string;
+          WIDTH?: number;
+          HEIGHT?: number;
+        };
+      }>;
+    };
+  };
 }
 
 interface PlayerWithVHS extends VideoJSPlayer {
   vhs?: {
     playlists?: VHSPlaylist;
+    master?: {
+      playlists?: Array<{
+        attributes?: {
+          BANDWIDTH?: number;
+          RESOLUTION?: string;
+          WIDTH?: number;
+          HEIGHT?: number;
+        };
+      }>;
+    };
+  };
+  tech?: {
+    vhs?: {
+      masterPlaylistLoader?: {
+        master?: {
+          playlists?: Array<{
+            attributes?: {
+              BANDWIDTH?: number;
+              RESOLUTION?: string;
+              WIDTH?: number;
+              HEIGHT?: number;
+            };
+          }>;
+        };
+      };
+    };
   };
 }
 
@@ -49,7 +85,7 @@ type VideoJSPlayer = {
   dispose: () => void;
   isDisposed: () => boolean;
   el_: Element;
-  el: () => Element; // Modificado por Cursor: Agregado método el() para acceder al elemento del player
+  el: () => Element;
   on: (event: string, callback: () => void) => void;
   paused: () => boolean;
   userActive: () => boolean | undefined;
@@ -102,7 +138,7 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Tracking silencioso de viewers (modo inteligente + métricas)
+  // 🎯 Tracking silencioso de viewers (modo inteligente + métricas) - MEJORADO
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
@@ -110,33 +146,102 @@ const VideoJS: React.FC<Props> = ({
 
     const isEmbed = window.location.pathname.includes('/embed/');
     const mode = isEmbed ? 'watch' : 'readonly';
-
-    const ws = new WebSocket(
-      `wss://iblups-viewers-gateway.fly.dev?channel=${username}&mode=${mode}`
-    );
-
-    ws.onopen = () => console.log(`🟢 WS (${username}) conectado [${mode}]`);
-    ws.onclose = () => console.log(`🔴 WS (${username}) desconectado [${mode}]`);
-    ws.onerror = (err) => console.error('⚠️ Error WebSocket:', err);
-
     const viewerId = crypto.randomUUID();
     const device = /mobile/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+    
     let country = '??';
-
-    fetch('/api/geo')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.country) country = data.country;
-      })
-      .catch(() => {});
-
     let lastBitrate = 0;
     let lastResolution = '';
+    let ws: WebSocket | null = null;
+    let pingInterval: NodeJS.Timeout | null = null;
 
-    const pingInterval = setInterval(() => {
-      if (ws.readyState === WebSocket.OPEN && mode === 'watch') {
-        ws.send(
-          JSON.stringify({
+    // ✅ Función para obtener fallback de país desde timezone
+    const getCountryFromTimezone = (): string => {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Mapeo básico de timezones a países
+        if (tz.includes('Lima')) return 'PE';
+        if (tz.includes('Mexico')) return 'MX';
+        if (tz.includes('Argentina')) return 'AR';
+        if (tz.includes('Bogota')) return 'CO';
+        if (tz.includes('Santiago')) return 'CL';
+        if (tz.includes('Caracas')) return 'VE';
+        if (tz.includes('New_York') || tz.includes('Chicago') || tz.includes('Los_Angeles')) return 'US';
+        if (tz.includes('Madrid') || tz.includes('Barcelona')) return 'ES';
+        if (tz.includes('London')) return 'GB';
+        if (tz.includes('Paris')) return 'FR';
+        if (tz.includes('Berlin')) return 'DE';
+        if (tz.includes('Rome')) return 'IT';
+        if (tz.includes('Tokyo')) return 'JP';
+        if (tz.includes('Shanghai') || tz.includes('Hong_Kong')) return 'CN';
+        if (tz.includes('Sydney') || tz.includes('Melbourne')) return 'AU';
+        if (tz.includes('Sao_Paulo')) return 'BR';
+      } catch {
+        // Ignorar errores
+      }
+      return '??';
+    };
+
+    // ✅ Inicialización asíncrona mejorada - Optimizado para mobile
+    // Cambio realizado por Cursor: timeout más largo en mobile y mejor manejo de errores
+    const initializeTracking = async () => {
+      // Paso 1: Obtener país ANTES de conectar WebSocket
+      try {
+        const controller = new AbortController();
+        // Timeout más largo en mobile (conexiones más lentas)
+        const geoTimeout = device === 'mobile' ? 8000 : 5000; // 8s mobile, 5s desktop
+        const timeoutId = setTimeout(() => controller.abort(), geoTimeout);
+
+        const geoRes = await fetch('/api/geo', {
+          signal: controller.signal,
+          cache: 'no-store',
+        });
+
+        clearTimeout(timeoutId);
+
+        if (geoRes.ok) {
+          const data = await geoRes.json();
+          if (data?.country && data.country !== '??') {
+            country = data.country;
+            console.log(`📍 Geo obtenido desde API (${device}):`, country);
+          } else {
+            // Si la API devuelve '??', usar fallback inmediatamente
+            country = getCountryFromTimezone();
+            console.log(`📍 Geo desde timezone fallback (${device}):`, country);
+          }
+        } else {
+          // Si la respuesta no es OK, usar fallback
+          country = getCountryFromTimezone();
+          console.log(`📍 Geo desde timezone (API error) (${device}):`, country);
+        }
+      } catch (error) {
+        console.warn(`⚠️ Error obteniendo geo (${device}), usando fallback:`, error);
+        // Fallback: intentar desde timezone
+        country = getCountryFromTimezone();
+        console.log(`📍 Geo desde timezone (${device}):`, country);
+      }
+
+      // Paso 2: Conectar WebSocket con país ya detectado
+      ws = new WebSocket(
+        `wss://iblups-viewers-gateway.fly.dev?channel=${username}&mode=${mode}`
+      );
+
+      ws.onopen = () => {
+        console.log(`🟢 WS (${username}) conectado [${mode}] - País: ${country}, Device: ${device}`);
+      };
+
+      ws.onclose = () => {
+        console.log(`🔴 WS (${username}) desconectado [${mode}]`);
+      };
+
+      ws.onerror = (err) => {
+        console.error('⚠️ Error WebSocket:', err);
+      };
+
+      // Paso 3: Configurar pings cada 30s
+      pingInterval = setInterval(() => {
+        if (ws?.readyState === WebSocket.OPEN && mode === 'watch') {
+          const payload = {
             event: 'ping',
             viewer_id: viewerId,
             channel: username,
@@ -145,31 +250,50 @@ const VideoJS: React.FC<Props> = ({
             bitrate: lastBitrate,
             resolution: lastResolution,
             watch_seconds: 30,
-          })
-        );
-      }
-    }, 30_000);
+          };
 
+          console.log('📤 Ping enviado:', payload);
+          ws.send(JSON.stringify(payload));
+        }
+      }, 30_000);
+    };
+
+    // ✅ Interfaz global para actualizar métricas
     window._iblupsMetrics = {
       updateMetrics: (b: number, r: string) => {
-        lastBitrate = b;
-        lastResolution = r;
+        // Solo actualizar si los valores son válidos
+        if (b > 0 && r && r !== '0x0') {
+          lastBitrate = b;
+          lastResolution = r;
+          console.log('📊 Métricas actualizadas:', { bitrate: b, resolution: r, device });
+        }
       },
     };
 
-    const handleClose = () => ws.close();
+    // Iniciar tracking
+    initializeTracking();
+
+    // Cleanup al desmontar o cerrar página
+    const handleClose = () => {
+      if (ws) {
+        console.log('🔌 Cerrando conexión WebSocket...');
+        ws.close();
+      }
+    };
+
     window.addEventListener('beforeunload', handleClose);
     window.addEventListener('pagehide', handleClose);
 
     return () => {
-      clearInterval(pingInterval);
-      ws.close();
+      if (pingInterval) clearInterval(pingInterval);
+      if (ws) ws.close();
       window.removeEventListener('beforeunload', handleClose);
       window.removeEventListener('pagehide', handleClose);
+      delete window._iblupsMetrics;
     };
   }, []);
 
-  // ⚙️ Inicialización del player
+  // ⚙️ Inicialización del player - MEJORADO
   React.useEffect(() => {
     if (!playerRef.current && wrapRef.current) {
       const videoElement = document.createElement('video-js');
@@ -214,67 +338,172 @@ const VideoJS: React.FC<Props> = ({
         if (muted) player.muted(false);
         onReady?.(player as VideoJSPlayer);
 
-        // ⚡ Capturar bitrate y resolución desde el <video> interno de Video.js
-        // Modificado por Cursor: Mejorado el método de captura de métricas usando APIs más confiables
+        // ✅ Detectar device para métricas (importante para mobile)
+        // Cambio realizado por Cursor: detectar device dentro del scope del player
+        const currentDevice = /mobile/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+
+        // ⚡ Captura de métricas mejorada para mobile y desktop - Optimizado para mobile
+        // Cambio realizado por Cursor: mejor acceso a VHS playlist y más métodos de fallback para mobile
         const updateMetrics = () => {
           try {
-            // Método 1: Intentar acceder al elemento video nativo
             const videoElement = player.el().querySelector('video') as VideoElementWithQuality | null;
-            if (videoElement) {
-              const { videoWidth, videoHeight } = videoElement;
-              
-              // Obtener bitrate usando la API de Video Playback Quality (Chrome/Safari)
-              let bitrate = 0;
-              const quality = videoElement.getVideoPlaybackQuality?.();
-              
-              if (quality && quality.totalVideoFrames > 0) {
-                // Usar webkitVideoDecodedByteCount si está disponible (Chrome)
-                const decodedBytes = videoElement.webkitVideoDecodedByteCount || 0;
-                if (decodedBytes > 0 && quality.totalVideoFrames > 0) {
-                  // Calcular bitrate promedio: bytes * 8 bits / frames
-                  bitrate = Math.round((decodedBytes * 8) / quality.totalVideoFrames);
-                }
+            if (!videoElement) {
+              if (currentDevice === 'mobile') {
+                console.warn('⚠️ No se encontró elemento video (mobile) - reintentando...');
               }
-              
-              // Si no hay bitrate calculado, intentar obtener del stream HLS/VHS
-              if (bitrate === 0) {
-                try {
-                  const playerWithVHS = player as PlayerWithVHS;
-                  const vhs = playerWithVHS.vhs;
-                  if (vhs && vhs.playlists) {
-                    const masterPlaylist = vhs.playlists.master;
-                    if (masterPlaylist) {
-                      const currentPlaylist = vhs.playlists.media?.();
-                      if (currentPlaylist?.attributes?.BANDWIDTH) {
-                        // Convertir de bps a promedio por frame (aproximado)
-                        bitrate = currentPlaylist.attributes.BANDWIDTH / 1000; // en kbps
-                      }
-                    }
-                  }
-                } catch {
-                  // Ignorar errores de VHS (variable no usada eliminada por Cursor)
-                }
+              return;
+            }
+
+            const { videoWidth, videoHeight } = videoElement;
+
+            // Validar que tenemos dimensiones - más permisivo en mobile (valores pequeños pueden ser válidos durante carga)
+            if (!videoWidth || !videoHeight || videoWidth === 0 || videoHeight === 0) {
+              if (currentDevice === 'mobile') {
+                // En mobile, esperar más tiempo antes de reportar error
+                console.warn('⚠️ Video sin dimensiones válidas todavía (mobile)');
               }
-              
-              if (videoWidth > 0 && videoHeight > 0) {
-                window._iblupsMetrics?.updateMetrics(bitrate, `${videoWidth}x${videoHeight}`);
+              return;
+            }
+
+            let bitrate = 0;
+
+            // Método 1: API de Video Playback Quality (Chrome/Edge/Android)
+            const quality = videoElement.getVideoPlaybackQuality?.();
+            if (quality && quality.totalVideoFrames > 0) {
+              const decodedBytes = videoElement.webkitVideoDecodedByteCount || 0;
+              if (decodedBytes > 0) {
+                // Calcular bitrate promedio: (bytes * 8 bits) / frames
+                bitrate = Math.round((decodedBytes * 8) / quality.totalVideoFrames);
+                console.log(`✅ Bitrate desde webkitVideoDecodedByteCount (${currentDevice}):`, bitrate);
               }
             }
+
+            // Método 2: Obtener del HLS/VHS (más confiable en Safari/iOS/mobile)
+            if (bitrate === 0) {
+              try {
+                const playerWithVHS = player as PlayerWithVHS;
+                
+                // Intentar múltiples rutas de acceso al VHS playlist (importante para mobile)
+                // Ruta 1: vhs.playlists.media() (método estándar)
+                if (playerWithVHS.vhs?.playlists) {
+                  const currentPlaylist = playerWithVHS.vhs.playlists.media?.();
+                  if (currentPlaylist?.attributes?.BANDWIDTH) {
+                    bitrate = Math.round(currentPlaylist.attributes.BANDWIDTH / 1000);
+                    console.log(`✅ Bitrate desde HLS bandwidth (ruta 1) (${currentDevice}):`, bitrate);
+                  }
+                }
+
+                // Ruta 2: vhs.master.playlists (para master playlist)
+                if (bitrate === 0 && playerWithVHS.vhs?.master?.playlists) {
+                  const activePlaylist = playerWithVHS.vhs.master.playlists.find(
+                    (p: { attributes?: { BANDWIDTH?: number } }) => p?.attributes?.BANDWIDTH
+                  );
+                  if (activePlaylist?.attributes?.BANDWIDTH) {
+                    bitrate = Math.round(activePlaylist.attributes.BANDWIDTH / 1000);
+                    console.log(`✅ Bitrate desde master playlist (ruta 2) (${currentDevice}):`, bitrate);
+                  }
+                }
+
+                // Ruta 3: tech.vhs.masterPlaylistLoader (método alternativo para mobile)
+                if (bitrate === 0 && playerWithVHS.tech?.vhs?.masterPlaylistLoader?.master?.playlists) {
+                  const activePlaylist = playerWithVHS.tech.vhs.masterPlaylistLoader.master.playlists.find(
+                    (p: { attributes?: { BANDWIDTH?: number } }) => p?.attributes?.BANDWIDTH
+                  );
+                  if (activePlaylist?.attributes?.BANDWIDTH) {
+                    bitrate = Math.round(activePlaylist.attributes.BANDWIDTH / 1000);
+                    console.log(`✅ Bitrate desde masterPlaylistLoader (ruta 3) (${currentDevice}):`, bitrate);
+                  }
+                }
+
+                // Ruta 4: vhs.playlists.masterPlaylistLoader (otro método alternativo)
+                if (bitrate === 0 && playerWithVHS.vhs?.playlists?.masterPlaylistLoader?.master?.playlists) {
+                  const activePlaylist = playerWithVHS.vhs.playlists.masterPlaylistLoader.master.playlists.find(
+                    (p: { attributes?: { BANDWIDTH?: number } }) => p?.attributes?.BANDWIDTH
+                  );
+                  if (activePlaylist?.attributes?.BANDWIDTH) {
+                    bitrate = Math.round(activePlaylist.attributes.BANDWIDTH / 1000);
+                    console.log(`✅ Bitrate desde playlists.masterPlaylistLoader (ruta 4) (${currentDevice}):`, bitrate);
+                  }
+                }
+              } catch (vhsError) {
+                console.warn(`⚠️ Error accediendo VHS (${currentDevice}):`, vhsError);
+              }
+            }
+
+            // Método 3: Estimación basada en resolución (último recurso - especialmente útil en mobile)
+            if (bitrate === 0) {
+              if (videoHeight >= 2160) bitrate = 15000; // 4K ~ 15 Mbps
+              else if (videoHeight >= 1440) bitrate = 8000; // 1440p ~ 8 Mbps
+              else if (videoHeight >= 1080) bitrate = 4500; // 1080p ~ 4.5 Mbps
+              else if (videoHeight >= 720) bitrate = 2500; // 720p ~ 2.5 Mbps
+              else if (videoHeight >= 480) bitrate = 1200; // 480p ~ 1.2 Mbps
+              else if (videoHeight >= 360) bitrate = 800; // 360p ~ 800 kbps
+              else bitrate = 500; // 240p ~ 500 kbps
+
+              console.log(`ℹ️ Bitrate estimado por resolución (${videoHeight}p) (${currentDevice}):`, bitrate);
+            }
+
+            const resolution = `${videoWidth}x${videoHeight}`;
+            console.log(`📊 Métricas finales (${currentDevice}):`, { bitrate, resolution });
+
+            // Actualizar métricas globales
+            window._iblupsMetrics?.updateMetrics(bitrate, resolution);
+
           } catch (err) {
-            console.warn('⚠️ Error al obtener métricas:', err);
+            console.error(`❌ Error capturando métricas (${currentDevice}):`, err);
           }
         };
 
-        // Capturar métricas cuando se carga metadata
-        player.on('loadedmetadata', updateMetrics);
-        
-        // También capturar cuando cambia la calidad del stream HLS
-        player.on('loadeddata', updateMetrics);
-        
-        // Actualizar métricas cada 10s
-        const metricsInterval = setInterval(updateMetrics, 10_000);
+        // ✅ Múltiples eventos para captura (especialmente importante en mobile)
+        player.on('loadedmetadata', () => {
+          console.log('🎬 Evento: loadedmetadata');
+          updateMetrics();
+        });
 
-        (player as VideoJSPlayer)._metricsInterval = metricsInterval;
+        player.on('loadeddata', () => {
+          console.log('🎬 Evento: loadeddata');
+          updateMetrics();
+        });
+
+        player.on('canplay', () => {
+          console.log('🎬 Evento: canplay');
+          updateMetrics();
+        });
+
+        player.on('playing', () => {
+          console.log('🎬 Evento: playing');
+          updateMetrics();
+        });
+
+        // ✅ Checks iniciales más frecuentes (útil en mobile donde tarda más)
+        // Cambio realizado por Cursor: más checks iniciales en mobile y intervalo más frecuente
+        const isMobile = /mobile/i.test(navigator.userAgent);
+        const initialCheckCount = isMobile ? 8 : 5; // Más checks en mobile
+        const initialCheckInterval = isMobile ? 1500 : 2000; // Más frecuente en mobile (1.5s vs 2s)
+        const regularCheckInterval = isMobile ? 8000 : 10000; // Cada 8s en mobile, 10s en desktop
+
+        let initialChecks = 0;
+        const initialInterval = setInterval(() => {
+          console.log(`🔄 Check inicial #${initialChecks + 1} (${isMobile ? 'mobile' : 'desktop'})`);
+          updateMetrics();
+          initialChecks++;
+
+          // Cambiar a intervalo regular después de checks iniciales
+          if (initialChecks >= initialCheckCount) {
+            clearInterval(initialInterval);
+            console.log(`✅ Checks iniciales completados, cambiando a intervalo regular (${regularCheckInterval / 1000}s)`);
+            
+            // Intervalo regular (más frecuente en mobile)
+            const regularInterval = setInterval(() => {
+              updateMetrics();
+            }, regularCheckInterval);
+
+            (player as VideoJSPlayer)._metricsInterval = regularInterval;
+          }
+        }, initialCheckInterval);
+
+        // Guardar referencia al intervalo inicial
+        (player as VideoJSPlayer)._metricsInterval = initialInterval;
       }));
     } else if (playerRef.current) {
       const player = playerRef.current;
@@ -330,6 +559,7 @@ const VideoJS: React.FC<Props> = ({
     const logoLink = document.createElement('a');
     logoLink.href = 'https://iblups.com';
     logoLink.target = '_blank';
+    logoLink.rel = 'noopener noreferrer';
     logoLink.appendChild(logoImage);
 
     logoContainer.appendChild(logoLink);

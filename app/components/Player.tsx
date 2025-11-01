@@ -6,22 +6,20 @@ import Hls from 'hls.js';
 import 'video.js/dist/video-js.css';
 import '../styles/player.css';
 
-/* ---------------------------------------------------
-   🎯 Tipado mínimo del player video.js
---------------------------------------------------- */
+// Tipado básico del player
 type VideoJSPlayer = {
-  autoplay: (v: boolean) => void;
-  muted: (v: boolean) => void;
-  controls: (v: boolean) => void;
+  autoplay: (value: boolean) => void;
+  muted: (value: boolean) => void;
+  controls: (value: boolean) => void;
   src: (sources: { src: string; type: string }[]) => void;
-  volume: (v: number) => void;
+  volume: (value: number) => void;
   dispose: () => void;
   isDisposed: () => boolean;
-  el_: Element;
-  on: (event: string, cb: () => void) => void;
+  el_: HTMLElement;
+  id_: string;
+  on: (event: string, callback: () => void) => void;
   paused: () => boolean;
   userActive: () => boolean | undefined;
-  log: (msg: string) => void;
 };
 
 type Props = {
@@ -44,10 +42,7 @@ type Props = {
   onReady?: (player: VideoJSPlayer) => void;
 };
 
-/* ---------------------------------------------------
-   ⚙️ COMPONENTE PRINCIPAL
---------------------------------------------------- */
-const PlayerHLS: React.FC<Props> = ({
+const Player: React.FC<Props> = ({
   streamUrl,
   thumbnailUrl,
   autoplay = false,
@@ -69,7 +64,7 @@ const PlayerHLS: React.FC<Props> = ({
   const viewerId = React.useRef<string>(crypto.randomUUID());
 
   /* --------------------------------------------
-     📡 Conexión WS + Captura de métricas
+     📡 Conexión WebSocket + Ping de métricas
   -------------------------------------------- */
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
@@ -88,19 +83,13 @@ const PlayerHLS: React.FC<Props> = ({
     ws.onclose = () => console.log(`🔴 WS desconectado ${username}`);
     ws.onerror = (err) => console.error('⚠️ Error WebSocket:', err);
 
-    // 💾 Info base del viewer
+    // Device básico
     const device = /mobile/i.test(navigator.userAgent)
       ? 'mobile'
       : /smart/i.test(navigator.userAgent)
       ? 'tv'
       : 'desktop';
-    const country =
-      (Intl.DateTimeFormat().resolvedOptions().timeZone || '??')
-        .split('/')[1]
-        ?.slice(0, 2)
-        .toUpperCase() || '??';
 
-    // 📤 Función para enviar ping con datos acumulados
     const sendPing = (extra: Record<string, unknown> = {}) => {
       if (ws.readyState !== WebSocket.OPEN || mode !== 'watch') return;
       ws.send(
@@ -109,17 +98,15 @@ const PlayerHLS: React.FC<Props> = ({
           viewer_id: viewerId.current,
           channel: username,
           device,
-          country,
           watch_seconds: 30,
-          ...extra, // bitrate, resolución, etc.
+          ...extra,
         })
       );
     };
 
-    // 💓 Ping periódico cada 30 s
+    // Ping cada 30s
     const pingInterval = setInterval(() => sendPing(), 30_000);
 
-    // 🧹 Cierre seguro
     const handleClose = () => ws.close();
     window.addEventListener('beforeunload', handleClose);
     window.addEventListener('pagehide', handleClose);
@@ -133,17 +120,12 @@ const PlayerHLS: React.FC<Props> = ({
   }, []);
 
   /* --------------------------------------------
-     🎬 Inicialización del player + HLS.js
+     🎬 Inicialización de Video.js + HLS.js
   -------------------------------------------- */
   React.useEffect(() => {
     if (!playerRef.current && wrapRef.current) {
       const videoElement = document.createElement('video-js');
-      videoElement.classList.add(
-        'video-js',
-        'vjs-16-9',
-        'iblups',
-        'vjs-big-play-centered'
-      );
+      videoElement.classList.add('video-js', 'vjs-16-9', 'iblups', 'vjs-big-play-centered');
       videoElement.setAttribute('id', 'player');
 
       if (playsinline) {
@@ -166,34 +148,28 @@ const PlayerHLS: React.FC<Props> = ({
         preload,
         playsinline,
         volume,
-        poster: thumbnailUrl
-          ? `${thumbnailUrl}?p=${Date.now()}`
-          : undefined,
-        sources: options.sources || [
-          { src: streamUrl, type: 'application/x-mpegURL' },
-        ],
+        poster: thumbnailUrl ? `${thumbnailUrl}?p=${Date.now()}` : undefined,
+        sources: options.sources || [{ src: streamUrl, type: 'application/x-mpegURL' }],
         ...options,
       };
 
-      const player = (playerRef.current = videojs(
-        videoElement,
-        playerOptions,
-        () => {
-          videojs.log('player is ready');
-          addLogo(player as VideoJSPlayer);
-          player.volume(volume);
-          if (muted) player.muted(false);
-          onReady?.(player as VideoJSPlayer);
+      const player = (playerRef.current = videojs(videoElement, playerOptions, () => {
+        console.log('🎞️ Player ready');
+        addLogo(player as VideoJSPlayer);
+        player.volume(volume);
+        if (muted) player.muted(false);
+        onReady?.(player as VideoJSPlayer);
 
-          /* ---------------------------
-             🔍 Métricas con HLS.js
-          --------------------------- */
-          if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(streamUrl);
-            hls.attachMedia(videoElement);
+        // ✅ Integración con HLS.js
+        if (Hls.isSupported()) {
+          const hls = new Hls();
+          hls.loadSource(streamUrl);
 
-            // Cuando cambia la calidad del stream
+          // ⚠️ Obtener <video> interno de video.js
+          const innerVideo = player.el_.querySelector('video') as HTMLMediaElement | null;
+          if (innerVideo) {
+            hls.attachMedia(innerVideo);
+
             hls.on(Hls.Events.LEVEL_SWITCHED, (_, data) => {
               const level = hls.levels[data.level];
               if (!level) return;
@@ -208,25 +184,22 @@ const PlayerHLS: React.FC<Props> = ({
                     resolution: `${level.width}x${level.height}`,
                     device:
                       /mobile/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
-                    country: '??',
                     watch_seconds: 0,
                   })
                 );
               }
             });
+          } else {
+            console.warn('⚠️ No se encontró <video> interno para HLS');
           }
         }
-      ));
-    } else if (playerRef.current) {
-      const player = playerRef.current;
-      player.src(
-        options.sources || [{ src: streamUrl, type: 'application/x-mpegURL' }]
-      );
+      }));
     }
-  }, [streamUrl, thumbnailUrl, options, onReady]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Solo 1 vez al montar
 
   /* --------------------------------------------
-     🧹 Limpieza total del player
+     🧹 Limpieza del player
   -------------------------------------------- */
   React.useEffect(() => {
     const player = playerRef.current;
@@ -246,8 +219,7 @@ const PlayerHLS: React.FC<Props> = ({
     logoContainer.className = 'vjs-logo-container';
 
     const logoImage = document.createElement('img');
-    logoImage.src =
-      'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
+    logoImage.src = 'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
     logoImage.alt = 'iblups';
     logoImage.className = 'vjs-logo-image';
 
@@ -271,7 +243,6 @@ const PlayerHLS: React.FC<Props> = ({
     }
   };
 
-  /* -------------------------------------------- */
   return (
     <div data-vjs-player className={`player-container ${className}`}>
       <div ref={wrapRef} />
@@ -279,4 +250,4 @@ const PlayerHLS: React.FC<Props> = ({
   );
 };
 
-export default PlayerHLS;
+export default Player;

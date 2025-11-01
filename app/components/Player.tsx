@@ -5,7 +5,6 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '../styles/player.css';
 
-// Tipado de Video.js
 type VideoJSPlayer = {
   autoplay: (value: boolean) => void;
   muted: (value: boolean) => void;
@@ -60,25 +59,35 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Tracking de viewers con WebSocket Gateway (Fly.io)
+  // 🎯 Tracking silencioso de viewers (modo inteligente)
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
     if (!username) return;
 
-    // ✅ Conexión al Gateway WebSocket
-    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}`);
+    // 🧩 Determinar si está en /embed/ o no
+    const isEmbed = window.location.pathname.includes('/embed/');
+    const mode = isEmbed ? 'watch' : 'readonly';
 
-    ws.onopen = () => console.log(`🟢 Conectado al WS (${username})`);
-    ws.onclose = () => console.log(`🔴 Desconectado del WS (${username})`);
-    ws.onerror = (err) => console.error('⚠️ Error en WebSocket:', err);
+    // ✅ Conexión WebSocket al Gateway con modo explícito
+    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}&mode=${mode}`);
 
-    // Cerrar conexión al salir o recargar
+    ws.onopen = () => console.log(`🟢 WS (${username}) conectado [${mode}]`);
+    ws.onclose = () => console.log(`🔴 WS (${username}) desconectado [${mode}]`);
+    ws.onerror = (err) => console.error('⚠️ Error WebSocket:', err);
+
+    // 💓 Mantener viva la conexión (cada 20 s)
+    const pingInterval = setInterval(() => {
+      if (ws.readyState === WebSocket.OPEN) ws.send('ping');
+    }, 20000);
+
+    // 🧹 Cierre seguro
     const handleClose = () => ws.close();
     window.addEventListener('beforeunload', handleClose);
     window.addEventListener('pagehide', handleClose); // Safari/iOS
 
     return () => {
+      clearInterval(pingInterval);
       ws.close();
       window.removeEventListener('beforeunload', handleClose);
       window.removeEventListener('pagehide', handleClose);
@@ -172,8 +181,7 @@ const VideoJS: React.FC<Props> = ({
     logoContainer.className = 'vjs-logo-container';
 
     const logoImage = document.createElement('img');
-    logoImage.src =
-      'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
+    logoImage.src = 'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
     logoImage.alt = 'iblups';
     logoImage.className = 'vjs-logo-image';
 
@@ -186,7 +194,6 @@ const VideoJS: React.FC<Props> = ({
 
     if (player.el_) {
       player.el_.appendChild(logoContainer);
-
       player.on('useractive', () => (logoContainer.style.opacity = '1'));
       player.on('userinactive', () => {
         if (!player.paused()) logoContainer.style.opacity = '0';

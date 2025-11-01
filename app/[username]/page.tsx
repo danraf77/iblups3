@@ -12,34 +12,34 @@ interface ChannelPageProps {
 }
 
 export default function ChannelPage({ params }: ChannelPageProps) {
-  // obtener username de la URL
   const { username } = React.use(params);
   const { channel, loading, error } = useChannelByUsername(username);
 
-  // 🎯 estado local para viewers en vivo
-  const [viewers, setViewers] = useState<number | null>(null);
+  const [viewers, setViewers] = useState<number>(0);
 
-// 🧠 efecto: obtener viewers del canal actual
-useEffect(() => {
-  if (!username) return;
+  // 🎯 Escuchar en tiempo real al Gateway WebSocket (modo readonly)
+  useEffect(() => {
+    if (!username) return;
 
-  const fetchViewers = async () => {
-    try {
-      const res = await fetch(`/api/viewers/${username}`, { cache: 'no-store' });
-      const json = await res.json();
-      setViewers(json.viewers ?? 0);
-    } catch (err) {
-      console.error('Error cargando viewers:', err);
-    }
-  };
+    // ✅ Conexión solo de lectura (no incrementa viewers)
+    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}&mode=readonly`);
 
-  fetchViewers();
-  const interval = setInterval(fetchViewers, 10000); // cada 10 s (menos consumo)
-  return () => clearInterval(interval);
-}, [username]);
+    ws.onopen = () => console.log(`🟢 Conectado al Gateway (${username}) [readonly]`);
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (typeof data.viewers === 'number') setViewers(data.viewers);
+      } catch (err) {
+        console.warn('⚠️ Mensaje WS inválido:', event.data);
+      }
+    };
+    ws.onclose = () => console.log(`🔴 Desconectado (${username}) [readonly]`);
+    ws.onerror = (err) => console.error('❌ Error WS:', err);
 
+    return () => ws.close();
+  }, [username]);
 
-  // estados de error/carga
+  // 🧱 Estado de error o carga
   if (error) {
     return (
       <div className="page-with-footer bg-primary">
@@ -79,10 +79,9 @@ useEffect(() => {
     <div className="page-with-footer bg-primary">
       <ChannelNavbar />
 
-      {/* Main Content */}
       <div className="page-content">
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Título del canal + botones (seguir + viewers) */}
+          {/* Encabezado */}
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-4xl font-bold text-primary">{channel.name}</h1>
 
@@ -92,17 +91,28 @@ useEffect(() => {
                 channelUsername={channel.username || ''}
                 channelName={channel.name || ''}
               />
-              {/* Botón de viewers minimizado con número e icono de ojo */}
-              {/* Modificado por Cursor: botón minimizado con número de viewers dentro e icono de ojo al lado */}
-              {viewers !== null && (
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-white/10 text-gray-300">
-                  <span className="font-medium">{viewers}</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </div>
-              )}
+
+              {/* 👁️ Viewers en tiempo real */}
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-white/10 text-gray-300">
+                <span className="font-medium">{viewers}</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5
+                      c4.478 0 8.268 2.943 9.542 7
+                      -1.274 4.057-5.064 7-9.542 7
+                      -4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
 

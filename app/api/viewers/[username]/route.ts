@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
 import { redis } from '@/lib/redis';
 
-// ✅ Si tu proyecto usa App Router, usa este tipo de firma
 export const runtime = 'nodejs';
 
 export async function GET(
   _req: Request,
-  context: { params: { username: string } } // ← quitar Promise<>
+  context: { params: Promise<{ username: string }> } // 👈 Next 15 ahora pasa Promise
 ) {
   try {
-    const { username } = context.params;
+    const { username } = await context.params; // 👈 se resuelve con await
+
     if (!username) {
       return NextResponse.json({ viewers: 0 });
     }

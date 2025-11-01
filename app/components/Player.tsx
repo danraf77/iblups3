@@ -101,7 +101,7 @@ const PlayerHLS: React.FC<Props> = ({
         .toUpperCase() || '??';
 
     // 📤 Función para enviar ping con datos acumulados
-    const sendPing = (extra: Record<string, any> = {}) => {
+    const sendPing = (extra: Record<string, unknown> = {}) => {
       if (ws.readyState !== WebSocket.OPEN || mode !== 'watch') return;
       ws.send(
         JSON.stringify({

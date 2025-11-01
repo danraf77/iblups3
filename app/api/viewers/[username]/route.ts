@@ -1,43 +1,23 @@
 import { redis } from '@/lib/redis';
+import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
-function genSessionId() {
-  return Math.random().toString(36).substring(2, 10);
-}
+export const runtime = 'nodejs';
 
 export async function GET(
-  req: Request,
-  context: { params: Promise<{ username: string }> }
+  _req: Request,
+  context: { params: { username: string } }
 ) {
-  const { username } = await context.params;
-  const sessionId = genSessionId();
+  try {
+    const { username } = context.params;
+    if (!username) {
+      return NextResponse.json({ viewers: 0 });
+    }
 
-  // clave única por viewer
-  const key = `viewers:${username}:${sessionId}`;
+    const count = Number(await redis.get(`viewers:${username}`)) || 0;
 
-  // registrar sesión (expira en 40s)
-  await redis.set(key, 1, { ex: 40 });
-
-  const headers = {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache, no-transform',
-    Connection: 'keep-alive',
-  };
-
-  // mantener viva la conexión y renovar TTL mientras siga activa
-  const stream = new ReadableStream({
-    async start() {
-      const interval = setInterval(async () => {
-        await redis.expire(key, 40);
-      }, 20000);
-
-      req.signal.addEventListener('abort', async () => {
-        clearInterval(interval);
-        // no hacemos DEL, dejamos que expire naturalmente
-      });
-    },
-  });
-
-  return new Response(stream, { headers });
+    return NextResponse.json({ viewers: count });
+  } catch (error) {
+    console.error('❌ Error obteniendo viewers:', error);
+    return NextResponse.json({ viewers: 0 });
+  }
 }

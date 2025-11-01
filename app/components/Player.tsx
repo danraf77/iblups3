@@ -60,32 +60,38 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Tracking de viewers con WebSocket Gateway (Fly.io)
+  // 🎯 Tracking silencioso de viewers con WebSocket Gateway (Fly.io)
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
     if (!username) return;
 
-    // ✅ Conexión al Gateway WebSocket
+    // ✅ Conexión WebSocket al Gateway
     const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}`);
 
     ws.onopen = () => console.log(`🟢 Conectado al WS (${username})`);
     ws.onclose = () => console.log(`🔴 Desconectado del WS (${username})`);
     ws.onerror = (err) => console.error('⚠️ Error en WebSocket:', err);
 
-    // Cerrar conexión al salir o recargar
+    // 💓 Mantener la conexión viva (sync con server.js → cada 10 s)
+    const pingInterval = setInterval(() => {
+      if (ws.readyState === WebSocket.OPEN) ws.send('ping');
+    }, 20_000);
+
+    // 🧹 Cierre seguro
     const handleClose = () => ws.close();
     window.addEventListener('beforeunload', handleClose);
     window.addEventListener('pagehide', handleClose); // Safari/iOS
 
     return () => {
+      clearInterval(pingInterval);
       ws.close();
       window.removeEventListener('beforeunload', handleClose);
       window.removeEventListener('pagehide', handleClose);
     };
   }, []);
 
-  // ⚙️ Inicialización del player
+  // ⚙️ Inicialización del player Video.js
   React.useEffect(() => {
     if (!playerRef.current && wrapRef.current) {
       const videoElement = document.createElement('video-js');
@@ -186,7 +192,6 @@ const VideoJS: React.FC<Props> = ({
 
     if (player.el_) {
       player.el_.appendChild(logoContainer);
-
       player.on('useractive', () => (logoContainer.style.opacity = '1'));
       player.on('userinactive', () => {
         if (!player.paused()) logoContainer.style.opacity = '0';

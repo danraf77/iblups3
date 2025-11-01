@@ -19,27 +19,25 @@ export default function ChannelPage({ params }: ChannelPageProps) {
   // 🎯 estado local para viewers en vivo
   const [viewers, setViewers] = useState<number | null>(null);
 
-  // 🧠 efecto: obtener viewers desde tu API /api/viewers/get
-  useEffect(() => {
-    if (!username) return;
+// 🧠 efecto: obtener viewers del canal actual
+useEffect(() => {
+  if (!username) return;
 
-    const fetchViewers = async () => {
-      try {
-        const res = await fetch('/api/viewers/get', { cache: 'no-store' });
-        const json = await res.json();
-        const viewerData = json.data?.find(
-          (ch: { username: string }) => ch.username === username
-        );
-        setViewers(viewerData ? viewerData.viewers : 0);
-      } catch (err) {
-        console.error('Error cargando viewers:', err);
-      }
-    };
+  const fetchViewers = async () => {
+    try {
+      const res = await fetch(`/api/viewers/${username}`, { cache: 'no-store' });
+      const json = await res.json();
+      setViewers(json.viewers ?? 0);
+    } catch (err) {
+      console.error('Error cargando viewers:', err);
+    }
+  };
 
-    fetchViewers();
-    const interval = setInterval(fetchViewers, 5000); // refrescar cada 5s
-    return () => clearInterval(interval);
-  }, [username]);
+  fetchViewers();
+  const interval = setInterval(fetchViewers, 10000); // cada 10 s (menos consumo)
+  return () => clearInterval(interval);
+}, [username]);
+
 
   // estados de error/carga
   if (error) {

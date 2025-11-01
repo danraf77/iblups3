@@ -5,7 +5,6 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '../styles/player.css';
 
-// Tipado de Video.js
 type VideoJSPlayer = {
   autoplay: (value: boolean) => void;
   muted: (value: boolean) => void;
@@ -60,23 +59,27 @@ const VideoJS: React.FC<Props> = ({
   const wrapRef = React.useRef<HTMLDivElement | null>(null);
   const playerRef = React.useRef<VideoJSPlayer | null>(null);
 
-  // 🎯 Tracking silencioso de viewers con WebSocket Gateway (Fly.io)
+  // 🎯 Tracking silencioso de viewers (modo inteligente)
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
     const username = path[path.length - 1];
     if (!username) return;
 
-    // ✅ Conexión WebSocket al Gateway
-    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}`);
+    // 🧩 Determinar si está en /embed/ o no
+    const isEmbed = window.location.pathname.includes('/embed/');
+    const mode = isEmbed ? 'watch' : 'readonly';
 
-    ws.onopen = () => console.log(`🟢 Conectado al WS (${username})`);
-    ws.onclose = () => console.log(`🔴 Desconectado del WS (${username})`);
-    ws.onerror = (err) => console.error('⚠️ Error en WebSocket:', err);
+    // ✅ Conexión WebSocket al Gateway con modo explícito
+    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}&mode=${mode}`);
 
-    // 💓 Mantener la conexión viva (sync con server.js → cada 10 s)
+    ws.onopen = () => console.log(`🟢 WS (${username}) conectado [${mode}]`);
+    ws.onclose = () => console.log(`🔴 WS (${username}) desconectado [${mode}]`);
+    ws.onerror = (err) => console.error('⚠️ Error WebSocket:', err);
+
+    // 💓 Mantener viva la conexión (cada 20 s)
     const pingInterval = setInterval(() => {
       if (ws.readyState === WebSocket.OPEN) ws.send('ping');
-    }, 20_000);
+    }, 20000);
 
     // 🧹 Cierre seguro
     const handleClose = () => ws.close();
@@ -91,7 +94,7 @@ const VideoJS: React.FC<Props> = ({
     };
   }, []);
 
-  // ⚙️ Inicialización del player Video.js
+  // ⚙️ Inicialización del player
   React.useEffect(() => {
     if (!playerRef.current && wrapRef.current) {
       const videoElement = document.createElement('video-js');
@@ -178,8 +181,7 @@ const VideoJS: React.FC<Props> = ({
     logoContainer.className = 'vjs-logo-container';
 
     const logoImage = document.createElement('img');
-    logoImage.src =
-      'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
+    logoImage.src = 'https://iblups.sfo3.cdn.digitaloceanspaces.com/app/iblups_logo_blue.svg';
     logoImage.alt = 'iblups';
     logoImage.className = 'vjs-logo-image';
 

@@ -17,24 +17,23 @@ export default function ChannelPage({ params }: ChannelPageProps) {
 
   const [viewers, setViewers] = useState<number>(0);
 
-  // 🎯 Escuchar en tiempo real al Gateway WebSocket (solo lectura)
+  // 🎯 Escuchar en tiempo real al Gateway WebSocket (modo readonly)
   useEffect(() => {
     if (!username) return;
 
-    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}`);
+    // ✅ Conexión solo de lectura (no incrementa viewers)
+    const ws = new WebSocket(`wss://iblups-viewers-gateway.fly.dev?channel=${username}&mode=readonly`);
 
-    ws.onopen = () => console.log(`🟢 Conectado al Gateway (${username})`);
+    ws.onopen = () => console.log(`🟢 Conectado al Gateway (${username}) [readonly]`);
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        if (typeof data.viewers === 'number') {
-          setViewers(data.viewers);
-        }
+        if (typeof data.viewers === 'number') setViewers(data.viewers);
       } catch (err) {
         console.warn('⚠️ Mensaje WS inválido:', event.data);
       }
     };
-    ws.onclose = () => console.log(`🔴 Desconectado (${username})`);
+    ws.onclose = () => console.log(`🔴 Desconectado (${username}) [readonly]`);
     ws.onerror = (err) => console.error('❌ Error WS:', err);
 
     return () => ws.close();
@@ -82,6 +81,7 @@ export default function ChannelPage({ params }: ChannelPageProps) {
 
       <div className="page-content">
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Encabezado */}
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-4xl font-bold text-primary">{channel.name}</h1>
 
@@ -107,9 +107,9 @@ export default function ChannelPage({ params }: ChannelPageProps) {
                     strokeLinejoin="round"
                     strokeWidth={2}
                     d="M2.458 12C3.732 7.943 7.523 5 12 5
-                       c4.478 0 8.268 2.943 9.542 7
-                       -1.274 4.057-5.064 7-9.542 7
-                       -4.477 0-8.268-2.943-9.542-7z"
+                      c4.478 0 8.268 2.943 9.542 7
+                      -1.274 4.057-5.064 7-9.542 7
+                      -4.477 0-8.268-2.943-9.542-7z"
                   />
                 </svg>
               </div>

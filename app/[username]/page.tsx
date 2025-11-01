@@ -94,12 +94,15 @@ export default function ChannelPage({ params }: ChannelPageProps) {
                 channelUsername={channel.username || ''}
                 channelName={channel.name || ''}
               />
-              {/* 🔴 contador de viewers */}
+              {/* Botón de viewers minimizado con número e icono de ojo */}
+              {/* Modificado por Cursor: botón minimizado con número de viewers dentro e icono de ojo al lado */}
               {viewers !== null && (
-                <div className="flex items-center text-sm text-gray-600 bg-white/10 px-3 py-1 rounded-full">
-                  <span className="text-red-500 mr-1">🔴</span>
-                  <span>{viewers}</span>
-                  <span className="ml-1">viendo</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-white/10 text-gray-300">
+                  <span className="font-medium">{viewers}</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
                 </div>
               )}
             </div>

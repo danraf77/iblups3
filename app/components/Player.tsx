@@ -10,6 +10,36 @@ type IBlupsMetrics = {
   updateMetrics: (bitrate: number, resolution: string) => void;
 };
 
+// Tipos extendidos para APIs del navegador y Video.js
+// Modificado por Cursor: Agregados tipos para evitar el uso de 'any'
+// Usando type en lugar de interface extendida para evitar conflictos con tipos nativos
+type VideoElementWithQuality = HTMLVideoElement & {
+  getVideoPlaybackQuality?: () => {
+    totalVideoFrames: number;
+    droppedVideoFrames: number;
+    corruptedVideoFrames: number;
+  };
+  webkitVideoDecodedByteCount?: number;
+}
+
+interface VHSPlaylist {
+  master?: unknown;
+  media?: () => {
+    attributes?: {
+      BANDWIDTH?: number;
+      RESOLUTION?: string;
+      WIDTH?: number;
+      HEIGHT?: number;
+    };
+  };
+}
+
+interface PlayerWithVHS extends VideoJSPlayer {
+  vhs?: {
+    playlists?: VHSPlaylist;
+  };
+}
+
 type VideoJSPlayer = {
   autoplay: (value: boolean) => void;
   muted: (value: boolean) => void;
@@ -19,6 +49,7 @@ type VideoJSPlayer = {
   dispose: () => void;
   isDisposed: () => boolean;
   el_: Element;
+  el: () => Element; // Modificado por Cursor: Agregado método el() para acceder al elemento del player
   on: (event: string, callback: () => void) => void;
   paused: () => boolean;
   userActive: () => boolean | undefined;
@@ -184,37 +215,64 @@ const VideoJS: React.FC<Props> = ({
         onReady?.(player as VideoJSPlayer);
 
         // ⚡ Capturar bitrate y resolución desde el <video> interno de Video.js
-        player.on('loadedmetadata', () => {
+        // Modificado por Cursor: Mejorado el método de captura de métricas usando APIs más confiables
+        const updateMetrics = () => {
           try {
-            const tech = (player as any).tech({ IWillNotUseThisInPlugins: true });
-            const video = tech?.el();
-            if (video) {
-              const { videoWidth, videoHeight } = video;
-              window._iblupsMetrics?.updateMetrics(0, `${videoWidth}x${videoHeight}`);
+            // Método 1: Intentar acceder al elemento video nativo
+            const videoElement = player.el().querySelector('video') as VideoElementWithQuality | null;
+            if (videoElement) {
+              const { videoWidth, videoHeight } = videoElement;
+              
+              // Obtener bitrate usando la API de Video Playback Quality (Chrome/Safari)
+              let bitrate = 0;
+              const quality = videoElement.getVideoPlaybackQuality?.();
+              
+              if (quality && quality.totalVideoFrames > 0) {
+                // Usar webkitVideoDecodedByteCount si está disponible (Chrome)
+                const decodedBytes = videoElement.webkitVideoDecodedByteCount || 0;
+                if (decodedBytes > 0 && quality.totalVideoFrames > 0) {
+                  // Calcular bitrate promedio: bytes * 8 bits / frames
+                  bitrate = Math.round((decodedBytes * 8) / quality.totalVideoFrames);
+                }
+              }
+              
+              // Si no hay bitrate calculado, intentar obtener del stream HLS/VHS
+              if (bitrate === 0) {
+                try {
+                  const playerWithVHS = player as PlayerWithVHS;
+                  const vhs = playerWithVHS.vhs;
+                  if (vhs && vhs.playlists) {
+                    const masterPlaylist = vhs.playlists.master;
+                    if (masterPlaylist) {
+                      const currentPlaylist = vhs.playlists.media?.();
+                      if (currentPlaylist?.attributes?.BANDWIDTH) {
+                        // Convertir de bps a promedio por frame (aproximado)
+                        bitrate = currentPlaylist.attributes.BANDWIDTH / 1000; // en kbps
+                      }
+                    }
+                  }
+                } catch {
+                  // Ignorar errores de VHS (variable no usada eliminada por Cursor)
+                }
+              }
+              
+              if (videoWidth > 0 && videoHeight > 0) {
+                window._iblupsMetrics?.updateMetrics(bitrate, `${videoWidth}x${videoHeight}`);
+              }
             }
           } catch (err) {
-            console.warn('No se pudo obtener resolución inicial:', err);
+            console.warn('⚠️ Error al obtener métricas:', err);
           }
-        });
+        };
 
-        // Actualizar cada 10s
-        const metricsInterval = setInterval(() => {
-          try {
-            const tech = (player as any).tech({ IWillNotUseThisInPlugins: true });
-            const video = tech?.el();
-            if (video) {
-              const { videoWidth, videoHeight } = video;
-              const quality = (video as any).getVideoPlaybackQuality?.() || {};
-              const bitrate = quality.totalVideoFrames
-                ? Math.round(
-                    ((video as any).webkitVideoDecodedByteCount * 8) /
-                      (quality.totalVideoFrames || 1)
-                  )
-                : 0;
-              window._iblupsMetrics?.updateMetrics(bitrate, `${videoWidth}x${videoHeight}`);
-            }
-          } catch {}
-        }, 10_000);
+        // Capturar métricas cuando se carga metadata
+        player.on('loadedmetadata', updateMetrics);
+        
+        // También capturar cuando cambia la calidad del stream HLS
+        player.on('loadeddata', updateMetrics);
+        
+        // Actualizar métricas cada 10s
+        const metricsInterval = setInterval(updateMetrics, 10_000);
 
         (player as VideoJSPlayer)._metricsInterval = metricsInterval;
       }));

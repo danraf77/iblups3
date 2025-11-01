@@ -29,7 +29,8 @@ export default function ChannelPage({ params }: ChannelPageProps) {
       try {
         const data = JSON.parse(event.data);
         if (typeof data.viewers === 'number') setViewers(data.viewers);
-      } catch (err) {
+      } catch {
+        // Modificado por Cursor: Variable err eliminada ya que no se usa
         console.warn('⚠️ Mensaje WS inválido:', event.data);
       }
     };
